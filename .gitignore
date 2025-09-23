@@ -58,3 +58,6 @@ Desktop.ini
 *.ipk
 *.7z
 *.sha1
+
+#Others
+*.bkp
