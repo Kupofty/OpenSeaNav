@@ -297,7 +297,7 @@ Item {
 
         //Follow boat
         MenuItem {
-            enabled: boatPositionInit
+            enabled: boatPositionReceived
 
             contentItem: Label {
                 text: followBoatText
@@ -765,6 +765,7 @@ Item {
             else{
                 boatPositionReceived = false
                 textTimerPositionUpdate = "Position Lost"
+                followBoat = false
             }
         }
     }
@@ -1203,7 +1204,7 @@ Item {
             width: 60
             height: 60
             anchors.verticalCenter: parent.verticalCenter
-            enabled: boatPositionInit
+            enabled: boatPositionReceived
             text: followBoatText.replace(" ", "\n")
 
             onClicked: followBoat = !followBoat
