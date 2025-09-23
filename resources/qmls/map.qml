@@ -80,6 +80,8 @@ Item {
     property bool followBoat: false
     property bool headingUpView: false
     property real mapRotation: headingUpView ? boatHeading : 0
+    property string followBoatText: followBoat ? "Unfollow Boat" : "Follow Boat"
+
 
     //Timer Data Update
     property int timeBeforePositionLost: 10
@@ -298,15 +300,13 @@ Item {
             enabled: boatPositionInit
 
             contentItem: Label {
-                text: followBoat ? "Unfollow Boat" : "Follow Boat"
+                text: followBoatText
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
                 width: parent.width
             }
 
-            onTriggered: {
-                followBoat= !followBoat
-            }
+            onTriggered: followBoat = !followBoat
         }
 
         //Zoom
@@ -1147,6 +1147,69 @@ Item {
                                               : "Water Temp: " + noData
         }
     }
+
+
+
+    //////////////////////////////////
+    /// View Actions / Bottom Left ///
+    //////////////////////////////////
+    Row{
+        anchors.left: parent.left
+        anchors.bottom: parent.bottom
+        anchors.leftMargin: labelLateralMargin
+        anchors.bottomMargin: labelVerticalMargin
+        spacing: labelVerticalMargin
+
+        Column{
+            spacing: labelVerticalMargin/2
+
+            Row {
+                spacing: labelLateralMargin
+
+                //Zoom-
+                Button {
+                    text: "Zoom -"
+                    width: 60
+                    height: 30
+                    onClicked: zoomSlider.value = Math.max(map.minimumZoomLevel, zoomSlider.value - 1)
+                }
+
+                //Zoom+
+                Button {
+                    text: "Zoom +"
+                    width: 60
+                    height: 30
+                    onClicked: zoomSlider.value = Math.min(map.maximumZoomLevel, zoomSlider.value + 1)
+                }
+            }
+
+            //Zoom slider
+            Slider {
+                id: zoomSlider
+                from: map.minimumZoomLevel
+                to: map.maximumZoomLevel
+                stepSize: 0.1
+                value: mapZoomLevel
+                width: 130
+
+                onValueChanged: {
+                    goToZoomLevelMap(value)
+                }
+            }
+        }
+
+        //Follow Boat
+        Button {
+            width: 60
+            height: 60
+            anchors.verticalCenter: parent.verticalCenter
+            enabled: boatPositionInit
+            text: followBoatText.replace(" ", "\n")
+
+            onClicked: followBoat = !followBoat
+        }
+    }
+
 
 
 
