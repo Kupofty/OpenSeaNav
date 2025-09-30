@@ -201,15 +201,22 @@ Item {
         id: wheelZoomHandler
         target: map
 
-        onWheel: {
-            var wheelRotation = rotation - lastWheelRotation
+        onWheel: function(event) {
+            var cursorPoint = Qt.point(event.x, event.y)
+            var cursorCoordBefore = map.toCoordinate(cursorPoint)
 
-            if (wheelRotation > 0)
-                map.zoomLevel = Math.min(map.maximumZoomLevel, map.zoomLevel + zoomSpeed);
-            else if (wheelRotation < 0)
-                map.zoomLevel = Math.max(map.minimumZoomLevel, map.zoomLevel - zoomSpeed);
+            if (event.angleDelta.y > 0)
+                map.zoomLevel = Math.min(map.maximumZoomLevel, map.zoomLevel + zoomSpeed)
+            else if (event.angleDelta.y < 0)
+                map.zoomLevel = Math.max(map.minimumZoomLevel, map.zoomLevel - zoomSpeed)
 
-            lastWheelRotation = rotation
+            var cursorCoordAfter = map.toCoordinate(cursorPoint)
+
+            // Adjust map center so cursor stays fixed
+            var latShift = cursorCoordBefore.latitude - cursorCoordAfter.latitude
+            var lonShift = cursorCoordBefore.longitude - cursorCoordAfter.longitude
+
+            map.center = QtPositioning.coordinate(map.center.latitude + latShift, map.center.longitude + lonShift)
             mapZoomLevel = map.zoomLevel
         }
     }
