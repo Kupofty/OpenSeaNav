@@ -1179,7 +1179,7 @@ Item {
                     text: "Zoom -"
                     width: 60
                     height: 30
-                    onClicked: zoomSlider.value = Math.max(map.minimumZoomLevel, zoomSlider.value - 1)
+                    onClicked: goToZoomLevelMap(mapZoomLevel-1)
                 }
 
                 //Zoom+
@@ -1187,7 +1187,7 @@ Item {
                     text: "Zoom +"
                     width: 60
                     height: 30
-                    onClicked: zoomSlider.value = Math.min(map.maximumZoomLevel, zoomSlider.value + 1)
+                    onClicked: goToZoomLevelMap(mapZoomLevel+1)
                 }
             }
 
@@ -1200,9 +1200,7 @@ Item {
                 value: mapZoomLevel
                 width: 130
 
-                onValueChanged: {
-                    goToZoomLevelMap(value)
-                }
+                onValueChanged: goToZoomLevelMap(value)
             }
         }
 
