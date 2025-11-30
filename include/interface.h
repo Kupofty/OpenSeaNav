@@ -1,5 +1,4 @@
-#ifndef INTERFACE_H
-#define INTERFACE_H
+#pragma once
 
 #include <QMainWindow>
 #include <QFileDialog>
@@ -162,5 +161,3 @@ class Interface : public QMainWindow
         void updateBoatDateMap(QVariant);
         void updateBoatTimeMap(QVariant);
 };
-
-#endif // INTERFACE_H

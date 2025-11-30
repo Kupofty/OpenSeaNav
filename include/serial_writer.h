@@ -1,5 +1,4 @@
-#ifndef SERIAL_WRITER_H
-#define SERIAL_WRITER_H
+#pragma once
 
 #include "output_writer.h"
 
@@ -34,5 +33,3 @@ class SerialWriter : public OutputWriter
         QSerialPort serial;
         QByteArray buffer;
 };
-
-#endif // SERIAL_WRITER_H

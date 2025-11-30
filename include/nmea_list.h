@@ -1,5 +1,4 @@
-#ifndef NMEA_LIST_H
-#define NMEA_LIST_H
+#pragma once
 
 #include <QApplication>
 #include <QStringList>
@@ -11,5 +10,3 @@ inline const QStringList acceptedNmeaList = {
     "OTHER", "RMC", "TXT", "VHW", "VTG",
     "ZDA"
 };
-
-#endif // NMEA_LIST_H

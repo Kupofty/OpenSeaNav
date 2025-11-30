@@ -1,5 +1,4 @@
-#ifndef UDP_READER_H
-#define UDP_READER_H
+#pragma once
 
 #include <QHostAddress>
 #include <QObject>
@@ -34,5 +33,3 @@ class UdpReader : public QObject
         QHostAddress senderIP;
         quint16 senderPort;
 };
-
-#endif // UDP_READER_H

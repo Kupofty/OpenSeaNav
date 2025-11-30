@@ -1,5 +1,4 @@
-#ifndef TEXT_FILE_WRITTER_H
-#define TEXT_FILE_WRITTER_H
+#pragma once
 
 #include <QObject>
 #include <QFile>
@@ -22,9 +21,4 @@ class TextFileWritter : public QObject
 
     public slots:
         void writeRawSentences(const QString &type, const QString &nmeaText);
-
-
-
 };
-
-#endif // TEXT_FILE_WRITTER_H

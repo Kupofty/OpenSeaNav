@@ -1,5 +1,4 @@
-#ifndef UDP_WRITER_H
-#define UDP_WRITER_H
+#pragma once
 
 #include "output_writer.h"
 
@@ -14,10 +13,8 @@ class UdpWriter : public OutputWriter
         explicit UdpWriter(QObject *parent = nullptr);
         ~UdpWriter();
 
-        //Specific to UDP
         void sendData(const QString &data) override;
 
-        // UDP-specific config
         void updateUdpPort(int port);
         void updateUdpMethod(const QHostAddress &udpAddress);
 
@@ -26,5 +23,3 @@ class UdpWriter : public OutputWriter
         QHostAddress udpAddress = QHostAddress::Broadcast;
         int udpPort = 1024;
 };
-
-#endif // UDP_WRITER_H

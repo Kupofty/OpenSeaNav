@@ -1,5 +1,4 @@
-#ifndef NMEA_HANDLER_H
-#define NMEA_HANDLER_H
+#pragma once
 
 #include <QCoreApplication>
 #include <QObject>
@@ -68,5 +67,3 @@ class NMEA_Handler : public QObject
         void newDecodedMTW(double temp, QString tempUnit, double freqHz);
         void newDecodedMWV(double angle, QString ref, double speed, QString unit, double freqHz);
 };
-
-#endif // NMEA_HANDLER_H

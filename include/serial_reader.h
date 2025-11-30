@@ -1,5 +1,4 @@
-#ifndef SERIAL_READER_H
-#define SERIAL_READER_H
+#pragma once
 
 #include <QCoreApplication>
 #include <QSerialPort>
@@ -39,6 +38,3 @@ class SerialReader : public QObject
 
 
 };
-
-#endif // SERIAL_READER_H
-

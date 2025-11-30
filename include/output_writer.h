@@ -1,5 +1,4 @@
-#ifndef OUTPUT_WRITER_H
-#define OUTPUT_WRITER_H
+#pragma once
 
 #include <QObject>
 #include <QCoreApplication>
@@ -32,5 +31,3 @@ class OutputWriter : public QObject
         bool socketOutputActivated = 0;
         QMap<QString, bool> outputFlags;
 };
-
-#endif // OUTPUT_WRITER_H
