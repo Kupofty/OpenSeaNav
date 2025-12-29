@@ -139,6 +139,8 @@ class Interface : public QMainWindow
         void on_pushButton_freeze_raw_sorted_sentences_screens_toggled(bool checked);
         void on_pushButton_freeze_raw_sentences_screens_toggled(bool checked);
 
+        void on_checkBox_serial_manual_input_stateChanged(int arg1);
+
     public slots:
         void displayRawNmeaSentence(const QString &type, const QString &line);
         void updateDataGSV(int totalSatellites, double freq);

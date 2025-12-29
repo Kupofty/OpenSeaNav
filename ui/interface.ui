@@ -36,7 +36,7 @@
     <item>
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>3</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tab_connection">
        <attribute name="title">
@@ -121,46 +121,77 @@
                  <number>9</number>
                 </property>
                 <item>
-                 <widget class="QComboBox" name="comboBox_serial_input_port_list">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="minimumSize">
-                   <size>
-                    <width>100</width>
-                    <height>0</height>
-                   </size>
-                  </property>
-                  <property name="font">
-                   <font>
-                    <pointsize>9</pointsize>
-                   </font>
-                  </property>
-                 </widget>
+                 <layout class="QVBoxLayout" name="verticalLayout_17">
+                  <item>
+                   <widget class="QComboBox" name="comboBox_serial_input_port_list">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Ignored" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="minimumSize">
+                     <size>
+                      <width>100</width>
+                      <height>0</height>
+                     </size>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <pointsize>9</pointsize>
+                     </font>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLineEdit" name="lineEdit_serial_manual_input">
+                    <property name="enabled">
+                     <bool>false</bool>
+                    </property>
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
                 </item>
                 <item>
-                 <widget class="QPushButton" name="pushButton_refresh_available_ports_list">
-                  <property name="font">
-                   <font>
-                    <pointsize>9</pointsize>
-                   </font>
+                 <layout class="QVBoxLayout" name="verticalLayout_19">
+                  <property name="leftMargin">
+                   <number>0</number>
                   </property>
-                  <property name="text">
-                   <string>Refresh</string>
-                  </property>
-                  <property name="icon">
-                   <iconset theme="QIcon::ThemeIcon::ViewRefresh"/>
-                  </property>
-                  <property name="iconSize">
-                   <size>
-                    <width>10</width>
-                    <height>10</height>
-                   </size>
-                  </property>
-                 </widget>
+                  <item>
+                   <widget class="QPushButton" name="pushButton_refresh_available_ports_list">
+                    <property name="font">
+                     <font>
+                      <pointsize>9</pointsize>
+                     </font>
+                    </property>
+                    <property name="text">
+                     <string>Refresh</string>
+                    </property>
+                    <property name="icon">
+                     <iconset theme="QIcon::ThemeIcon::ViewRefresh"/>
+                    </property>
+                    <property name="iconSize">
+                     <size>
+                      <width>10</width>
+                      <height>10</height>
+                     </size>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QCheckBox" name="checkBox_serial_manual_input">
+                    <property name="text">
+                     <string>Manual Input</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
                 </item>
                </layout>
               </item>
@@ -336,7 +367,7 @@
                   <property name="maximumSize">
                    <size>
                     <width>150</width>
-                    <height>30</height>
+                    <height>40</height>
                    </size>
                   </property>
                   <property name="readOnly">
