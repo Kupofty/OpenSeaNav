@@ -19,6 +19,7 @@
 #include "udp_writer.h"
 #include "text_file_writter.h"
 #include "nmea_list.h"
+#include "utils.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui
@@ -69,7 +70,7 @@ class Interface : public QMainWindow
         void updateCheckBoxSerialOutput(bool check);
         void updateCheckBoxUdpOutput(bool check);
         void initializeLists();
-        QString getTimeStamp();
+
 
     private slots:
         void on_pushButton_clear_raw_sorted_sentences_screens_clicked();
@@ -159,6 +160,8 @@ class Interface : public QMainWindow
         void updateDataMWV(double angle, QString ref, double speed, QString unit, double freqHz);
 
     signals:
+        void setAddTimestamp(bool checked);
+
         void updateBoatPositionMap(QVariant, QVariant);
         void updateBoatHeadingMap(QVariant);
         void updateBoatDepthMap(QVariant);

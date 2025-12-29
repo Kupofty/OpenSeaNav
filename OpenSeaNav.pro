@@ -17,7 +17,8 @@ SOURCES += \
     src/serial_writer.cpp \
     src/text_file_writter.cpp \
     src/udp_reader.cpp \
-    src/udp_writer.cpp
+    src/udp_writer.cpp \
+    src/utils.cpp
 
 HEADERS += \
     include/interface.h \
@@ -28,7 +29,8 @@ HEADERS += \
     include/serial_writer.h \
     include/text_file_writter.h \
     include/udp_reader.h \
-    include/udp_writer.h
+    include/udp_writer.h \
+    include/utils.h
 
 FORMS += \
     ui/interface.ui

@@ -5,6 +5,8 @@
 #include <QTextStream>
 #include <QDebug>
 
+#include "utils.h"
+
 class TextFileWritter : public QObject
 {
     Q_OBJECT
@@ -18,7 +20,10 @@ class TextFileWritter : public QObject
 
     private:
         QFile file;
+        bool add_timestamp;
 
     public slots:
         void writeRawSentences(const QString &type, const QString &nmeaText);
+        void updateAddTimestamp(bool checked);
+
 };

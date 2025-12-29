@@ -42,7 +42,14 @@ void TextFileWritter::writeRawSentences(const QString &type, const QString &nmea
     if (file.isOpen())
     {
         QTextStream out(&file);
+        if(add_timestamp)
+            out << getTimeStamp();
         out << nmeaText << '\n';
         out.flush();
     }
+}
+
+void TextFileWritter::updateAddTimestamp(bool checked)
+{
+    add_timestamp = checked;
 }

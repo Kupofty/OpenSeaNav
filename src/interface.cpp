@@ -47,16 +47,19 @@ Interface::~Interface()
 
 void Interface::connectSignalSlot()
 {
-    //// INPUT /////
+    //Inputs
     connect(serial_reader, &SerialReader::newLineReceived, nmea_handler, &NMEA_Handler::handleRawSentences);
     connect(udp_reader, &UdpReader::newLineReceived, nmea_handler, &NMEA_Handler::handleRawSentences);
 
-    //// OUTPUT /////
+    //Outputs
     connect(nmea_handler, &NMEA_Handler::newNMEASentence, udp_writer, &UdpWriter::publishNMEA);
     connect(nmea_handler, &NMEA_Handler::newNMEASentence, serial_writer, &SerialWriter::publishNMEA);
     connect(nmea_handler, &NMEA_Handler::newNMEASentence, text_file_writer, &TextFileWritter::writeRawSentences);
 
-    //// DISPLAY /////
+    //Outputs parameters
+    connect(this, &Interface::setAddTimestamp, text_file_writer, &TextFileWritter::updateAddTimestamp);
+
+    //General Display Settings
     connect(ui->tabWidget, &QTabWidget::currentChanged, this, &Interface::scrollDownPlainText);
     connect(nmea_handler, &NMEA_Handler::newNMEASentence, this, &Interface::displayRawNmeaSentence);
     connect(udp_reader, &UdpReader::newSenderDetails, this, &Interface::updateUdpSenderDetails);
@@ -90,7 +93,6 @@ void Interface::connectSignalSlot()
     connect(this, SIGNAL(updateBoatWaterTemperatureMap(QVariant)), qmlMapObject, SLOT(updateBoatWaterTemperature(QVariant)));
     connect(this, SIGNAL(updateBoatDateMap(QVariant)), qmlMapObject, SLOT(updateBoatDate(QVariant)));
     connect(this, SIGNAL(updateBoatTimeMap(QVariant)), qmlMapObject, SLOT(updateBoatTime(QVariant)));
-
 }
 
 
@@ -1004,6 +1006,8 @@ void Interface::on_pushButton_automatic_txt_file_name_clicked()
 
 void Interface::on_pushButton_save_txt_file_toggled(bool checked)
 {
+    emit setAddTimestamp(ui->checkBox_output_txt_file_add_timestamp->isChecked());
+
     if(checked)
     {
         QString dirPath = ui->plainTextEdit_txt_file_path->toPlainText().trimmed();
@@ -1029,7 +1033,6 @@ void Interface::on_pushButton_save_txt_file_toggled(bool checked)
         text_file_writer->closeFile();
         ui->pushButton_save_txt_file->setText(" Record Data To File");
     }
-
 }
 
 void Interface::updateFileSize()
@@ -1057,15 +1060,6 @@ QString Interface::getRecordingFilePath()
 }
 
 
-
-
-/////////////////////////
-/// General Functions ///
-/////////////////////////
-QString Interface::getTimeStamp()
-{
-    return "[" + QDateTime::currentDateTime().toString("yyyy-MM-dd HH:mm:ss:zzz") + "] ";
-}
 
 
 
