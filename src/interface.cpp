@@ -25,7 +25,7 @@ Interface::Interface(QWidget *parent) : QMainWindow(parent),
     //Hide widgets
     hideGUI();
 
-    //Setup GPS GUI
+    //Setup GUI
     listAvailablePorts(ui->comboBox_serial_input_port_list);
 
     //Qt connects
@@ -278,12 +278,19 @@ void Interface::updateUdpSenderDetails()
 //Display On Screens
 void Interface::displayRawNmeaSentence(const QString &type, const QString &nmeaText)
 {
-    // Don't display sentences if freeze button is checked
-    if (ui->pushButton_freeze_raw_sentences_screens->isChecked())
+    bool isScreenTextFreezed = ui->pushButton_freeze_raw_sentences_screens->isChecked();
+    if(isScreenTextFreezed)
         return;
 
+    //Raw Data
+    QString timeStampedText = getTimeStamp() + nmeaText;
+    ui->plainTextEdit_raw_data->appendPlainText(timeStampedText);
+
+    //Sorted NMEA sentences
     if(nmeaSentenceMap.contains(type))
+    {
         nmeaSentenceMap[type]->appendPlainText(nmeaText);
+    }
 }
 
 QMap<QString, QPlainTextEdit*> Interface::getSentenceMap() const
@@ -299,7 +306,7 @@ QMap<QString, QPlainTextEdit*> Interface::getSentenceMap() const
 
 
 //Clear Screens
-void Interface::clearRawSentencesScreens()
+void Interface::clearRawSortedSentencesScreens()
 {
     const QList<QPlainTextEdit*> &editors = getPlainTextEditors();
 
@@ -307,22 +314,52 @@ void Interface::clearRawSentencesScreens()
         editor->clear();
 }
 
+void Interface::clearRawSentencesScreens()
+{
+    ui->plainTextEdit_raw_data->clear();
+    clearRawSortedSentencesScreens();
+}
+
 void Interface::on_pushButton_clear_raw_sentences_screens_clicked()
 {
     clearRawSentencesScreens();
 }
 
+void Interface::on_pushButton_clear_raw_sorted_sentences_screens_clicked()
+{
+    clearRawSentencesScreens();
+}
 
-// Scroll screens
+
+//Sync Freeze Screens Buttons States
+void Interface::on_pushButton_freeze_raw_sorted_sentences_screens_toggled(bool checked)
+{
+    QSignalBlocker blocker(ui->pushButton_freeze_raw_sentences_screens);
+    ui->pushButton_freeze_raw_sentences_screens->setChecked(checked);
+}
+
+void Interface::on_pushButton_freeze_raw_sentences_screens_toggled(bool checked)
+{
+    QSignalBlocker blocker(ui->pushButton_freeze_raw_sorted_sentences_screens);
+    ui->pushButton_freeze_raw_sorted_sentences_screens->setChecked(checked);
+}
+
+
+// Scroll down screens
 void Interface::scrollDownPlainText(int index)
 {
     //Scroll down all the screens when changing to the raw data tab
-    if(index == ui->tabWidget->indexOf(ui->tab_gps_raw_data))
+    if(index == ui->tabWidget->indexOf(ui->tab_raw_data_sorted))
     {
         const QList<QPlainTextEdit*> &editors = getPlainTextEditors();
 
         for (QPlainTextEdit* editor : editors)
             editor->verticalScrollBar()->setValue(editor->verticalScrollBar()->maximum());
+    }
+
+    else if(index == ui->tabWidget->indexOf(ui->tab_raw_data))
+    {
+        ui->plainTextEdit_raw_data->verticalScrollBar()->setValue(ui->plainTextEdit_raw_data->verticalScrollBar()->maximum());
     }
 }
 
@@ -350,6 +387,7 @@ QList<QPlainTextEdit*> Interface::getPlainTextEditors() const
         ui->plainTextEdit_zda
     };
 }
+
 
 
 
@@ -1003,6 +1041,17 @@ QString Interface::getRecordingFilePath()
     QString fullPath = QDir(dirPath).filePath(fileName + fileExtension);
 
     return fullPath;
+}
+
+
+
+
+/////////////////////////
+/// General Functions ///
+/////////////////////////
+QString Interface::getTimeStamp()
+{
+    return "[" + QDateTime::currentDateTime().toString("yyyy-MM-dd HH:mm:ss:zzz") + "] ";
 }
 
 

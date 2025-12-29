@@ -57,6 +57,7 @@ class Interface : public QMainWindow
         void updateGuiAfterUdpConnection(bool connectSuccess);
         void closeInputSerial();
         void closeOutputSerial();
+        void clearRawSortedSentencesScreens();
         void clearRawSentencesScreens();
         void listAvailablePorts(QComboBox *comboBox);
         void hideGUI();
@@ -68,9 +69,10 @@ class Interface : public QMainWindow
         void updateCheckBoxSerialOutput(bool check);
         void updateCheckBoxUdpOutput(bool check);
         void initializeLists();
+        QString getTimeStamp();
 
     private slots:
-        void on_pushButton_clear_raw_sentences_screens_clicked();
+        void on_pushButton_clear_raw_sorted_sentences_screens_clicked();
         void on_pushButton_connect_serial_input_clicked();
         void on_pushButton_disconnect_serial_input_clicked();
         void on_pushButton_refresh_available_ports_list_clicked();
@@ -126,13 +128,16 @@ class Interface : public QMainWindow
         void on_checkBox_serial_output_vhw_toggled(bool checked);
         void on_pushButton_check_all_serial_output_clicked();
         void on_pushButton_uncheck_all_serial_output_clicked();
-
         void on_pushButton_connect_udp_input_clicked();
         void on_pushButton_disconnect_udp_input_clicked();
 
     private slots:
         void scrollDownPlainText(int index);
         void updateUdpSenderDetails();
+
+        void on_pushButton_clear_raw_sentences_screens_clicked();
+        void on_pushButton_freeze_raw_sorted_sentences_screens_toggled(bool checked);
+        void on_pushButton_freeze_raw_sentences_screens_toggled(bool checked);
 
     public slots:
         void displayRawNmeaSentence(const QString &type, const QString &line);
