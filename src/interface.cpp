@@ -151,7 +151,7 @@ void Interface::hideGUI()
 void Interface::updatePlainTextsSizeLimit(unsigned int sentenceLimit)
 {
     //main data monitor
-    ui->plainTextEdit_raw_data->document()->setMaximumBlockCount(sentenceLimit);
+    ui->textEdit_raw_data->document()->setMaximumBlockCount(sentenceLimit);
 
     //raw data sorted
     const QList<QPlainTextEdit*> &editors = getPlainTextEditors();
@@ -330,13 +330,21 @@ void Interface::displayRawSentences(const QString &nmeaText)
         nmeaType = nmeaText.mid(dollarIdx + 1, commaIdx - dollarIdx - 1).toUpper();
     }
 
-    //Apply filter
+    // Apply filter
     QString filter = ui->lineEdit_raw_data_filter->text().trimmed().toUpper();
-    if (filter.isEmpty() || nmeaType.contains(filter))
-    {
-        QString timeStampedText = getTimeStamp() + nmeaText;
-        ui->plainTextEdit_raw_data->appendPlainText(timeStampedText);
-    }
+    if (!filter.isEmpty() && !nmeaType.contains(filter))
+        return;
+
+    // Build colored HTML line according to checksum validity
+    bool valid = isNmeaChecksumValid(nmeaText);
+    QString color = valid ? "green" : "red";
+    QString htmlLine = QString(
+                           "<span style=\"color:%1;\">%2</span>")
+                           .arg(color,
+                                getTimeStamp() + nmeaText.toHtmlEscaped());
+
+    // Append to QTextEdit
+    ui->textEdit_raw_data->append(htmlLine);
 }
 
 QMap<QString, QPlainTextEdit*> Interface::getSentenceMap() const
@@ -367,7 +375,7 @@ void Interface::clearRawSortedSentencesScreens()
 
 void Interface::clearRawSentencesScreens()
 {
-    ui->plainTextEdit_raw_data->clear();
+    ui->textEdit_raw_data->clear();
     clearRawSortedSentencesScreens();
 }
 
@@ -410,7 +418,7 @@ void Interface::scrollDownPlainText(int index)
 
     else if(index == ui->tabWidget->indexOf(ui->tab_raw_data))
     {
-        ui->plainTextEdit_raw_data->verticalScrollBar()->setValue(ui->plainTextEdit_raw_data->verticalScrollBar()->maximum());
+        ui->textEdit_raw_data->verticalScrollBar()->setValue(ui->textEdit_raw_data->verticalScrollBar()->maximum());
     }
 }
 

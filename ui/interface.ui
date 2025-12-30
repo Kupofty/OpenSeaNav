@@ -36,7 +36,7 @@
     <item>
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>2</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tab_connection">
        <attribute name="title">
@@ -745,7 +745,7 @@
        </attribute>
        <layout class="QGridLayout" name="gridLayout_13">
         <item row="0" column="0">
-         <widget class="QPlainTextEdit" name="plainTextEdit_raw_data">
+         <widget class="QTextEdit" name="textEdit_raw_data">
           <property name="readOnly">
            <bool>true</bool>
           </property>
