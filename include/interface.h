@@ -60,7 +60,7 @@ class Interface : public QMainWindow
         void closeOutputSerial();
         void clearRawSortedSentencesScreens();
         void clearRawSentencesScreens();
-        void listAvailablePorts(QComboBox *comboBox);
+        void listAvailableSerialPorts(QComboBox *comboBox);
         void hideGUI();
         void connectSignalSlot();
         void updateGuiAfterSerialConnection(bool connectSuccess);
@@ -70,6 +70,7 @@ class Interface : public QMainWindow
         void updateCheckBoxSerialOutput(bool check);
         void updateCheckBoxUdpOutput(bool check);
         void initializeLists();
+        void updatePlainTextsSizeLimit(unsigned int size);
 
     private slots:
         void on_pushButton_clear_raw_sorted_sentences_screens_clicked();
@@ -140,6 +141,8 @@ class Interface : public QMainWindow
         void on_pushButton_freeze_raw_sentences_screens_toggled(bool checked);
 
         void on_checkBox_serial_manual_input_stateChanged(int arg1);
+
+        void on_spinBox_data_monitor_size_limit_editingFinished();
 
     public slots:
         void displayNmeaSentence(const QString &type, const QString &line);

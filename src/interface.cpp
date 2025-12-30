@@ -22,12 +22,15 @@ Interface::Interface(QWidget *parent) : QMainWindow(parent),
     ui->quickWidget_map->show();
     qmlMapObject = ui->quickWidget_map->rootObject();
 
-    //Hide widgets
+    //Hide widget
     hideGUI();
 
-    //Setup GUI
-    listAvailablePorts(ui->comboBox_serial_input_port_list);
-    listAvailablePorts(ui->comboBox_serial_output_port_list);
+    //Serial COM ports
+    listAvailableSerialPorts(ui->comboBox_serial_input_port_list);
+    listAvailableSerialPorts(ui->comboBox_serial_output_port_list);
+
+    //Plain Texts Size Limit
+    updatePlainTextsSizeLimit(10000);
 
     //Qt connects
     connectSignalSlot();
@@ -145,7 +148,17 @@ void Interface::hideGUI()
     ui->horizontalFrame_udp_ip_address->hide();
 }
 
+void Interface::updatePlainTextsSizeLimit(unsigned int sentenceLimit)
+{
+    //main data monitor
+    ui->plainTextEdit_raw_data->document()->setMaximumBlockCount(sentenceLimit);
 
+    //raw data sorted
+    const QList<QPlainTextEdit*> &editors = getPlainTextEditors();
+    for (QPlainTextEdit* editor : editors)
+        editor->document()->setMaximumBlockCount(sentenceLimit);
+
+}
 
 
 ////////////////////
@@ -214,7 +227,7 @@ void Interface::on_checkBox_serial_manual_input_stateChanged(int checked)
 
 
 //COM ports
-void Interface::listAvailablePorts(QComboBox *comboBox)
+void Interface::listAvailableSerialPorts(QComboBox *comboBox)
 {
     comboBox->clear();
     const auto ports = QSerialPortInfo::availablePorts();
@@ -226,7 +239,7 @@ void Interface::listAvailablePorts(QComboBox *comboBox)
 
 void Interface::on_pushButton_refresh_available_ports_list_clicked()
 {
-    listAvailablePorts(ui->comboBox_serial_input_port_list);
+    listAvailableSerialPorts(ui->comboBox_serial_input_port_list);
 }
 
 
@@ -337,6 +350,11 @@ QMap<QString, QPlainTextEdit*> Interface::getSentenceMap() const
     return map;
 }
 
+void Interface::on_spinBox_data_monitor_size_limit_editingFinished()
+{
+    unsigned int new_limit = ui->spinBox_data_monitor_size_limit->value();
+    updatePlainTextsSizeLimit(new_limit);
+}
 
 //Clear Screens
 void Interface::clearRawSortedSentencesScreens()
@@ -692,7 +710,7 @@ void Interface::closeOutputSerial()
 
 void Interface::on_pushButton_refresh_available_port_serial_output_clicked()
 {
-    listAvailablePorts(ui->comboBox_serial_output_port_list);
+    listAvailableSerialPorts(ui->comboBox_serial_output_port_list);
 
     //Remove input serial as output choice
     if(serial_reader->isSerialOpen())
@@ -1077,6 +1095,7 @@ QString Interface::getRecordingFilePath()
 
     return fullPath;
 }
+
 
 
 
