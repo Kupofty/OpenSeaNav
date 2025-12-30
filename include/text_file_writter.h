@@ -17,6 +17,7 @@ class TextFileWritter : public QObject
 
         bool createFile(const QString &file_path);
         void closeFile();
+        void updateAddTimestamp(bool checked);
 
     private:
         QFile file;
@@ -24,6 +25,5 @@ class TextFileWritter : public QObject
 
     public slots:
         void writeRawSentences(const QString &type, const QString &nmeaText);
-        void updateAddTimestamp(bool checked);
 
 };

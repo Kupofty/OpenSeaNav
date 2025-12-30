@@ -64,13 +64,12 @@ class Interface : public QMainWindow
         void hideGUI();
         void connectSignalSlot();
         void updateGuiAfterSerialConnection(bool connectSuccess);
-        void updateFileSize();
+        void updateRecordingFileSize();
         QString getRecordingFilePath();
         bool checkUdpOutputPortIsFree();
         void updateCheckBoxSerialOutput(bool check);
         void updateCheckBoxUdpOutput(bool check);
         void initializeLists();
-
 
     private slots:
         void on_pushButton_clear_raw_sorted_sentences_screens_clicked();
@@ -143,7 +142,8 @@ class Interface : public QMainWindow
         void on_checkBox_serial_manual_input_stateChanged(int arg1);
 
     public slots:
-        void displayRawNmeaSentence(const QString &type, const QString &line);
+        void displayNmeaSentence(const QString &type, const QString &line);
+        void displayRawSentences(const QString &nmeaText);
         void updateDataGSV(int totalSatellites, double freq);
         void updateDataGGA(QString time, double latitude, double longitude, int fixQuality, int numSatellites, double hdop, double altitude, double freqHz);
         void updateDataGLL(QString utc, double latitude, double longitude,  double freqHz);

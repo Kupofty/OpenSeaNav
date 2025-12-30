@@ -27,6 +27,7 @@ Interface::Interface(QWidget *parent) : QMainWindow(parent),
 
     //Setup GUI
     listAvailablePorts(ui->comboBox_serial_input_port_list);
+    listAvailablePorts(ui->comboBox_serial_output_port_list);
 
     //Qt connects
     connectSignalSlot();
@@ -56,12 +57,9 @@ void Interface::connectSignalSlot()
     connect(nmea_handler, &NMEA_Handler::newNMEASentence, serial_writer, &SerialWriter::publishNMEA);
     connect(nmea_handler, &NMEA_Handler::newNMEASentence, text_file_writer, &TextFileWritter::writeRawSentences);
 
-    //Outputs parameters
-    connect(this, &Interface::setAddTimestamp, text_file_writer, &TextFileWritter::updateAddTimestamp);
-
     //General Display Settings
     connect(ui->tabWidget, &QTabWidget::currentChanged, this, &Interface::scrollDownPlainText);
-    connect(nmea_handler, &NMEA_Handler::newNMEASentence, this, &Interface::displayRawNmeaSentence);
+    connect(nmea_handler, &NMEA_Handler::newNMEASentence, this, &Interface::displayNmeaSentence);
     connect(udp_reader, &UdpReader::newSenderDetails, this, &Interface::updateUdpSenderDetails);
 
     //Display decoded NMEA data
@@ -82,7 +80,7 @@ void Interface::connectSignalSlot()
 
     //Timers
     fileRecordingSizeTimer = new QTimer(this);
-    connect(fileRecordingSizeTimer, &QTimer::timeout, this, &Interface::updateFileSize);
+    connect(fileRecordingSizeTimer, &QTimer::timeout, this, &Interface::updateRecordingFileSize);
 
     //QML Map
     connect(this, SIGNAL(updateBoatPositionMap(QVariant,QVariant)), qmlMapObject, SLOT(updateBoatPosition(QVariant,QVariant)));
@@ -291,20 +289,40 @@ void Interface::updateUdpSenderDetails()
 ///////////////////////////
 
 //Display On Screens
-void Interface::displayRawNmeaSentence(const QString &type, const QString &nmeaText)
+void Interface::displayNmeaSentence(const QString &type, const QString &nmeaText)
 {
+    //Do not display if freeze button is pressed
     bool isScreenTextFreezed = ui->pushButton_freeze_raw_sentences_screens->isChecked();
     if(isScreenTextFreezed)
         return;
 
-    //Raw Data
-    QString timeStampedText = getTimeStamp() + nmeaText;
-    ui->plainTextEdit_raw_data->appendPlainText(timeStampedText);
+    //Main Data Monitor
+    displayRawSentences(nmeaText);
 
-    //Sorted NMEA sentences
+    //Sorted NMEA sentences tab
     if(nmeaSentenceMap.contains(type))
     {
         nmeaSentenceMap[type]->appendPlainText(nmeaText);
+    }
+}
+
+void Interface::displayRawSentences(const QString &nmeaText)
+{
+    // Look for nmea ID in sentence
+    QString nmeaType;
+    int dollarIdx = nmeaText.indexOf('$');
+    int commaIdx  = nmeaText.indexOf(',', dollarIdx);
+    if (dollarIdx != -1 && commaIdx != -1 && commaIdx > dollarIdx)
+    {
+        nmeaType = nmeaText.mid(dollarIdx + 1, commaIdx - dollarIdx - 1).toUpper();
+    }
+
+    //Apply filter
+    QString filter = ui->lineEdit_raw_data_filter->text().trimmed().toUpper();
+    if (filter.isEmpty() || nmeaType.contains(filter))
+    {
+        QString timeStampedText = getTimeStamp() + nmeaText;
+        ui->plainTextEdit_raw_data->appendPlainText(timeStampedText);
     }
 }
 
@@ -1006,7 +1024,8 @@ void Interface::on_pushButton_automatic_txt_file_name_clicked()
 
 void Interface::on_pushButton_save_txt_file_toggled(bool checked)
 {
-    emit setAddTimestamp(ui->checkBox_output_txt_file_add_timestamp->isChecked());
+    bool isTimestampChecked = ui->checkBox_output_txt_file_add_timestamp->isChecked();
+    text_file_writer->updateAddTimestamp(isTimestampChecked);
 
     if(checked)
     {
@@ -1035,7 +1054,7 @@ void Interface::on_pushButton_save_txt_file_toggled(bool checked)
     }
 }
 
-void Interface::updateFileSize()
+void Interface::updateRecordingFileSize()
 {
     QFile file(getRecordingFilePath());
     if (file.exists())
