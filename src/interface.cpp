@@ -731,8 +731,14 @@ void Interface::on_pushButton_refresh_available_port_serial_output_clicked()
 
 void Interface::on_pushButton_connect_serial_output_clicked()
 {
+    QString serial_output;
+    if(ui->checkBox_serial_manual_output->isChecked())
+        serial_output = ui->lineEdit_serial_manual_output->text();
+    else
+        serial_output = ui->comboBox_serial_output_port_list->currentText();
+
     //Update serial settings
-    serial_writer->setPortName(ui->comboBox_serial_output_port_list->currentText());
+    serial_writer->setPortName(serial_output);
     serial_writer->setBaudRate((ui->comboBox_serial_output_port_baudrate->currentText()).toInt());
 
     //Try to connect
@@ -749,6 +755,13 @@ void Interface::on_pushButton_connect_serial_output_clicked()
 void Interface::on_pushButton_disconnect_serial_output_clicked()
 {
     closeOutputSerial();
+}
+
+void Interface::on_checkBox_serial_manual_output_stateChanged(int checked)
+{
+    ui->lineEdit_serial_manual_output->setEnabled(checked);
+    ui->comboBox_serial_output_port_list->setEnabled(!checked);
+    ui->pushButton_refresh_available_port_serial_output->setEnabled(!checked);
 }
 
 
@@ -1103,6 +1116,8 @@ QString Interface::getRecordingFilePath()
 
     return fullPath;
 }
+
+
 
 
 

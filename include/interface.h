@@ -144,6 +144,8 @@ class Interface : public QMainWindow
 
         void on_spinBox_data_monitor_size_limit_editingFinished();
 
+        void on_checkBox_serial_manual_output_stateChanged(int arg1);
+
     public slots:
         void displayNmeaSentence(const QString &type, const QString &line);
         void displayRawSentences(const QString &nmeaText);
