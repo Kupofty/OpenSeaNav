@@ -14,7 +14,7 @@ Interface::Interface(QWidget *parent) : QMainWindow(parent),
 {
     //Setup UI
     ui->setupUi(this);
-    ui->tabWidget->setCurrentWidget(ui->tab_connection);
+    ui->tabWidget->setCurrentWidget(ui->tab_connections);
     this->showMaximized();
 
     //QML Map
@@ -28,7 +28,6 @@ Interface::Interface(QWidget *parent) : QMainWindow(parent),
     //Serial COM ports
     listAvailableSerialPorts(ui->comboBox_serial_input_port_list);
     listAvailableSerialPorts(ui->comboBox_serial_output_port_list);
-
     //Plain Texts Size Limit
     updatePlainTextsSizeLimit(10000);
 
@@ -138,27 +137,19 @@ void Interface::initializeLists()
         ui->checkBox_serial_output_mtw,
         ui->checkBox_serial_output_others
     };
-
-    nmeaSentenceMap = getSentenceMap();
-
 }
 
 void Interface::hideGUI()
 {
-    ui->horizontalFrame_udp_ip_address->hide();
+    ui->horizontalFrame_udp_ip_address->hide(); //broadcast by default
 }
 
 void Interface::updatePlainTextsSizeLimit(unsigned int sentenceLimit)
 {
     //main data monitor
-    ui->textEdit_raw_data->document()->setMaximumBlockCount(sentenceLimit);
-
-    //raw data sorted
-    const QList<QPlainTextEdit*> &editors = getPlainTextEditors();
-    for (QPlainTextEdit* editor : editors)
-        editor->document()->setMaximumBlockCount(sentenceLimit);
-
+    ui->textEdit_data_monitor->document()->setMaximumBlockCount(sentenceLimit);
 }
+
 
 
 ////////////////////
@@ -194,11 +185,12 @@ void Interface::on_pushButton_connect_serial_input_clicked()
     if(serial_reader->openSerialDevice())
     {
         result =  "Connected to " + serial_reader->getPortName();
-        ui->plainTextEdit_txt->clear();
         updateGuiAfterSerialConnection(true);
     }
     else
+    {
         result =  "Failed to open " + serial_reader->getPortName() + " : " + serial_reader->getErrorString();
+    }
 
     //Display connection status
     ui->plainTextEdit_connection_status->setPlainText(result);
@@ -227,7 +219,7 @@ void Interface::on_checkBox_serial_manual_input_stateChanged(int checked)
 
 
 //COM ports
-void Interface::listAvailableSerialPorts(QComboBox *comboBox)
+void Interface::listAvailableSerialPorts(QComboBox* comboBox)
 {
     comboBox->clear();
     const auto ports = QSerialPortInfo::availablePorts();
@@ -271,11 +263,11 @@ void Interface::on_pushButton_connect_udp_input_clicked()
 
 void Interface::on_pushButton_disconnect_udp_input_clicked()
 {
-    CloseInputUdp();
+    closeInputUdp();
     updateGuiAfterUdpConnection(false);
 }
 
-void Interface::CloseInputUdp()
+void Interface::closeInputUdp()
 {
     QString result = udp_reader->disconnect();
     ui->plainTextEdit_connection_status_udp->setPlainText(result);
@@ -305,57 +297,49 @@ void Interface::updateUdpSenderDetails()
 void Interface::displayNmeaSentence(const QString &type, const QString &nmeaText)
 {
     //Do not display if freeze button is pressed
-    bool isScreenTextFreezed = ui->pushButton_freeze_raw_sentences_screens->isChecked();
-    if(isScreenTextFreezed)
+    bool isDataMonitorFreezed = ui->pushButton_freeze_data_monitor->isChecked();
+    if(isDataMonitorFreezed)
         return;
 
     //Main Data Monitor
-    displayRawSentences(nmeaText);
-
-    //Sorted NMEA sentences tab
-    if(nmeaSentenceMap.contains(type))
-    {
-        nmeaSentenceMap[type]->appendPlainText(nmeaText);
-    }
+    addToDataMonitor(nmeaText);
 }
 
-void Interface::displayRawSentences(const QString &nmeaText)
+void Interface::addToDataMonitor(const QString &nmeaText)
 {
     // Look for nmea ID in sentence
-    QString nmeaType;
-    int dollarIdx = nmeaText.indexOf('$');
-    int commaIdx  = nmeaText.indexOf(',', dollarIdx);
-    if (dollarIdx != -1 && commaIdx != -1 && commaIdx > dollarIdx)
-    {
-        nmeaType = nmeaText.mid(dollarIdx + 1, commaIdx - dollarIdx - 1).toUpper();
-    }
+    QString nmeaType = getNmeaType(nmeaText);
 
     // Apply filter
-    QString filter = ui->lineEdit_raw_data_filter->text().trimmed().toUpper();
+    QString filter = ui->lineEdit_data_monitor_filter->text().trimmed().toUpper();
     if (!filter.isEmpty() && !nmeaType.contains(filter))
         return;
 
     // Build colored HTML line according to checksum validity
     bool valid = isNmeaChecksumValid(nmeaText);
     QString color = valid ? "green" : "red";
-    QString htmlLine = QString(
-                           "<span style=\"color:%1;\">%2</span>")
-                           .arg(color,
-                                getTimeStamp() + nmeaText.toHtmlEscaped());
+    QString htmlLine = QString("<span style=\"color:%1;\">%2</span>")
+                               .arg(color, getTimeStamp() + nmeaText.toHtmlEscaped());
 
     // Append to QTextEdit
-    ui->textEdit_raw_data->append(htmlLine);
+    ui->textEdit_data_monitor->append(htmlLine);
 }
 
-QMap<QString, QPlainTextEdit*> Interface::getSentenceMap() const
+
+//Clear data monitor
+void Interface::on_pushButton_clear_data_monitor_clicked()
 {
-    QList<QPlainTextEdit*> editors = getPlainTextEditors();
-    QMap<QString, QPlainTextEdit*> map;
+    ui->textEdit_data_monitor->clear();
+}
 
-    for (int i = 0; i < acceptedNmeaList.size() && i < editors.size(); ++i)
-        map.insert(acceptedNmeaList[i], editors[i]);
-
-    return map;
+// Scroll down screens
+void Interface::scrollDownPlainText(int index)
+{
+    if(index == ui->tabWidget->indexOf(ui->tab_data_monitor))
+    {
+        QTextEdit* dataMonitor = ui->textEdit_data_monitor;
+        dataMonitor->verticalScrollBar()->setValue(dataMonitor->verticalScrollBar()->maximum());
+    }
 }
 
 void Interface::on_spinBox_data_monitor_size_limit_editingFinished()
@@ -363,90 +347,6 @@ void Interface::on_spinBox_data_monitor_size_limit_editingFinished()
     unsigned int new_limit = ui->spinBox_data_monitor_size_limit->value();
     updatePlainTextsSizeLimit(new_limit);
 }
-
-//Clear Screens
-void Interface::clearRawSortedSentencesScreens()
-{
-    const QList<QPlainTextEdit*> &editors = getPlainTextEditors();
-
-    for (QPlainTextEdit* editor : editors)
-        editor->clear();
-}
-
-void Interface::clearRawSentencesScreens()
-{
-    ui->textEdit_raw_data->clear();
-    clearRawSortedSentencesScreens();
-}
-
-void Interface::on_pushButton_clear_raw_sentences_screens_clicked()
-{
-    clearRawSentencesScreens();
-}
-
-void Interface::on_pushButton_clear_raw_sorted_sentences_screens_clicked()
-{
-    clearRawSentencesScreens();
-}
-
-
-//Sync Freeze Screens Buttons States
-void Interface::on_pushButton_freeze_raw_sorted_sentences_screens_toggled(bool checked)
-{
-    QSignalBlocker blocker(ui->pushButton_freeze_raw_sentences_screens);
-    ui->pushButton_freeze_raw_sentences_screens->setChecked(checked);
-}
-
-void Interface::on_pushButton_freeze_raw_sentences_screens_toggled(bool checked)
-{
-    QSignalBlocker blocker(ui->pushButton_freeze_raw_sorted_sentences_screens);
-    ui->pushButton_freeze_raw_sorted_sentences_screens->setChecked(checked);
-}
-
-
-// Scroll down screens
-void Interface::scrollDownPlainText(int index)
-{
-    //Scroll down all the screens when changing to the raw data tab
-    if(index == ui->tabWidget->indexOf(ui->tab_raw_data_sorted))
-    {
-        const QList<QPlainTextEdit*> &editors = getPlainTextEditors();
-
-        for (QPlainTextEdit* editor : editors)
-            editor->verticalScrollBar()->setValue(editor->verticalScrollBar()->maximum());
-    }
-
-    else if(index == ui->tabWidget->indexOf(ui->tab_raw_data))
-    {
-        ui->textEdit_raw_data->verticalScrollBar()->setValue(ui->textEdit_raw_data->verticalScrollBar()->maximum());
-    }
-}
-
-
-//Get list of plainTexts
-QList<QPlainTextEdit*> Interface::getPlainTextEditors() const
-{
-    return
-    {
-        ui->plainTextEdit_dbt,
-        ui->plainTextEdit_dpt,
-        ui->plainTextEdit_gga,
-        ui->plainTextEdit_gll,
-        ui->plainTextEdit_gsa,
-        ui->plainTextEdit_gsv,
-        ui->plainTextEdit_hdt,
-        ui->plainTextEdit_mtw,
-        ui->plainTextEdit_mwd,
-        ui->plainTextEdit_mwv,
-        ui->plainTextEdit_others,
-        ui->plainTextEdit_rmc,
-        ui->plainTextEdit_txt,
-        ui->plainTextEdit_vhw,
-        ui->plainTextEdit_vtg,
-        ui->plainTextEdit_zda
-    };
-}
-
 
 
 

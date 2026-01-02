@@ -29,3 +29,18 @@ bool isNmeaChecksumValid(const QString &nmea)
     return ok && (checksum == received);
 }
 
+QString getNmeaType(const QString& nmeaText)
+{
+    QString nmeaType;
+    int dollarIdx = nmeaText.indexOf('$');
+    int commaIdx  = nmeaText.indexOf(',', dollarIdx);
+    if (dollarIdx != -1 && commaIdx != -1 && commaIdx > dollarIdx)
+    {
+        nmeaType = nmeaText.mid(dollarIdx + 1, commaIdx - dollarIdx - 1).toUpper();
+    }
+
+    return nmeaType;
+}
+
+
+

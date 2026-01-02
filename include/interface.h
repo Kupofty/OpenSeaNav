@@ -51,15 +51,11 @@ class Interface : public QMainWindow
         QQuickItem *qmlMapObject;
 
     private:
-        QMap<QString, QPlainTextEdit*> getSentenceMap() const;
-        QList<QPlainTextEdit*> getPlainTextEditors() const;
         void clearDecodedDataScreens();
-        void CloseInputUdp();
+        void closeInputUdp();
         void updateGuiAfterUdpConnection(bool connectSuccess);
         void closeInputSerial();
         void closeOutputSerial();
-        void clearRawSortedSentencesScreens();
-        void clearRawSentencesScreens();
         void listAvailableSerialPorts(QComboBox *comboBox);
         void hideGUI();
         void connectSignalSlot();
@@ -73,12 +69,14 @@ class Interface : public QMainWindow
         void updatePlainTextsSizeLimit(unsigned int size);
 
     private slots:
-        void on_pushButton_clear_raw_sorted_sentences_screens_clicked();
+        void scrollDownPlainText(int index);
+        void updateUdpSenderDetails();
+
+    private slots:
         void on_pushButton_connect_serial_input_clicked();
         void on_pushButton_disconnect_serial_input_clicked();
         void on_pushButton_refresh_available_ports_list_clicked();
         void on_spinBox_update_udp_port_output_valueChanged(int port);
-
         void on_checkBox_udp_output_gga_toggled(bool checked);
         void on_checkBox_udp_output_rmc_toggled(bool checked);
         void on_checkBox_udp_output_gsv_toggled(bool checked);
@@ -97,21 +95,17 @@ class Interface : public QMainWindow
         void on_checkBox_udp_output_others_toggled(bool checked);
         void on_pushButton_check_all_udp_output_clicked();
         void on_pushButton_uncheck_all_udp_output_clicked();
-
         void on_comboBox_udp_host_address_currentTextChanged(const QString &hostAddress);
         void on_lineEdit_udp_ip_address_editingFinished();
-
         void on_pushButton_browse_folder_path_clicked();
         void on_pushButton_save_txt_file_toggled(bool checked);
         void on_pushButton_automatic_txt_file_name_clicked();
         void on_pushButton_folder_path_documents_clicked();
         void on_pushButton_folder_path_downloads_clicked();
-
         void on_pushButton_refresh_available_port_serial_output_clicked();
         void on_pushButton_connect_serial_output_clicked();
         void on_pushButton_disconnect_serial_output_clicked();
         void on_checkBox_serial_output_gga_toggled(bool checked);
-
         void on_pushButton_activate_serial_output_toggled(bool checked);
         void on_checkBox_serial_output_gsv_toggled(bool checked);
         void on_checkBox_serial_output_rmc_toggled(bool checked);
@@ -131,24 +125,14 @@ class Interface : public QMainWindow
         void on_pushButton_uncheck_all_serial_output_clicked();
         void on_pushButton_connect_udp_input_clicked();
         void on_pushButton_disconnect_udp_input_clicked();
-
-    private slots:
-        void scrollDownPlainText(int index);
-        void updateUdpSenderDetails();
-
-        void on_pushButton_clear_raw_sentences_screens_clicked();
-        void on_pushButton_freeze_raw_sorted_sentences_screens_toggled(bool checked);
-        void on_pushButton_freeze_raw_sentences_screens_toggled(bool checked);
-
+        void on_pushButton_clear_data_monitor_clicked();
         void on_checkBox_serial_manual_input_stateChanged(int arg1);
-
         void on_spinBox_data_monitor_size_limit_editingFinished();
-
         void on_checkBox_serial_manual_output_stateChanged(int arg1);
 
     public slots:
         void displayNmeaSentence(const QString &type, const QString &line);
-        void displayRawSentences(const QString &nmeaText);
+        void addToDataMonitor(const QString &nmeaText);
         void updateDataGSV(int totalSatellites, double freq);
         void updateDataGGA(QString time, double latitude, double longitude, int fixQuality, int numSatellites, double hdop, double altitude, double freqHz);
         void updateDataGLL(QString utc, double latitude, double longitude,  double freqHz);
