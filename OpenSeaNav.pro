@@ -10,6 +10,7 @@ INCLUDEPATH += include
 
 SOURCES += \
     src/interface.cpp \
+    src/menubar_about.cpp \
     src/nmea_handler.cpp \
     src/main.cpp \
     src/output_writer.cpp \
@@ -30,9 +31,11 @@ HEADERS += \
     include/text_file_writter.h \
     include/udp_reader.h \
     include/udp_writer.h \
-    include/utils.h
+    include/utils.h \
+    include/menubar_about.h
 
 FORMS += \
+    ui/menubar_about.ui \
     ui/interface.ui
 
 RESOURCES += \

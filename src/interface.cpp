@@ -97,6 +97,31 @@ void Interface::connectSignalSlot()
 
 
 
+////////////////
+/// Menu Bar ///
+////////////////
+void Interface::on_actionExit_triggered()
+{
+    close();
+}
+
+
+void Interface::on_actionAbout_triggered()
+{
+    MenuBarAbout dlg(this);
+    dlg.setWindowTitle("About Software");
+    dlg.exec();
+
+}
+
+void Interface::on_actionDocumentation_triggered()
+{
+    QUrl url("https://github.com/Kupofty/OpenSeaNav");
+    QDesktopServices::openUrl(url);
+}
+
+
+
 ///////////
 /// GUI ///
 ///////////
@@ -1016,6 +1041,10 @@ QString Interface::getRecordingFilePath()
 
     return fullPath;
 }
+
+
+
+
 
 
 

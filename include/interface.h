@@ -9,6 +9,9 @@
 #include <QVariant>
 #include <QtGui>
 #include <QtQuick>
+#include <QDesktopServices>
+#include <QUrl>
+#include <QProcess>
 
 #include "ui_interface.h"
 
@@ -20,6 +23,8 @@
 #include "text_file_writter.h"
 #include "nmea_list.h"
 #include "utils.h"
+
+#include "menubar_about.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui
@@ -129,6 +134,12 @@ class Interface : public QMainWindow
         void on_checkBox_serial_manual_input_stateChanged(int arg1);
         void on_spinBox_data_monitor_size_limit_editingFinished();
         void on_checkBox_serial_manual_output_stateChanged(int arg1);
+
+        void on_actionExit_triggered();
+
+        void on_actionDocumentation_triggered();
+
+        void on_actionAbout_triggered();
 
     public slots:
         void displayNmeaSentence(const QString &type, const QString &line);

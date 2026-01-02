@@ -36,7 +36,7 @@
     <item>
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>4</number>
       </property>
       <widget class="QWidget" name="tab_connections">
        <attribute name="title">
@@ -5505,6 +5505,72 @@
     </item>
    </layout>
   </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1415</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>App</string>
+    </property>
+    <addaction name="actionExit"/>
+   </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>Help</string>
+    </property>
+    <addaction name="actionAbout"/>
+    <addaction name="actionDocumentation"/>
+   </widget>
+   <widget class="QMenu" name="menuData_Monitor">
+    <property name="title">
+     <string>Tools</string>
+    </property>
+    <addaction name="actionData_Monitor_todo"/>
+    <addaction name="actionManual_Data_Input"/>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menuData_Monitor"/>
+   <addaction name="menuHelp"/>
+  </widget>
+  <action name="actionAbout">
+   <property name="text">
+    <string>About</string>
+   </property>
+  </action>
+  <action name="actionVersion_Alpha">
+   <property name="text">
+    <string>Version: Alpha</string>
+   </property>
+  </action>
+  <action name="actionExit">
+   <property name="text">
+    <string>Exit</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+E</string>
+   </property>
+  </action>
+  <action name="actionData_Monitor_todo">
+   <property name="text">
+    <string>Data Monitor (todo)</string>
+   </property>
+  </action>
+  <action name="actionManual_Data_Input">
+   <property name="text">
+    <string>Manual Data Input (todo)</string>
+   </property>
+  </action>
+  <action name="actionDocumentation">
+   <property name="text">
+    <string>Github</string>
+   </property>
+  </action>
  </widget>
  <customwidgets>
   <customwidget>
