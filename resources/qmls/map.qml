@@ -462,12 +462,14 @@ Item {
         }
 
         MenuItem {
+            id: clearMarkersItem
             enabled: userMarkerCount > 0
             contentItem: Label {
                 text: "Clear Markers"
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
                 width: parent.width
+                color: clearMarkersItem.enabled ? "#ffffff" : "#808080"
             }
             onTriggered: clearMarkers()
         }
@@ -1167,6 +1169,7 @@ Item {
         anchors.leftMargin: labelLateralMargin
         anchors.bottomMargin: labelVerticalMargin
         spacing: labelVerticalMargin
+        visible: showUI
 
         Column{
             spacing: labelVerticalMargin/2
