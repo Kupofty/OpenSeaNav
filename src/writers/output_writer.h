@@ -5,7 +5,7 @@
 #include <QDebug>
 #include <QString>
 
-#include "utils.h"
+#include "nmea/utils.h"
 
 class OutputWriter : public QObject
 {

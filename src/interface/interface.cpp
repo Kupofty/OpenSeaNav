@@ -1,4 +1,4 @@
-#include "interface.h"
+#include "interface/interface.h"
 
 ///////////////////
 /// Class Setup ///
@@ -114,10 +114,10 @@ void Interface::on_actionAbout_triggered()
 
 }
 
-void Interface::on_actionDocumentation_triggered()
+void Interface::on_actionFAQ_triggered()
 {
-    MenuBarGithub dlg(this);
-    dlg.setWindowTitle("Github");
+    MenuBarFAQ dlg(this);
+    dlg.setWindowTitle("FAQ");
     dlg.exec();
 }
 
@@ -1053,6 +1053,7 @@ QString Interface::getRecordingFilePath()
 
     return fullPath;
 }
+
 
 
 

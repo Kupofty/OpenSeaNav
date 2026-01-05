@@ -6,42 +6,43 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++17
 
-INCLUDEPATH += include
+INCLUDEPATH += src
 
 SOURCES += \
-    src/menubar_simdata.cpp \
-    src/interface.cpp \
-    src/menubar_about.cpp \
-    src/nmea_handler.cpp \
     src/main.cpp \
-    src/output_writer.cpp \
-    src/serial_reader.cpp \
-    src/serial_writer.cpp \
-    src/text_file_writter.cpp \
-    src/udp_reader.cpp \
-    src/udp_writer.cpp \
-    src/utils.cpp \
-    src/menubar_github.cpp
+    src/interface/interface.cpp \
+    src/nmea/nmea_handler.cpp \
+    src/readers/udp_reader.cpp \
+    src/readers/serial_reader.cpp \
+    src/writers/output_writer.cpp \
+    src/writers/serial_writer.cpp \
+    src/writers/text_file_writter.cpp \
+    src/writers/udp_writer.cpp \
+    src/nmea/utils.cpp \
+    src/menu_bar/about/menubar_about.cpp \
+    src/menu_bar/simu/menubar_simdata.cpp \
+    src/menu_bar/faq/menubar_faq.cpp
 
 HEADERS += \
-    include/interface.h \
-    include/output_writer.h \
-    include/serial_reader.h \
-    include/nmea_handler.h \
-    include/serial_writer.h \
-    include/text_file_writter.h \
-    include/udp_reader.h \
-    include/udp_writer.h \
-    include/utils.h \
-    include/menubar_about.h \
-    include/menubar_github.h \
-    include/menubar_simdata.h
+    src/interface/interface.h \
+    src/nmea/nmea_handler.h \
+    src/readers/serial_reader.h \
+    src/readers/udp_reader.h \
+    src/writers/output_writer.h \
+    src/writers/serial_writer.h \
+    src/writers/text_file_writter.h \
+    src/writers/udp_writer.h \
+    src/nmea/utils.h \
+    src/menu_bar/about/menubar_about.h \
+    src/menu_bar/simu/menubar_simdata.h \
+    src/menu_bar/faq/menubar_faq.h
 
 FORMS += \
-    ui/menubar_simdata.ui \
-    ui/menubar_about.ui \
-    ui/interface.ui \
-    ui/menubar_github.ui
+    src/interface/interface.ui \
+    src/menu_bar/about/menubar_about.ui \
+    src/menu_bar/simu/menubar_simdata.ui \
+    src/menu_bar/faq/menubar_faq.ui
+
 
 RESOURCES += \
     resources/images.qrc \

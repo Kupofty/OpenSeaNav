@@ -3,7 +3,7 @@
 #include <QDialog>
 #include <QTimer>
 
-#include "utils.h"
+#include "nmea/utils.h"
 
 namespace Ui {
 class MenuBarSimData;

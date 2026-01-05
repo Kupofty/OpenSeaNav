@@ -36,7 +36,7 @@
     <item>
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="tab_connections">
        <attribute name="title">
@@ -5549,7 +5549,7 @@
      <string>Help</string>
     </property>
     <addaction name="actionAbout"/>
-    <addaction name="actionDocumentation"/>
+    <addaction name="actionFAQ"/>
    </widget>
    <widget class="QMenu" name="menuData_Monitor">
     <property name="title">
@@ -5576,11 +5576,6 @@
     <string>About</string>
    </property>
   </action>
-  <action name="actionVersion_Alpha">
-   <property name="text">
-    <string>Version: Alpha</string>
-   </property>
-  </action>
   <action name="actionExit">
    <property name="icon">
     <iconset theme="application-exit"/>
@@ -5589,7 +5584,7 @@
     <string>Exit</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+E</string>
+    <string>Ctrl+Q</string>
    </property>
   </action>
   <action name="actionData_Monitor_todo">
@@ -5598,6 +5593,9 @@
    </property>
    <property name="text">
     <string>Data Monitor (todo)</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+M</string>
    </property>
   </action>
   <action name="actionManual_Data_Input">
@@ -5611,12 +5609,12 @@
     <string>Ctrl+I</string>
    </property>
   </action>
-  <action name="actionDocumentation">
+  <action name="actionFAQ">
    <property name="icon">
     <iconset theme="QIcon::ThemeIcon::HelpFaq"/>
    </property>
    <property name="text">
-    <string>Github</string>
+    <string>FAQ</string>
    </property>
   </action>
  </widget>

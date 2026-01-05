@@ -5,7 +5,7 @@
 #include <QDebug>
 #include <QTime>
 
-#include "utils.h"
+#include "nmea/utils.h"
 
 class NMEA_Handler : public QObject
 {

@@ -15,17 +15,17 @@
 
 #include "ui_interface.h"
 
-#include "serial_reader.h"
-#include "serial_writer.h"
-#include "nmea_handler.h"
-#include "udp_reader.h"
-#include "udp_writer.h"
-#include "text_file_writter.h"
-#include "utils.h"
+#include "readers/serial_reader.h"
+#include "readers/udp_reader.h"
+#include "nmea/nmea_handler.h"
+#include "writers/udp_writer.h"
+#include "writers/serial_writer.h"
+#include "writers/text_file_writter.h"
+#include "nmea/utils.h"
 
-#include "menubar_about.h"
-#include "menubar_github.h"
-#include "menubar_simdata.h"
+#include "menu_bar/about/menubar_about.h"
+#include "menu_bar/faq/menubar_faq.h"
+#include "menu_bar/simu/menubar_simdata.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui
@@ -137,9 +137,9 @@ class Interface : public QMainWindow
         void on_checkBox_serial_manual_output_stateChanged(int arg1);
 
         void on_actionExit_triggered();
-        void on_actionDocumentation_triggered();
         void on_actionAbout_triggered();
         void on_actionManual_Data_Input_triggered();
+        void on_actionFAQ_triggered();
 
     public slots:
         void displayNmeaSentence(const QString &type, const QString &line);

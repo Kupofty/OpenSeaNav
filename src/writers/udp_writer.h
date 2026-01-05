@@ -1,9 +1,10 @@
 #pragma once
 
-#include "output_writer.h"
-
 #include <QUdpSocket>
 #include <QHostAddress>
+
+#include "writers/output_writer.h"
+
 
 class UdpWriter : public OutputWriter
 {

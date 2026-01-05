@@ -5,7 +5,7 @@
 #include <QTextStream>
 #include <QDebug>
 
-#include "utils.h"
+#include "nmea/utils.h"
 
 class TextFileWritter : public QObject
 {
