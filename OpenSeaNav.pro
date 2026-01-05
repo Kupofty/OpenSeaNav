@@ -19,7 +19,8 @@ SOURCES += \
     src/text_file_writter.cpp \
     src/udp_reader.cpp \
     src/udp_writer.cpp \
-    src/utils.cpp
+    src/utils.cpp \
+    src/menubar_github.cpp
 
 HEADERS += \
     include/interface.h \
@@ -32,11 +33,13 @@ HEADERS += \
     include/udp_reader.h \
     include/udp_writer.h \
     include/utils.h \
-    include/menubar_about.h
+    include/menubar_about.h \
+    include/menubar_github.h
 
 FORMS += \
     ui/menubar_about.ui \
-    ui/interface.ui
+    ui/interface.ui \
+    ui/menubar_github.ui
 
 RESOURCES += \
     resources/images.qrc \

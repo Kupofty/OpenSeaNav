@@ -28,6 +28,7 @@ Interface::Interface(QWidget *parent) : QMainWindow(parent),
     //Serial COM ports
     listAvailableSerialPorts(ui->comboBox_serial_input_port_list);
     listAvailableSerialPorts(ui->comboBox_serial_output_port_list);
+
     //Plain Texts Size Limit
     updatePlainTextsSizeLimit(10000);
 
@@ -105,7 +106,6 @@ void Interface::on_actionExit_triggered()
     close();
 }
 
-
 void Interface::on_actionAbout_triggered()
 {
     MenuBarAbout dlg(this);
@@ -116,8 +116,9 @@ void Interface::on_actionAbout_triggered()
 
 void Interface::on_actionDocumentation_triggered()
 {
-    QUrl url("https://github.com/Kupofty/OpenSeaNav");
-    QDesktopServices::openUrl(url);
+    MenuBarGithub dlg(this);
+    dlg.setWindowTitle("Github");
+    dlg.exec();
 }
 
 
@@ -321,6 +322,8 @@ void Interface::updateUdpSenderDetails()
 //Display On Screens
 void Interface::displayNmeaSentence(const QString &type, const QString &nmeaText)
 {
+    Q_UNUSED(type);
+
     //Do not display if freeze button is pressed
     bool isDataMonitorFreezed = ui->pushButton_freeze_data_monitor->isChecked();
     if(isDataMonitorFreezed)

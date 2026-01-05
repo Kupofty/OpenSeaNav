@@ -25,6 +25,7 @@
 #include "utils.h"
 
 #include "menubar_about.h"
+#include "menubar_github.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui
@@ -136,9 +137,7 @@ class Interface : public QMainWindow
         void on_checkBox_serial_manual_output_stateChanged(int arg1);
 
         void on_actionExit_triggered();
-
         void on_actionDocumentation_triggered();
-
         void on_actionAbout_triggered();
 
     public slots:

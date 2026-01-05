@@ -20,7 +20,7 @@ Filter sentence types (e.g. output only GGA or RMC) on each output.
 **Data Logging**  
 Record data to a local file in multiple formats (txt, csv, nmea, log)
 
-![NMEA Center Screenshot](resources/pictures/git_repo/map_view.png)
+![NMEA Center Screenshot](resources/pictures/git_repo/map_view_2.png)
 
 
 ## Copyright and licensing
