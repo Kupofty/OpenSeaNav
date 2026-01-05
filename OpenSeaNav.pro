@@ -9,6 +9,7 @@ CONFIG += c++17
 INCLUDEPATH += include
 
 SOURCES += \
+    src/menubar_simdata.cpp \
     src/interface.cpp \
     src/menubar_about.cpp \
     src/nmea_handler.cpp \
@@ -24,7 +25,6 @@ SOURCES += \
 
 HEADERS += \
     include/interface.h \
-    include/nmea_list.h \
     include/output_writer.h \
     include/serial_reader.h \
     include/nmea_handler.h \
@@ -34,9 +34,11 @@ HEADERS += \
     include/udp_writer.h \
     include/utils.h \
     include/menubar_about.h \
-    include/menubar_github.h
+    include/menubar_github.h \
+    include/menubar_simdata.h
 
 FORMS += \
+    ui/menubar_simdata.ui \
     ui/menubar_about.ui \
     ui/interface.ui \
     ui/menubar_github.ui

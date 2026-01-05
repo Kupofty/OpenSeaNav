@@ -14,12 +14,12 @@ class MenuBarGithub : public QDialog
 {
     Q_OBJECT
 
-public:
-    explicit MenuBarGithub(QWidget *parent = nullptr);
-    ~MenuBarGithub();
+    public:
+        explicit MenuBarGithub(QWidget *parent = nullptr);
+        ~MenuBarGithub();
 
-private:
-    Ui::MenuBarGithub *ui;
+    private:
+        Ui::MenuBarGithub *ui;
 };
 
 #endif // MENUBAR_GITHUB_H

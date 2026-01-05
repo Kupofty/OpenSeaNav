@@ -1,8 +1,8 @@
 #include "interface.h"
 
-/////////////
-/// CLASS ///
-/////////////
+///////////////////
+/// Class Setup ///
+///////////////////
 Interface::Interface(QWidget *parent) : QMainWindow(parent),
     ui(new Ui::Interface),
     serial_reader(new SerialReader),
@@ -119,6 +119,15 @@ void Interface::on_actionDocumentation_triggered()
     MenuBarGithub dlg(this);
     dlg.setWindowTitle("Github");
     dlg.exec();
+}
+
+void Interface::on_actionManual_Data_Input_triggered()
+{
+    MenuBarSimData *dlg = new MenuBarSimData(this);
+    dlg->setAttribute(Qt::WA_DeleteOnClose);
+    dlg->setWindowTitle("Manual Data Input");
+    connect(dlg, &MenuBarSimData::dataReady, nmea_handler, &NMEA_Handler::handleRawSentences);
+    dlg->show();
 }
 
 
@@ -1044,17 +1053,6 @@ QString Interface::getRecordingFilePath()
 
     return fullPath;
 }
-
-
-
-
-
-
-
-
-
-
-
 
 
 

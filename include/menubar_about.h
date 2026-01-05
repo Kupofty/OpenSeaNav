@@ -11,12 +11,12 @@ class MenuBarAbout : public QDialog
 {
     Q_OBJECT
 
-public:
-    explicit MenuBarAbout(QWidget *parent = nullptr);
-    ~MenuBarAbout();
+    public:
+        explicit MenuBarAbout(QWidget *parent = nullptr);
+        ~MenuBarAbout();
 
-private:
-    Ui::MenuBarAbout *ui;
+    private:
+        Ui::MenuBarAbout *ui;
 };
 
 #endif // MENUBAR_ABOUT_H

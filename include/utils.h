@@ -2,6 +2,19 @@
 
 #include <QString>
 #include <QDateTime>
+#include <QApplication>
+#include <QStringList>
+
+
+/////////////////
+/// Variables ///
+/////////////////
+inline const QStringList acceptedNmeaList = {
+    "DBT", "DPT", "GGA", "GLL", "GSA",
+    "GSV", "HDT", "MTW", "MWD", "MWV",
+    "OTHER", "RMC", "TXT", "VHW", "VTG",
+    "ZDA"
+};
 
 
 /////////////////////////

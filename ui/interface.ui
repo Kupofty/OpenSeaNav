@@ -5605,7 +5605,10 @@
     <iconset theme="QIcon::ThemeIcon::DocumentSend"/>
    </property>
    <property name="text">
-    <string>Manual Data Input (todo)</string>
+    <string>Manual Data Input</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+I</string>
    </property>
   </action>
   <action name="actionDocumentation">

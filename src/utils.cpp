@@ -9,6 +9,8 @@ QString getTimeStamp()
     return "[" + QDateTime::currentDateTime().toString("yyyy-MM-dd HH:mm:ss:zzz") + "] ";
 }
 
+
+
 //////////////////////////////
 /// NMEA Related Functions ///
 //////////////////////////////
@@ -42,5 +44,11 @@ QString getNmeaType(const QString& nmeaText)
     return nmeaType;
 }
 
-
-
+quint8 calculateChecksum(const QString &payload)
+{
+    quint8 checksum = 0;
+    for (const char c : payload.toUtf8()) {
+        checksum ^= static_cast<quint8>(c);
+    }
+    return checksum;
+}

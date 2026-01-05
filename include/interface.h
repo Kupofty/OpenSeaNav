@@ -21,11 +21,11 @@
 #include "udp_reader.h"
 #include "udp_writer.h"
 #include "text_file_writter.h"
-#include "nmea_list.h"
 #include "utils.h"
 
 #include "menubar_about.h"
 #include "menubar_github.h"
+#include "menubar_simdata.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui
@@ -139,6 +139,7 @@ class Interface : public QMainWindow
         void on_actionExit_triggered();
         void on_actionDocumentation_triggered();
         void on_actionAbout_triggered();
+        void on_actionManual_Data_Input_triggered();
 
     public slots:
         void displayNmeaSentence(const QString &type, const QString &line);
