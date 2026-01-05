@@ -32,7 +32,12 @@ void NMEA_Handler::handleRawSentences(const QByteArray &line)
     if (!acceptedNmeaList.contains(nmeaFormat))
         nmeaFormat ="OTHER";
 
+    //Send sentences to
     emit newNMEASentence(nmeaFormat, nmeaText);
+
+    //Do not handle data with incorrect checksums;
+    if (!isNmeaChecksumValid(nmeaText))
+        return;
 
     if(nmeaFormat == "GGA")
         handleGGA(fields);
@@ -73,7 +78,8 @@ void NMEA_Handler::handleRawSentences(const QByteArray &line)
 void NMEA_Handler::handleGGA(const QList<QByteArray> &fields)
 {
     //Check size
-    checkMinimumLineSize(fields, 9);
+    if(!isNmeaMinimumSize(fields, 9))
+        return;
 
     // Parse UTC time
     QString timeStr = fields[1];
@@ -109,7 +115,8 @@ void NMEA_Handler::handleGGA(const QList<QByteArray> &fields)
 
 void NMEA_Handler::handleRMC(const QList<QByteArray> &fields)
 {
-    checkMinimumLineSize(fields, 11);
+    if(!isNmeaMinimumSize(fields, 12))
+        return;
 
     // Parse time
     QString timeStr = fields[1];
@@ -162,7 +169,8 @@ void NMEA_Handler::handleRMC(const QList<QByteArray> &fields)
 void NMEA_Handler::handleGSV(const QList<QByteArray> &fields)
 {
     //Check size
-    checkMinimumLineSize(fields, 4);
+    if(!isNmeaMinimumSize(fields, 4))
+        return;
 
     // Parse GSV
     int sentenceNumber  = fields[2].toInt();
@@ -179,7 +187,8 @@ void NMEA_Handler::handleGSV(const QList<QByteArray> &fields)
 void NMEA_Handler::handleGLL(const QList<QByteArray> &fields)
 {
     //Check size
-    checkMinimumLineSize(fields, 6);
+    if(!isNmeaMinimumSize(fields, 8))
+        return;
 
     // Parse position
     QString latStr   = fields[1];
@@ -209,7 +218,8 @@ void NMEA_Handler::handleGLL(const QList<QByteArray> &fields)
 
 void NMEA_Handler::handleGSA(const QList<QByteArray> &fields)
 {
-    checkMinimumLineSize(fields, 17);
+    if(!isNmeaMinimumSize(fields, 17))
+        return;
 
     double pdop = fields[15].toDouble();
     double hdop = fields[16].toDouble();
@@ -222,7 +232,8 @@ void NMEA_Handler::handleGSA(const QList<QByteArray> &fields)
 
 void NMEA_Handler::handleVTG(const QList<QByteArray> &fields)
 {
-    checkMinimumLineSize(fields, 8);
+    if(!isNmeaMinimumSize(fields, 8))
+        return;
 
     double trackTrue  = fields[1].toDouble();
     double trackMag   = fields[3].toDouble();
@@ -237,7 +248,8 @@ void NMEA_Handler::handleVTG(const QList<QByteArray> &fields)
 
 void NMEA_Handler::handleHDT(const QList<QByteArray> &fields)
 {
-    checkMinimumLineSize(fields, 2);
+    if(!isNmeaMinimumSize(fields, 2))
+        return;
 
     double heading      = fields[1].toDouble();
     QString headingUnit = removeAsterisk(fields[2]);
@@ -254,7 +266,8 @@ void NMEA_Handler::handleHDT(const QList<QByteArray> &fields)
 
 void NMEA_Handler::handleDBT(const QList<QByteArray> &fields)
 {
-    checkMinimumLineSize(fields, 6);
+    if(!isNmeaMinimumSize(fields, 6))
+        return;
 
     //Extract data
     double depthFeet   = fields[1].toDouble();
@@ -269,7 +282,8 @@ void NMEA_Handler::handleDBT(const QList<QByteArray> &fields)
 
 void NMEA_Handler::handleVHW(const QList<QByteArray> &fields)
 {
-    checkMinimumLineSize(fields, 8);
+    if(!isNmeaMinimumSize(fields, 8))
+        return;
 
     double headingTrue = fields[1].toDouble();
     double headingMag  = fields[3].toDouble();
@@ -284,7 +298,8 @@ void NMEA_Handler::handleVHW(const QList<QByteArray> &fields)
 
 void NMEA_Handler::handleZDA(const QList<QByteArray> &fields)
 {
-    checkMinimumLineSize(fields, 6);
+    if(!isNmeaMinimumSize(fields, 7))
+        return;
 
     QString utcTime   = fields[1];
     QString day       = fields[2];
@@ -318,7 +333,8 @@ void NMEA_Handler::handleZDA(const QList<QByteArray> &fields)
 
 void NMEA_Handler::handleDPT(const QList<QByteArray> &fields)
 {
-    checkMinimumLineSize(fields, 2);
+    if(!isNmeaMinimumSize(fields, 2))
+        return;
 
     double depth  = fields[1].toDouble();
     double offset = removeAsterisk(fields[2]).toDouble();
@@ -330,7 +346,8 @@ void NMEA_Handler::handleDPT(const QList<QByteArray> &fields)
 
 void NMEA_Handler::handleMWD(const QList<QByteArray> &fields)
 {
-    checkMinimumLineSize(fields, 8);
+    if(!isNmeaMinimumSize(fields, 8))
+        return;
 
     double dir1        = fields[1].toDouble();
     QString dir1Unit   = fields[2];
@@ -348,7 +365,7 @@ void NMEA_Handler::handleMWD(const QList<QByteArray> &fields)
 
 void NMEA_Handler::handleMTW(const QList<QByteArray> &fields)
 {
-    checkMinimumLineSize(fields, 2);
+    isNmeaMinimumSize(fields, 2);
 
     double temp      = fields[1].toDouble();
     QString tempUnit = removeAsterisk(fields[2]);
@@ -360,7 +377,8 @@ void NMEA_Handler::handleMTW(const QList<QByteArray> &fields)
 
 void NMEA_Handler::handleMWV(const QList<QByteArray> &fields)
 {
-    checkMinimumLineSize(fields, 5);
+    if(!isNmeaMinimumSize(fields, 5))
+        return;
 
     double angle  = fields[1].toDouble();
     QString ref   = fields[2]; // R=relative, T=true
@@ -425,8 +443,7 @@ QByteArray NMEA_Handler::removeAsterisk(const QByteArray lastField)
      return lastField.split('*').first();
 }
 
-void NMEA_Handler::checkMinimumLineSize(const QList<QByteArray> &fields, int minSize)
+bool NMEA_Handler::isNmeaMinimumSize(const QList<QByteArray> &fields, int minSize)
 {
-    if (fields.size() < minSize)
-        return;
+    return (fields.size() >= minSize);
 }

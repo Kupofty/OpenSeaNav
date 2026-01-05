@@ -11,7 +11,10 @@
 // Return actual timestamp as [yyyy-MM-dd HH:mm:ss:zzz]
 QString getTimeStamp();
 
-// Check if NMEA sentence integrity
+
+// NMEA
 bool isNmeaChecksumValid(const QString &nmea);
 
 QString getNmeaType(const QString& nmeaText);
+
+quint8 calculateChecksum(const QString &payload);

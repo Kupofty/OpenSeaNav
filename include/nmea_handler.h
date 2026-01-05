@@ -6,6 +6,7 @@
 #include <QTime>
 
 #include "nmea_list.h"
+#include "utils.h"
 
 class NMEA_Handler : public QObject
 {
@@ -47,7 +48,7 @@ class NMEA_Handler : public QObject
         double calculateCoordinates(const QString &valueStr, const QString &direction);
         double calculateFrequency(QElapsedTimer &timer, qint64 &lastTime);
         QByteArray removeAsterisk(const QByteArray lastField);
-        void checkMinimumLineSize(const QList<QByteArray> &fields, int minSize);
+        bool isNmeaMinimumSize(const QList<QByteArray> &fields, int minSize);
 
     signals:
         void newNMEASentence(const QString &type, const QString &nmeaText);
