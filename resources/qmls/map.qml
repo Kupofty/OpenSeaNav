@@ -82,12 +82,14 @@ Item {
 
     // View modes
     property int mapViewMode: 0
+    property double freeViewUp: 0
     property real mapRotation: {
         switch (mapViewMode)
         {
             case 0: default: return 0   // North Up
             case 1: return boatHeading  // Heading Up
             case 2: return boatCourse   // COG Up
+            case 3: return freeViewUp     // Free view
         }
     }
 
@@ -239,25 +241,46 @@ Item {
         id: mouseArea
         anchors.fill: map
         hoverEnabled: true
-        acceptedButtons: Qt.RightButton | Qt.LeftButton
+        acceptedButtons:  Qt.LeftButton | Qt.RightButton | Qt.MiddleButton
 
         property var lastCoord
-        property bool dragging: false
         property var coordinate: map.toCoordinate(Qt.point(mouseX, mouseY))
+        property bool dragging: false
+
+        property real lastX
+        property bool rotating: false
+        property double wheelDragSensitivity : 0.5
 
         //Dragging map
         onPressed: function(mouse) {
+            // Left button → Pan
             if (mouse.button === Qt.LeftButton) {
                 lastCoord = map.toCoordinate(Qt.point(mouse.x, mouse.y))
                 dragging = true
+            }
+
+            // Middle button → Free view drag
+            if (mouse.button === Qt.MiddleButton) {
+                rotating = true
+                lastX = mouse.x
+                return
             }
         }
 
         onReleased: function(mouse) {
             dragging = false
+            rotating = false
         }
 
         onPositionChanged: function(mouse) {
+            // Free View
+            if (rotating) {
+                freeViewUp += (mouse.x - lastX) * wheelDragSensitivity
+                lastX = mouse.x
+                return
+            }
+
+            // Map pan
             if (dragging && mouse.buttons === Qt.LeftButton) {
                 var currentCoord = map.toCoordinate(Qt.point(mouse.x, mouse.y))
                 var dx = lastCoord.longitude - currentCoord.longitude
@@ -268,9 +291,9 @@ Item {
             else
                 lastCoord = map.toCoordinate(Qt.point(mouse.x, mouse.y))
 
+            // Cursor info
             cursorLatitude = coordinate.latitude
             cursorLongitude = coordinate.longitude
-
             cursorDistanceBoat = haversineDistance(boatLatitude, boatLongitude, cursorLatitude, cursorLongitude)
             cursorBearingBoat = calculateBearing(boatLatitude, boatLongitude, cursorLatitude, cursorLongitude)
         }
@@ -348,7 +371,8 @@ Item {
                     {
                         case 0: default: return "Heading Up"
                         case 1: return "Course Up"
-                        case 2: return "North Up"
+                        case 2: return "Free View"
+                        case 3: return "North Up"
                     }
                 }
                 horizontalAlignment: Text.AlignHCenter
@@ -357,7 +381,7 @@ Item {
             }
 
             onTriggered: {
-                mapViewMode = (mapViewMode + 1) % 3
+                mapViewMode = (mapViewMode + 1) % 4
             }
         }
 
@@ -958,9 +982,10 @@ Item {
 
             text: {
                 switch (mapViewMode) {
-                case 1: return "Heading Up"
-                case 2: return "Course Up"
-                default: return "North Up"
+                    case 0: default: return "North Up"
+                    case 1: return "Heading Up"
+                    case 2: return "Course Up"
+                    case 3: return "Free View"
                 }
             }
         }
