@@ -78,10 +78,18 @@ Item {
     //Map
     property bool showUI: true
     property bool followBoat: false
-    property bool headingUpView: false
-    property real mapRotation: headingUpView ? boatHeading : 0
     property string followBoatText: followBoat ? "Unfollow Boat" : "Follow Boat"
 
+    // View modes
+    property int mapViewMode: 0
+    property real mapRotation: {
+        switch (mapViewMode)
+        {
+            case 0: default: return 0   // North Up
+            case 1: return boatHeading  // Heading Up
+            case 2: return boatCourse   // COG Up
+        }
+    }
 
     //Timer Data Update
     property int timeBeforePositionLost: 10
@@ -335,15 +343,24 @@ Item {
         //View up
         MenuItem {
             contentItem: Label {
-                text: headingUpView ? "North Up" : "Heading Up"
+                text: {
+                    switch (mapViewMode)
+                    {
+                        case 0: default: return "Heading Up"
+                        case 1: return "Course Up"
+                        case 2: return "North Up"
+                    }
+                }
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
                 width: parent.width
             }
+
             onTriggered: {
-                headingUpView = !headingUpView
+                mapViewMode = (mapViewMode + 1) % 3
             }
         }
+
 
         //Markers
         MenuItem{
@@ -927,7 +944,7 @@ Item {
 
         // Map View Mode
         Label {
-            id: mapViewMode
+            id: mapViewModeLabel
             color: labelColor
             width: labelLeftSideWidth
             horizontalAlignment: Text.AlignHCenter
@@ -935,11 +952,19 @@ Item {
             padding: labelPadding
             background: Rectangle {
                 color: labelBackgroundColor
-                radius :  labelBackgroundRadius
+                radius: labelBackgroundRadius
             }
             font.pixelSize: 14
-            text: headingUpView ? "Heading Up" : "North Up"
+
+            text: {
+                switch (mapViewMode) {
+                case 1: return "Heading Up"
+                case 2: return "Course Up"
+                default: return "North Up"
+                }
+            }
         }
+
 
         // Cursor position
         Label {

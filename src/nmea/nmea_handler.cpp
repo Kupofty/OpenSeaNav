@@ -248,7 +248,7 @@ void NMEA_Handler::handleVTG(const QList<QByteArray> &fields)
 
 void NMEA_Handler::handleHDT(const QList<QByteArray> &fields)
 {
-    if(!isNmeaMinimumSize(fields, 2))
+    if(!isNmeaMinimumSize(fields, 3))
         return;
 
     double heading      = fields[1].toDouble();
