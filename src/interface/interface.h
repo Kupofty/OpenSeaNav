@@ -27,6 +27,7 @@
 #include "menu_bar/about/menubar_about.h"
 #include "menu_bar/faq/menubar_faq.h"
 #include "menu_bar/simu/menubar_simdata.h"
+#include "menu_bar/data_monitor/menubar_datamonitor.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui
@@ -56,6 +57,7 @@ class Interface : public QMainWindow
         QList<QCheckBox*> checkboxOutputSerial;
         QList<QCheckBox*> checkboxOutputUDP;
         QQuickItem *qmlMapObject;
+        MenuBarDataMonitor *data_monitor;
 
     private:
         void toggleFullscreen();
@@ -74,10 +76,8 @@ class Interface : public QMainWindow
         void updateCheckBoxSerialOutput(bool check);
         void updateCheckBoxUdpOutput(bool check);
         void initializeLists();
-        void updatePlainTextsSizeLimit(unsigned int size);
 
     private slots:
-        void scrollDownPlainText(int index);
         void updateUdpSenderDetails();
 
     private slots:
@@ -133,21 +133,17 @@ class Interface : public QMainWindow
         void on_pushButton_uncheck_all_serial_output_clicked();
         void on_pushButton_connect_udp_input_clicked();
         void on_pushButton_disconnect_udp_input_clicked();
-        void on_pushButton_clear_data_monitor_clicked();
         void on_checkBox_serial_manual_input_stateChanged(int arg1);
-        void on_spinBox_data_monitor_size_limit_editingFinished();
         void on_checkBox_serial_manual_output_stateChanged(int arg1);
 
         void on_actionExit_triggered();
         void on_actionAbout_triggered();
         void on_actionManual_Data_Input_triggered();
         void on_actionFAQ_triggered();
-
         void on_actionFullscreen_triggered();
+        void on_actionData_Monitor_triggered();
 
     public slots:
-        void displayNmeaSentence(const QString &type, const QString &line);
-        void addToDataMonitor(const QString &nmeaText);
         void updateDataGSV(int totalSatellites, double freq);
         void updateDataGGA(QString time, double latitude, double longitude, int fixQuality, int numSatellites, double hdop, double altitude, double freqHz);
         void updateDataGLL(QString utc, double latitude, double longitude,  double freqHz);

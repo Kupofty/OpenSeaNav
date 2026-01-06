@@ -6,6 +6,7 @@ MenuBarAbout::MenuBarAbout(QWidget *parent)
     , ui(new Ui::MenuBarAbout)
 {
     ui->setupUi(this);
+    setWindowTitle("About Software");
 }
 
 MenuBarAbout::~MenuBarAbout()

@@ -21,7 +21,8 @@ SOURCES += \
     src/nmea/utils.cpp \
     src/menu_bar/about/menubar_about.cpp \
     src/menu_bar/simu/menubar_simdata.cpp \
-    src/menu_bar/faq/menubar_faq.cpp
+    src/menu_bar/faq/menubar_faq.cpp \
+    src/menu_bar/data_monitor/menubar_datamonitor.cpp
 
 HEADERS += \
     src/interface/interface.h \
@@ -35,13 +36,15 @@ HEADERS += \
     src/nmea/utils.h \
     src/menu_bar/about/menubar_about.h \
     src/menu_bar/simu/menubar_simdata.h \
-    src/menu_bar/faq/menubar_faq.h
+    src/menu_bar/faq/menubar_faq.h \
+    src/menu_bar/data_monitor/menubar_datamonitor.h
 
 FORMS += \
     src/interface/interface.ui \
     src/menu_bar/about/menubar_about.ui \
     src/menu_bar/simu/menubar_simdata.ui \
-    src/menu_bar/faq/menubar_faq.ui
+    src/menu_bar/faq/menubar_faq.ui \
+    src/menu_bar/data_monitor/menubar_datamonitor.ui
 
 
 RESOURCES += \

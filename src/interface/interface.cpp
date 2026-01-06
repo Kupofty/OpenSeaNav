@@ -10,7 +10,8 @@ Interface::Interface(QWidget *parent) : QMainWindow(parent),
     nmea_handler(new NMEA_Handler),
     udp_reader(new UdpReader),
     udp_writer(new UdpWriter),
-    text_file_writer(new TextFileWritter)
+    text_file_writer(new TextFileWritter),
+    data_monitor(new MenuBarDataMonitor(this))
 {
     //Setup UI
     ui->setupUi(this);
@@ -28,9 +29,6 @@ Interface::Interface(QWidget *parent) : QMainWindow(parent),
     //Serial COM ports
     listAvailableSerialPorts(ui->comboBox_serial_input_port_list);
     listAvailableSerialPorts(ui->comboBox_serial_output_port_list);
-
-    //Plain Texts Size Limit
-    updatePlainTextsSizeLimit(10000);
 
     //Qt connects
     connectSignalSlot();
@@ -61,8 +59,7 @@ void Interface::connectSignalSlot()
     connect(nmea_handler, &NMEA_Handler::newNMEASentence, text_file_writer, &TextFileWritter::writeRawSentences);
 
     //General Display Settings
-    connect(ui->tabWidget, &QTabWidget::currentChanged, this, &Interface::scrollDownPlainText);
-    connect(nmea_handler, &NMEA_Handler::newNMEASentence, this, &Interface::displayNmeaSentence);
+    connect(nmea_handler, &NMEA_Handler::newNMEASentence, data_monitor, &MenuBarDataMonitor::displayNmeaSentence);
     connect(udp_reader, &UdpReader::newSenderDetails, this, &Interface::updateUdpSenderDetails);
 
     //Display decoded NMEA data
@@ -101,38 +98,55 @@ void Interface::connectSignalSlot()
 ////////////////
 /// Menu Bar ///
 ////////////////
+
+//Menu
 void Interface::on_actionExit_triggered()
 {
     close();
 }
 
+
+//View
+void Interface::on_actionFullscreen_triggered()
+{
+    toggleFullscreen();
+}
+
+
+//Tools
+void Interface::on_actionManual_Data_Input_triggered()
+{
+    MenuBarSimData *dlg = new MenuBarSimData(this);
+    connect(dlg, &MenuBarSimData::dataReady, nmea_handler, &NMEA_Handler::handleRawSentences);
+    dlg->show();
+}
+
+void Interface::on_actionData_Monitor_triggered()
+{
+    if (data_monitor->isVisible())
+    {
+        data_monitor->hide();
+    }
+    else
+    {
+        data_monitor->show();
+        data_monitor->scrollDownPlainText();
+        //data_monitor->raise();
+    }
+}
+
+
+//Help
 void Interface::on_actionAbout_triggered()
 {
     MenuBarAbout dlg(this);
-    dlg.setWindowTitle("About Software");
     dlg.exec();
-
 }
 
 void Interface::on_actionFAQ_triggered()
 {
     MenuBarFAQ dlg(this);
-    dlg.setWindowTitle("FAQ");
     dlg.exec();
-}
-
-void Interface::on_actionManual_Data_Input_triggered()
-{
-    MenuBarSimData *dlg = new MenuBarSimData(this);
-    dlg->setAttribute(Qt::WA_DeleteOnClose);
-    dlg->setWindowTitle("Manual Data Input");
-    connect(dlg, &MenuBarSimData::dataReady, nmea_handler, &NMEA_Handler::handleRawSentences);
-    dlg->show();
-}
-
-void Interface::on_actionFullscreen_triggered()
-{
-    toggleFullscreen();
 }
 
 
@@ -182,12 +196,6 @@ void Interface::initializeLists()
 void Interface::hideGUI()
 {
     ui->horizontalFrame_udp_ip_address->hide(); //broadcast by default
-}
-
-void Interface::updatePlainTextsSizeLimit(unsigned int sentenceLimit)
-{
-    //main data monitor
-    ui->textEdit_data_monitor->document()->setMaximumBlockCount(sentenceLimit);
 }
 
 void Interface::toggleFullscreen()
@@ -333,69 +341,6 @@ void Interface::updateGuiAfterUdpConnection(bool connectSuccess)
 void Interface::updateUdpSenderDetails()
 {
     ui->plainTextEdit_udp_sender_details->setPlainText(udp_reader->getSenderDetails());
-}
-
-
-
-///////////////////////////
-/// Raw Nmea Sentences  ///
-///////////////////////////
-
-//Display On Screens
-void Interface::displayNmeaSentence(const QString &type, const QString &nmeaText)
-{
-    Q_UNUSED(type);
-
-    //Do not display if freeze button is pressed
-    bool isDataMonitorFreezed = ui->pushButton_freeze_data_monitor->isChecked();
-    if(isDataMonitorFreezed)
-        return;
-
-    //Main Data Monitor
-    addToDataMonitor(nmeaText);
-}
-
-void Interface::addToDataMonitor(const QString &nmeaText)
-{
-    // Look for nmea ID in sentence
-    QString nmeaType = getNmeaType(nmeaText);
-
-    // Apply filter
-    QString filter = ui->lineEdit_data_monitor_filter->text().trimmed().toUpper();
-    if (!filter.isEmpty() && !nmeaType.contains(filter))
-        return;
-
-    // Build colored HTML line according to checksum validity
-    bool valid = isNmeaChecksumValid(nmeaText);
-    QString color = valid ? "green" : "red";
-    QString htmlLine = QString("<span style=\"color:%1;\">%2</span>")
-                               .arg(color, getTimeStamp() + nmeaText.toHtmlEscaped());
-
-    // Append to QTextEdit
-    ui->textEdit_data_monitor->append(htmlLine);
-}
-
-
-//Clear data monitor
-void Interface::on_pushButton_clear_data_monitor_clicked()
-{
-    ui->textEdit_data_monitor->clear();
-}
-
-// Scroll down screens
-void Interface::scrollDownPlainText(int index)
-{
-    if(index == ui->tabWidget->indexOf(ui->tab_data_monitor))
-    {
-        QTextEdit* dataMonitor = ui->textEdit_data_monitor;
-        dataMonitor->verticalScrollBar()->setValue(dataMonitor->verticalScrollBar()->maximum());
-    }
-}
-
-void Interface::on_spinBox_data_monitor_size_limit_editingFinished()
-{
-    unsigned int new_limit = ui->spinBox_data_monitor_size_limit->value();
-    updatePlainTextsSizeLimit(new_limit);
 }
 
 
@@ -1094,6 +1039,7 @@ QString Interface::getRecordingFilePath()
 
     return fullPath;
 }
+
 
 
 
