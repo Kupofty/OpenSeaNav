@@ -46,18 +46,18 @@ class Interface : public QMainWindow
 
     private:
         Ui::Interface *ui;
-        SerialReader *serial_reader;
-        SerialWriter *serial_writer;
-        NMEA_Handler *nmea_handler;
-        UdpReader *udp_reader;
-        UdpWriter *udp_writer;
-        TextFileWritter *text_file_writer;
-        QTimer *fileRecordingSizeTimer;
+        SerialReader serial_reader;
+        SerialWriter serial_writer;
+        NMEA_Handler nmea_handler;
+        UdpReader udp_reader;
+        UdpWriter udp_writer;
+        TextFileWritter text_file_writer;
+        QTimer fileRecordingSizeTimer;
         QMap<QString, QPlainTextEdit*> nmeaSentenceMap;
         QList<QCheckBox*> checkboxOutputSerial;
         QList<QCheckBox*> checkboxOutputUDP;
         QQuickItem *qmlMapObject;
-        MenuBarDataMonitor *data_monitor;
+        MenuBarDataMonitor data_monitor;
 
     private:
         void toggleFullscreen();

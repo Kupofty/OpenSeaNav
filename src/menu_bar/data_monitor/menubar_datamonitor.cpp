@@ -17,7 +17,8 @@ MenuBarDataMonitor::MenuBarDataMonitor(QWidget *parent)
     // Enable minimize, maximize, close buttons
     Qt::WindowFlags flags = Qt::Dialog
                             | Qt::WindowMaximizeButtonHint
-                            | Qt::WindowCloseButtonHint;
+                            | Qt::WindowCloseButtonHint
+                            | Qt::WindowStaysOnTopHint;
     setWindowFlags(flags);
 }
 

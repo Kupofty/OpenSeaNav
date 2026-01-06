@@ -3,15 +3,7 @@
 ///////////////////
 /// Class Setup ///
 ///////////////////
-Interface::Interface(QWidget *parent) : QMainWindow(parent),
-    ui(new Ui::Interface),
-    serial_reader(new SerialReader),
-    serial_writer(new SerialWriter),
-    nmea_handler(new NMEA_Handler),
-    udp_reader(new UdpReader),
-    udp_writer(new UdpWriter),
-    text_file_writer(new TextFileWritter),
-    data_monitor(new MenuBarDataMonitor(this))
+Interface::Interface(QWidget *parent) : QMainWindow(parent), ui(new Ui::Interface)
 {
     //Setup UI
     ui->setupUi(this);
@@ -39,48 +31,42 @@ Interface::Interface(QWidget *parent) : QMainWindow(parent),
 
 Interface::~Interface()
 {
-    delete fileRecordingSizeTimer;
-    delete serial_reader;
-    delete nmea_handler;
-    delete udp_writer;
-    delete text_file_writer;
     delete ui;
 }
 
 void Interface::connectSignalSlot()
 {
     //Inputs
-    connect(serial_reader, &SerialReader::newLineReceived, nmea_handler, &NMEA_Handler::handleRawSentences);
-    connect(udp_reader, &UdpReader::newLineReceived, nmea_handler, &NMEA_Handler::handleRawSentences);
+    connect(&serial_reader, &SerialReader::newLineReceived, &nmea_handler, &NMEA_Handler::handleRawSentences);
+    connect(&udp_reader, &UdpReader::newLineReceived, &nmea_handler, &NMEA_Handler::handleRawSentences);
 
     //Outputs
-    connect(nmea_handler, &NMEA_Handler::newNMEASentence, udp_writer, &UdpWriter::publishNMEA);
-    connect(nmea_handler, &NMEA_Handler::newNMEASentence, serial_writer, &SerialWriter::publishNMEA);
-    connect(nmea_handler, &NMEA_Handler::newNMEASentence, text_file_writer, &TextFileWritter::writeRawSentences);
+    connect(&nmea_handler, &NMEA_Handler::newNMEASentence, &udp_writer, &UdpWriter::publishNMEA);
+    connect(&nmea_handler, &NMEA_Handler::newNMEASentence, &serial_writer, &SerialWriter::publishNMEA);
+    connect(&nmea_handler, &NMEA_Handler::newNMEASentence, &text_file_writer, &TextFileWritter::writeRawSentences);
 
     //General Display Settings
-    connect(nmea_handler, &NMEA_Handler::newNMEASentence, data_monitor, &MenuBarDataMonitor::displayNmeaSentence);
-    connect(udp_reader, &UdpReader::newSenderDetails, this, &Interface::updateUdpSenderDetails);
+    connect(&nmea_handler, &NMEA_Handler::newNMEASentence, &data_monitor, &MenuBarDataMonitor::displayNmeaSentence);
+    connect(&udp_reader, &UdpReader::newSenderDetails, this, &Interface::updateUdpSenderDetails);
 
     //Display decoded NMEA data
-    connect(nmea_handler, &NMEA_Handler::newDecodedGGA, this, &Interface::updateDataGGA);
-    connect(nmea_handler, &NMEA_Handler::newDecodedGLL, this, &Interface::updateDataGLL);
-    connect(nmea_handler, &NMEA_Handler::newDecodedGSV, this, &Interface::updateDataGSV);
-    connect(nmea_handler, &NMEA_Handler::newDecodedVTG, this, &Interface::updateDataVTG);
-    connect(nmea_handler, &NMEA_Handler::newDecodedGSA, this, &Interface::updateDataGSA);
-    connect(nmea_handler, &NMEA_Handler::newDecodedRMC, this, &Interface::updateDataRMC);
-    connect(nmea_handler, &NMEA_Handler::newDecodedHDT, this, &Interface::updateDataHDT);
-    connect(nmea_handler, &NMEA_Handler::newDecodedDBT, this, &Interface::updateDataDBT);
-    connect(nmea_handler, &NMEA_Handler::newDecodedVHW, this, &Interface::updateDataVHW);
-    connect(nmea_handler, &NMEA_Handler::newDecodedZDA, this, &Interface::updateDataZDA);
-    connect(nmea_handler, &NMEA_Handler::newDecodedDPT, this, &Interface::updateDataDPT);
-    connect(nmea_handler, &NMEA_Handler::newDecodedMWD, this, &Interface::updateDataMWD);
-    connect(nmea_handler, &NMEA_Handler::newDecodedMTW, this, &Interface::updateDataMTW);
-    connect(nmea_handler, &NMEA_Handler::newDecodedMWV, this, &Interface::updateDataMWV);
+    connect(&nmea_handler, &NMEA_Handler::newDecodedGGA, this, &Interface::updateDataGGA);
+    connect(&nmea_handler, &NMEA_Handler::newDecodedGLL, this, &Interface::updateDataGLL);
+    connect(&nmea_handler, &NMEA_Handler::newDecodedGSV, this, &Interface::updateDataGSV);
+    connect(&nmea_handler, &NMEA_Handler::newDecodedVTG, this, &Interface::updateDataVTG);
+    connect(&nmea_handler, &NMEA_Handler::newDecodedGSA, this, &Interface::updateDataGSA);
+    connect(&nmea_handler, &NMEA_Handler::newDecodedRMC, this, &Interface::updateDataRMC);
+    connect(&nmea_handler, &NMEA_Handler::newDecodedHDT, this, &Interface::updateDataHDT);
+    connect(&nmea_handler, &NMEA_Handler::newDecodedDBT, this, &Interface::updateDataDBT);
+    connect(&nmea_handler, &NMEA_Handler::newDecodedVHW, this, &Interface::updateDataVHW);
+    connect(&nmea_handler, &NMEA_Handler::newDecodedZDA, this, &Interface::updateDataZDA);
+    connect(&nmea_handler, &NMEA_Handler::newDecodedDPT, this, &Interface::updateDataDPT);
+    connect(&nmea_handler, &NMEA_Handler::newDecodedMWD, this, &Interface::updateDataMWD);
+    connect(&nmea_handler, &NMEA_Handler::newDecodedMTW, this, &Interface::updateDataMTW);
+    connect(&nmea_handler, &NMEA_Handler::newDecodedMWV, this, &Interface::updateDataMWV);
 
     //Timers
-    fileRecordingSizeTimer = new QTimer(this);
-    connect(fileRecordingSizeTimer, &QTimer::timeout, this, &Interface::updateRecordingFileSize);
+    connect(&fileRecordingSizeTimer, &QTimer::timeout, this, &Interface::updateRecordingFileSize);
 
     //QML Map
     connect(this, SIGNAL(updateBoatPositionMap(QVariant,QVariant)), qmlMapObject, SLOT(updateBoatPosition(QVariant,QVariant)));
@@ -117,21 +103,20 @@ void Interface::on_actionFullscreen_triggered()
 void Interface::on_actionManual_Data_Input_triggered()
 {
     MenuBarSimData *dlg = new MenuBarSimData(this);
-    connect(dlg, &MenuBarSimData::dataReady, nmea_handler, &NMEA_Handler::handleRawSentences);
+    connect(dlg, &MenuBarSimData::dataReady, &nmea_handler, &NMEA_Handler::handleRawSentences);
     dlg->show();
 }
 
 void Interface::on_actionData_Monitor_triggered()
 {
-    if (data_monitor->isVisible())
+    if (data_monitor.isVisible())
     {
-        data_monitor->hide();
+        data_monitor.hide();
     }
     else
     {
-        data_monitor->show();
-        data_monitor->scrollDownPlainText();
-        //data_monitor->raise();
+        data_monitor.show();
+        data_monitor.scrollDownPlainText();
     }
 }
 
@@ -215,10 +200,10 @@ void Interface::toggleFullscreen()
 // Connection
 void Interface::closeInputSerial()
 {
-    if(serial_reader->isSerialOpen())
+    if(serial_reader.isSerialOpen())
     {
-        serial_reader->closeSerialDevice();
-        ui->plainTextEdit_connection_status->setPlainText(serial_reader->getPortName()+" closed");
+        serial_reader.closeSerialDevice();
+        ui->plainTextEdit_connection_status->setPlainText(serial_reader.getPortName()+" closed");
     }
     else
         ui->plainTextEdit_connection_status->setPlainText("Connection not opened");
@@ -233,19 +218,19 @@ void Interface::on_pushButton_connect_serial_input_clicked()
     else
         serial_input = ui->comboBox_serial_input_port_list->currentText();
 
-    serial_reader->setPortName(serial_input);
-    serial_reader->setBaudRate((ui->comboBox_serial_input_port_baudrate->currentText()).toInt());
+    serial_reader.setPortName(serial_input);
+    serial_reader.setBaudRate((ui->comboBox_serial_input_port_baudrate->currentText()).toInt());
 
     //Try to connect
     QString result;
-    if(serial_reader->openSerialDevice())
+    if(serial_reader.openSerialDevice())
     {
-        result =  "Connected to " + serial_reader->getPortName();
+        result =  "Connected to " + serial_reader.getPortName();
         updateGuiAfterSerialConnection(true);
     }
     else
     {
-        result =  "Failed to open " + serial_reader->getPortName() + " : " + serial_reader->getErrorString();
+        result =  "Failed to open " + serial_reader.getPortName() + " : " + serial_reader.getErrorString();
     }
 
     //Display connection status
@@ -309,11 +294,11 @@ void Interface::on_pushButton_connect_udp_input_clicked()
         return;
     }
 
-    udp_reader->updatePort(udp_port_input);
-    QString result = udp_reader->connect();
+    udp_reader.updatePort(udp_port_input);
+    QString result = udp_reader.connect();
     ui->plainTextEdit_connection_status_udp->setPlainText(result);
 
-    if(udp_reader->isBounded())
+    if(udp_reader.isBounded())
         updateGuiAfterUdpConnection(true);
 }
 
@@ -325,7 +310,7 @@ void Interface::on_pushButton_disconnect_udp_input_clicked()
 
 void Interface::closeInputUdp()
 {
-    QString result = udp_reader->disconnect();
+    QString result = udp_reader.disconnect();
     ui->plainTextEdit_connection_status_udp->setPlainText(result);
 }
 
@@ -340,7 +325,7 @@ void Interface::updateGuiAfterUdpConnection(bool connectSuccess)
 
 void Interface::updateUdpSenderDetails()
 {
-    ui->plainTextEdit_udp_sender_details->setPlainText(udp_reader->getSenderDetails());
+    ui->plainTextEdit_udp_sender_details->setPlainText(udp_reader.getSenderDetails());
 }
 
 
@@ -602,10 +587,10 @@ void Interface::clearDecodedDataScreens()
 //Settings
 void Interface::closeOutputSerial()
 {
-    if(serial_writer->isSerialOpen())
+    if(serial_writer.isSerialOpen())
     {
-        serial_writer->closeSerialDevice();
-        ui->plainTextEdit_connection_status_output_serial->setPlainText(serial_writer->getPortName()+" closed");
+        serial_writer.closeSerialDevice();
+        ui->plainTextEdit_connection_status_output_serial->setPlainText(serial_writer.getPortName()+" closed");
     }
     else
         ui->plainTextEdit_connection_status_output_serial->setPlainText("Connection not opened");
@@ -616,7 +601,7 @@ void Interface::on_pushButton_refresh_available_port_serial_output_clicked()
     listAvailableSerialPorts(ui->comboBox_serial_output_port_list);
 
     //Remove input serial as output choice
-    if(serial_reader->isSerialOpen())
+    if(serial_reader.isSerialOpen())
     {
         int indexToRemove = ui->comboBox_serial_output_port_list->findText(ui->comboBox_serial_input_port_list->currentText());
         if (indexToRemove != -1)
@@ -633,15 +618,15 @@ void Interface::on_pushButton_connect_serial_output_clicked()
         serial_output = ui->comboBox_serial_output_port_list->currentText();
 
     //Update serial settings
-    serial_writer->setPortName(serial_output);
-    serial_writer->setBaudRate((ui->comboBox_serial_output_port_baudrate->currentText()).toInt());
+    serial_writer.setPortName(serial_output);
+    serial_writer.setBaudRate((ui->comboBox_serial_output_port_baudrate->currentText()).toInt());
 
     //Try to connect
     QString result;
-    if(serial_writer->openSerialDevice())
-        result =  "Connected to " + serial_writer->getPortName();
+    if(serial_writer.openSerialDevice())
+        result =  "Connected to " + serial_writer.getPortName();
     else
-        result =  "Failed to open " + serial_writer->getPortName() + " : " + serial_writer->getErrorString();
+        result =  "Failed to open " + serial_writer.getPortName() + " : " + serial_writer.getErrorString();
 
     //Display connection status
     ui->plainTextEdit_connection_status_output_serial->setPlainText(result);
@@ -665,13 +650,13 @@ void Interface::on_pushButton_activate_serial_output_toggled(bool checked)
 {
     if (!checked)
     {
-        serial_writer->updateSocketOutputActivated(false);
+        serial_writer.updateSocketOutputActivated(false);
         return;
     }
 
-    if (serial_writer->isSerialOpen())
+    if (serial_writer.isSerialOpen())
     {
-        serial_writer->updateSocketOutputActivated(true);
+        serial_writer.updateSocketOutputActivated(true);
     }
     else
     {
@@ -684,77 +669,77 @@ void Interface::on_pushButton_activate_serial_output_toggled(bool checked)
 
 void Interface::on_checkBox_serial_output_gga_toggled(bool checked)
 {
-    serial_writer->updateOutputNMEA("GGA", checked);
+    serial_writer.updateOutputNMEA("GGA", checked);
 }
 
 void Interface::on_checkBox_serial_output_gsv_toggled(bool checked)
 {
-    serial_writer->updateOutputNMEA("GSV", checked);
+    serial_writer.updateOutputNMEA("GSV", checked);
 }
 
 void Interface::on_checkBox_serial_output_rmc_toggled(bool checked)
 {
-    serial_writer->updateOutputNMEA("RMC", checked);
+    serial_writer.updateOutputNMEA("RMC", checked);
 }
 
 void Interface::on_checkBox_serial_output_gsa_toggled(bool checked)
 {
-    serial_writer->updateOutputNMEA("GSA", checked);
+    serial_writer.updateOutputNMEA("GSA", checked);
 }
 
 void Interface::on_checkBox_serial_output_gll_toggled(bool checked)
 {
-    serial_writer->updateOutputNMEA("GLL", checked);
+    serial_writer.updateOutputNMEA("GLL", checked);
 }
 
 void Interface::on_checkBox_serial_output_vtg_toggled(bool checked)
 {
-    serial_writer->updateOutputNMEA("VTG", checked);
+    serial_writer.updateOutputNMEA("VTG", checked);
 }
 
 void Interface::on_checkBox_serial_output_hdt_toggled(bool checked)
 {
-    serial_writer->updateOutputNMEA("HDT", checked);
+    serial_writer.updateOutputNMEA("HDT", checked);
 }
 
 void Interface::on_checkBox_serial_output_dbt_toggled(bool checked)
 {
-    serial_writer->updateOutputNMEA("DBT", checked);
+    serial_writer.updateOutputNMEA("DBT", checked);
 }
 
 void Interface::on_checkBox_serial_output_vhw_toggled(bool checked)
 {
-    serial_writer->updateOutputNMEA("VHW", checked);
+    serial_writer.updateOutputNMEA("VHW", checked);
 }
 
 void Interface::on_checkBox_serial_output_zda_toggled(bool checked)
 {
-    serial_writer->updateOutputNMEA("ZDA", checked);
+    serial_writer.updateOutputNMEA("ZDA", checked);
 }
 
 void Interface::on_checkBox_serial_output_dpt_toggled(bool checked)
 {
-    serial_writer->updateOutputNMEA("DPT", checked);
+    serial_writer.updateOutputNMEA("DPT", checked);
 }
 
 void Interface::on_checkBox_serial_output_mtw_toggled(bool checked)
 {
-    serial_writer->updateOutputNMEA("MTW", checked);
+    serial_writer.updateOutputNMEA("MTW", checked);
 }
 
 void Interface::on_checkBox_serial_output_mwv_toggled(bool checked)
 {
-    serial_writer->updateOutputNMEA("MWV", checked);
+    serial_writer.updateOutputNMEA("MWV", checked);
 }
 
 void Interface::on_checkBox_serial_output_mwd_toggled(bool checked)
 {
-    serial_writer->updateOutputNMEA("MWD", checked);
+    serial_writer.updateOutputNMEA("MWD", checked);
 }
 
 void Interface::on_checkBox_serial_output_others_toggled(bool checked)
 {
-    serial_writer->updateOutputNMEA("OTHER", checked);
+    serial_writer.updateOutputNMEA("OTHER", checked);
 }
 
 void Interface::on_pushButton_check_all_serial_output_clicked()
@@ -784,14 +769,14 @@ void Interface::updateCheckBoxSerialOutput(bool check)
 void Interface::on_spinBox_update_udp_port_output_valueChanged(int udp_port)
 {
     if(checkUdpOutputPortIsFree())
-        udp_writer->updateUdpPort(udp_port);
+        udp_writer.updateUdpPort(udp_port);
 }
 
 void Interface::on_comboBox_udp_host_address_currentTextChanged(const QString &udpMethod)
 {
     if(udpMethod == "Broadcast")
     {
-        udp_writer->updateUdpMethod(QHostAddress::Broadcast);
+        udp_writer.updateUdpMethod(QHostAddress::Broadcast);
         ui->horizontalFrame_udp_ip_address->hide();
     }
     else if(udpMethod == "Unicast" || udpMethod == "Multicast")
@@ -803,7 +788,7 @@ void Interface::on_comboBox_udp_host_address_currentTextChanged(const QString &u
 
 void Interface::on_lineEdit_udp_ip_address_editingFinished()
 {
-    udp_writer->updateUdpMethod(QHostAddress(ui->lineEdit_udp_ip_address->text()));
+    udp_writer.updateUdpMethod(QHostAddress(ui->lineEdit_udp_ip_address->text()));
 }
 
 bool Interface::checkUdpOutputPortIsFree()
@@ -812,7 +797,7 @@ bool Interface::checkUdpOutputPortIsFree()
     int udp_output_port = ui->spinBox_update_udp_port_output->value();
 
     //Check if port already used by UDP input
-    if (udp_reader->isBounded() && (udp_output_port == udp_input_port) )
+    if (udp_reader.isBounded() && (udp_output_port == udp_input_port) )
     {
         QMessageBox::warning(this, "UDP Port Error", "Output UDP port conflicts with input UDP port.\nPlease choose a different port.");
         ui->pushButton_activate_udp_output->setChecked(false);
@@ -827,84 +812,84 @@ bool Interface::checkUdpOutputPortIsFree()
 void Interface::on_pushButton_activate_udp_output_toggled(bool checked)
 {
     if(checked && checkUdpOutputPortIsFree())
-        udp_writer->updateSocketOutputActivated(true);
+        udp_writer.updateSocketOutputActivated(true);
     else if(!checked)
-        udp_writer->updateSocketOutputActivated(false);
+        udp_writer.updateSocketOutputActivated(false);
 }
 
 void Interface::on_checkBox_udp_output_gga_toggled(bool checked)
 {
-    udp_writer->updateOutputNMEA("GGA", checked);
+    udp_writer.updateOutputNMEA("GGA", checked);
 }
 
 void Interface::on_checkBox_udp_output_rmc_toggled(bool checked)
 {
-    udp_writer->updateOutputNMEA("RMC", checked);
+    udp_writer.updateOutputNMEA("RMC", checked);
 }
 
 void Interface::on_checkBox_udp_output_gsv_toggled(bool checked)
 {
-    udp_writer->updateOutputNMEA("GSV", checked);
+    udp_writer.updateOutputNMEA("GSV", checked);
 }
 
 void Interface::on_checkBox_udp_output_gll_toggled(bool checked)
 {
-    udp_writer->updateOutputNMEA("GLL", checked);
+    udp_writer.updateOutputNMEA("GLL", checked);
 }
 
 void Interface::on_checkBox_udp_output_gsa_toggled(bool checked)
 {
-    udp_writer->updateOutputNMEA("GSA", checked);
+    udp_writer.updateOutputNMEA("GSA", checked);
 }
 
 void Interface::on_checkBox_udp_output_vtg_toggled(bool checked)
 {
-    udp_writer->updateOutputNMEA("VTG", checked);
+    udp_writer.updateOutputNMEA("VTG", checked);
 }
 
 void Interface::on_checkBox_udp_output_hdt_toggled(bool checked)
 {
-    udp_writer->updateOutputNMEA("HDT", checked);
+    udp_writer.updateOutputNMEA("HDT", checked);
 }
 
 void Interface::on_checkBox_udp_output_dbt_toggled(bool checked)
 {
-    udp_writer->updateOutputNMEA("DBT", checked);
+    udp_writer.updateOutputNMEA("DBT", checked);
 }
 
 void Interface::on_checkBox_udp_output_vhw_toggled(bool checked)
 {
-    udp_writer->updateOutputNMEA("VHW", checked);
+    udp_writer.updateOutputNMEA("VHW", checked);
 }
 
 void Interface::on_checkBox_udp_output_zda_toggled(bool checked)
 {
-udp_writer->updateOutputNMEA("ZDA", checked);
+udp_writer.updateOutputNMEA("ZDA", checked);
 }
 
 void Interface::on_checkBox_udp_output_dpt_toggled(bool checked)
 {
-    udp_writer->updateOutputNMEA("DPT", checked);
+    udp_writer.updateOutputNMEA("DPT", checked);
 }
 
 void Interface::on_checkBox_udp_output_mtw_toggled(bool checked)
 {
-    udp_writer->updateOutputNMEA("MTW", checked);
+    udp_writer.updateOutputNMEA("MTW", checked);
 }
 
 void Interface::on_checkBox_udp_output_mwv_toggled(bool checked)
 {
-    udp_writer->updateOutputNMEA("MWV", checked);
+    udp_writer.updateOutputNMEA("MWV", checked);
 }
 
 void Interface::on_checkBox_udp_output_mwd_toggled(bool checked)
 {
-    udp_writer->updateOutputNMEA("MWD", checked);
+    udp_writer.updateOutputNMEA("MWD", checked);
 }
 
 void Interface::on_checkBox_udp_output_others_toggled(bool checked)
 {
-    udp_writer->updateOutputNMEA("OTHER", checked);
+    udp_writer.updateOutputNMEA("OTHER", checked);
 }
 
 void Interface::on_pushButton_check_all_udp_output_clicked()
@@ -960,7 +945,7 @@ void Interface::on_pushButton_save_txt_file_toggled(bool checked)
 {
     //Update add timestamp
     bool isTimestampChecked = ui->checkBox_output_txt_file_add_timestamp->isChecked();
-    text_file_writer->updateAddTimestamp(isTimestampChecked);
+    text_file_writer.updateAddTimestamp(isTimestampChecked);
 
     if(checked)
     {
@@ -996,7 +981,7 @@ void Interface::on_pushButton_save_txt_file_toggled(bool checked)
         }
 
         //Create file if possible
-        int result = text_file_writer->createFile(getRecordingFilePath());
+        int result = text_file_writer.createFile(getRecordingFilePath());
         if (!result)
         {
             ui->pushButton_save_txt_file->setChecked(false);
@@ -1004,14 +989,14 @@ void Interface::on_pushButton_save_txt_file_toggled(bool checked)
         }
 
         //Update file size
-        fileRecordingSizeTimer->start(1000);
+        fileRecordingSizeTimer.start(1000);
         ui->pushButton_save_txt_file->setText(" Stop Recording");
     }
     else
     {
-        fileRecordingSizeTimer->stop();
+        fileRecordingSizeTimer.stop();
         ui->label_file_txt_size->setText("Not recording");
-        text_file_writer->closeFile();
+        text_file_writer.closeFile();
         ui->pushButton_save_txt_file->setText(" Record Data To File");
     }
 }
