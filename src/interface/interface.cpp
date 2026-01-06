@@ -1013,24 +1013,52 @@ void Interface::on_pushButton_automatic_txt_file_name_clicked()
 
 void Interface::on_pushButton_save_txt_file_toggled(bool checked)
 {
+    //Update add timestamp
     bool isTimestampChecked = ui->checkBox_output_txt_file_add_timestamp->isChecked();
     text_file_writer->updateAddTimestamp(isTimestampChecked);
 
     if(checked)
     {
+        //Check for missing path/name
         QString dirPath = ui->plainTextEdit_txt_file_path->toPlainText().trimmed();
         QString fileName = ui->plainTextEdit_txt_file_name->toPlainText().trimmed();
-
-        if (dirPath.isEmpty() || fileName.isEmpty()) {
-            QMessageBox::warning(this, "Missing Information", "Please select an output folder and enter a file name before saving.");
+        if (dirPath.isEmpty() || fileName.isEmpty())
+        {
+            QMessageBox::warning(this, "Missing Information",
+                                       "Please select an output folder and enter a file name before saving.");
             ui->pushButton_save_txt_file->setChecked(false);
             return;
         }
 
-        int result = text_file_writer->createFile(getRecordingFilePath());
-        if(!result)
-            return;
+        // Ask before overwriting previous recording
+        QString fullPath = getRecordingFilePath();
+        QFileInfo fileInfo(fullPath);
+        if (fileInfo.exists())
+        {
+            auto reply = QMessageBox::question(this,
+                "Overwrite file?",
+                "A file with the same name already exists in the selected location.\n"
+                "Do you want to replace it?",
+                QMessageBox::Yes | QMessageBox::No,
+                QMessageBox::No
+                );
 
+            if (reply != QMessageBox::Yes)
+            {
+                ui->pushButton_save_txt_file->setChecked(false);
+                return;
+            }
+        }
+
+        //Create file if possible
+        int result = text_file_writer->createFile(getRecordingFilePath());
+        if (!result)
+        {
+            ui->pushButton_save_txt_file->setChecked(false);
+            return;
+        }
+
+        //Update file size
         fileRecordingSizeTimer->start(1000);
         ui->pushButton_save_txt_file->setText(" Stop Recording");
     }
