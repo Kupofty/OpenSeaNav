@@ -12,6 +12,7 @@
 #include <QDesktopServices>
 #include <QUrl>
 #include <QProcess>
+#include <QShortcut>
 
 #include "ui_interface.h"
 
@@ -57,6 +58,7 @@ class Interface : public QMainWindow
         QQuickItem *qmlMapObject;
 
     private:
+        void toggleFullscreen();
         void clearDecodedDataScreens();
         void closeInputUdp();
         void updateGuiAfterUdpConnection(bool connectSuccess);
@@ -140,6 +142,8 @@ class Interface : public QMainWindow
         void on_actionAbout_triggered();
         void on_actionManual_Data_Input_triggered();
         void on_actionFAQ_triggered();
+
+        void on_actionFullscreen_triggered();
 
     public slots:
         void displayNmeaSentence(const QString &type, const QString &line);

@@ -130,6 +130,11 @@ void Interface::on_actionManual_Data_Input_triggered()
     dlg->show();
 }
 
+void Interface::on_actionFullscreen_triggered()
+{
+    toggleFullscreen();
+}
+
 
 
 ///////////
@@ -183,6 +188,14 @@ void Interface::updatePlainTextsSizeLimit(unsigned int sentenceLimit)
 {
     //main data monitor
     ui->textEdit_data_monitor->document()->setMaximumBlockCount(sentenceLimit);
+}
+
+void Interface::toggleFullscreen()
+{
+    if (isFullScreen())
+        showMaximized();
+    else
+        showFullScreen();
 }
 
 
@@ -1053,6 +1066,8 @@ QString Interface::getRecordingFilePath()
 
     return fullPath;
 }
+
+
 
 
 
