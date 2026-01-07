@@ -1251,64 +1251,114 @@ Item {
 
 
 
-    //////////////////////////////////
-    /// View Actions / Bottom Left ///
-    //////////////////////////////////
-    Row{
+    ///////////////////////////////////////
+    /// View-Zoom Actions / Bottom Left ///
+    ///////////////////////////////////////
+    Column {
         anchors.left: parent.left
         anchors.bottom: parent.bottom
         anchors.leftMargin: labelLateralMargin
         anchors.bottomMargin: labelVerticalMargin
         spacing: labelVerticalMargin
-        visible: showUI
 
-        Column{
-            spacing: labelVerticalMargin/2
+        // Scale bar
+        Item {
+            id: scaleBar
+            width: 140
+            height: 28
 
-            Row {
-                spacing: labelLateralMargin
+            property int scaleBarPx: 130
+            property real metersPerPixel: {
+                var latRad = map.center.latitude * Math.PI / 180
+                return 156543.03392 * Math.cos(latRad) / Math.pow(2, map.zoomLevel)
+            }
+            property real scaleMeters: metersPerPixel * scaleBarPx
 
-                //Zoom-
-                Button {
-                    text: "Zoom -"
-                    width: 60
-                    height: 30
-                    onClicked: goToZoomLevelMap(mapZoomLevel-1)
-                }
-
-                //Zoom+
-                Button {
-                    text: "Zoom +"
-                    width: 60
-                    height: 30
-                    onClicked: goToZoomLevelMap(mapZoomLevel+1)
-                }
+            // Left tick
+            Rectangle {
+                width: 2
+                height: 10
+                color: "black"
+                anchors.left: parent.left
+                anchors.bottom: parent.bottom
+            }
+            // Main line
+            Rectangle {
+                width: scaleBar.scaleBarPx
+                height: 2
+                color: "black"
+                anchors.left: parent.left
+                anchors.bottom: parent.bottom
+            }
+            // Right tick
+            Rectangle {
+                width: 2
+                height: 10
+                color: "black"
+                anchors.left: parent.left
+                anchors.leftMargin: scaleBar.scaleBarPx - 2
+                anchors.bottom: parent.bottom
             }
 
-            //Zoom slider
-            Slider {
-                id: zoomSlider
-                from: map.minimumZoomLevel
-                to: map.maximumZoomLevel
-                stepSize: 0.1
-                value: mapZoomLevel
-                width: 130
-
-                onValueChanged: goToZoomLevelMap(value)
+            // Label
+            Text {
+                anchors.bottom: parent.top
+                anchors.bottomMargin: -25
+                anchors.horizontalCenter: parent.horizontalCenter
+                font.pixelSize: 12
+                color: "black"
+                text: scaleBar.scaleMeters < 1000
+                      ? Math.round(scaleBar.scaleMeters) + " m"
+                      : (scaleBar.scaleMeters / 1000).toFixed(2) + " km"
             }
         }
 
-        //Follow Boat
-        Button {
-            width: 60
-            height: 60
-            anchors.verticalCenter: parent.verticalCenter
-            enabled: boatPositionReceived
-            text: followBoatText.replace(" ", "\n")
+        // Zoom & Follow
+        Row {
+            spacing: labelVerticalMargin
+            visible: showUI
+            Column {
+                spacing: labelVerticalMargin / 2
 
-            onClicked: followBoat = !followBoat
+                Row {
+                    spacing: labelLateralMargin
+
+                    Button {
+                        text: "Zoom -"
+                        width: 60
+                        height: 30
+                        onClicked: goToZoomLevelMap(mapZoomLevel - 1)
+                    }
+
+                    Button {
+                        text: "Zoom +"
+                        width: 60
+                        height: 30
+                        onClicked: goToZoomLevelMap(mapZoomLevel + 1)
+                    }
+                }
+
+                Slider {
+                    id: zoomSlider
+                    from: map.minimumZoomLevel
+                    to: map.maximumZoomLevel
+                    stepSize: 0.1
+                    value: mapZoomLevel
+                    width: 130
+                    onValueChanged: goToZoomLevelMap(value)
+                }
+            }
+
+            Button {
+                width: 60
+                height: 60
+                anchors.verticalCenter: parent.verticalCenter
+                enabled: boatPositionReceived
+                text: followBoatText.replace(" ", "\n")
+                onClicked: followBoat = !followBoat
+            }
         }
-    }
+ }
 
 
 
