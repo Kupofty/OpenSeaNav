@@ -111,6 +111,9 @@ Item {
     //Heading & COG lines
     property int boatLinesDistance: 155*boatSpeed // ~5min trip
 
+    //Projection
+    property double metersPerPixelMercatorProjection : 156543.03392
+
 
 
     //////////////////
@@ -172,6 +175,20 @@ Item {
                 destinationCoordinate(boatLatitude, boatLongitude, boatHeading, boatLinesDistance)
             ]
         }
+        MapQuickItem {
+            visible: (boatPositionReceived && boatHeadingReceived)
+            coordinate: destinationCoordinate(boatLatitude, boatLongitude, boatHeading, boatLinesDistance)
+            anchorPoint.x: 5
+            anchorPoint.y: 5
+            sourceItem: Rectangle {
+                width: 10
+                height: 10
+                radius: 5
+                color: "red"
+                border.color: "black"
+                border.width: 1
+            }
+        }
 
         //COG line
         MapPolyline {
@@ -183,6 +200,31 @@ Item {
                 QtPositioning.coordinate(boatLatitude, boatLongitude),
                 destinationCoordinate(boatLatitude, boatLongitude, boatCourse, boatLinesDistance)
             ]
+        }
+        MapQuickItem {
+            visible: (boatPositionReceived && boatCourseReceived)
+            coordinate: destinationCoordinate(boatLatitude, boatLongitude, boatCourse, boatLinesDistance)
+            anchorPoint.x: 3
+            anchorPoint.y: 3
+            sourceItem: Rectangle {
+                width: 6
+                height: 6
+                radius: 3
+                color: "blue"
+                border.color: "black"
+                border.width: 1
+            }
+        }
+
+        //Measure mode line
+        MapPolyline {
+            visible: mouseArea.measureMode && mouseArea.measurePoint !== null
+            line.width: 2
+            line.color: "red"
+            path: {
+                if (mouseArea.measurePoint === null) return []
+                return [mouseArea.measurePoint, mouseArea.cursorCoord]
+            }
         }
     }
 
@@ -236,37 +278,55 @@ Item {
     //////////////////
     /// Mouse Area ///
     //////////////////
-    MouseArea
-    {
+    MouseArea {
         id: mouseArea
         anchors.fill: map
         hoverEnabled: true
-        acceptedButtons:  Qt.LeftButton | Qt.RightButton | Qt.MiddleButton
+        acceptedButtons: Qt.LeftButton | Qt.RightButton | Qt.MiddleButton
+
+        property bool measureMode: false
+        property var measurePoint: null
 
         property var lastCoord
-        property var coordinate: map.toCoordinate(Qt.point(mouseX, mouseY))
+        property var cursorCoord: map.toCoordinate(Qt.point(mouseX, mouseY))
         property bool dragging: false
 
         property real lastX
         property bool rotating: false
         property double wheelDragSensitivity : 0.5
 
-        //Dragging map / view
+        // Click buttons
+        onClicked: function(mouse) {
+            //Right-click
+            if (mouse.button === Qt.RightButton && measureMode) {
+                measureMode = false
+                measurePoint = null
+            }
+            else if(mouse.button === Qt.RightButton && !measureMode)
+                contextMenu.popup()
+        }
+
+        //Mouse button pressed
         onPressed: function(mouse) {
-            // Left button → Pan
+            //Left press
             if (mouse.button === Qt.LeftButton) {
-                lastCoord = map.toCoordinate(Qt.point(mouse.x, mouse.y))
-                dragging = true
+                if (measureMode) { // Place 1st waypoint
+                    measurePoint = map.toCoordinate(Qt.point(mouse.x, mouse.y))
+                }
+                else { // Start panning
+                    lastCoord = map.toCoordinate(Qt.point(mouse.x, mouse.y))
+                    dragging = true
+                }
             }
 
             // Middle button → Free view drag
-            if (mouse.button === Qt.MiddleButton) {
+            else if (mouse.button === Qt.MiddleButton) {
                 rotating = true
                 lastX = mouse.x
-                return
             }
         }
 
+        //Mouse button released
         onReleased: function(mouse) {
             dragging = false
             rotating = false
@@ -274,7 +334,9 @@ Item {
 
         //Moving mouse
         onPositionChanged: function(mouse) {
-            // Free View
+            cursorCoord = map.toCoordinate(Qt.point(mouse.x, mouse.y))
+
+            // Free View - rotate map
             if (rotating) {
                 mapViewMode = 3
                 freeViewUp += (mouse.x - lastX) * wheelDragSensitivity
@@ -282,8 +344,8 @@ Item {
                 return
             }
 
-            // Map pan
-            if (dragging && mouse.buttons === Qt.LeftButton) {
+            //Map panning
+            if (!measureMode && dragging && mouse.buttons === Qt.LeftButton) {
                 var currentCoord = map.toCoordinate(Qt.point(mouse.x, mouse.y))
                 var dx = lastCoord.longitude - currentCoord.longitude
                 var dy = lastCoord.latitude - currentCoord.latitude
@@ -294,18 +356,49 @@ Item {
                 lastCoord = map.toCoordinate(Qt.point(mouse.x, mouse.y))
 
             // Cursor info
-            cursorLatitude = coordinate.latitude
-            cursorLongitude = coordinate.longitude
+            cursorLatitude = cursorCoord.latitude
+            cursorLongitude = cursorCoord.longitude
             cursorDistanceBoat = haversineDistance(boatLatitude, boatLongitude, cursorLatitude, cursorLongitude)
             cursorBearingBoat = calculateBearing(boatLatitude, boatLongitude, cursorLatitude, cursorLongitude)
+
         }
 
-        // Right-click menu
-        onClicked: function(mouse){
-             if (mouse.button === Qt.RightButton) {
-                 contextMenu.popup()
-             }
-         }
+        //Text next to cursor in measure mode
+        Text {
+            x: mouseArea.mouseX + 10
+            y: mouseArea.mouseY + 10
+            font.pixelSize: 14
+            color: "black"
+            z: 999
+
+            visible: mouseArea.measureMode && mouseArea.measurePoint !== null
+
+            text: {
+                var start = mouseArea.measurePoint
+                var end = mouseArea.cursorCoord
+
+                if (start === null)
+                    return ""
+
+                // Distance in meters
+                var distMeters = haversineDistance(
+                   start.latitude, start.longitude,
+                    end.latitude,end.longitude
+                )
+
+                // Distance in meters/kilometers
+                var distStr = distMeters < 1000 ? Math.round(distMeters) + "m" : (distMeters/1000).toFixed(1) + "km"
+
+                // Distance in nautical miles
+                var distNM = metersToNauticalMiles(distMeters).toFixed(1) + "NM"
+
+                // Bearing / Heading
+                var bearing = calculateBearing(start.latitude, start.longitude, end.latitude, end.longitude)
+                var bearingStr = bearing.toFixed(0) + "°"
+
+                return distStr + " / " + distNM + "\n" + bearingStr
+            }
+        }
     }
 
 
@@ -414,6 +507,24 @@ Item {
 
             onTriggered: {
                 showUI = !showUI
+            }
+        }
+
+        //Measure mode
+        MenuItem {
+            id: measureModeItem
+            contentItem: Label {
+                text: mouseArea.measureMode ? "Stop Measuring" : "Measure Distance"
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
+                width: parent.width
+            }
+
+            onTriggered: {
+                mouseArea.measureMode = !mouseArea.measureMode
+                if (!mouseArea.measureMode) {
+                    mouseArea.measurePoint = null
+                }
             }
         }
     }
@@ -564,6 +675,7 @@ Item {
         MenuItem {
             contentItem: Label {
                 text: "Heading Up"
+                enabled: boatHeadingReceived
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
                 width: parent.width
@@ -574,6 +686,7 @@ Item {
         MenuItem {
             contentItem: Label {
                 text: "Course Up"
+                enabled: boatCourseReceived
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
                 width: parent.width
@@ -1031,7 +1144,6 @@ Item {
             }
         }
 
-
         // Cursor position
         Label {
             id: cursorPosition
@@ -1270,11 +1382,11 @@ Item {
             property int scaleBarPx: 130
             property real metersPerPixel: {
                 var latRad = map.center.latitude * Math.PI / 180
-                return 156543.03392 * Math.cos(latRad) / Math.pow(2, map.zoomLevel)
+                return metersPerPixelMercatorProjection * Math.cos(latRad) / Math.pow(2, map.zoomLevel)
             }
             property real scaleMeters: metersPerPixel * scaleBarPx
 
-            // Left tick
+            //Drawing
             Rectangle {
                 width: 2
                 height: 10
@@ -1282,7 +1394,6 @@ Item {
                 anchors.left: parent.left
                 anchors.bottom: parent.bottom
             }
-            // Main line
             Rectangle {
                 width: scaleBar.scaleBarPx
                 height: 2
@@ -1290,7 +1401,6 @@ Item {
                 anchors.left: parent.left
                 anchors.bottom: parent.bottom
             }
-            // Right tick
             Rectangle {
                 width: 2
                 height: 10
@@ -1307,9 +1417,14 @@ Item {
                 anchors.horizontalCenter: parent.horizontalCenter
                 font.pixelSize: 12
                 color: "black"
-                text: scaleBar.scaleMeters < 1000
-                      ? Math.round(scaleBar.scaleMeters) + " m"
-                      : (scaleBar.scaleMeters / 1000).toFixed(2) + " km"
+                text: {
+                    var distMeters = scaleBar.scaleMeters
+                    var distStr = distMeters < 1000
+                                  ? Math.round(distMeters) + " m"
+                                  : (distMeters / 1000).toFixed(0) + " km"
+                    var distNM = metersToNauticalMiles(distMeters).toFixed(0) + " NM"
+                    return distStr + " / " + distNM
+                }
             }
         }
 
@@ -1359,7 +1474,6 @@ Item {
             }
         }
  }
-
 
 
 
