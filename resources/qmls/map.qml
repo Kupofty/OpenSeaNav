@@ -335,6 +335,8 @@ Item {
 
         //Follow boat
         MenuItem {
+            id: followBoatItem
+
             enabled: boatPositionReceived
 
             contentItem: Label {
@@ -344,7 +346,9 @@ Item {
                 width: parent.width
             }
 
-            onTriggered: followBoat = !followBoat
+            onTriggered: {
+                followBoat = !followBoat
+            }
         }
 
         //Zoom
@@ -365,26 +369,19 @@ Item {
 
         //View up
         MenuItem {
+            id: viewUpItem
+
             contentItem: Label {
-                text: {
-                    switch (mapViewMode)
-                    {
-                        case 0: default: return "Heading Up"
-                        case 1: return "Course Up"
-                        case 2: return "Free View"
-                        case 3: return "North Up"
-                    }
-                }
+                text: "View Up..."
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
                 width: parent.width
             }
 
             onTriggered: {
-                mapViewMode = (mapViewMode + 1) % 4
+                viewUpSubmenu.popup(contextMenu.x + contextMenu.width, contextMenu.y + viewUpItem.y)
             }
         }
-
 
         //Markers
         MenuItem{
@@ -404,13 +401,18 @@ Item {
 
         //UI Visibility
         MenuItem {
+            id: uiVisibilityItem
+
             contentItem: Label {
                 text: showUI ? "Hide UI" : "Show UI"
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
                 width: parent.width
             }
-            onTriggered: showUI = !showUI
+
+            onTriggered: {
+                showUI = !showUI
+            }
         }
     }
 
@@ -459,60 +461,6 @@ Item {
                 width: parent.width
             }
             onTriggered: centerViewDialog.open()
-        }
-    }
-
-    //Markers
-    Menu {
-        id: markerSubmenu
-        width: rightClickMenuWidth/0.8
-        modal: true
-
-        MenuItem {
-            contentItem: Label {
-                text: "Drop Marker On Cursor"
-                horizontalAlignment: Text.AlignHCenter
-                verticalAlignment: Text.AlignVCenter
-                width: parent.width
-            }
-            onTriggered: addMarkerOnMap(cursorLatitude, cursorLongitude)
-        }
-
-        MenuItem{
-            enabled: boatPositionInit
-
-            contentItem: Label {
-                text: "Drop Marker On Boat"
-                horizontalAlignment: Text.AlignHCenter
-                verticalAlignment: Text.AlignVCenter
-                width: parent.width
-            }
-            onTriggered: {
-                addMarkerOnMap(boatLatitude, boatLongitude)
-            }
-        }
-
-        MenuItem {
-            contentItem: Label {
-                text: "Drop Marker On Position"
-                horizontalAlignment: Text.AlignHCenter
-                verticalAlignment: Text.AlignVCenter
-                width: parent.width
-            }
-            onTriggered: dropMarkerDialog.open()
-        }
-
-        MenuItem {
-            id: clearMarkersItem
-            enabled: userMarkerCount > 0
-            contentItem: Label {
-                text: "Clear Markers"
-                horizontalAlignment: Text.AlignHCenter
-                verticalAlignment: Text.AlignVCenter
-                width: parent.width
-                color: clearMarkersItem.enabled ? "#ffffff" : "#808080"
-            }
-            onTriggered: clearMarkers()
         }
     }
 
@@ -594,6 +542,116 @@ Item {
             }
         }
     }
+
+    //View Up
+    Menu {
+        id: viewUpSubmenu
+        width: rightClickMenuWidth/1.2
+        modal: true
+
+        MenuItem {
+            contentItem: Label {
+                text: "North Up"
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
+                width: parent.width
+            }
+            onTriggered: {
+                mapViewMode = 0
+                freeViewUp = 0
+            }
+        }
+
+        MenuItem {
+            contentItem: Label {
+                text: "Heading Up"
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
+                width: parent.width
+            }
+            onTriggered: {
+                mapViewMode = 1
+                freeViewUp = boatHeading
+            }
+        }
+
+        MenuItem {
+            contentItem: Label {
+                text: "Course Up"
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
+                width: parent.width
+            }
+            onTriggered: {
+                mapViewMode = 2
+                freeViewUp = boatCourse
+            }
+        }
+
+        MenuItem {
+            contentItem: Label {
+                text: "Free View"
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
+                width: parent.width
+            }
+            onTriggered: mapViewMode = 3
+        }
+    }
+
+    //Markers
+    Menu {
+        id: markerSubmenu
+        width: rightClickMenuWidth/0.8
+        modal: true
+
+        MenuItem {
+            contentItem: Label {
+                text: "Drop Marker On Cursor"
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
+                width: parent.width
+            }
+            onTriggered: addMarkerOnMap(cursorLatitude, cursorLongitude)
+        }
+
+        MenuItem{
+            enabled: boatPositionInit
+
+            contentItem: Label {
+                text: "Drop Marker On Boat"
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
+                width: parent.width
+            }
+            onTriggered: {
+                addMarkerOnMap(boatLatitude, boatLongitude)
+            }
+        }
+
+        MenuItem {
+            contentItem: Label {
+                text: "Drop Marker On Position"
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
+                width: parent.width
+            }
+            onTriggered: dropMarkerDialog.open()
+        }
+
+        MenuItem {
+            id: clearMarkersItem
+            enabled: userMarkerCount > 0
+            contentItem: Label {
+                text: "Clear Markers"
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
+                width: parent.width
+            }
+            onTriggered: clearMarkers()
+        }
+    }
+
 
 
 
