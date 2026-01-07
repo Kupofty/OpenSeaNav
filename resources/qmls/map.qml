@@ -89,7 +89,7 @@ Item {
             case 0: default: return 0   // North Up
             case 1: return boatHeading  // Heading Up
             case 2: return boatCourse   // COG Up
-            case 3: return freeViewUp     // Free view
+            case 3: return freeViewUp   // Free view
         }
     }
 
@@ -251,7 +251,7 @@ Item {
         property bool rotating: false
         property double wheelDragSensitivity : 0.5
 
-        //Dragging map
+        //Dragging map / view
         onPressed: function(mouse) {
             // Left button → Pan
             if (mouse.button === Qt.LeftButton) {
@@ -272,9 +272,11 @@ Item {
             rotating = false
         }
 
+        //Moving mouse
         onPositionChanged: function(mouse) {
             // Free View
             if (rotating) {
+                mapViewMode = 3
                 freeViewUp += (mouse.x - lastX) * wheelDragSensitivity
                 lastX = mouse.x
                 return
@@ -556,10 +558,7 @@ Item {
                 verticalAlignment: Text.AlignVCenter
                 width: parent.width
             }
-            onTriggered: {
-                mapViewMode = 0
-                freeViewUp = 0
-            }
+            onTriggered: mapViewMode = 0
         }
 
         MenuItem {
@@ -569,10 +568,7 @@ Item {
                 verticalAlignment: Text.AlignVCenter
                 width: parent.width
             }
-            onTriggered: {
-                mapViewMode = 1
-                freeViewUp = boatHeading
-            }
+            onTriggered: mapViewMode = 1
         }
 
         MenuItem {
@@ -582,20 +578,7 @@ Item {
                 verticalAlignment: Text.AlignVCenter
                 width: parent.width
             }
-            onTriggered: {
-                mapViewMode = 2
-                freeViewUp = boatCourse
-            }
-        }
-
-        MenuItem {
-            contentItem: Label {
-                text: "Free View"
-                horizontalAlignment: Text.AlignHCenter
-                verticalAlignment: Text.AlignVCenter
-                width: parent.width
-            }
-            onTriggered: mapViewMode = 3
+            onTriggered: mapViewMode = 2
         }
     }
 
