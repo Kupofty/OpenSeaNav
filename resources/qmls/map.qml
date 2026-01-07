@@ -230,11 +230,59 @@ Item {
 
 
 
+    /////////////////
+    /// Shortcuts ///
+    /////////////////
+
+    Shortcut { //Follow boat
+        sequence: "F"
+        onActivated: followBoat = !followBoat
+        enabled: boatPositionReceived
+    }
+
+    Shortcut { //Zoom In
+        sequence: "+"
+        onActivated: goToZoomLevelMap(mapZoomLevel + 1)
+    }
+
+    Shortcut { //Zoom out
+        sequence: "-"
+        onActivated: goToZoomLevelMap(mapZoomLevel - 1)
+    }
+
+    Shortcut { //Hide UI
+        sequence: "H"
+        onActivated: showUI = !showUI
+    }
+
+    Shortcut { //Enter Measure Mode
+        sequence: "M"
+        onActivated: mouseArea.measureMode = !mouseArea.measureMode
+    }
+
+    Shortcut { //Quit Measure Mode
+        sequence: "Escape"
+        onActivated: {
+            mouseArea.measureMode = false
+            mouseArea.measurePoint = null
+        }
+    }
+
+    Shortcut { //Switch View Up
+        sequence: "V"
+        onActivated: {
+            if(mapViewMode == 3) //return to north up if in free view
+                mapViewMode = 0
+            else                 //cycle through north/heading/course
+                mapViewMode = (mapViewMode + 1) % 3
+        }
+    }
+
     ////////////////
     /// Connects ///
     ////////////////
-    //Update mouse position on boat movement
     Connections {
+        //Update mouse position on boat movement
         function onBoatLatitudeChanged() {
             updateCursorCalculations()
         }
@@ -435,7 +483,7 @@ Item {
             enabled: boatPositionReceived
 
             contentItem: Label {
-                text: followBoatText
+                text: followBoatText + " (F)"
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
                 width: parent.width
@@ -467,7 +515,7 @@ Item {
             id: viewUpItem
 
             contentItem: Label {
-                text: "View Up..."
+                text: "View Up... (V)"
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
                 width: parent.width
@@ -499,7 +547,7 @@ Item {
             id: uiVisibilityItem
 
             contentItem: Label {
-                text: showUI ? "Hide UI" : "Show UI"
+                text: (showUI ? "Hide UI" : "Show UI") + " (H)"
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
                 width: parent.width
@@ -514,7 +562,7 @@ Item {
         MenuItem {
             id: measureModeItem
             contentItem: Label {
-                text: mouseArea.measureMode ? "Stop Measuring" : "Measure Distance"
+                text: (mouseArea.measureMode ? "Stop Measuring" : "Measure Distance") + " (M)"
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
                 width: parent.width
@@ -633,7 +681,7 @@ Item {
 
         MenuItem {
             contentItem: Label {
-                text: "Zoom+"
+                text: "Zoom In (+)"
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
                 width: parent.width
@@ -645,7 +693,7 @@ Item {
 
         MenuItem {
             contentItem: Label {
-                text: "Zoom-"
+                text: "Zoom Out (-)"
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
                 width: parent.width
