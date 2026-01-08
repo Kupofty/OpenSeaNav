@@ -22,5 +22,5 @@ class UdpWriter : public OutputWriter
     private:
         QUdpSocket udpSocket;
         QHostAddress udpAddress = QHostAddress::Broadcast;
-        int udpPort = 1024;
+        int udpPort = 10110;
 };

@@ -9,7 +9,7 @@ Interface::Interface(QWidget *parent) : QMainWindow(parent), ui(new Ui::Interfac
     ui->setupUi(this);
     ui->tabWidget->setCurrentWidget(ui->tab_map);
 
-    //Instatiate child classes
+    //Instantiate child classes
     data_monitor_window = new MenuBarDataMonitor(this);
     decoded_nmea_window = new MenuBarDecodedNmea(this);
 
@@ -758,7 +758,11 @@ bool Interface::checkUdpOutputPortIsFree()
 void Interface::on_pushButton_activate_udp_output_toggled(bool checked)
 {
     if(checked && checkUdpOutputPortIsFree())
+    {
+        udp_writer.updateUdpPort(ui->spinBox_update_udp_port_output->value());
+        //should also update QHostAddress
         udp_writer.updateSocketOutputActivated(true);
+    }
     else if(!checked)
         udp_writer.updateSocketOutputActivated(false);
 }
