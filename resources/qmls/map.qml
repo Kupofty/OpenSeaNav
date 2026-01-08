@@ -240,6 +240,16 @@ Item {
         enabled: boatPositionReceived
     }
 
+    Shortcut { //Close View
+        sequence: "Ctrl++"
+        onActivated: goToZoomLevelMap(17)
+    }
+
+    Shortcut { //Wide View
+        sequence: "Ctrl+-"
+        onActivated: goToZoomLevelMap(12)
+    }
+
     Shortcut { //Zoom In
         sequence: "+"
         onActivated: goToZoomLevelMap(mapZoomLevel + 1)
@@ -256,15 +266,17 @@ Item {
     }
 
     Shortcut { //Enter Measure Mode
-        sequence: "M"
+        sequence: "D"
         onActivated: mouseArea.measureMode = !mouseArea.measureMode
     }
 
     Shortcut { //Quit Measure Mode
         sequence: "Escape"
         onActivated: {
-            mouseArea.measureMode = false
-            mouseArea.measurePoint = null
+            if(mouseArea.measureMode){
+                mouseArea.measureMode = false
+                mouseArea.measurePoint = null
+            }
         }
     }
 
@@ -277,6 +289,13 @@ Item {
                 mapViewMode = (mapViewMode + 1) % 3
         }
     }
+
+    Shortcut { //Drop Marker On Boat
+        sequence: "M"
+        onActivated: addMarkerOnMap(boatLatitude, boatLongitude)
+    }
+
+
 
     ////////////////
     /// Connects ///
@@ -562,7 +581,7 @@ Item {
         MenuItem {
             id: measureModeItem
             contentItem: Label {
-                text: (mouseArea.measureMode ? "Stop Measuring" : "Measure Distance") + " (M)"
+                text: (mouseArea.measureMode ? "Stop Measuring" : "Measure Distance") + " (D)"
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
                 width: parent.width
@@ -657,7 +676,7 @@ Item {
 
         MenuItem {
             contentItem: Label {
-                text: "Close View"
+                text: "Close View (Ctrl+)"
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
                 width: parent.width
@@ -669,7 +688,7 @@ Item {
 
         MenuItem {
             contentItem: Label {
-                text: "Wide View"
+                text: "Wide View (Ctrl-)"
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
                 width: parent.width
@@ -763,7 +782,7 @@ Item {
             enabled: boatPositionInit
 
             contentItem: Label {
-                text: "Drop Marker On Boat"
+                text: "Drop Marker On Boat (M)"
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
                 width: parent.width
