@@ -13,6 +13,9 @@
 #include <QUrl>
 #include <QProcess>
 #include <QShortcut>
+#include <QSettings>
+#include <QStandardPaths>
+#include <QDir>
 
 #include "ui_interface.h"
 
@@ -60,8 +63,16 @@ class Interface : public QMainWindow
         QQuickItem *qmlMapObject;
         MenuBarDataMonitor data_monitor_window;
         MenuBarDecodedNmea decoded_nmea_window;
+        QString configPath;
+        QSettings *settings;
 
     private:
+        void initSettings();
+        void saveSettings();
+        void loadSettings();
+        void loadSerialInputSettings();
+        void loadUdpInputSettings();
+
         void toggleFullscreen();
         void clearDecodedDataScreens();
         void closeInputUdp();

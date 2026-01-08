@@ -7,20 +7,23 @@ Interface::Interface(QWidget *parent) : QMainWindow(parent), ui(new Ui::Interfac
 {
     //Setup UI
     ui->setupUi(this);
-    ui->tabWidget->setCurrentWidget(ui->tab_connections);
+    ui->tabWidget->setCurrentWidget(ui->tab_map);
     this->showMaximized();
+
+    //Hide widgets
+    hideGUI();
+
+    //Update COM ports list
+    listAvailableSerialPorts(ui->comboBox_serial_input_port_list);
+    listAvailableSerialPorts(ui->comboBox_serial_output_port_list);
+
+    //Settings
+    loadSettings();
 
     //QML Map
     ui->quickWidget_map->setSource(QUrl(QStringLiteral("qrc:/mainMap.qml")));
     ui->quickWidget_map->show();
     qmlMapObject = ui->quickWidget_map->rootObject();
-
-    //Hide widget
-    hideGUI();
-
-    //Serial COM ports
-    listAvailableSerialPorts(ui->comboBox_serial_input_port_list);
-    listAvailableSerialPorts(ui->comboBox_serial_output_port_list);
 
     //Qt connects
     connectSignalSlot();
@@ -31,6 +34,7 @@ Interface::Interface(QWidget *parent) : QMainWindow(parent), ui(new Ui::Interfac
 
 Interface::~Interface()
 {
+    saveSettings();
     delete ui;
 }
 
@@ -82,6 +86,86 @@ void Interface::connectSignalSlot()
 
 
 ////////////////
+/// Settings ///
+////////////////
+void Interface::initSettings()
+{
+    QString settingsFolderName = "/OpenSeaNav";
+    QString settingsFileName = "/config.ini";
+
+    configPath = QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation) + settingsFolderName;
+    QDir().mkpath(configPath);
+    settings = new QSettings(configPath + settingsFileName, QSettings::IniFormat, this);
+}
+
+void Interface::saveSettings()
+{
+    //Serial Input
+    settings->setValue("serialInput/selectManual", ui->checkBox_serial_manual_input->isChecked());
+    settings->setValue("serialInput/baudrate", ui->comboBox_serial_input_port_baudrate->currentIndex());
+    settings->setValue("serialInput/manualPort",  ui->lineEdit_serial_manual_input->text());
+    settings->setValue("serialInput/autoConnect", ui->checkBox_serial_autoconnect->isChecked());
+    settings->setValue("serialInput/listPort", ui->comboBox_serial_input_port_list->currentText());
+
+    // UDP Input
+    settings->setValue("udpInput/port", ui->spinBox_port_input_udp->value());
+    settings->setValue("udpInput/autoConnect", ui->checkBox_udp_autoconnect->isChecked());
+}
+
+void Interface::loadSettings()
+{
+    //Init Settings
+    initSettings();
+
+    //Serial Input
+    loadSerialInputSettings();
+
+    //UDP Input
+    loadUdpInputSettings();
+}
+
+void Interface::loadSerialInputSettings()
+{
+    //Baudrate
+    int serialInputBaudrate = settings->value("serialInput/baudrate", ui->comboBox_serial_input_port_baudrate->currentIndex()).toInt();
+    ui->comboBox_serial_input_port_baudrate->setCurrentIndex(serialInputBaudrate);
+
+    //List input ports
+    QString savedPort = settings->value("serialInput/listPort").toString();
+    int index = ui->comboBox_serial_input_port_list->findText(savedPort, Qt::MatchExactly);
+    if (index >= 0)
+        ui->comboBox_serial_input_port_list->setCurrentIndex(index);
+
+    //Manual input port
+    bool serialInputSelectManual= settings->value("serialInput/selectManual", ui->checkBox_serial_manual_input->isChecked()).toBool();
+    ui->checkBox_serial_manual_input->setChecked(serialInputSelectManual);
+
+    QString serialInputPort = settings->value("serialInput/manualPort", ui->lineEdit_serial_manual_input->text()).toString();
+    ui->lineEdit_serial_manual_input->setText(serialInputPort);
+
+    //Autoconnect
+    bool serialAutoConnect = settings->value("serialInput/autoConnect", ui->checkBox_serial_autoconnect->isChecked()).toBool();
+    ui->checkBox_serial_autoconnect->setChecked(serialAutoConnect);
+    if(ui->checkBox_serial_autoconnect->isChecked())
+        ui->pushButton_connect_serial_input->click();
+}
+
+void Interface::loadUdpInputSettings()
+{
+    //Port
+    int udpInputPort = settings->value("udpInput/port", ui->spinBox_port_input_udp->value()).toInt();
+    ui->spinBox_port_input_udp->setValue(udpInputPort);
+
+    //Autoconnect
+    bool udpAutoConnect = settings->value("udpInput/autoConnect", ui->checkBox_udp_autoconnect->isChecked()).toBool();
+    ui->checkBox_udp_autoconnect->setChecked(udpAutoConnect);
+    if(ui->checkBox_udp_autoconnect->isChecked())
+        ui->pushButton_connect_udp_input->click();
+}
+
+
+
+////////////////
 /// Menu Bar ///
 ////////////////
 
@@ -91,13 +175,11 @@ void Interface::on_actionExit_triggered()
     close();
 }
 
-
 //View
 void Interface::on_actionFullscreen_triggered()
 {
     toggleFullscreen();
 }
-
 
 //Tools
 void Interface::on_actionManual_Data_Input_triggered()
@@ -127,7 +209,6 @@ void Interface::on_actionDecoded_NMEA_triggered()
     else
         decoded_nmea_window.show();
 }
-
 
 //Help
 void Interface::on_actionAbout_triggered()
@@ -206,17 +287,6 @@ void Interface::toggleFullscreen()
 ////////////////////
 
 // Connection
-void Interface::closeInputSerial()
-{
-    if(serial_reader.isSerialOpen())
-    {
-        serial_reader.closeSerialDevice();
-        ui->plainTextEdit_connection_status->setPlainText(serial_reader.getPortName()+" closed");
-    }
-    else
-        ui->plainTextEdit_connection_status->setPlainText("Connection not opened");
-}
-
 void Interface::on_pushButton_connect_serial_input_clicked()
 {
     //Update serial settings
@@ -251,19 +321,23 @@ void Interface::on_pushButton_disconnect_serial_input_clicked()
     updateGuiAfterSerialConnection(false);
 }
 
+void Interface::closeInputSerial()
+{
+    if(serial_reader.isSerialOpen())
+    {
+        serial_reader.closeSerialDevice();
+        ui->plainTextEdit_connection_status->setPlainText(serial_reader.getPortName()+" closed");
+    }
+    else
+        ui->plainTextEdit_connection_status->setPlainText("Connection not opened");
+}
+
 void Interface::updateGuiAfterSerialConnection(bool connectSuccess)
 {
     ui->horizontalFrame_serial_input_connection->setEnabled(!connectSuccess);
     ui->pushButton_connect_serial_input->setEnabled(!connectSuccess);
     ui->pushButton_disconnect_serial_input->setEnabled(connectSuccess);
     decoded_nmea_window.clearDecodedDataScreens();
-}
-
-void Interface::on_checkBox_serial_manual_input_stateChanged(int checked)
-{
-    ui->lineEdit_serial_manual_input->setEnabled(checked);
-    ui->comboBox_serial_input_port_list->setEnabled(!checked);
-    ui->pushButton_refresh_available_ports_list->setEnabled(!checked);
 }
 
 
@@ -284,21 +358,30 @@ void Interface::on_pushButton_refresh_available_ports_list_clicked()
 }
 
 
+//Settings
+void Interface::on_checkBox_serial_manual_input_stateChanged(int checked)
+{
+    ui->lineEdit_serial_manual_input->setEnabled(checked);
+    ui->comboBox_serial_input_port_list->setEnabled(!checked);
+    ui->pushButton_refresh_available_ports_list->setEnabled(!checked);
+}
+
+
 
 /////////////////
 /// UDP Input ///
 /////////////////
 void Interface::on_pushButton_connect_udp_input_clicked()
 {
-    int udp_port_input = ui->spinBox_port_input_udp->value();
+    int udp_port_input  = ui->spinBox_port_input_udp->value();
     int udp_port_output = ui->spinBox_update_udp_port_output->value();
 
-    //Check if port already used by UDP output
-    if (ui->pushButton_activate_udp_output->isChecked() && (udp_port_input == udp_port_output))
+    if (ui->pushButton_activate_udp_output->isChecked() &&
+        udp_port_input == udp_port_output)
     {
         QMessageBox::warning(this, "UDP Port Error",
                              "Input UDP port conflicts with output UDP port.\nPlease choose a different port.");
-        ui->spinBox_port_input_udp->setValue(ui->spinBox_port_input_udp->value() + 1);
+        ui->spinBox_port_input_udp->setValue(udp_port_input + 1);
         return;
     }
 
@@ -306,8 +389,9 @@ void Interface::on_pushButton_connect_udp_input_clicked()
     QString result = udp_reader.connect();
     ui->plainTextEdit_connection_status_udp->setPlainText(result);
 
-    if(udp_reader.isBounded())
+    if (udp_reader.isBounded()) {
         updateGuiAfterUdpConnection(true);
+    }
 }
 
 void Interface::on_pushButton_disconnect_udp_input_clicked()
@@ -335,7 +419,6 @@ void Interface::updateUdpSenderDetails()
 {
     ui->plainTextEdit_udp_sender_details->setPlainText(udp_reader.getSenderDetails());
 }
-
 
 
 
@@ -792,4 +875,24 @@ QString Interface::getRecordingFilePath()
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+void Interface::on_actionReset_Settings_triggered()
+{
+
+}
 
