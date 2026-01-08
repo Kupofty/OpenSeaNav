@@ -52,6 +52,7 @@ class NMEA_Handler : public QObject
     signals:
         void newNMEASentence(const QString &type, const QString &nmeaText);
 
+        //Signals for decoded NMEA window
         void newDecodedGSA(double pdop, double hdop, double vdop, double freqHz);
         void newDecodedGSV(int totalSatellites, double freqHz);
         void newDecodedGLL(QString utc, double latitude, double longitude, double freqHz);
@@ -66,4 +67,14 @@ class NMEA_Handler : public QObject
         void newDecodedMWD(double dir1, QString dir1Unit, double dir2, QString dir2Unit, double speed1, QString speed1Unit, double speed2, QString speed2Unit, double freqHz);
         void newDecodedMTW(double temp, QString tempUnit, double freqHz);
         void newDecodedMWV(double angle, QString ref, double speed, QString unit, double freqHz);
+
+        //Signals for QML map
+        void updateBoatPositionMap(QVariant, QVariant);
+        void updateBoatHeadingMap(QVariant);
+        void updateBoatDepthMap(QVariant);
+        void updateBoatSpeedMap(QVariant);
+        void updateBoatCourseMap(QVariant);
+        void updateBoatWaterTemperatureMap(QVariant);
+        void updateBoatDateMap(QVariant);
+        void updateBoatTimeMap(QVariant);
 };

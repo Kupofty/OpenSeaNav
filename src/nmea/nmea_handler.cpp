@@ -111,6 +111,8 @@ void NMEA_Handler::handleGGA(const QList<QByteArray> &fields)
     double freqHz = calculateFrequency(timer_gga, lastUpdateTimeGGA);
 
     emit newDecodedGGA(utcTime.toString(), latitude, longitude, fixQuality, numSatellites, hdop, altitude, freqHz);
+    emit updateBoatPositionMap(latitude, longitude);
+    emit updateBoatTimeMap(utcTime);
 }
 
 void NMEA_Handler::handleRMC(const QList<QByteArray> &fields)
@@ -121,6 +123,7 @@ void NMEA_Handler::handleRMC(const QList<QByteArray> &fields)
     // Parse time
     QString timeStr = fields[1];
     QTime utcTime = QTime::fromString(timeStr.left(6), "hhmmss");
+    QString timeFormatted = utcTime.toString();
 
     // Status: A=active, V=void
     QString status = fields[2];
@@ -163,7 +166,11 @@ void NMEA_Handler::handleRMC(const QList<QByteArray> &fields)
     double freqHz = calculateFrequency(timer_rmc, lastUpdateTimeRMC);
 
     // Emit or process parsed data
-    emit newDecodedRMC(formattedDate, utcTime.toString(), latitude, longitude, speedKnots, course, magVar, freqHz);
+    emit newDecodedRMC(formattedDate, timeFormatted, latitude, longitude, speedKnots, course, magVar, freqHz);
+    emit updateBoatPositionMap(latitude, longitude);
+    emit updateBoatCourseMap(course);
+    emit updateBoatDateMap(formattedDate);
+    emit updateBoatTimeMap(timeFormatted);
 }
 
 void NMEA_Handler::handleGSV(const QList<QByteArray> &fields)
@@ -187,7 +194,7 @@ void NMEA_Handler::handleGSV(const QList<QByteArray> &fields)
 void NMEA_Handler::handleGLL(const QList<QByteArray> &fields)
 {
     //Check size
-    if(!isNmeaMinimumSize(fields, 8))
+    if(!isNmeaMinimumSize(fields, 7))
         return;
 
     // Parse position
@@ -203,6 +210,7 @@ void NMEA_Handler::handleGLL(const QList<QByteArray> &fields)
     // Parse UTC time
     QString timeStr = fields[5];
     QTime utcTime = QTime::fromString(timeStr.left(6), "hhmmss");
+    QString timeFormatted = utcTime.toString();
 
     // Status and mode
     QString status = removeAsterisk(fields[6]);
@@ -213,7 +221,9 @@ void NMEA_Handler::handleGLL(const QList<QByteArray> &fields)
     if (status != "A")
         return;
 
-    emit newDecodedGLL(utcTime.toString(), latitude, longitude, freqHz);
+    emit newDecodedGLL(timeFormatted, latitude, longitude, freqHz);
+    emit updateBoatPositionMap(latitude, longitude);
+    emit updateBoatTimeMap(timeFormatted);
 }
 
 void NMEA_Handler::handleGSA(const QList<QByteArray> &fields)
@@ -244,6 +254,8 @@ void NMEA_Handler::handleVTG(const QList<QByteArray> &fields)
     double freqHz = calculateFrequency(timer_vtg, lastUpdateTimeVTG);
 
     emit newDecodedVTG(trackTrue, trackMag, speedKnots, speedKmh, freqHz);
+    emit updateBoatHeadingMap(trackTrue);
+    emit updateBoatSpeedMap(speedKnots);
 }
 
 void NMEA_Handler::handleHDT(const QList<QByteArray> &fields)
@@ -262,6 +274,7 @@ void NMEA_Handler::handleHDT(const QList<QByteArray> &fields)
     double freqHz = calculateFrequency(timer_hdt, lastUpdateTimeHDT);
 
     emit newDecodedHDT(heading, freqHz);
+    emit updateBoatHeadingMap(heading);
 }
 
 void NMEA_Handler::handleDBT(const QList<QByteArray> &fields)
@@ -278,6 +291,7 @@ void NMEA_Handler::handleDBT(const QList<QByteArray> &fields)
     double freqHz = calculateFrequency(timer_dbt, lastUpdateTimeDBT);
 
     emit newDecodedDBT(depthFeet, depthMeters, depthFathom, freqHz);
+    emit updateBoatDepthMap(depthMeters);
 }
 
 void NMEA_Handler::handleVHW(const QList<QByteArray> &fields)
@@ -294,6 +308,8 @@ void NMEA_Handler::handleVHW(const QList<QByteArray> &fields)
     double freqHz = calculateFrequency(timer_vhw, lastUpdateTimeVHW);
 
     emit newDecodedVHW(headingTrue, headingMag, speedKnots, speedKmh, freqHz);
+    emit updateBoatHeadingMap(headingTrue);
+    emit updateBoatSpeedMap(speedKnots);
 }
 
 void NMEA_Handler::handleZDA(const QList<QByteArray> &fields)
@@ -329,6 +345,8 @@ void NMEA_Handler::handleZDA(const QList<QByteArray> &fields)
     double freqHz = calculateFrequency(timer_zda, lastUpdateTimeZDA);
 
     emit newDecodedZDA(dateStr, timeStr, offsetStr, freqHz);
+    emit updateBoatDateMap(dateStr);
+    emit updateBoatTimeMap(timeStr);
 }
 
 void NMEA_Handler::handleDPT(const QList<QByteArray> &fields)
@@ -342,6 +360,7 @@ void NMEA_Handler::handleDPT(const QList<QByteArray> &fields)
     double freqHz = calculateFrequency(timer_dpt, lastUpdateTimeDPT);
 
     emit newDecodedDPT(depth, offset, freqHz);
+    emit updateBoatDepthMap(depth);
 }
 
 void NMEA_Handler::handleMWD(const QList<QByteArray> &fields)
@@ -373,6 +392,7 @@ void NMEA_Handler::handleMTW(const QList<QByteArray> &fields)
     double freqHz = calculateFrequency(timer_mtw, lastUpdateTimeMTW);
 
     emit newDecodedMTW(temp, tempUnit, freqHz);
+    emit updateBoatWaterTemperatureMap(temp);
 }
 
 void NMEA_Handler::handleMWV(const QList<QByteArray> &fields)

@@ -46,37 +46,37 @@ void Interface::connectSignalSlot()
     connect(&nmea_handler, &NMEA_Handler::newNMEASentence, &text_file_writer, &TextFileWritter::writeRawSentences);
 
     //General Display Settings
-    connect(&nmea_handler, &NMEA_Handler::newNMEASentence, &data_monitor, &MenuBarDataMonitor::displayNmeaSentence);
+    connect(&nmea_handler, &NMEA_Handler::newNMEASentence, &data_monitor_window, &MenuBarDataMonitor::displayNmeaSentence);
     connect(&udp_reader, &UdpReader::newSenderDetails, this, &Interface::updateUdpSenderDetails);
 
     //Display decoded NMEA data
-    connect(&nmea_handler, &NMEA_Handler::newDecodedGGA, this, &Interface::updateDataGGA);
-    connect(&nmea_handler, &NMEA_Handler::newDecodedGLL, this, &Interface::updateDataGLL);
-    connect(&nmea_handler, &NMEA_Handler::newDecodedGSV, this, &Interface::updateDataGSV);
-    connect(&nmea_handler, &NMEA_Handler::newDecodedVTG, this, &Interface::updateDataVTG);
-    connect(&nmea_handler, &NMEA_Handler::newDecodedGSA, this, &Interface::updateDataGSA);
-    connect(&nmea_handler, &NMEA_Handler::newDecodedRMC, this, &Interface::updateDataRMC);
-    connect(&nmea_handler, &NMEA_Handler::newDecodedHDT, this, &Interface::updateDataHDT);
-    connect(&nmea_handler, &NMEA_Handler::newDecodedDBT, this, &Interface::updateDataDBT);
-    connect(&nmea_handler, &NMEA_Handler::newDecodedVHW, this, &Interface::updateDataVHW);
-    connect(&nmea_handler, &NMEA_Handler::newDecodedZDA, this, &Interface::updateDataZDA);
-    connect(&nmea_handler, &NMEA_Handler::newDecodedDPT, this, &Interface::updateDataDPT);
-    connect(&nmea_handler, &NMEA_Handler::newDecodedMWD, this, &Interface::updateDataMWD);
-    connect(&nmea_handler, &NMEA_Handler::newDecodedMTW, this, &Interface::updateDataMTW);
-    connect(&nmea_handler, &NMEA_Handler::newDecodedMWV, this, &Interface::updateDataMWV);
+    connect(&nmea_handler, &NMEA_Handler::newDecodedGGA, &decoded_nmea_window, &MenuBarDecodedNmea::updateDataGGA);
+    connect(&nmea_handler, &NMEA_Handler::newDecodedGLL, &decoded_nmea_window, &MenuBarDecodedNmea::updateDataGLL);
+    connect(&nmea_handler, &NMEA_Handler::newDecodedGSV, &decoded_nmea_window, &MenuBarDecodedNmea::updateDataGSV);
+    connect(&nmea_handler, &NMEA_Handler::newDecodedVTG, &decoded_nmea_window, &MenuBarDecodedNmea::updateDataVTG);
+    connect(&nmea_handler, &NMEA_Handler::newDecodedGSA, &decoded_nmea_window, &MenuBarDecodedNmea::updateDataGSA);
+    connect(&nmea_handler, &NMEA_Handler::newDecodedRMC, &decoded_nmea_window, &MenuBarDecodedNmea::updateDataRMC);
+    connect(&nmea_handler, &NMEA_Handler::newDecodedHDT, &decoded_nmea_window, &MenuBarDecodedNmea::updateDataHDT);
+    connect(&nmea_handler, &NMEA_Handler::newDecodedDBT, &decoded_nmea_window, &MenuBarDecodedNmea::updateDataDBT);
+    connect(&nmea_handler, &NMEA_Handler::newDecodedVHW, &decoded_nmea_window, &MenuBarDecodedNmea::updateDataVHW);
+    connect(&nmea_handler, &NMEA_Handler::newDecodedZDA, &decoded_nmea_window, &MenuBarDecodedNmea::updateDataZDA);
+    connect(&nmea_handler, &NMEA_Handler::newDecodedDPT, &decoded_nmea_window, &MenuBarDecodedNmea::updateDataDPT);
+    connect(&nmea_handler, &NMEA_Handler::newDecodedMWD, &decoded_nmea_window, &MenuBarDecodedNmea::updateDataMWD);
+    connect(&nmea_handler, &NMEA_Handler::newDecodedMTW, &decoded_nmea_window, &MenuBarDecodedNmea::updateDataMTW);
+    connect(&nmea_handler, &NMEA_Handler::newDecodedMWV, &decoded_nmea_window, &MenuBarDecodedNmea::updateDataMWV);
 
     //Timers
     connect(&fileRecordingSizeTimer, &QTimer::timeout, this, &Interface::updateRecordingFileSize);
 
     //QML Map
-    connect(this, SIGNAL(updateBoatPositionMap(QVariant,QVariant)), qmlMapObject, SLOT(updateBoatPosition(QVariant,QVariant)));
-    connect(this, SIGNAL(updateBoatHeadingMap(QVariant)), qmlMapObject, SLOT(updateBoatHeading(QVariant)));
-    connect(this, SIGNAL(updateBoatDepthMap(QVariant)), qmlMapObject, SLOT(updateBoatDepth(QVariant)));
-    connect(this, SIGNAL(updateBoatSpeedMap(QVariant)), qmlMapObject, SLOT(updateBoatSpeed(QVariant)));
-    connect(this, SIGNAL(updateBoatCourseMap(QVariant)), qmlMapObject, SLOT(updateBoatCourse(QVariant)));
-    connect(this, SIGNAL(updateBoatWaterTemperatureMap(QVariant)), qmlMapObject, SLOT(updateBoatWaterTemperature(QVariant)));
-    connect(this, SIGNAL(updateBoatDateMap(QVariant)), qmlMapObject, SLOT(updateBoatDate(QVariant)));
-    connect(this, SIGNAL(updateBoatTimeMap(QVariant)), qmlMapObject, SLOT(updateBoatTime(QVariant)));
+    connect(&nmea_handler, SIGNAL(updateBoatPositionMap(QVariant,QVariant)), qmlMapObject, SLOT(updateBoatPosition(QVariant,QVariant)));
+    connect(&nmea_handler, SIGNAL(updateBoatHeadingMap(QVariant)), qmlMapObject, SLOT(updateBoatHeading(QVariant)));
+    connect(&nmea_handler, SIGNAL(updateBoatDepthMap(QVariant)), qmlMapObject, SLOT(updateBoatDepth(QVariant)));
+    connect(&nmea_handler, SIGNAL(updateBoatSpeedMap(QVariant)), qmlMapObject, SLOT(updateBoatSpeed(QVariant)));
+    connect(&nmea_handler, SIGNAL(updateBoatCourseMap(QVariant)), qmlMapObject, SLOT(updateBoatCourse(QVariant)));
+    connect(&nmea_handler, SIGNAL(updateBoatWaterTemperatureMap(QVariant)), qmlMapObject, SLOT(updateBoatWaterTemperature(QVariant)));
+    connect(&nmea_handler, SIGNAL(updateBoatDateMap(QVariant)), qmlMapObject, SLOT(updateBoatDate(QVariant)));
+    connect(&nmea_handler, SIGNAL(updateBoatTimeMap(QVariant)), qmlMapObject, SLOT(updateBoatTime(QVariant)));
 }
 
 
@@ -109,15 +109,23 @@ void Interface::on_actionManual_Data_Input_triggered()
 
 void Interface::on_actionData_Monitor_triggered()
 {
-    if (data_monitor.isVisible())
+    if (data_monitor_window.isVisible())
     {
-        data_monitor.hide();
+        data_monitor_window.hide();
     }
     else
     {
-        data_monitor.show();
-        data_monitor.scrollDownPlainText();
+        data_monitor_window.show();
+        data_monitor_window.scrollDownPlainText();
     }
+}
+
+void Interface::on_actionDecoded_NMEA_triggered()
+{
+    if (decoded_nmea_window.isVisible())
+        decoded_nmea_window.hide();
+    else
+        decoded_nmea_window.show();
 }
 
 
@@ -248,7 +256,7 @@ void Interface::updateGuiAfterSerialConnection(bool connectSuccess)
     ui->horizontalFrame_serial_input_connection->setEnabled(!connectSuccess);
     ui->pushButton_connect_serial_input->setEnabled(!connectSuccess);
     ui->pushButton_disconnect_serial_input->setEnabled(connectSuccess);
-    clearDecodedDataScreens();
+    decoded_nmea_window.clearDecodedDataScreens();
 }
 
 void Interface::on_checkBox_serial_manual_input_stateChanged(int checked)
@@ -320,261 +328,12 @@ void Interface::updateGuiAfterUdpConnection(bool connectSuccess)
     ui->pushButton_connect_udp_input->setEnabled(!connectSuccess);
     ui->pushButton_disconnect_udp_input->setEnabled(connectSuccess);
     ui->plainTextEdit_udp_sender_details->clear();
-    clearDecodedDataScreens();
+    decoded_nmea_window.clearDecodedDataScreens();
 }
 
 void Interface::updateUdpSenderDetails()
 {
     ui->plainTextEdit_udp_sender_details->setPlainText(udp_reader.getSenderDetails());
-}
-
-
-
-//////////////////////////////////
-/// Display Decoded NMEA data  ///
-//////////////////////////////////
-
-//Data
-void Interface::updateDataGGA(QString time, double latitude, double longitude, int fixQuality, int numSatellites, double hdop, double altitude, double freqHz)
-{
-    ui->label_utcTime_gga->setText(time);
-    ui->lcdNumber_latitude_gga->display(latitude);
-    ui->lcdNumber_longitude_gga->display(longitude);
-    ui->lcdNumber_fixQuality_gga->display(fixQuality);
-    ui->lcdNumber_satellites_gga->display(numSatellites);
-    ui->lcdNumber_hdop_gga->display(hdop);
-    ui->lcdNumber_altitude_gga->display(altitude);
-    ui->lcdNumber_frequency_gga->display(freqHz);
-
-    emit updateBoatPositionMap(latitude, longitude);
-    emit updateBoatTimeMap(time);
-}
-
-void Interface::updateDataGLL(QString utc, double latitude, double longitude, double freqHz)
-{
-    ui->label_utcTime_gll->setText(utc);
-    ui->lcdNumber_latitude_gll->display(latitude);
-    ui->lcdNumber_longitude_gll->display(longitude);
-    ui->lcdNumber_frequency_gll->display(freqHz);
-
-    emit updateBoatPositionMap(latitude, longitude);
-    emit updateBoatTimeMap(utc);
-}
-
-void Interface::updateDataGSV(int satellitesInView, double frequency)
-{
-    ui->lcdNumber_satellites_gsv->display(satellitesInView);
-    ui->lcdNumber_frequency_gsv->display(frequency);
-}
-
-void Interface::updateDataVTG(double track_true, double track_mag, double speed_knot, double speedKmh, double frequency)
-{
-    ui->lcdNumber_track_true_vtg->display(track_true);
-    ui->lcdNumber_track_mag_vtg->display(track_mag);
-    ui->lcdNumber_speed_knot_vtg->display(speed_knot);
-    ui->lcdNumber_speed_kmh_vtg->display(speedKmh);
-    ui->lcdNumber_frequency_vtg->display(frequency);
-
-    emit updateBoatHeadingMap(track_true);
-    emit updateBoatSpeedMap(speed_knot);
-}
-
-void Interface::updateDataGSA(double pdop, double hdop, double vdop, double freqHz)
-{
-    ui->lcdNumber_pdop_gsa->display(pdop);
-    ui->lcdNumber_hdop_gsa->display(hdop);
-    ui->lcdNumber_vdop_gsa->display(vdop);
-    ui->lcdNumber_frequency_gsa->display(freqHz);
-}
-
-void Interface::updateDataRMC(QString utcDate, QString utcTime, double latitude, double longitude, double speedMps, double course, double magVar, double freqHz)
-{
-    ui->label_date_rmc->setText(utcDate);
-    ui->label_utcTime_rmc->setText(utcTime);
-    ui->lcdNumber_latitude_rmc->display(latitude);
-    ui->lcdNumber_longitude_rmc->display(longitude);
-    ui->lcdNumber_sog_rmc->display(speedMps);
-    ui->lcdNumber_cog_rmc->display(course);
-    ui->lcdNumber_magVar_rmc->display(magVar);
-    ui->lcdNumber_frequency_rmc->display(freqHz);
-
-    emit updateBoatPositionMap(latitude, longitude);
-    emit updateBoatCourseMap(course);
-    emit updateBoatDateMap(utcDate);
-    emit updateBoatTimeMap(utcTime);
-}
-
-void Interface::updateDataHDT(double heading, double freqHz)
-{
-    ui->lcdNumber_heading_hdt->display(heading);
-    ui->lcdNumber_frequency_hdt->display(freqHz);
-
-    emit updateBoatHeadingMap(heading);
-}
-
-void Interface::updateDataDBT(double depthFeet, double depthMeters, double depthFathom, double freqHz)
-{
-    ui->lcdNumber_depth_feet_dbt->display(depthFeet);
-    ui->lcdNumber_depth_meter_dbt->display(depthMeters);
-    ui->lcdNumber_depth_fathom_dbt->display(depthFathom);
-    ui->lcdNumber_frequency_dbt->display(freqHz);
-
-    emit updateBoatDepthMap(depthMeters);
-}
-
-void Interface::updateDataVHW(double headingTrue, double headingMag, double speedKnots, double speedKmh, double freqHz)
-{
-    ui->lcdNumber_heading_true_vhw->display(headingTrue);
-    ui->lcdNumber_heading_mag_vhw->display(headingMag);
-    ui->lcdNumber_speed_knot_vhw->display(speedKnots);
-    ui->lcdNumber_speed_kmh_vhw->display(speedKmh);
-    ui->lcdNumber_frequency_vhw->display(freqHz);
-
-    emit updateBoatHeadingMap(headingTrue);
-    emit updateBoatSpeedMap(speedKnots);
-}
-
-void Interface::updateDataZDA(QString date, QString time, QString offsetTime, double freqHz)
-{
-    ui->label_date_zda->setText(date);
-    ui->label_utcTime_zda->setText(time);
-    ui->label_localZone_zda->setText(offsetTime);
-    ui->lcdNumber_frequency_zda->display(freqHz);
-
-    emit updateBoatDateMap(date);
-    emit updateBoatTimeMap(time);
-}
-
-void Interface::updateDataDPT(double depth, double offset, double freqHz)
-{
-    ui->lcdNumber_depth_dpt->display(depth);
-    ui->lcdNumber_depth_offset_dpt->display(offset);
-    ui->lcdNumber_frequency_dpt->display(freqHz);
-
-    emit updateBoatDepthMap(depth);
-}
-
-void Interface::updateDataMWD(double dir1, QString dir1Unit, double dir2, QString dir2Unit, double speed1, QString speed1Unit, double speed2, QString speed2Unit, double freqHz)
-{
-    ui->lcdNumber_windDirection_mwd->display(dir1);
-    ui->label_windDirectionUnit_mwd->setText("Wind Direction (" + dir1Unit + ") :" );
-    ui->lcdNumber_windDirection_mwd_2->display(dir2);
-    ui->label_windDirectionUnit_mwd_2->setText("Wind Direction (" + dir2Unit + ") :" );
-    ui->lcdNumber_windSpeed_mwd->display(speed1);
-    ui->label_windSpeedUnit_mwd->setText("Wind Speed (" + speed1Unit + ") :" );
-    ui->lcdNumber_windSpeed_mwd_2->display(speed2);
-    ui->label_windSpeedUnit_mwd_2->setText("Wind Speed (" + speed2Unit + ") :" );
-    ui->lcdNumber_frequency_mwd->display(freqHz);
-}
-
-void Interface::updateDataMTW(double temp, QString tempUnit, double freqHz)
-{
-    ui->lcdNumber_waterTemp_mtw->display(temp);
-    ui->label_waterTempUnit_mtw->setText("Water Temp. (°" + tempUnit + ") :");
-    ui->lcdNumber_frequency_mtw->display(freqHz);
-
-    emit updateBoatWaterTemperatureMap(temp);
-}
-
-void Interface::updateDataMWV(double angle, QString ref, double speed, QString unit, double freqHz)
-{
-    ui->lcdNumber_windAngle_mwv->display(angle);
-    ui->label_windAngleUnit_mwv->setText("Wing Angle (" + ref + ") :" );
-    ui->lcdNumber_windSpeed_mwv->display(speed);
-    ui->label_windSpeedUnit_mwv->setText("Wing Speed (" + unit + ") :" );
-    ui->lcdNumber_frequency_mwv->display(freqHz);
-}
-
-
-//Clear
-void Interface::clearDecodedDataScreens()
-{
-    //RMC
-    ui->label_utcTime_rmc->setText("No Data");
-    ui->label_date_rmc->setText("No Data");
-    ui->lcdNumber_latitude_rmc->display(0);
-    ui->lcdNumber_longitude_rmc->display(0);
-    ui->lcdNumber_sog_rmc->display(0);
-    ui->lcdNumber_cog_rmc->display(0);
-    ui->lcdNumber_magVar_rmc->display(0);
-    ui->lcdNumber_frequency_rmc->display(0);
-
-    //GGA
-    ui->label_utcTime_gga->clear();
-    ui->lcdNumber_latitude_gga->display(0);
-    ui->lcdNumber_longitude_gga->display(0);
-    ui->lcdNumber_satellites_gga->display(0);
-    ui->lcdNumber_fixQuality_gga->display(0);
-    ui->lcdNumber_hdop_gga->display(0);
-    ui->lcdNumber_altitude_gga->display(0);
-    ui->lcdNumber_frequency_gga->display(0);
-
-    //GSA
-    ui->lcdNumber_pdop_gsa->display(0);
-    ui->lcdNumber_hdop_gsa->display(0);
-    ui->lcdNumber_vdop_gsa->display(0);
-    ui->lcdNumber_frequency_gsa->display(0);
-
-    //GLL
-    ui->label_utcTime_gll->setText("No Data");
-    ui->lcdNumber_latitude_gll->display(0);
-    ui->lcdNumber_longitude_gll->display(0);
-    ui->lcdNumber_frequency_gll->display(0);
-
-    //GSV
-    ui->lcdNumber_satellites_gsv->display(0);
-    ui->lcdNumber_frequency_gsv->display(0);
-
-    //VTG
-    ui->lcdNumber_track_true_vtg->display(0);
-    ui->lcdNumber_track_mag_vtg->display(0);
-    ui->lcdNumber_speed_kmh_vtg->display(0);
-    ui->lcdNumber_speed_knot_vtg->display(0);
-    ui->lcdNumber_frequency_vtg->display(0);
-
-    //HDT
-    ui->lcdNumber_heading_hdt->display(0);
-    ui->lcdNumber_frequency_hdt->display(0);
-
-    //DBT
-    ui->lcdNumber_depth_feet_dbt->display(0);
-    ui->lcdNumber_depth_meter_dbt->display(0);
-    ui->lcdNumber_depth_fathom_dbt->display(0);
-    ui->lcdNumber_frequency_dbt->display(0);
-
-    //DPT
-    ui->lcdNumber_depth_dpt->display(0);
-    ui->lcdNumber_depth_offset_dpt->display(0);
-    ui->lcdNumber_frequency_dpt->display(0);
-
-    //VHW
-    ui->lcdNumber_heading_true_vhw->display(0);
-    ui->lcdNumber_heading_mag_vhw->display(0);
-    ui->lcdNumber_speed_knot_vhw->display(0);
-    ui->lcdNumber_speed_kmh_vhw->display(0);
-    ui->lcdNumber_frequency_vhw->display(0);
-
-    //ZDA
-    ui->label_utcTime_zda->setText("No Data");
-    ui->label_date_zda->setText("No Data");
-    ui->label_localZone_zda->setText("No Data");
-    ui->lcdNumber_frequency_zda->display(0);
-
-    //MWD
-    ui->lcdNumber_windDirection_mwd->display(0);
-    ui->lcdNumber_windDirection_mwd_2->display(0);
-    ui->lcdNumber_windSpeed_mwd->display(0);
-    ui->lcdNumber_windSpeed_mwd_2->display(0);
-    ui->lcdNumber_frequency_mwd->display(0);
-
-    //MTW
-    ui->lcdNumber_waterTemp_mtw->display(0);
-    ui->lcdNumber_frequency_mtw->display(0);
-
-    //MWV
-    ui->lcdNumber_windAngle_mwv->display(0);
-    ui->lcdNumber_windSpeed_mwv->display(0);
-    ui->lcdNumber_frequency_mwv->display(0);
 }
 
 
@@ -1024,6 +783,9 @@ QString Interface::getRecordingFilePath()
 
     return fullPath;
 }
+
+
+
 
 
 

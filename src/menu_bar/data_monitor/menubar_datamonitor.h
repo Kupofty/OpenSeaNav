@@ -26,7 +26,6 @@ class MenuBarDataMonitor : public QDialog
         void on_pushButton_clear_data_monitor_clicked();
         void on_spinBox_data_monitor_size_limit_editingFinished();
         void on_pushButton_scroll_down_clicked();
-
         void on_pushButton_scroll_up_clicked();
 
     private:
@@ -35,4 +34,5 @@ class MenuBarDataMonitor : public QDialog
     private:
         void updatePlainTextsSizeLimit(unsigned int sentenceLimit);
         void addToDataMonitor(const QString &nmeaText);
+
 };

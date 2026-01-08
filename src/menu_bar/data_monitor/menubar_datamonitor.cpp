@@ -5,9 +5,7 @@
 ///////////////////
 /// Class Setup ///
 ///////////////////
-MenuBarDataMonitor::MenuBarDataMonitor(QWidget *parent)
-    : QDialog(parent)
-    , ui(new Ui::MenuBarDataMonitor)
+MenuBarDataMonitor::MenuBarDataMonitor(QWidget *parent) : QDialog(parent), ui(new Ui::MenuBarDataMonitor)
 {
     ui->setupUi(this);
 

@@ -1467,12 +1467,22 @@ Item {
                 color: "black"
                 text: {
                     var distMeters = scaleBar.scaleMeters
-                    var distStr = distMeters < 1000
-                                  ? Math.round(distMeters) + " m"
-                                  : (distMeters / 1000).toFixed(0) + " km"
-                    var distNM = metersToNauticalMiles(distMeters).toFixed(0) + " NM"
-                    return distStr + " / " + distNM
+
+                    // meters / kilometers formatting
+                    var km = distMeters / 1000
+                    var distStr =
+                        distMeters < 1000
+                            ? Math.round(distMeters) + " m"
+                            : (km < 10 ? km.toFixed(1) : km.toFixed(0)) + " km"
+
+                    // nautical miles formatting
+                    var nm = metersToNauticalMiles(distMeters)
+                    var nmStr = (nm < 10 ? nm.toFixed(1) : nm.toFixed(0)) + " NM"
+
+                    return distStr + " / " + nmStr
                 }
+
+
             }
         }
 

@@ -28,6 +28,7 @@
 #include "menu_bar/faq/menubar_faq.h"
 #include "menu_bar/simu/menubar_simdata.h"
 #include "menu_bar/data_monitor/menubar_datamonitor.h"
+#include "menu_bar/decoded_nmea/menubar_decodednmea.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui
@@ -57,7 +58,8 @@ class Interface : public QMainWindow
         QList<QCheckBox*> checkboxOutputSerial;
         QList<QCheckBox*> checkboxOutputUDP;
         QQuickItem *qmlMapObject;
-        MenuBarDataMonitor data_monitor;
+        MenuBarDataMonitor data_monitor_window;
+        MenuBarDecodedNmea decoded_nmea_window;
 
     private:
         void toggleFullscreen();
@@ -142,32 +144,10 @@ class Interface : public QMainWindow
         void on_actionFAQ_triggered();
         void on_actionFullscreen_triggered();
         void on_actionData_Monitor_triggered();
-
-    public slots:
-        void updateDataGSV(int totalSatellites, double freq);
-        void updateDataGGA(QString time, double latitude, double longitude, int fixQuality, int numSatellites, double hdop, double altitude, double freqHz);
-        void updateDataGLL(QString utc, double latitude, double longitude,  double freqHz);
-        void updateDataVTG(double track_true, double track_mag, double speed_knot, double speedKmh, double frequency);
-        void updateDataGSA(double pdop, double hdop, double vdop, double freqHz);
-        void updateDataRMC(QString utcDate, QString utcTime, double latitude, double longitude, double speedMps, double course, double magVar, double freqHz);
-        void updateDataHDT(double heading, double freqHz);
-        void updateDataDBT(double depthFeet, double depthMeters, double depthFathom, double freqHz);
-        void updateDataVHW(double headingTrue, double headingMag, double speedKnots, double speedKmh, double freqHz);
-        void updateDataZDA(QString dateStr, QString timeStr, QString offsetStr, double freqHz);
-        void updateDataDPT(double depth, double offset, double freqHz);
-        void updateDataMWD(double dir1, QString dir1Unit, double dir2, QString dir2Unit, double speed1, QString speed1Unit, double speed2, QString speed2Unit, double freqHz);
-        void updateDataMTW(double temp, QString tempUnit, double freqHz);
-        void updateDataMWV(double angle, QString ref, double speed, QString unit, double freqHz);
+        void on_actionDecoded_NMEA_triggered();
 
     signals:
         void setAddTimestamp(bool checked);
 
-        void updateBoatPositionMap(QVariant, QVariant);
-        void updateBoatHeadingMap(QVariant);
-        void updateBoatDepthMap(QVariant);
-        void updateBoatSpeedMap(QVariant);
-        void updateBoatCourseMap(QVariant);
-        void updateBoatWaterTemperatureMap(QVariant);
-        void updateBoatDateMap(QVariant);
-        void updateBoatTimeMap(QVariant);
+
 };
