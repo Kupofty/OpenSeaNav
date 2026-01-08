@@ -18,6 +18,7 @@ MenuBarDataMonitor::MenuBarDataMonitor(QWidget *parent) : QDialog(parent), ui(ne
                             | Qt::WindowCloseButtonHint
                             | Qt::WindowStaysOnTopHint;
     setWindowFlags(flags);
+    setAttribute(Qt::WA_ShowWithoutActivating);
 }
 
 MenuBarDataMonitor::~MenuBarDataMonitor()

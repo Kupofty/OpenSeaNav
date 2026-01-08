@@ -345,7 +345,7 @@
              <item>
               <widget class="QCheckBox" name="checkBox_serial_autoconnect">
                <property name="text">
-                <string>Auto-connect at startup (manual input only)</string>
+                <string>Auto-connect on startup</string>
                </property>
               </widget>
              </item>
@@ -633,7 +633,7 @@
              <item>
               <widget class="QCheckBox" name="checkBox_udp_autoconnect">
                <property name="text">
-                <string>Auto-connect at startup</string>
+                <string>Auto-connect on startup</string>
                </property>
               </widget>
              </item>
@@ -939,6 +939,19 @@
               <number>9</number>
              </property>
              <item>
+              <spacer name="horizontalSpacer_25">
+               <property name="orientation">
+                <enum>Qt::Orientation::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item>
               <widget class="QLabel" name="label_17">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -953,6 +966,19 @@
                 <set>Qt::AlignmentFlag::AlignCenter</set>
                </property>
               </widget>
+             </item>
+             <item>
+              <spacer name="horizontalSpacer_31">
+               <property name="orientation">
+                <enum>Qt::Orientation::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>20</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
              </item>
              <item>
               <widget class="QComboBox" name="comboBox_udp_host_address">
@@ -973,6 +999,19 @@
                </item>
               </widget>
              </item>
+             <item>
+              <spacer name="horizontalSpacer_26">
+               <property name="orientation">
+                <enum>Qt::Orientation::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
             </layout>
            </item>
            <item>
@@ -991,6 +1030,19 @@
                <number>9</number>
               </property>
               <item>
+               <spacer name="horizontalSpacer_29">
+                <property name="orientation">
+                 <enum>Qt::Orientation::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
                <widget class="QLabel" name="label_18">
                 <property name="text">
                  <string>IP Address :</string>
@@ -998,11 +1050,37 @@
                </widget>
               </item>
               <item>
+               <spacer name="horizontalSpacer_32">
+                <property name="orientation">
+                 <enum>Qt::Orientation::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>20</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
                <widget class="QLineEdit" name="lineEdit_udp_ip_address">
                 <property name="text">
                  <string>255.255.255.255</string>
                 </property>
                </widget>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer_30">
+                <property name="orientation">
+                 <enum>Qt::Orientation::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
               </item>
              </layout>
             </widget>
@@ -1051,7 +1129,7 @@
                </property>
                <property name="sizeHint" stdset="0">
                 <size>
-                 <width>40</width>
+                 <width>20</width>
                  <height>20</height>
                 </size>
                </property>
@@ -1722,42 +1800,19 @@
              <property name="bottomMargin">
               <number>9</number>
              </property>
-             <item row="1" column="1">
-              <widget class="QCheckBox" name="checkBox_serial_output_rmc">
+             <item row="5" column="3">
+              <widget class="QCheckBox" name="checkBox_serial_output_others">
                <property name="text">
-                <string>RMC</string>
+                <string>Others</string>
                </property>
               </widget>
              </item>
-             <item row="4" column="1">
-              <widget class="QCheckBox" name="checkBox_serial_output_zda">
+             <item row="5" column="2">
+              <widget class="QCheckBox" name="checkBox_serial_output_mwd">
                <property name="text">
-                <string>ZDA</string>
+                <string>MWD</string>
                </property>
               </widget>
-             </item>
-             <item row="3" column="3">
-              <widget class="QCheckBox" name="checkBox_serial_output_vhw">
-               <property name="text">
-                <string>VHW</string>
-               </property>
-               <property name="checkable">
-                <bool>true</bool>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="0">
-              <spacer name="horizontalSpacer_18">
-               <property name="orientation">
-                <enum>Qt::Orientation::Horizontal</enum>
-               </property>
-               <property name="sizeHint" stdset="0">
-                <size>
-                 <width>40</width>
-                 <height>20</height>
-                </size>
-               </property>
-              </spacer>
              </item>
              <item row="3" column="2">
               <widget class="QCheckBox" name="checkBox_serial_output_vtg">
@@ -1766,17 +1821,20 @@
                </property>
               </widget>
              </item>
+             <item row="1" column="3">
+              <widget class="QCheckBox" name="checkBox_serial_output_dbt">
+               <property name="text">
+                <string>DBT</string>
+               </property>
+               <property name="checkable">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
              <item row="1" column="2">
               <widget class="QCheckBox" name="checkBox_serial_output_gsa">
                <property name="text">
                 <string>GSA</string>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="2">
-              <widget class="QCheckBox" name="checkBox_serial_output_gsv">
-               <property name="text">
-                <string>GSV</string>
                </property>
               </widget>
              </item>
@@ -1790,10 +1848,38 @@
                </property>
               </widget>
              </item>
-             <item row="4" column="2">
-              <widget class="QCheckBox" name="checkBox_serial_output_dpt">
+             <item row="4" column="1">
+              <widget class="QCheckBox" name="checkBox_serial_output_zda">
                <property name="text">
-                <string>DPT</string>
+                <string>ZDA</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QCheckBox" name="checkBox_serial_output_gga">
+               <property name="text">
+                <string>GGA</string>
+               </property>
+              </widget>
+             </item>
+             <item row="5" column="1">
+              <widget class="QCheckBox" name="checkBox_serial_output_mwv">
+               <property name="text">
+                <string>MWV</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="2">
+              <widget class="QCheckBox" name="checkBox_serial_output_gsv">
+               <property name="text">
+                <string>GSV</string>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="1">
+              <widget class="QCheckBox" name="checkBox_serial_output_gll">
+               <property name="text">
+                <string>GLL</string>
                </property>
               </widget>
              </item>
@@ -1801,6 +1887,23 @@
               <widget class="QCheckBox" name="checkBox_serial_output_mtw">
                <property name="text">
                 <string>MTW</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="QCheckBox" name="checkBox_serial_output_rmc">
+               <property name="text">
+                <string>RMC</string>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="3">
+              <widget class="QCheckBox" name="checkBox_serial_output_vhw">
+               <property name="text">
+                <string>VHW</string>
+               </property>
+               <property name="checkable">
+                <bool>true</bool>
                </property>
               </widget>
              </item>
@@ -1817,50 +1920,25 @@
                </property>
               </spacer>
              </item>
-             <item row="0" column="1">
-              <widget class="QCheckBox" name="checkBox_serial_output_gga">
+             <item row="4" column="2">
+              <widget class="QCheckBox" name="checkBox_serial_output_dpt">
                <property name="text">
-                <string>GGA</string>
+                <string>DPT</string>
                </property>
               </widget>
              </item>
-             <item row="3" column="1">
-              <widget class="QCheckBox" name="checkBox_serial_output_gll">
-               <property name="text">
-                <string>GLL</string>
+             <item row="0" column="0">
+              <spacer name="horizontalSpacer_18">
+               <property name="orientation">
+                <enum>Qt::Orientation::Horizontal</enum>
                </property>
-              </widget>
-             </item>
-             <item row="1" column="3">
-              <widget class="QCheckBox" name="checkBox_serial_output_dbt">
-               <property name="text">
-                <string>DBT</string>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
                </property>
-               <property name="checkable">
-                <bool>true</bool>
-               </property>
-              </widget>
-             </item>
-             <item row="5" column="1">
-              <widget class="QCheckBox" name="checkBox_serial_output_mwv">
-               <property name="text">
-                <string>MWV</string>
-               </property>
-              </widget>
-             </item>
-             <item row="5" column="2">
-              <widget class="QCheckBox" name="checkBox_serial_output_mwd">
-               <property name="text">
-                <string>MWD</string>
-               </property>
-              </widget>
-             </item>
-             <item row="5" column="3">
-              <widget class="QCheckBox" name="checkBox_serial_output_others">
-               <property name="text">
-                <string>Others</string>
-               </property>
-              </widget>
+              </spacer>
              </item>
             </layout>
            </item>
@@ -2590,6 +2668,9 @@
    </property>
    <property name="text">
     <string>Decoded NMEA</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+L</string>
    </property>
   </action>
  </widget>

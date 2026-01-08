@@ -35,6 +35,8 @@ class MenuBarDecodedNmea : public QDialog
         void updateDataMTW(double temp, QString tempUnit, double freqHz);
         void updateDataMWV(double angle, QString ref, double speed, QString unit, double freqHz);
 
+    private slots:
+        void on_pushButton_clear_data_clicked();
 };
 
 #endif // MENUBAR_DECODEDNMEA_H

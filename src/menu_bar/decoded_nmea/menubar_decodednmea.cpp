@@ -18,6 +18,7 @@ MenuBarDecodedNmea::MenuBarDecodedNmea(QWidget *parent) : QDialog(parent), ui(ne
                             | Qt::WindowCloseButtonHint
                             | Qt::WindowStaysOnTopHint;
     setWindowFlags(flags);
+    setAttribute(Qt::WA_ShowWithoutActivating);
 }
 
 MenuBarDecodedNmea::~MenuBarDecodedNmea()
@@ -243,4 +244,10 @@ void MenuBarDecodedNmea::clearDecodedDataScreens()
     ui->lcdNumber_windSpeed_mwv->display(0);
     ui->lcdNumber_frequency_mwv->display(0);
 }
+
+void MenuBarDecodedNmea::on_pushButton_clear_data_clicked()
+{
+    clearDecodedDataScreens();
+}
+
 

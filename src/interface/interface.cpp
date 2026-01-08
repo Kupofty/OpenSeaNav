@@ -8,7 +8,10 @@ Interface::Interface(QWidget *parent) : QMainWindow(parent), ui(new Ui::Interfac
     //Setup UI
     ui->setupUi(this);
     ui->tabWidget->setCurrentWidget(ui->tab_map);
-    this->showMaximized();
+
+    //Instatiate child classes
+    data_monitor_window = new MenuBarDataMonitor(this);
+    decoded_nmea_window = new MenuBarDecodedNmea(this);
 
     //Hide widgets
     hideGUI();
@@ -50,24 +53,24 @@ void Interface::connectSignalSlot()
     connect(&nmea_handler, &NMEA_Handler::newNMEASentence, &text_file_writer, &TextFileWritter::writeRawSentences);
 
     //General Display Settings
-    connect(&nmea_handler, &NMEA_Handler::newNMEASentence, &data_monitor_window, &MenuBarDataMonitor::displayNmeaSentence);
+    connect(&nmea_handler, &NMEA_Handler::newNMEASentence, data_monitor_window, &MenuBarDataMonitor::displayNmeaSentence);
     connect(&udp_reader, &UdpReader::newSenderDetails, this, &Interface::updateUdpSenderDetails);
 
     //Display decoded NMEA data
-    connect(&nmea_handler, &NMEA_Handler::newDecodedGGA, &decoded_nmea_window, &MenuBarDecodedNmea::updateDataGGA);
-    connect(&nmea_handler, &NMEA_Handler::newDecodedGLL, &decoded_nmea_window, &MenuBarDecodedNmea::updateDataGLL);
-    connect(&nmea_handler, &NMEA_Handler::newDecodedGSV, &decoded_nmea_window, &MenuBarDecodedNmea::updateDataGSV);
-    connect(&nmea_handler, &NMEA_Handler::newDecodedVTG, &decoded_nmea_window, &MenuBarDecodedNmea::updateDataVTG);
-    connect(&nmea_handler, &NMEA_Handler::newDecodedGSA, &decoded_nmea_window, &MenuBarDecodedNmea::updateDataGSA);
-    connect(&nmea_handler, &NMEA_Handler::newDecodedRMC, &decoded_nmea_window, &MenuBarDecodedNmea::updateDataRMC);
-    connect(&nmea_handler, &NMEA_Handler::newDecodedHDT, &decoded_nmea_window, &MenuBarDecodedNmea::updateDataHDT);
-    connect(&nmea_handler, &NMEA_Handler::newDecodedDBT, &decoded_nmea_window, &MenuBarDecodedNmea::updateDataDBT);
-    connect(&nmea_handler, &NMEA_Handler::newDecodedVHW, &decoded_nmea_window, &MenuBarDecodedNmea::updateDataVHW);
-    connect(&nmea_handler, &NMEA_Handler::newDecodedZDA, &decoded_nmea_window, &MenuBarDecodedNmea::updateDataZDA);
-    connect(&nmea_handler, &NMEA_Handler::newDecodedDPT, &decoded_nmea_window, &MenuBarDecodedNmea::updateDataDPT);
-    connect(&nmea_handler, &NMEA_Handler::newDecodedMWD, &decoded_nmea_window, &MenuBarDecodedNmea::updateDataMWD);
-    connect(&nmea_handler, &NMEA_Handler::newDecodedMTW, &decoded_nmea_window, &MenuBarDecodedNmea::updateDataMTW);
-    connect(&nmea_handler, &NMEA_Handler::newDecodedMWV, &decoded_nmea_window, &MenuBarDecodedNmea::updateDataMWV);
+    connect(&nmea_handler, &NMEA_Handler::newDecodedGGA, decoded_nmea_window, &MenuBarDecodedNmea::updateDataGGA);
+    connect(&nmea_handler, &NMEA_Handler::newDecodedGLL, decoded_nmea_window, &MenuBarDecodedNmea::updateDataGLL);
+    connect(&nmea_handler, &NMEA_Handler::newDecodedGSV, decoded_nmea_window, &MenuBarDecodedNmea::updateDataGSV);
+    connect(&nmea_handler, &NMEA_Handler::newDecodedVTG, decoded_nmea_window, &MenuBarDecodedNmea::updateDataVTG);
+    connect(&nmea_handler, &NMEA_Handler::newDecodedGSA, decoded_nmea_window, &MenuBarDecodedNmea::updateDataGSA);
+    connect(&nmea_handler, &NMEA_Handler::newDecodedRMC, decoded_nmea_window, &MenuBarDecodedNmea::updateDataRMC);
+    connect(&nmea_handler, &NMEA_Handler::newDecodedHDT, decoded_nmea_window, &MenuBarDecodedNmea::updateDataHDT);
+    connect(&nmea_handler, &NMEA_Handler::newDecodedDBT, decoded_nmea_window, &MenuBarDecodedNmea::updateDataDBT);
+    connect(&nmea_handler, &NMEA_Handler::newDecodedVHW, decoded_nmea_window, &MenuBarDecodedNmea::updateDataVHW);
+    connect(&nmea_handler, &NMEA_Handler::newDecodedZDA, decoded_nmea_window, &MenuBarDecodedNmea::updateDataZDA);
+    connect(&nmea_handler, &NMEA_Handler::newDecodedDPT, decoded_nmea_window, &MenuBarDecodedNmea::updateDataDPT);
+    connect(&nmea_handler, &NMEA_Handler::newDecodedMWD, decoded_nmea_window, &MenuBarDecodedNmea::updateDataMWD);
+    connect(&nmea_handler, &NMEA_Handler::newDecodedMTW, decoded_nmea_window, &MenuBarDecodedNmea::updateDataMTW);
+    connect(&nmea_handler, &NMEA_Handler::newDecodedMWV, decoded_nmea_window, &MenuBarDecodedNmea::updateDataMWV);
 
     //Timers
     connect(&fileRecordingSizeTimer, &QTimer::timeout, this, &Interface::updateRecordingFileSize);
@@ -88,6 +91,21 @@ void Interface::connectSignalSlot()
 ////////////////
 /// Settings ///
 ////////////////
+void Interface::loadSettings()
+{
+    //Init Settings
+    initSettings();
+
+    //UI
+    loadUiSettings();
+
+    //Serial Input
+    loadSerialInputSettings();
+
+    //UDP Input
+    loadUdpInputSettings();
+}
+
 void Interface::initSettings()
 {
     QString settingsFolderName = "/OpenSeaNav";
@@ -98,30 +116,36 @@ void Interface::initSettings()
     settings = new QSettings(configPath + settingsFileName, QSettings::IniFormat, this);
 }
 
-void Interface::saveSettings()
+void Interface::loadUiSettings()
 {
-    //Serial Input
-    settings->setValue("serialInput/selectManual", ui->checkBox_serial_manual_input->isChecked());
-    settings->setValue("serialInput/baudrate", ui->comboBox_serial_input_port_baudrate->currentIndex());
-    settings->setValue("serialInput/manualPort",  ui->lineEdit_serial_manual_input->text());
-    settings->setValue("serialInput/autoConnect", ui->checkBox_serial_autoconnect->isChecked());
-    settings->setValue("serialInput/listPort", ui->comboBox_serial_input_port_list->currentText());
+    int w, h, x, y;
 
-    // UDP Input
-    settings->setValue("udpInput/port", ui->spinBox_port_input_udp->value());
-    settings->setValue("udpInput/autoConnect", ui->checkBox_udp_autoconnect->isChecked());
-}
+    //Main Window
+    w = settings->value("mainWindow/width", 1200).toInt();
+    h = settings->value("mainWindow/height", 800).toInt();
+    this->resize(w, h);
 
-void Interface::loadSettings()
-{
-    //Init Settings
-    initSettings();
+    x = settings->value("mainWindow/x", 100).toInt();
+    y = settings->value("mainWindow/y", 100).toInt();
+    this->move(x, y);
 
-    //Serial Input
-    loadSerialInputSettings();
+    //Data Monitor Window
+    w = settings->value("dataMonitorWindow/width", 600).toInt();
+    h = settings->value("dataMonitorWindow/height", 600).toInt();
+    data_monitor_window->resize(w, h);
 
-    //UDP Input
-    loadUdpInputSettings();
+    x = settings->value("dataMonitorWindow/x", 100).toInt();
+    y = settings->value("dataMonitorWindow/y", 100).toInt();
+    data_monitor_window->move(x, y);
+
+    //Decoded NMEA Monitor
+    w = settings->value("decodedNmeaWindow/width", 600).toInt();
+    h = settings->value("decodedNmeaWindow/height", 600).toInt();
+    decoded_nmea_window->resize(w, h);
+
+    x = settings->value("decodedNmeaWindow/x", 100).toInt();
+    y = settings->value("decodedNmeaWindow/y", 100).toInt();
+    decoded_nmea_window->move(x, y);
 }
 
 void Interface::loadSerialInputSettings()
@@ -163,6 +187,38 @@ void Interface::loadUdpInputSettings()
         ui->pushButton_connect_udp_input->click();
 }
 
+void Interface::saveSettings()
+{
+    //Main Window
+    settings->setValue("mainWindow/width", this->width());
+    settings->setValue("mainWindow/height", this->height());
+    settings->setValue("mainWindow/x", this->x());
+    settings->setValue("mainWindow/y", this->y());
+
+    //Data Monitor
+    settings->setValue("dataMonitorWindow/width", data_monitor_window->width());
+    settings->setValue("dataMonitorWindow/height", data_monitor_window->height());
+    settings->setValue("dataMonitorWindow/x", data_monitor_window->x());
+    settings->setValue("dataMonitorWindow/y", data_monitor_window->y());
+
+    //Decoded NMEA Monitor
+    settings->setValue("decodedNmeaWindow/width", decoded_nmea_window->width());
+    settings->setValue("decodedNmeaWindow/height", decoded_nmea_window->height());
+    settings->setValue("decodedNmeaWindow/x", decoded_nmea_window->x());
+    settings->setValue("decodedNmeaWindow/y", decoded_nmea_window->y());
+
+    //Serial Input
+    settings->setValue("serialInput/selectManual", ui->checkBox_serial_manual_input->isChecked());
+    settings->setValue("serialInput/baudrate", ui->comboBox_serial_input_port_baudrate->currentIndex());
+    settings->setValue("serialInput/manualPort",  ui->lineEdit_serial_manual_input->text());
+    settings->setValue("serialInput/autoConnect", ui->checkBox_serial_autoconnect->isChecked());
+    settings->setValue("serialInput/listPort", ui->comboBox_serial_input_port_list->currentText());
+
+    // UDP Input
+    settings->setValue("udpInput/port", ui->spinBox_port_input_udp->value());
+    settings->setValue("udpInput/autoConnect", ui->checkBox_udp_autoconnect->isChecked());
+}
+
 
 
 ////////////////
@@ -191,23 +247,23 @@ void Interface::on_actionManual_Data_Input_triggered()
 
 void Interface::on_actionData_Monitor_triggered()
 {
-    if (data_monitor_window.isVisible())
+    if (data_monitor_window->isVisible())
     {
-        data_monitor_window.hide();
+        data_monitor_window->hide();
     }
     else
     {
-        data_monitor_window.show();
-        data_monitor_window.scrollDownPlainText();
+        data_monitor_window->show();
+        data_monitor_window->scrollDownPlainText();
     }
 }
 
 void Interface::on_actionDecoded_NMEA_triggered()
 {
-    if (decoded_nmea_window.isVisible())
-        decoded_nmea_window.hide();
+    if (decoded_nmea_window->isVisible())
+        decoded_nmea_window->hide();
     else
-        decoded_nmea_window.show();
+        decoded_nmea_window->show();
 }
 
 //Help
@@ -337,7 +393,7 @@ void Interface::updateGuiAfterSerialConnection(bool connectSuccess)
     ui->horizontalFrame_serial_input_connection->setEnabled(!connectSuccess);
     ui->pushButton_connect_serial_input->setEnabled(!connectSuccess);
     ui->pushButton_disconnect_serial_input->setEnabled(connectSuccess);
-    decoded_nmea_window.clearDecodedDataScreens();
+    decoded_nmea_window->clearDecodedDataScreens();
 }
 
 
@@ -412,7 +468,7 @@ void Interface::updateGuiAfterUdpConnection(bool connectSuccess)
     ui->pushButton_connect_udp_input->setEnabled(!connectSuccess);
     ui->pushButton_disconnect_udp_input->setEnabled(connectSuccess);
     ui->plainTextEdit_udp_sender_details->clear();
-    decoded_nmea_window.clearDecodedDataScreens();
+    decoded_nmea_window->clearDecodedDataScreens();
 }
 
 void Interface::updateUdpSenderDetails()
@@ -865,34 +921,5 @@ QString Interface::getRecordingFilePath()
     QString fullPath = QDir(dirPath).filePath(fileName + fileExtension);
 
     return fullPath;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-void Interface::on_actionReset_Settings_triggered()
-{
-
 }
 

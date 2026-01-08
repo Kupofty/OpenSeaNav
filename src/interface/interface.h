@@ -61,8 +61,8 @@ class Interface : public QMainWindow
         QList<QCheckBox*> checkboxOutputSerial;
         QList<QCheckBox*> checkboxOutputUDP;
         QQuickItem *qmlMapObject;
-        MenuBarDataMonitor data_monitor_window;
-        MenuBarDecodedNmea decoded_nmea_window;
+        MenuBarDataMonitor *data_monitor_window;
+        MenuBarDecodedNmea *decoded_nmea_window;
         QString configPath;
         QSettings *settings;
 
@@ -70,6 +70,7 @@ class Interface : public QMainWindow
         void initSettings();
         void saveSettings();
         void loadSettings();
+        void loadUiSettings();
         void loadSerialInputSettings();
         void loadUdpInputSettings();
 
