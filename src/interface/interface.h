@@ -158,6 +158,11 @@ class Interface : public QMainWindow
         void on_actionData_Monitor_triggered();
         void on_actionDecoded_NMEA_triggered();
 
+
+        void on_actionStartFullscreen_toggled(bool arg1);
+        void on_actionRestore_Last_Window_toggled(bool arg1);
+        void on_actionStartMaximized_toggled(bool arg1);
+
     signals:
         void setAddTimestamp(bool checked);
 

@@ -121,13 +121,31 @@ void Interface::loadUiSettings()
     int w, h, x, y;
 
     //Main Window
-    w = settings->value("mainWindow/width", 1200).toInt();
-    h = settings->value("mainWindow/height", 800).toInt();
-    this->resize(w, h);
+    bool showLastSize =  settings->value("mainWindow/showLastSize", false).toBool();
+    bool showFullscreen =  settings->value("mainWindow/showFullScreen", false).toBool();
 
-    x = settings->value("mainWindow/x", 100).toInt();
-    y = settings->value("mainWindow/y", 100).toInt();
-    this->move(x, y);
+    if(showLastSize)
+    {
+        w = settings->value("mainWindow/width", 1200).toInt();
+        h = settings->value("mainWindow/height", 800).toInt();
+        this->resize(w, h);
+
+        x = settings->value("mainWindow/x", 100).toInt();
+        y = settings->value("mainWindow/y", 100).toInt();
+        this->move(x, y);
+
+        ui->actionRestore_Last_Window->setChecked(true);
+    }
+    else if(showFullscreen)
+    {
+        ui->actionStartFullscreen->setChecked(true);
+        showFullScreen();
+    }
+    else // Maximized by default
+    {
+        ui->actionStartMaximized->setChecked(true);
+        this->showMaximized();
+    }
 
     //Data Monitor Window
     w = settings->value("dataMonitorWindow/width", 600).toInt();
@@ -190,6 +208,8 @@ void Interface::loadUdpInputSettings()
 void Interface::saveSettings()
 {
     //Main Window
+    settings->setValue("mainWindow/showLastSize", ui->actionRestore_Last_Window->isChecked());
+    settings->setValue("mainWindow/showFullScreen", ui->actionStartFullscreen->isChecked());
     settings->setValue("mainWindow/width", this->width());
     settings->setValue("mainWindow/height", this->height());
     settings->setValue("mainWindow/x", this->x());
@@ -235,6 +255,34 @@ void Interface::on_actionExit_triggered()
 void Interface::on_actionFullscreen_triggered()
 {
     toggleFullscreen();
+}
+
+
+void Interface::on_actionStartFullscreen_toggled(bool checked)
+{
+    if(checked)
+    {
+        ui->actionStartMaximized->setChecked(false);
+        ui->actionRestore_Last_Window->setChecked(false);
+    }
+}
+
+void Interface::on_actionRestore_Last_Window_toggled(bool checked)
+{
+    if(checked)
+    {
+        ui->actionStartFullscreen->setChecked(false);
+        ui->actionStartMaximized->setChecked(false);
+    }
+}
+
+void Interface::on_actionStartMaximized_toggled(bool checked)
+{
+    if(checked)
+    {
+        ui->actionStartFullscreen->setChecked(false);
+        ui->actionRestore_Last_Window->setChecked(false);
+    }
 }
 
 //Tools
@@ -922,4 +970,3 @@ QString Interface::getRecordingFilePath()
 
     return fullPath;
 }
-

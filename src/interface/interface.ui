@@ -2595,7 +2595,17 @@
     <property name="title">
      <string>View</string>
     </property>
+    <widget class="QMenu" name="menuStartup_Window_Mode">
+     <property name="title">
+      <string>Startup Window Mode</string>
+     </property>
+     <addaction name="actionStartMaximized"/>
+     <addaction name="actionStartFullscreen"/>
+     <addaction name="actionRestore_Last_Window"/>
+    </widget>
     <addaction name="actionFullscreen"/>
+    <addaction name="separator"/>
+    <addaction name="menuStartup_Window_Mode"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuView"/>
@@ -2656,7 +2666,7 @@
     <iconset theme="QIcon::ThemeIcon::ViewFullscreen"/>
    </property>
    <property name="text">
-    <string>Fullscreen</string>
+    <string>Toggle Fullscreen</string>
    </property>
    <property name="shortcut">
     <string>F11</string>
@@ -2671,6 +2681,30 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+L</string>
+   </property>
+  </action>
+  <action name="actionStartMaximized">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Maximized</string>
+   </property>
+  </action>
+  <action name="actionStartFullscreen">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Fullscreen</string>
+   </property>
+  </action>
+  <action name="actionRestore_Last_Window">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Restore Last Window</string>
    </property>
   </action>
  </widget>
