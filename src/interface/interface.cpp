@@ -257,7 +257,6 @@ void Interface::on_actionFullscreen_triggered()
     toggleFullscreen();
 }
 
-
 void Interface::on_actionStartFullscreen_toggled(bool checked)
 {
     if(checked)

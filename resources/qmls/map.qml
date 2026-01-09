@@ -114,6 +114,11 @@ Item {
     //Projection
     property double metersPerPixelMercatorProjection : 156543.03392
 
+    //Boat Track
+    property bool enableTrack: false
+    property int minimumTrackPointsDistance: 50
+    property var boatTrack: []
+    property int maxTrackPoints: 500
 
 
     //////////////////
@@ -226,6 +231,14 @@ Item {
                 return [mouseArea.measurePoint, mouseArea.cursorCoord]
             }
         }
+
+        MapPolyline {
+            visible: boatTrack.length > 1
+            line.width: 2
+            line.color: "yellow"
+            path: boatTrack
+        }
+
     }
 
 
@@ -293,6 +306,16 @@ Item {
     Shortcut { //Drop Marker On Boat
         sequence: "M"
         onActivated: addMarkerOnMap(boatLatitude, boatLongitude)
+    }
+
+    Shortcut { //Enable Tracking
+        sequence: "T"
+        onActivated: enableTrack = !enableTrack
+    }
+
+    Shortcut { //Clear Track
+        sequence: "C"
+        onActivated: boatTrack = []
     }
 
 
@@ -510,6 +533,21 @@ Item {
 
             onTriggered: {
                 followBoat = !followBoat
+            }
+        }
+
+        //Draw Track
+        MenuItem {
+            id: drawTrackItem
+            contentItem: Label {
+                text: "Tracking..."
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
+                width: parent.width
+            }
+
+            onTriggered: {
+                boatTrackingSubmenu.popup(contextMenu.x + contextMenu.width, contextMenu.y + drawTrackItem.y)
             }
         }
 
@@ -815,6 +853,34 @@ Item {
         }
     }
 
+    //Tracking
+    Menu {
+        id: boatTrackingSubmenu
+        width: rightClickMenuWidth/1.2
+        modal: true
+
+        MenuItem {
+            contentItem: Label {
+                text: (enableTrack ? "Disable Tracking" : "Enable Tracking") + " (T)"
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
+                width: parent.width
+            }
+
+            onTriggered: enableTrack = !enableTrack
+        }
+
+        MenuItem {
+            contentItem: Label {
+                text: "Clear Track (C)"
+                enabled: boatTrack.length > 1
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
+                width: parent.width
+            }
+            onTriggered: boatTrack = []
+        }
+    }
 
 
 
@@ -1731,6 +1797,40 @@ Item {
         mapZoomLevel = map.zoomLevel
     }
 
+    //Recalculate cursor coordinate relative to mouse position
+    function updateCursorCalculations() {
+        var coord = map.toCoordinate(Qt.point(mouseArea.mouseX, mouseArea.mouseY))
+        cursorLatitude = coord.latitude
+        cursorLongitude = coord.longitude
+
+        cursorDistanceBoat = haversineDistance(boatLatitude, boatLongitude, cursorLatitude, cursorLongitude)
+        cursorBearingBoat = calculateBearing(boatLatitude, boatLongitude, cursorLatitude, cursorLongitude)
+    }
+
+    //Boat Track
+    function drawBoatTrack(lat, lon){
+
+        if(!enableTrack)
+            return
+
+        //Minimum distance between 2 points
+        if (boatTrack.length &&
+            haversineDistance(
+                boatTrack[boatTrack.length-1].latitude,
+                boatTrack[boatTrack.length-1].longitude,
+                lat, lon
+            ) < minimumTrackPointsDistance)
+            return
+
+        var newTrack = boatTrack.slice()   // clone array
+        newTrack.push(QtPositioning.coordinate(lat, lon))
+
+        if (newTrack.length > maxTrackPoints)
+            newTrack.shift()
+
+        boatTrack = newTrack               // reassign
+    }
+
 
 
     ///////////////////
@@ -1761,6 +1861,8 @@ Item {
         boatPositionInit = true
 
         updateBoatIconOnMap()
+
+        drawBoatTrack(lat, lon)
     }
 
     //Update boat heading
@@ -1803,15 +1905,6 @@ Item {
         boatWaterTemperatureReceived = true
     }
 
-    //Recalculate cursor coordinate relative to mouse position
-    function updateCursorCalculations() {
-        var coord = map.toCoordinate(Qt.point(mouseArea.mouseX, mouseArea.mouseY))
-        cursorLatitude = coord.latitude
-        cursorLongitude = coord.longitude
-
-        cursorDistanceBoat = haversineDistance(boatLatitude, boatLongitude, cursorLatitude, cursorLongitude)
-        cursorBearingBoat = calculateBearing(boatLatitude, boatLongitude, cursorLatitude, cursorLongitude)
-    }
 
 
 
@@ -1860,7 +1953,7 @@ Item {
         return lat >= -90 && lat <= 90 && lon >= -180 && lon <= 180
     }
 
-    //Distance between 2 positions
+    //Distance between 2 positions (meters)
     function haversineDistance(lat1, lon1, lat2, lon2) {
         const R = 6378137.0; // Earth radius in meters
 
