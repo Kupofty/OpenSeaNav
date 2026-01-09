@@ -18,6 +18,7 @@ Item {
     //Position
     property double mapCenterLatitude:  35
     property double mapCenterLongitude: 0
+    property bool firstPositionInit: false
 
     //Cursor
     property double cursorLatitude: NaN
@@ -116,7 +117,7 @@ Item {
 
     //Boat Track
     property bool enableTrack: false
-    property int minimumTrackPointsDistance: 50
+    property int minimumTrackPointsDistance: 50 //meters
     property var boatTrack: []
     property int maxTrackPoints: 500
 
@@ -1730,7 +1731,7 @@ Item {
         map.center = QtPositioning.coordinate(targetLat, targetLon)
     }
 
-    //Go To New Position
+    //Go To Boat Position
     function setCenterPositionOnBoat() {
         map.center = QtPositioning.coordinate(boatLatitude, boatLongitude)
     }
@@ -1861,6 +1862,13 @@ Item {
         boatPositionInit = true
 
         updateBoatIconOnMap()
+
+        //Zoom & center on boat first time receiving position
+        if(!firstPositionInit){
+            goToZoomLevelMap(17)
+            setCenterPositionOnBoat()
+            firstPositionInit = true;
+        }
 
         drawBoatTrack(lat, lon)
     }
