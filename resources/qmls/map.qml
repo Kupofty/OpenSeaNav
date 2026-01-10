@@ -95,8 +95,8 @@ Item {
     }
 
     //Timer Data Update
-    property int timeBeforePositionLost: 10
-    property int timeBeforeGeneralDataLost: 5
+    property int timeBeforePositionLost: 10   //seconds
+    property int timeBeforeGeneralDataLost: 5 //seconds
     property string textTimerPositionUpdate: "No Position Data"
 
     property double timeLastUtcDate: 0
@@ -122,43 +122,34 @@ Item {
     property int maxTrackPoints: 500
 
 
+    //-------------------------------------------------------------------------------//
+
+
     //////////////////
-    /// Map Plugin ///
+    /// OSM Plugin ///
     //////////////////
     Plugin {
         id: osmPlugin
         name: "osm"
 
+        //OpenStreetMap standard
         PluginParameter {
-            name:"osm.mapping.custom.host"
+            name: "osm.mapping.host"
             value: "https://tile.openstreetmap.org/"
         }
 
-        //For offline tiles (optionnal)
-        PluginParameter {
-           name: "osm.mapping.offline.directory"
-           value: "/path/to/tiles"
-        }
-
-        //Disable Qt default provider
+        //Disable Qt's default provider
         PluginParameter {
            name: "osm.mapping.providersrepository.disabled"
            value: true
         }
-
-       //Custom tile server (OpenStreetMap standard)
-        PluginParameter {
-           name: "osm.mapping.host"
-           value: "https://tile.openstreetmap.org/"
-        }
-
-        //For high-DPI tiles on high-resolution displays (optionnal)
-        PluginParameter {
-           name: "osm.mapping.highdpi_tiles"
-           value: true
-        }
     }
 
+
+
+    ////////////////
+    /// Main Map ///
+    ////////////////
     Map {
         id: map
         anchors.fill: parent
@@ -170,7 +161,7 @@ Item {
         //Load OSM plugin
         plugin: osmPlugin
 
-        //Heading line
+        //Heading Line
         MapPolyline {
             visible: (boatPositionReceived && boatHeadingReceived)
             line.width: 3
@@ -196,7 +187,7 @@ Item {
             }
         }
 
-        //COG line
+        //COG Line
         MapPolyline {
             visible: (boatPositionReceived && boatCourseReceived)
             line.width: 1
@@ -222,7 +213,7 @@ Item {
             }
         }
 
-        //Measure mode line
+        //Measure Distance Line
         MapPolyline {
             visible: mouseArea.measureMode && mouseArea.measurePoint !== null
             line.width: 2
@@ -233,21 +224,20 @@ Item {
             }
         }
 
+        //Track Line
         MapPolyline {
             visible: boatTrack.length > 1
             line.width: 2
             line.color: "yellow"
             path: boatTrack
         }
-
     }
 
 
 
-    /////////////////
-    /// Shortcuts ///
-    /////////////////
-
+    //////////////////////////
+    /// Keyboard Shortcuts ///
+    //////////////////////////
     Shortcut { //Follow boat
         sequence: "F"
         onActivated: followBoat = !followBoat
@@ -321,46 +311,31 @@ Item {
 
 
 
-    ////////////////
-    /// Connects ///
-    ////////////////
-    Connections {
-        //Update mouse position on boat movement
-        function onBoatLatitudeChanged() {
-            updateCursorCalculations()
-        }
-
-        function onBoatLongitudeChanged() {
-            updateCursorCalculations()
-        }
-    }
-
-
-
-    ////////////
-    /// Zoom ///
-    ////////////
+    ////////////////////
+    /// WheelHandler ///
+    ////////////////////
     WheelHandler {
-        id: wheelZoomHandler
         target: map
 
         onWheel: function(event) {
+            //Coordinates before zoom
             var cursorPoint = Qt.point(event.x, event.y)
             var cursorCoordBefore = map.toCoordinate(cursorPoint)
 
+            //Zoom
             if (event.angleDelta.y > 0)
                 map.zoomLevel = Math.min(map.maximumZoomLevel, map.zoomLevel + zoomSpeed)
             else if (event.angleDelta.y < 0)
                 map.zoomLevel = Math.max(map.minimumZoomLevel, map.zoomLevel - zoomSpeed)
+            mapZoomLevel = map.zoomLevel
 
+            //Coordinates after zoom
             var cursorCoordAfter = map.toCoordinate(cursorPoint)
-
-            // Adjust map center so cursor stays fixed
             var latShift = cursorCoordBefore.latitude - cursorCoordAfter.latitude
             var lonShift = cursorCoordBefore.longitude - cursorCoordAfter.longitude
 
+            // Adjust map center so cursor stays fixed
             map.center = QtPositioning.coordinate(map.center.latitude + latShift, map.center.longitude + lonShift)
-            mapZoomLevel = map.zoomLevel
         }
     }
 
@@ -389,29 +364,31 @@ Item {
         // Click buttons
         onClicked: function(mouse) {
             //Right-click
-            if (mouse.button === Qt.RightButton && measureMode) {
+            if (mouse.button === Qt.RightButton && measureMode) { //stop measure mode
                 measureMode = false
                 measurePoint = null
             }
-            else if(mouse.button === Qt.RightButton && !measureMode)
+            //Right click
+            else if(mouse.button === Qt.RightButton && !measureMode) { //open menu
                 contextMenu.popup()
+            }
         }
 
         //Mouse button pressed
         onPressed: function(mouse) {
             //Left press
             if (mouse.button === Qt.LeftButton) {
-                if (measureMode) { // Place 1st waypoint
+                if (measureMode) { // place 1st waypoint in measure mode
                     measurePoint = map.toCoordinate(Qt.point(mouse.x, mouse.y))
                 }
-                else { // Start panning
+                else { // map panning
                     lastCoord = map.toCoordinate(Qt.point(mouse.x, mouse.y))
                     dragging = true
                 }
             }
 
-            // Middle button → Free view drag
-            else if (mouse.button === Qt.MiddleButton) {
+            // Middle button
+            else if (mouse.button === Qt.MiddleButton) { //map rotating
                 rotating = true
                 lastX = mouse.x
             }
@@ -451,10 +428,9 @@ Item {
             cursorLongitude = cursorCoord.longitude
             cursorDistanceBoat = haversineDistance(boatLatitude, boatLongitude, cursorLatitude, cursorLongitude)
             cursorBearingBoat = calculateBearing(boatLatitude, boatLongitude, cursorLatitude, cursorLongitude)
-
         }
 
-        //Text next to cursor in measure mode
+        //Text next to cursor (in measure mode only)
         Text {
             x: mouseArea.mouseX + 10
             y: mouseArea.mouseY + 10
@@ -495,9 +471,10 @@ Item {
 
 
     ////////////////////////
-    /// Right-click Menu ///
+    /// Right-Click Menu ///
     ////////////////////////
-    //Main Menu
+
+    //// Menu ////
     Menu {
         id: contextMenu
         modal: true
@@ -636,10 +613,7 @@ Item {
     }
 
 
-
-    ////////////////////////////
-    /// Right-click Submenus ///
-    ////////////////////////////
+    //// Submenus ////
     //Center View
     Menu {
         id: centerViewSubmenu
@@ -884,10 +858,7 @@ Item {
     }
 
 
-
-    ////////////////////
-    /// Dialog boxes ///
-    ////////////////////
+    //// Dialog Boxes ////
     Dialog {
         id: centerViewDialog
         modal: false
@@ -1002,9 +973,9 @@ Item {
 
 
 
-    ////////////////////////
-    /// Marker Component ///
-    ////////////////////////
+    ///////////////
+    /// Markers ///
+    ///////////////
     //Markers
     Component {
         id: redMarkerImg
@@ -1495,6 +1466,103 @@ Item {
         }
     }
 
+    Canvas {
+        id: compassCanvas
+
+        width: 150
+        height: 150
+        visible: (boatHeadingReceived && showUI)
+
+        anchors.bottom: parent.bottom
+        anchors.right: parent.right
+        anchors.bottomMargin: labelVerticalMargin
+        anchors.rightMargin: labelLateralMargin
+
+        property real heading: boatHeading
+        property real course: boatCourse
+
+        onPaint: {
+            var ctx = getContext("2d")
+            ctx.reset()
+            var centerX = width / 2
+            var centerY = height / 2
+            var radius = Math.min(width, height) / 2 - 10
+
+            // Draw compass circle
+            ctx.beginPath()
+            ctx.strokeStyle = "black"
+            ctx.lineWidth = 2
+            ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI)
+            ctx.stroke()
+
+            // Draw cardinal directions
+            ctx.fillStyle = "black"
+            ctx.font = "bold 14px sans-serif"
+            ctx.textAlign = "center"
+            ctx.textBaseline = "middle"
+            ctx.fillText("N",  centerX, centerY - radius + 10);
+            ctx.fillText("E",  centerX + radius - 10, centerY);
+            ctx.fillText("S",  centerX, centerY + radius - 10);
+            ctx.fillText("W",  centerX - radius + 10, centerY);
+
+            // Intercardinal directions
+            ctx.font = "10px sans-serif"
+            ctx.fillText("NE", centerX + radius * 0.55, centerY - radius * 0.55);
+            ctx.fillText("SE", centerX + radius * 0.55, centerY + radius * 0.55);
+            ctx.fillText("SW", centerX - radius * 0.55, centerY + radius * 0.55);
+            ctx.fillText("NW", centerX - radius * 0.55, centerY - radius * 0.55);
+
+            // Draw heading arrow
+            ctx.save()
+            ctx.translate(centerX, centerY)
+            ctx.rotate((heading - 0) * Math.PI / 180)
+
+            ctx.beginPath()
+            ctx.moveTo(0, -radius + 15)
+            ctx.lineTo(5, 0)
+            ctx.lineTo(-5, 0)
+            ctx.closePath()
+
+            ctx.fillStyle = "red"
+            ctx.fill()
+            ctx.restore()
+
+            // Draw course arrow
+            ctx.save()
+            ctx.translate(centerX, centerY)
+            ctx.rotate((course - 0) * Math.PI / 180)
+
+            ctx.beginPath()
+            ctx.moveTo(0, -radius + 20)
+            ctx.lineTo(3, 0)
+            ctx.lineTo(-3, 0)
+            ctx.closePath()
+
+            ctx.fillStyle = "blue"
+            ctx.fill()
+            ctx.restore()
+
+            // Draw center black circle
+            ctx.beginPath()
+            ctx.arc(centerX, centerY, 5, 0, 2 * Math.PI)
+            ctx.fillStyle = "black"
+            ctx.fill()
+        }
+
+        // Redraw when heading changes
+        Connections {
+            target: compassCanvas
+
+            function onHeadingChanged() {
+                compassCanvas.requestPaint()
+            }
+
+            function onCourseChanged() {
+                compassCanvas.requestPaint()
+            }
+        }
+    }
+
 
 
     ///////////////////////////////////////
@@ -1621,104 +1689,99 @@ Item {
 
 
 
-    ///////////////////
-    /// Data Canvas ///
-    ///////////////////
-    Canvas {
-        id: compassCanvas
-
-        width: 150
-        height: 150
-        visible: (boatHeadingReceived && showUI)
-
-        anchors.bottom: parent.bottom
-        anchors.right: parent.right
-        anchors.bottomMargin: labelVerticalMargin
-        anchors.rightMargin: labelLateralMargin
-
-        property real heading: boatHeading
-        property real course: boatCourse
-
-        onPaint: {
-            var ctx = getContext("2d")
-            ctx.reset()
-            var centerX = width / 2
-            var centerY = height / 2
-            var radius = Math.min(width, height) / 2 - 10
-
-            // Draw compass circle
-            ctx.beginPath()
-            ctx.strokeStyle = "black"
-            ctx.lineWidth = 2
-            ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI)
-            ctx.stroke()
-
-            // Draw cardinal directions
-            ctx.fillStyle = "black"
-            ctx.font = "bold 14px sans-serif"
-            ctx.textAlign = "center"
-            ctx.textBaseline = "middle"
-            ctx.fillText("N",  centerX, centerY - radius + 10);
-            ctx.fillText("E",  centerX + radius - 10, centerY);
-            ctx.fillText("S",  centerX, centerY + radius - 10);
-            ctx.fillText("W",  centerX - radius + 10, centerY);
-
-            // Intercardinal directions
-            ctx.font = "10px sans-serif"
-            ctx.fillText("NE", centerX + radius * 0.55, centerY - radius * 0.55);
-            ctx.fillText("SE", centerX + radius * 0.55, centerY + radius * 0.55);
-            ctx.fillText("SW", centerX - radius * 0.55, centerY + radius * 0.55);
-            ctx.fillText("NW", centerX - radius * 0.55, centerY - radius * 0.55);
-
-            // Draw heading arrow
-            ctx.save()
-            ctx.translate(centerX, centerY)
-            ctx.rotate((heading - 0) * Math.PI / 180)
-
-            ctx.beginPath()
-            ctx.moveTo(0, -radius + 15)
-            ctx.lineTo(5, 0)
-            ctx.lineTo(-5, 0)
-            ctx.closePath()
-
-            ctx.fillStyle = "red"
-            ctx.fill()
-            ctx.restore()
-
-            // Draw course arrow
-            ctx.save()
-            ctx.translate(centerX, centerY)
-            ctx.rotate((course - 0) * Math.PI / 180)
-
-            ctx.beginPath()
-            ctx.moveTo(0, -radius + 20)
-            ctx.lineTo(3, 0)
-            ctx.lineTo(-3, 0)
-            ctx.closePath()
-
-            ctx.fillStyle = "blue"
-            ctx.fill()
-            ctx.restore()
-
-            // Draw center black circle
-            ctx.beginPath()
-            ctx.arc(centerX, centerY, 5, 0, 2 * Math.PI)
-            ctx.fillStyle = "black"
-            ctx.fill()
+    /////////////////////////////
+    /// Internal Signal-Slots ///
+    /////////////////////////////
+    Connections {
+        //Update mouse position on boat movement
+        function onBoatLatitudeChanged() {
+            updateCursorCalculations()
         }
 
-        // Redraw when heading changes
-        Connections {
-            target: compassCanvas
-
-            function onHeadingChanged() {
-                compassCanvas.requestPaint()
-            }
-
-            function onCourseChanged() {
-                compassCanvas.requestPaint()
-            }
+        function onBoatLongitudeChanged() {
+            updateCursorCalculations()
         }
+    }
+
+
+
+    /////////////////////////////////////////
+    /// Update Data From External Signals ///
+    /////////////////////////////////////////
+    //Update boat UTC time
+    function updateBoatTime(time) {
+        boatTime = time
+
+        timeLastUtcTime = Date.now()
+        boatTimeReceived = true
+    }
+
+    //Update boat UTC Date
+    function updateBoatDate(date) {
+        boatDate = date
+        timeLastUtcDate = Date.now()
+        boatDateReceived = true
+    }
+
+    //Update boat position
+    function updateBoatPosition(lat, lon) {
+        boatLatitude = lat
+        boatLongitude = lon
+
+        timeLastPosition = Date.now()
+        boatPositionReceived = true
+        boatPositionInit = true
+
+        updateBoatIconOnMap()
+
+        //Zoom & center on boat first time receiving position
+        if(!firstPositionInit){
+            goToZoomLevelMap(17)
+            setCenterPositionOnBoat()
+            firstPositionInit = true;
+        }
+
+        drawBoatTrack(lat, lon)
+    }
+
+    //Update boat heading
+    function updateBoatHeading(head) {
+        boatHeading = head
+
+        timeLastHeading= Date.now()
+        boatHeadingReceived = true
+    }
+
+    //Update boat depth
+    function updateBoatDepth(depth) {
+        boatDepth = depth
+
+        timeLastDepth = Date.now()
+        boatDepthReceived = true
+    }
+
+    //Update boat speed
+    function updateBoatSpeed(speed) {
+        boatSpeed = speed
+
+        timeLastSpeed = Date.now()
+        boatSpeedReceived = true
+    }
+
+    //Update boat course
+    function updateBoatCourse(course) {
+        boatCourse = course
+
+        timeLastCourse= Date.now()
+        boatCourseReceived = true
+    }
+
+    //Update boat water temperature
+    function updateBoatWaterTemperature(temp) {
+        boatWaterTemperature = temp
+
+        timeLastWaterTemp = Date.now()
+        boatWaterTemperatureReceived = true
     }
 
 
@@ -1820,7 +1883,7 @@ Item {
                 boatTrack[boatTrack.length-1].latitude,
                 boatTrack[boatTrack.length-1].longitude,
                 lat, lon
-            ) < minimumTrackPointsDistance)
+            ) < minimumTrackPointsDistance)b
             return
 
         var newTrack = boatTrack.slice()   // clone array
@@ -1830,122 +1893,6 @@ Item {
             newTrack.shift()
 
         boatTrack = newTrack               // reassign
-    }
-
-
-
-    ///////////////////
-    /// Update Data ///
-    ///////////////////
-    //Update boat UTC time
-    function updateBoatTime(time) {
-        boatTime = time
-
-        timeLastUtcTime = Date.now()
-        boatTimeReceived = true
-    }
-
-    //Update boat UTC Date
-    function updateBoatDate(date) {
-        boatDate = date
-        timeLastUtcDate = Date.now()
-        boatDateReceived = true
-    }
-
-    //Update boat position
-    function updateBoatPosition(lat, lon) {
-        boatLatitude = lat
-        boatLongitude = lon
-
-        timeLastPosition = Date.now()
-        boatPositionReceived = true
-        boatPositionInit = true
-
-        updateBoatIconOnMap()
-
-        //Zoom & center on boat first time receiving position
-        if(!firstPositionInit){
-            goToZoomLevelMap(17)
-            setCenterPositionOnBoat()
-            firstPositionInit = true;
-        }
-
-        drawBoatTrack(lat, lon)
-    }
-
-    //Update boat heading
-    function updateBoatHeading(head) {
-        boatHeading = head
-
-        timeLastHeading= Date.now()
-        boatHeadingReceived = true
-    }
-
-    //Update boat depth
-    function updateBoatDepth(depth) {
-        boatDepth = depth
-
-        timeLastDepth = Date.now()
-        boatDepthReceived = true
-    }
-
-    //Update boat speed
-    function updateBoatSpeed(speed) {
-        boatSpeed = speed
-
-        timeLastSpeed = Date.now()
-        boatSpeedReceived = true
-    }
-
-    //Update boat course
-    function updateBoatCourse(course) {
-        boatCourse = course
-
-        timeLastCourse= Date.now()
-        boatCourseReceived = true
-    }
-
-    //Update boat water temperature
-    function updateBoatWaterTemperature(temp) {
-        boatWaterTemperature = temp
-
-        timeLastWaterTemp = Date.now()
-        boatWaterTemperatureReceived = true
-    }
-
-
-
-
-    ///////////////////
-    /// Conversions ///
-    ///////////////////
-    function toRadians(deg) {
-        return deg * Math.PI / 180.0
-    }
-
-    function toDegrees(rad) {
-        return rad * 180.0 / Math.PI
-    }
-
-    function metersToNauticalMiles(meters) {
-        return meters / 1852.0
-    }
-
-    function knotsToMps(speedKnots) {
-        return speedKnots * 0.514444;
-    }
-
-
-
-    //////////////
-    /// Format ///
-    //////////////
-    function formatLat(lat) {
-        return Math.abs(lat).toFixed(5) + "°" + (lat >= 0 ? "N" : "S")
-    }
-
-    function formatLon(lon) {
-        return Math.abs(lon).toFixed(5) + "°" + (lon >= 0 ? "E" : "W")
     }
 
 
@@ -2042,5 +1989,40 @@ Item {
 
         return QtPositioning.coordinate(phi_2 * 180 / Math.PI, lambda_2 * 180 / Math.PI)
     }
+
+
+
+    ///////////////////
+    /// Conversions ///
+    ///////////////////
+    function toRadians(deg) {
+        return deg * Math.PI / 180.0
+    }
+
+    function toDegrees(rad) {
+        return rad * 180.0 / Math.PI
+    }
+
+    function metersToNauticalMiles(meters) {
+        return meters / 1852.0
+    }
+
+    function knotsToMps(speedKnots) {
+        return speedKnots * 0.514444;
+    }
+
+
+
+    //////////////
+    /// Format ///
+    //////////////
+    function formatLat(lat) {
+        return Math.abs(lat).toFixed(5) + "°" + (lat >= 0 ? "N" : "S")
+    }
+
+    function formatLon(lon) {
+        return Math.abs(lon).toFixed(5) + "°" + (lon >= 0 ? "E" : "W")
+    }
+
 }
 
