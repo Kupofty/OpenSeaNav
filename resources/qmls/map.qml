@@ -61,6 +61,8 @@ Item {
     property string labelBackgroundColor: "grey"
 
     //Zoom
+    property real minZoomOSM: 2.9  //OSM specific
+    property real maxZoomOSM: 19.0 //OSM specific
     property double mapZoomLevel: 3
     property double zoomSpeed: 0.2
     property double lastWheelRotation: 0
@@ -1222,7 +1224,11 @@ Item {
                 radius :  labelBackgroundRadius
             }
             font.pixelSize: 14
-            text: "Zoom Level: " + mapZoomLevel.toFixed(1)
+            text: {
+                var percent = (mapZoomLevel - minZoomOSM) / (maxZoomOSM - minZoomOSM) * 100
+                percent = Math.max(0, Math.min(100, percent))
+                return "Zoom: " + Math.round(percent) + "%"
+            }
         }
 
         // Map View Mode
@@ -1883,7 +1889,7 @@ Item {
                 boatTrack[boatTrack.length-1].latitude,
                 boatTrack[boatTrack.length-1].longitude,
                 lat, lon
-            ) < minimumTrackPointsDistance)b
+            ) < minimumTrackPointsDistance)
             return
 
         var newTrack = boatTrack.slice()   // clone array
