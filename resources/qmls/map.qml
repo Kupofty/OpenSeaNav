@@ -19,6 +19,7 @@ Item {
     property double mapCenterLatitude:  35
     property double mapCenterLongitude: 0
     property bool firstPositionInit: false
+    property var currentBoatCoord: null
 
     //Cursor
     property double cursorLatitude: NaN
@@ -122,6 +123,9 @@ Item {
     property int minimumTrackPointsDistance: 50 //meters
     property var boatTrack: []
     property int maxTrackPoints: 500
+    property int trackLineWidth: 10
+    property double trackLineOpacity: 0.6
+    property color trackLineColor: Qt.rgba(1, 1, 0, trackLineOpacity)
 
 
     //-------------------------------------------------------------------------------//
@@ -162,6 +166,32 @@ Item {
 
         //Load OSM plugin
         plugin: osmPlugin
+
+        //Track Line
+        MapPolyline { //Lines between existing waypoints
+            visible: boatTrack.length > 1
+            line.width: trackLineWidth
+            line.color: trackLineColor
+            path: boatTrack
+        }
+        MapPolyline { //Line from last waypoint to boat
+            line.width: trackLineWidth
+            line.color: trackLineColor
+
+            path: {
+                if (!enableTrack)
+                    return []
+                if (boatTrack.length === 0)
+                    return []
+                if (!currentBoatCoord)
+                    return []
+
+                return [
+                    boatTrack[boatTrack.length - 1],
+                    currentBoatCoord
+                ]
+            }
+        }
 
         //Heading Line
         MapPolyline {
@@ -219,20 +249,13 @@ Item {
         MapPolyline {
             visible: mouseArea.measureMode && mouseArea.measurePoint !== null
             line.width: 2
-            line.color: "red"
+            line.color: "black"
             path: {
                 if (mouseArea.measurePoint === null) return []
                 return [mouseArea.measurePoint, mouseArea.cursorCoord]
             }
         }
 
-        //Track Line
-        MapPolyline {
-            visible: boatTrack.length > 1
-            line.width: 2
-            line.color: "yellow"
-            path: boatTrack
-        }
     }
 
 
@@ -850,7 +873,7 @@ Item {
         MenuItem {
             contentItem: Label {
                 text: "Clear Track (C)"
-                enabled: boatTrack.length > 1
+                enabled: boatTrack.length > 0
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
                 width: parent.width
@@ -1733,6 +1756,7 @@ Item {
     function updateBoatPosition(lat, lon) {
         boatLatitude = lat
         boatLongitude = lon
+        currentBoatCoord = QtPositioning.coordinate(lat, lon)
 
         timeLastPosition = Date.now()
         boatPositionReceived = true
