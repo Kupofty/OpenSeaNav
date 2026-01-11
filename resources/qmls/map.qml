@@ -127,6 +127,10 @@ Item {
     property double trackLineOpacity: 0.6
     property color trackLineColor: Qt.rgba(1, 1, 0, trackLineOpacity)
 
+    //Measure Distance Line
+    property var measureTrack: []        // array of QGeoCoordinate
+    property real measureTotalMeters: 0  // cumulative distance
+
 
     //-------------------------------------------------------------------------------//
 
@@ -247,13 +251,23 @@ Item {
 
         //Measure Distance Line
         MapPolyline {
-            visible: mouseArea.measureMode && mouseArea.measurePoint !== null
+            visible: mouseArea.measureMode && measureTrack.length > 0
             line.width: 2
             line.color: "black"
+
             path: {
-                if (mouseArea.measurePoint === null) return []
-                return [mouseArea.measurePoint, mouseArea.cursorCoord]
+                if (measureTrack.length === 0) return []
+                var last = measureTrack[measureTrack.length - 1]
+                var current = mouseArea.cursorCoord
+                return [last, current]
             }
+        }
+        MapPolyline {
+            visible: mouseArea.measureMode && measureTrack.length > 1
+            line.width: 2
+            line.color: "black"
+
+            path: measureTrack.length > 0 ? measureTrack : []
         }
 
     }
@@ -389,13 +403,16 @@ Item {
         // Click buttons
         onClicked: function(mouse) {
             //Right-click
-            if (mouse.button === Qt.RightButton && measureMode) { //stop measure mode
-                measureMode = false
-                measurePoint = null
-            }
-            //Right click
-            else if(mouse.button === Qt.RightButton && !measureMode) { //open menu
-                contextMenu.popup()
+            if (mouse.button === Qt.RightButton) {
+                if (measureMode) {
+                    measureMode = false
+                    measurePoint = null
+                    measureTrack = []
+                    measureTotalMeters = 0
+                }
+                else {
+                    contextMenu.popup()
+                }
             }
         }
 
@@ -403,10 +420,22 @@ Item {
         onPressed: function(mouse) {
             //Left press
             if (mouse.button === Qt.LeftButton) {
-                if (measureMode) { // place 1st waypoint in measure mode
-                    measurePoint = map.toCoordinate(Qt.point(mouse.x, mouse.y))
+                if (measureMode) {
+                    var coord = map.toCoordinate(Qt.point(mouse.x, mouse.y))
+                    if (measureTrack.length > 0) {
+                        var last = measureTrack[measureTrack.length - 1]
+                        measureTotalMeters += haversineDistance(
+                            last.latitude, last.longitude,
+                            coord.latitude, coord.longitude
+                        )
+                    }
+
+                    // Reassign to a new array to trigger QML binding
+                    measureTrack = measureTrack.concat([coord])
+                    measurePoint = measureTrack[0]
                 }
-                else { // map panning
+                else
+                {
                     lastCoord = map.toCoordinate(Qt.point(mouse.x, mouse.y))
                     dragging = true
                 }
@@ -463,32 +492,45 @@ Item {
             color: "black"
             z: 999
 
-            visible: mouseArea.measureMode && mouseArea.measurePoint !== null
+            visible: mouseArea.measureMode && measureTrack.length !== 0
 
             text: {
-                var start = mouseArea.measurePoint
-                var end = mouseArea.cursorCoord
-
-                if (start === null)
+                if (measureTrack.length === 0)
                     return ""
 
-                // Distance in meters
+                // Distance and bearing from last waypoint to cursor
+                var last = measureTrack[measureTrack.length - 1]
+                var cursor = mouseArea.cursorCoord
                 var distMeters = haversineDistance(
-                   start.latitude, start.longitude,
-                    end.latitude,end.longitude
+                    last.latitude, last.longitude,
+                    cursor.latitude, cursor.longitude
                 )
+                var distStr = distMeters < 1000
+                    ? Math.round(distMeters) + " m"
+                    : (distMeters / 1000).toFixed(2) + " km"
+                var distNM = metersToNauticalMiles(distMeters).toFixed(2) + " NM"
+                var bearingStr = calculateBearing(
+                    last.latitude, last.longitude,
+                    cursor.latitude, cursor.longitude
+                ).toFixed(0) + "°"
 
-                // Distance in meters/kilometers
-                var distStr = distMeters < 1000 ? Math.round(distMeters) + "m" : (distMeters/1000).toFixed(1) + "km"
+                // Compute total track distance (between waypoints + last waypoint to cursor)
+                var trackMeters = distMeters
+                for (var i = 1; i < measureTrack.length; ++i) {
+                    trackMeters += haversineDistance(
+                        measureTrack[i-1].latitude, measureTrack[i-1].longitude,
+                        measureTrack[i].latitude, measureTrack[i].longitude
+                    )
+                }
+                var trackStr = trackMeters < 1000
+                    ? Math.round(trackMeters) + " m"
+                    : (trackMeters / 1000).toFixed(2) + " km"
+                var trackNM = metersToNauticalMiles(trackMeters).toFixed(2) + " NM"
 
-                // Distance in nautical miles
-                var distNM = metersToNauticalMiles(distMeters).toFixed(1) + "NM"
-
-                // Bearing / Heading
-                var bearing = calculateBearing(start.latitude, start.longitude, end.latitude, end.longitude)
-                var bearingStr = bearing.toFixed(0) + "°"
-
-                return distStr + " / " + distNM + "\n" + bearingStr
+                //Text
+                return "Track Total: " + trackStr + " / " + trackNM + "\n"
+                     + "To Cursor: " + distStr + " / " + distNM + "\n"
+                     + "Bearing: " + bearingStr
             }
         }
     }
