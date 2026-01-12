@@ -76,7 +76,7 @@
              </font>
             </property>
             <property name="text">
-             <string>GSA</string>
+             <string notr="true">GSA</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignmentFlag::AlignCenter</set>
@@ -261,7 +261,7 @@
              </font>
             </property>
             <property name="text">
-             <string>RMC</string>
+             <string notr="true">RMC</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignmentFlag::AlignCenter</set>
@@ -630,7 +630,7 @@
              </font>
             </property>
             <property name="text">
-             <string>VTG</string>
+             <string notr="true">VTG</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignmentFlag::AlignCenter</set>
@@ -866,7 +866,7 @@
              </font>
             </property>
             <property name="text">
-             <string>ZDA</string>
+             <string notr="true">ZDA</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignmentFlag::AlignCenter</set>
@@ -1093,7 +1093,7 @@
              </font>
             </property>
             <property name="text">
-             <string>VHW</string>
+             <string notr="true">VHW</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignmentFlag::AlignCenter</set>
@@ -1329,7 +1329,7 @@
              </font>
             </property>
             <property name="text">
-             <string>GSV</string>
+             <string notr="true">GSV</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignmentFlag::AlignCenter</set>
@@ -1454,7 +1454,7 @@
              </font>
             </property>
             <property name="text">
-             <string>MWV</string>
+             <string notr="true">MWV</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignmentFlag::AlignCenter</set>
@@ -1663,7 +1663,7 @@
              </font>
             </property>
             <property name="text">
-             <string>GGA</string>
+             <string notr="true">GGA</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignmentFlag::AlignCenter</set>
@@ -2018,7 +2018,7 @@
              </font>
             </property>
             <property name="text">
-             <string>MWD</string>
+             <string notr="true">MWD</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignmentFlag::AlignCenter</set>
@@ -2251,7 +2251,7 @@
              </font>
             </property>
             <property name="text">
-             <string>DPT</string>
+             <string notr="true">DPT</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignmentFlag::AlignCenter</set>
@@ -2403,7 +2403,7 @@
              </font>
             </property>
             <property name="text">
-             <string>GLL</string>
+             <string notr="true">GLL</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignmentFlag::AlignCenter</set>
@@ -2593,7 +2593,7 @@
              </font>
             </property>
             <property name="text">
-             <string>HDT</string>
+             <string notr="true">HDT</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignmentFlag::AlignCenter</set>
@@ -2700,7 +2700,7 @@
              </font>
             </property>
             <property name="text">
-             <string>DBT</string>
+             <string notr="true">DBT</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignmentFlag::AlignCenter</set>
@@ -2897,7 +2897,7 @@
              </font>
             </property>
             <property name="text">
-             <string>MTW</string>
+             <string notr="true">MTW</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignmentFlag::AlignCenter</set>

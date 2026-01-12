@@ -36,7 +36,7 @@
     <item>
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tab_map">
        <attribute name="title">
@@ -2574,6 +2574,14 @@
     <property name="title">
      <string>Menu</string>
     </property>
+    <widget class="QMenu" name="menuLanguages">
+     <property name="title">
+      <string>Languages</string>
+     </property>
+     <addaction name="actionEnglish"/>
+     <addaction name="actionFrench"/>
+    </widget>
+    <addaction name="menuLanguages"/>
     <addaction name="actionExit"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
@@ -2705,6 +2713,22 @@
    </property>
    <property name="text">
     <string>Restore Last Window</string>
+   </property>
+  </action>
+  <action name="actionEnglish">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>English</string>
+   </property>
+  </action>
+  <action name="actionFrench">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Français</string>
    </property>
   </action>
  </widget>

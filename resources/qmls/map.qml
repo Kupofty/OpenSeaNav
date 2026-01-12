@@ -34,7 +34,7 @@ Item {
     property double cursorBearingBoat: NaN
 
     //Boat data
-    property string noData: "No Data"
+    property string noData: qsTr("No Data")
     property string boatDate: ""
     property string boatTime: ""
     property double boatLatitude: 0
@@ -96,7 +96,7 @@ Item {
     //Timer Data Update
     property int timeBeforePositionLost: 10   //seconds
     property int timeBeforeGeneralDataLost: 5 //seconds
-    property string textTimerPositionUpdate: "No Position Data"
+    property string textTimerPositionUpdate: qsTr("No Position Data")
 
     property double timeLastUtcDate: 0
     property double timeLastUtcTime: 0
@@ -516,9 +516,9 @@ Item {
                 var trackNM = metersToNauticalMiles(trackMeters).toFixed(2) + " NM"
 
                 //Text
-                return "Track Total: " + trackStr + " / " + trackNM + "\n"
-                     + "To Cursor: " + distStr + " / " + distNM + "\n"
-                     + "Bearing: " + bearingStr
+                return qsTr("Track Total: ") + trackStr + " / " + trackNM + "\n"
+                     + qsTr("To Cursor: ") + distStr + " / " + distNM + "\n"
+                     + qsTr("Bearing: ") + bearingStr
             }
         }
     }
@@ -540,7 +540,7 @@ Item {
             id: centerViewItem
 
             contentItem: Label {
-                text: "Center View..."
+                text: qsTr("Center View...")
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
                 width: parent.width
@@ -558,7 +558,7 @@ Item {
             enabled: boatPositionReceived
 
             contentItem: Label {
-                text: (followBoat ? "Unfollow Boat" : "Follow Boat") + " (F)"
+                text: (followBoat ? qsTr("Unfollow Boat") : qsTr("Follow Boat")) + " (F)"
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
                 width: parent.width
@@ -573,7 +573,7 @@ Item {
         MenuItem {
             id: drawTrackItem
             contentItem: Label {
-                text: "Tracking..."
+                text: qsTr("Tracking...")
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
                 width: parent.width
@@ -605,7 +605,7 @@ Item {
             id: viewUpItem
 
             contentItem: Label {
-                text: "View Up... (V)"
+                text: qsTr("View Up...") + " (V)"
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
                 width: parent.width
@@ -621,7 +621,7 @@ Item {
             id: markersItem
 
             contentItem: Label {
-                text: "Markers..."
+                text: qsTr("Markers...")
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
                 width: parent.width
@@ -637,7 +637,7 @@ Item {
             id: uiVisibilityItem
 
             contentItem: Label {
-                text: (showUI ? "Hide UI" : "Show UI") + " (H)"
+                text: (showUI ? qsTr("Hide UI") : qsTr("Show UI")) + " (H)"
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
                 width: parent.width
@@ -652,7 +652,7 @@ Item {
         MenuItem {
             id: measureModeItem
             contentItem: Label {
-                text: (measureMode ? "Stop Measuring" : "Measure Distance") + " (D)"
+                text: (measureMode ? qsTr("Stop Measuring") : qsTr("Measure Distance")) + " (D)"
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
                 width: parent.width
@@ -679,7 +679,7 @@ Item {
             enabled: boatPositionInit
 
             contentItem: Label {
-                text: "On Boat"
+                text: qsTr("On Boat")
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
                 width: parent.width
@@ -693,7 +693,7 @@ Item {
 
         MenuItem {
             contentItem: Label {
-                text: "On Cursor"
+                text: qsTr("On Cursor")
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
                 width: parent.width
@@ -703,7 +703,7 @@ Item {
 
         MenuItem {
             contentItem: Label {
-                text: "On Position"
+                text: qsTr("On Position")
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
                 width: parent.width
@@ -720,7 +720,7 @@ Item {
 
         MenuItem {
             contentItem: Label {
-                text: "Maximum Zoom"
+                text: qsTr("Maximum Zoom")
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
                 width: parent.width
@@ -732,7 +732,7 @@ Item {
 
         MenuItem {
             contentItem: Label {
-                text: "Minimum Zoom"
+                text: qsTr("Minimum Zoom")
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
                 width: parent.width
@@ -744,7 +744,7 @@ Item {
 
         MenuItem {
             contentItem: Label {
-                text: "Close View (Ctrl+)"
+                text: qsTr("Close View") + " (Ctrl+)"
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
                 width: parent.width
@@ -756,7 +756,7 @@ Item {
 
         MenuItem {
             contentItem: Label {
-                text: "Wide View (Ctrl-)"
+                text: qsTr("Wide View") + " (Ctrl-)"
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
                 width: parent.width
@@ -768,7 +768,7 @@ Item {
 
         MenuItem {
             contentItem: Label {
-                text: "Zoom In (+)"
+                text: qsTr("Zoom In") + " (+)"
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
                 width: parent.width
@@ -780,7 +780,7 @@ Item {
 
         MenuItem {
             contentItem: Label {
-                text: "Zoom Out (-)"
+                text: qsTr("Zoom Out") + " (-)"
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
                 width: parent.width
@@ -799,7 +799,7 @@ Item {
 
         MenuItem {
             contentItem: Label {
-                text: "North Up"
+                text: qsTr("North Up")
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
                 width: parent.width
@@ -809,7 +809,7 @@ Item {
 
         MenuItem {
             contentItem: Label {
-                text: "Heading Up"
+                text: qsTr("Heading Up")
                 enabled: boatHeadingReceived
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
@@ -820,7 +820,7 @@ Item {
 
         MenuItem {
             contentItem: Label {
-                text: "Course Up"
+                text: qsTr("Course Up")
                 enabled: boatCourseReceived
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
@@ -838,7 +838,7 @@ Item {
 
         MenuItem {
             contentItem: Label {
-                text: "Drop Marker On Cursor"
+                text: qsTr("Drop Marker On Cursor")
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
                 width: parent.width
@@ -850,7 +850,7 @@ Item {
             enabled: boatPositionInit
 
             contentItem: Label {
-                text: "Drop Marker On Boat (M)"
+                text: qsTr("Drop Marker On Boat") + " (M)"
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
                 width: parent.width
@@ -862,7 +862,7 @@ Item {
 
         MenuItem {
             contentItem: Label {
-                text: "Drop Marker On Position"
+                text: qsTr("Drop Marker On Position")
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
                 width: parent.width
@@ -874,7 +874,7 @@ Item {
             id: clearMarkersItem
             enabled: userMarkerCount > 0
             contentItem: Label {
-                text: "Clear Markers"
+                text: qsTr("Clear Markers")
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
                 width: parent.width
@@ -891,7 +891,7 @@ Item {
 
         MenuItem {
             contentItem: Label {
-                text: (enableTrack ? "Disable Tracking" : "Enable Tracking") + " (T)"
+                text: (enableTrack ? qsTr("Disable Tracking") : qsTr("Enable Tracking")) + " (T)"
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
                 width: parent.width
@@ -902,7 +902,7 @@ Item {
 
         MenuItem {
             contentItem: Label {
-                text: "Clear Track (C)"
+                text: qsTr("Clear Track") + " (C)"
                 enabled: boatTrack.length > 0
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
@@ -918,7 +918,7 @@ Item {
         id: centerViewDialog
         modal: false
         closePolicy: Popup.NoAutoClose
-        title: "Center View On Position"
+        title: qsTr("Center View On Position")
         standardButtons: Dialog.Ok | Dialog.Cancel
 
         x: (parent.width  - width)  / 2
@@ -933,14 +933,14 @@ Item {
             spacing: 10
             padding: 20
 
-            Label { text: "Latitude:" }
+            Label { text: qsTr("Latitude:") }
             TextField {
                 id: latInput
                 placeholderText: " "
                 inputMethodHints: Qt.ImhFormattedNumbersOnly
             }
 
-            Label { text: "Longitude:" }
+            Label { text: qsTr("Longitude:") }
             TextField {
                 id: lonInput
                 placeholderText: " "
@@ -964,7 +964,7 @@ Item {
                 errorLabel.text = ""
             }
             else{
-                errorLabel.text = "Wrong input"
+                errorLabel.text = qsTr("Wrong input")
                 centerViewDialog.acc
             }
         }
@@ -974,7 +974,7 @@ Item {
         id: dropMarkerDialog
         modal: false
         closePolicy: Popup.NoAutoClose
-        title: "Drop Marker On Position"
+        title: qsTr("Drop Marker On Position")
         standardButtons: Dialog.Ok | Dialog.Cancel
 
         x: (parent.width  - width)  / 2
@@ -989,14 +989,14 @@ Item {
             spacing: 10
             padding: 20
 
-            Label { text: "Latitude:" }
+            Label { text: qsTr("Latitude:") }
             TextField {
                 id: latInputMarker
                 placeholderText: " "
                 inputMethodHints: Qt.ImhFormattedNumbersOnly
             }
 
-            Label { text: "Longitude:" }
+            Label { text: qsTr("Longitude:") }
             TextField {
                 id: lonInputMarker
                 placeholderText: " "
@@ -1020,7 +1020,7 @@ Item {
                 errorLabel.text = ""
             }
             else{
-                errorLabel.text = "Wrong input"
+                errorLabel.text = qsTr("Wrong input")
                 centerViewDialog.acc
             }
         }
@@ -1123,12 +1123,12 @@ Item {
 
             if(elapsedSec <= timeBeforePositionLost)
                 if(elapsedSec < 1)
-                    textTimerPositionUpdate = "Position Updated\n < 1s ago"
+                    textTimerPositionUpdate = qsTr("Position Updated\n < 1s ago")
                 else
-                    textTimerPositionUpdate = "Position Updated\n"+ Math.ceil(elapsedSec) + "s ago"
+                    textTimerPositionUpdate = qsTr("Position Updated\n") + Math.ceil(elapsedSec) + qsTr("s ago")
             else{
                 boatPositionReceived = false
-                textTimerPositionUpdate = "Position Lost"
+                textTimerPositionUpdate = qsTr("Position Lost")
                 followBoat = false
             }
         }
@@ -1261,7 +1261,7 @@ Item {
                 radius :  labelBackgroundRadius
             }
             font.pixelSize: 14
-            text: "Chart: OSM "
+            text: qsTr("Chart: OSM ")
         }
 
         // Zoom level
@@ -1280,7 +1280,7 @@ Item {
             text: {
                 var percent = (map.zoomLevel - map.minimumZoomLevel) / (map.maximumZoomLevel - map.minimumZoomLevel) * 100
                 percent = Math.max(0, Math.min(100, percent))
-                return "Zoom: " + Math.round(percent) + "%"
+                return qsTr("Zoom: ") + Math.round(percent) + "%"
             }
         }
 
@@ -1300,10 +1300,10 @@ Item {
 
             text: {
                 switch (mapViewMode) {
-                    case 0: default: return "North Up"
-                    case 1: return "Heading Up"
-                    case 2: return "Course Up"
-                    case 3: return "Free View"
+                    case 0: default: return qsTr("North Up")
+                    case 1: return qsTr("Heading Up")
+                    case 2: return qsTr("Course Up")
+                    case 3: return qsTr("Free View")
                 }
             }
         }
@@ -1321,9 +1321,9 @@ Item {
                 radius :  labelBackgroundRadius
             }
             font.pixelSize: 14
-            text: "Cursor Position" + "\n" +
-                   "Lat: " + formatLat(cursorLatitude) + "\n" +
-                   "Lon: " + formatLon(cursorLongitude)
+            text: qsTr("Cursor Position") + "\n" +
+                   qsTr("Lat: ") + formatLat(cursorLatitude) + "\n" +
+                   qsTr("Lon: ") + formatLon(cursorLongitude)
         }
 
         // Cursor distance, bearing and ETA from boat
@@ -1340,12 +1340,12 @@ Item {
                 radius :  labelBackgroundRadius
             }
             font.pixelSize: 14
-            text: "From Boat" + "\n" +
-                  "Distance: " + (metersToNauticalMiles(cursorDistanceBoat) > 100
+            text: qsTr("From Boat") + "\n" +
+                  qsTr("Distance: ") + (metersToNauticalMiles(cursorDistanceBoat) > 100
                                  ? metersToNauticalMiles(cursorDistanceBoat).toFixed(0)
                                  : metersToNauticalMiles(cursorDistanceBoat).toFixed(2)) + "NM" + "\n" +
-                  "Bearing: " + cursorBearingBoat.toFixed(0) + "°" + "\n" +
-                  "ETA: " + secondsToDHMS(getETA(cursorDistanceBoat, boatSpeed))
+                  qsTr("Bearing: ") + cursorBearingBoat.toFixed(0) + "°" + "\n" +
+                  qsTr("ETA: ") + secondsToDHMS(getETA(cursorDistanceBoat, boatSpeed))
         }
 
         // Last Time Position Update
@@ -1394,8 +1394,8 @@ Item {
                 radius :  labelBackgroundRadius
             }
             font.pixelSize: labelFontSize
-            text: boatDateReceived ? "Date: " + boatDate
-                                   : "Date: "+ noData
+            text: boatDateReceived ? qsTr("Date: ") + boatDate
+                                   : qsTr("Date: ") + noData
         }
 
         // Boat Time
@@ -1412,8 +1412,8 @@ Item {
                 radius :  labelBackgroundRadius
             }
             font.pixelSize: labelFontSize
-            text: boatTimeReceived ? "Time: " + boatTime
-                                   : "Time: "+ noData
+            text: boatTimeReceived ? qsTr("Time: ") + boatTime
+                                   : qsTr("Time: ") + noData
         }
 
         // Boat Position
@@ -1430,8 +1430,8 @@ Item {
                 radius :  labelBackgroundRadius
             }
             font.pixelSize: labelFontSize
-            text: boatPositionReceived ? "Boat Position\nLat: " + formatLat(boatLatitude) + "\nLon: " + formatLon(boatLongitude)
-                                       : "Last Boat Position\nLat: " + formatLat(boatLatitude) + "\nLon: " + formatLon(boatLongitude)
+            text: boatPositionReceived ? qsTr("Boat Position\nLat: ") + formatLat(boatLatitude) + "\n"+ qsTr("Lon: ") + formatLon(boatLongitude)
+                                       : qsTr("Last Boat Position\nLat: ") + formatLat(boatLatitude) + "\n" + qsTr("Lon: ") + formatLon(boatLongitude)
         }
 
         // Heading
@@ -1448,8 +1448,8 @@ Item {
                 radius :  labelBackgroundRadius
             }
             font.pixelSize: labelFontSize
-            text: boatHeadingReceived ? "Heading: " + boatHeading.toFixed(1) + "°"
-                                      : "Heading: " + noData
+            text: boatHeadingReceived ? qsTr("Heading: ") + boatHeading.toFixed(1) + "°"
+                                      : qsTr("Heading: ") + noData
         }
 
         // Course
@@ -1466,8 +1466,8 @@ Item {
                 radius :  labelBackgroundRadius
             }
             font.pixelSize: labelFontSize
-            text: boatCourseReceived ? "Course: " + boatCourse.toFixed(1) + "°"
-                                     : "Course: " + noData
+            text: boatCourseReceived ? qsTr("Course: ") + boatCourse.toFixed(1) + "°"
+                                     : qsTr("Course: ") + noData
         }
 
         // Speed
@@ -1484,8 +1484,8 @@ Item {
                 radius :  labelBackgroundRadius
             }
             font.pixelSize: labelFontSize
-            text: boatSpeedReceived ? "Speed: " + boatSpeed.toFixed(1) + "kts"
-                                    : "Speed: " + noData
+            text: boatSpeedReceived ? qsTr("Speed: ") + boatSpeed.toFixed(1) + qsTr("kts")
+                                    : qsTr("Speed: ") + noData
         }
 
         // Depth
@@ -1502,8 +1502,8 @@ Item {
                 radius :  labelBackgroundRadius
             }
             font.pixelSize: labelFontSize
-            text: boatDepthReceived ? "Depth: " + boatDepth.toFixed(1) + "m"
-                                    : "Depth: " + noData
+            text: boatDepthReceived ? qsTr("Depth: ") + boatDepth.toFixed(1) + "m"
+                                    : qsTr("Depth: ") + noData
         }
 
         // Water Temperature
@@ -1520,8 +1520,8 @@ Item {
                 radius :  labelBackgroundRadius
             }
             font.pixelSize: labelFontSize
-            text: boatWaterTemperatureReceived ? "Water Temp: " + boatWaterTemperature.toFixed(1) + "°C"
-                                              : "Water Temp: " + noData
+            text: boatWaterTemperatureReceived ? qsTr("Water Temp: ") + boatWaterTemperature.toFixed(1) + "°C"
+                                               : qsTr("Water Temp: ") + noData
         }
     }
 
@@ -1566,10 +1566,10 @@ Item {
 
             // Intercardinal directions
             ctx.font = "10px sans-serif"
-            ctx.fillText("NE", centerX + radius * 0.55, centerY - radius * 0.55);
-            ctx.fillText("SE", centerX + radius * 0.55, centerY + radius * 0.55);
-            ctx.fillText("SW", centerX - radius * 0.55, centerY + radius * 0.55);
-            ctx.fillText("NW", centerX - radius * 0.55, centerY - radius * 0.55);
+            ctx.fillText(qsTr("NE"), centerX + radius * 0.55, centerY - radius * 0.55);
+            ctx.fillText(qsTr("SE"), centerX + radius * 0.55, centerY + radius * 0.55);
+            ctx.fillText(qsTr("SW"), centerX - radius * 0.55, centerY + radius * 0.55);
+            ctx.fillText(qsTr("NW"), centerX - radius * 0.55, centerY - radius * 0.55);
 
             // Draw heading arrow
             ctx.save()
@@ -1708,14 +1708,14 @@ Item {
                     spacing: labelLateralMargin
 
                     Button {
-                        text: "Zoom -"
+                        text: qsTr("Zoom -")
                         width: 60
                         height: 30
                         onClicked: goToZoomLevelMap(map.zoomLevel - 1)
                     }
 
                     Button {
-                        text: "Zoom +"
+                        text: qsTr("Zoom +")
                         width: 60
                         height: 30
                         onClicked: goToZoomLevelMap(map.zoomLevel + 1)
@@ -1738,7 +1738,7 @@ Item {
                 height: 60
                 anchors.verticalCenter: parent.verticalCenter
                 enabled: boatPositionReceived
-                text: (followBoat ? "Unfollow Boat" : "Follow Boat").replace(" ", "\n")
+                text: (followBoat ? qsTr("Unfollow Boat") : qsTr("Follow Boat")).replace(" ", "\n")
                 onClicked: followBoat = !followBoat
             }
         }
@@ -2041,16 +2041,16 @@ Item {
     /// Format ///
     //////////////
     function formatLat(lat) {
-        return Math.abs(lat).toFixed(5) + "°" + (lat >= 0 ? "N" : "S")
+        return Math.abs(lat).toFixed(5) + "°" + (lat >= 0 ? qsTr("N") : qsTr("S"))
     }
 
     function formatLon(lon) {
-        return Math.abs(lon).toFixed(5) + "°" + (lon >= 0 ? "E" : "W")
+        return Math.abs(lon).toFixed(5) + "°" + (lon >= 0 ? qsTr("E") : qsTr("W"))
     }
 
     function secondsToDHMS(seconds) {
         if (isNaN(seconds))
-            return "N/A";
+            return qsTr("N/A");
 
         var secondsInMinute = 60;
         var secondsInHour = 3600;

@@ -86,7 +86,7 @@
         <string/>
        </property>
        <property name="pixmap">
-        <pixmap resource="../resources/images.qrc">:/icons/pictures/icons/nmea_icon.ico</pixmap>
+        <pixmap resource="../../../resources/pictures/pictures.qrc">:/icons/icons/nmea_icon.ico</pixmap>
        </property>
        <property name="scaledContents">
         <bool>true</bool>
@@ -232,7 +232,7 @@
   </layout>
  </widget>
  <resources>
-  <include location="../resources/images.qrc"/>
+  <include location="../../../resources/pictures/pictures.qrc"/>
  </resources>
  <connections/>
 </ui>

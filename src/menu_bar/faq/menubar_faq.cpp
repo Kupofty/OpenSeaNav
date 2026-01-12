@@ -6,7 +6,7 @@ MenuBarFAQ::MenuBarFAQ(QWidget *parent)
     , ui(new Ui::MenuBarFAQ)
 {
     ui->setupUi(this);
-    setWindowTitle("FAQ");
+    setWindowTitle(tr("FAQ"));
 }
 
 MenuBarFAQ::~MenuBarFAQ()

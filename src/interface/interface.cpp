@@ -1,5 +1,6 @@
 #include "interface/interface.h"
 
+
 ///////////////////
 /// Class Setup ///
 ///////////////////
@@ -118,6 +119,9 @@ void Interface::initSettings()
 
 void Interface::loadUiSettings()
 {
+    QString language = settings->value("translation/language", "").toString();
+    loadTranslation(language);
+
     int w, h, x, y;
 
     //Main Window
@@ -207,6 +211,9 @@ void Interface::loadUdpInputSettings()
 
 void Interface::saveSettings()
 {
+    //Translation
+    settings->setValue("translation/language", translator.filePath());
+
     //Main Window
     settings->setValue("mainWindow/showLastSize", ui->actionRestore_Last_Window->isChecked());
     settings->setValue("mainWindow/showFullScreen", ui->actionStartFullscreen->isChecked());
@@ -241,11 +248,76 @@ void Interface::saveSettings()
 
 
 
+////////////////////
+/// Translations ///
+////////////////////
+void Interface::loadTranslation(QString translationPath)
+{
+    //Update GUI
+    updateTranslationGUI(translationPath);
+
+    //Back to default (english)
+    if(translationPath.isEmpty())
+    {
+        removeTranslation();
+        return;
+    }
+
+    //Install new translation
+    if (translator.load(translationPath))
+    {
+        qApp->installTranslator(&translator);
+        ui->retranslateUi(this);
+    }
+    else {
+        qDebug() << "Failed to load translation file!";
+    }
+}
+
+void Interface::removeTranslation()
+{
+    qApp->removeTranslator(&translator);
+    ui->retranslateUi(this);
+}
+
+void Interface::updateTranslationGUI(QString language)
+{
+    if(language == ":/translations/french.qm")
+    {
+        ui->actionEnglish->setChecked(false);
+        ui->actionEnglish->setEnabled(true);
+
+        ui->actionFrench->setChecked(true);
+        ui->actionFrench->setEnabled(false);
+    }
+    else //english by default
+    {
+        ui->actionEnglish->setChecked(true);
+        ui->actionEnglish->setEnabled(false);
+
+        ui->actionFrench->setChecked(false);
+        ui->actionFrench->setEnabled(true);
+    }
+}
+
+
+
+
 ////////////////
 /// Menu Bar ///
 ////////////////
 
 //Menu
+void Interface::on_actionEnglish_triggered()
+{
+    loadTranslation(":/translations/english.qm"); //return to default
+}
+
+void Interface::on_actionFrench_triggered()
+{
+    loadTranslation(":/translations/french.qm");
+}
+
 void Interface::on_actionExit_triggered()
 {
     close();
@@ -429,10 +501,10 @@ void Interface::closeInputSerial()
     if(serial_reader.isSerialOpen())
     {
         serial_reader.closeSerialDevice();
-        ui->plainTextEdit_connection_status->setPlainText(serial_reader.getPortName()+" closed");
+        ui->plainTextEdit_connection_status->setPlainText(serial_reader.getPortName()+ tr(" closed"));
     }
     else
-        ui->plainTextEdit_connection_status->setPlainText("Connection not opened");
+        ui->plainTextEdit_connection_status->setPlainText(tr("Connection not opened"));
 }
 
 void Interface::updateGuiAfterSerialConnection(bool connectSuccess)
@@ -482,8 +554,8 @@ void Interface::on_pushButton_connect_udp_input_clicked()
     if (ui->pushButton_activate_udp_output->isChecked() &&
         udp_port_input == udp_port_output)
     {
-        QMessageBox::warning(this, "UDP Port Error",
-                             "Input UDP port conflicts with output UDP port.\nPlease choose a different port.");
+        QMessageBox::warning(this, tr("UDP Port Error"),
+                             tr("Input UDP port conflicts with output UDP port.\nPlease choose a different port."));
         ui->spinBox_port_input_udp->setValue(udp_port_input + 1);
         return;
     }
@@ -535,10 +607,10 @@ void Interface::closeOutputSerial()
     if(serial_writer.isSerialOpen())
     {
         serial_writer.closeSerialDevice();
-        ui->plainTextEdit_connection_status_output_serial->setPlainText(serial_writer.getPortName()+" closed");
+        ui->plainTextEdit_connection_status_output_serial->setPlainText(serial_writer.getPortName() + tr(" closed"));
     }
     else
-        ui->plainTextEdit_connection_status_output_serial->setPlainText("Connection not opened");
+        ui->plainTextEdit_connection_status_output_serial->setPlainText(tr("Connection not opened"));
 }
 
 void Interface::on_pushButton_refresh_available_port_serial_output_clicked()
@@ -569,9 +641,9 @@ void Interface::on_pushButton_connect_serial_output_clicked()
     //Try to connect
     QString result;
     if(serial_writer.openSerialDevice())
-        result =  "Connected to " + serial_writer.getPortName();
+        result =  tr("Connected to ") + serial_writer.getPortName();
     else
-        result =  "Failed to open " + serial_writer.getPortName() + " : " + serial_writer.getErrorString();
+        result =  tr("Failed to open ") + serial_writer.getPortName() + " : " + serial_writer.getErrorString();
 
     //Display connection status
     ui->plainTextEdit_connection_status_output_serial->setPlainText(result);
@@ -605,9 +677,9 @@ void Interface::on_pushButton_activate_serial_output_toggled(bool checked)
     }
     else
     {
-        QMessageBox::warning(this, "Serial Output Not Available",
-                             "No serial output port is currently opened.\n\n"
-                             "Please select a valid port and click 'Connect' before enabling serial output.");
+        QMessageBox::warning(this, tr("Serial Output Not Available"),
+                             tr("No serial output port is currently opened.\n\n"
+                             "Please select a valid port and click 'Connect' before enabling serial output."));
         ui->pushButton_activate_serial_output->setChecked(false);
     }
 }
@@ -744,7 +816,7 @@ bool Interface::checkUdpOutputPortIsFree()
     //Check if port already used by UDP input
     if (udp_reader.isBounded() && (udp_output_port == udp_input_port) )
     {
-        QMessageBox::warning(this, "UDP Port Error", "Output UDP port conflicts with input UDP port.\nPlease choose a different port.");
+        QMessageBox::warning(this, tr("UDP Port Error"), tr("Output UDP port conflicts with input UDP port.\nPlease choose a different port."));
         ui->pushButton_activate_udp_output->setChecked(false);
         return false;
     }
@@ -876,7 +948,7 @@ void Interface::on_pushButton_folder_path_downloads_clicked()
 
 void Interface::on_pushButton_browse_folder_path_clicked()
 {
-    QString dirPath = QFileDialog::getExistingDirectory(this, "Select Output Directory",
+    QString dirPath = QFileDialog::getExistingDirectory(this, tr("Select Output Directory"),
                                                         QStandardPaths::writableLocation(QStandardPaths::HomeLocation),  QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
 
 
@@ -903,8 +975,8 @@ void Interface::on_pushButton_save_txt_file_toggled(bool checked)
         QString fileName = ui->plainTextEdit_txt_file_name->toPlainText().trimmed();
         if (dirPath.isEmpty() || fileName.isEmpty())
         {
-            QMessageBox::warning(this, "Missing Information",
-                                       "Please select an output folder and enter a file name before saving.");
+            QMessageBox::warning(this, tr("Missing Information"),
+                                       tr("Please select an output folder and enter a file name before saving."));
             ui->pushButton_save_txt_file->setChecked(false);
             return;
         }
@@ -915,9 +987,9 @@ void Interface::on_pushButton_save_txt_file_toggled(bool checked)
         if (fileInfo.exists())
         {
             auto reply = QMessageBox::question(this,
-                "Overwrite file?",
-                "A file with the same name already exists in the selected location.\n"
-                "Do you want to replace it?",
+                tr("Overwrite file?"),
+                tr("A file with the same name already exists in the selected location.\n"
+                "Do you want to replace it?"),
                 QMessageBox::Yes | QMessageBox::No,
                 QMessageBox::No
                 );
@@ -939,14 +1011,14 @@ void Interface::on_pushButton_save_txt_file_toggled(bool checked)
 
         //Update file size
         fileRecordingSizeTimer.start(1000);
-        ui->pushButton_save_txt_file->setText(" Stop Recording");
+        ui->pushButton_save_txt_file->setText(tr(" Stop Recording"));
     }
     else
     {
         fileRecordingSizeTimer.stop();
-        ui->label_file_txt_size->setText("Not recording");
+        ui->label_file_txt_size->setText(tr("Not recording"));
         text_file_writer.closeFile();
-        ui->pushButton_save_txt_file->setText(" Record Data To File");
+        ui->pushButton_save_txt_file->setText(tr(" Record Data To File"));
     }
 }
 
@@ -960,7 +1032,7 @@ void Interface::updateRecordingFileSize()
     }
     else
     {
-        ui->label_file_txt_size->setText("File missing");
+        ui->label_file_txt_size->setText(tr("File missing"));
     }
 }
 
@@ -973,3 +1045,6 @@ QString Interface::getRecordingFilePath()
 
     return fullPath;
 }
+
+
+

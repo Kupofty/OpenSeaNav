@@ -10,7 +10,7 @@ MenuBarDataMonitor::MenuBarDataMonitor(QWidget *parent) : QDialog(parent), ui(ne
     ui->setupUi(this);
 
     //Set title
-    setWindowTitle("NMEA Data Monitor");
+    setWindowTitle(tr("NMEA Data Monitor"));
 
     // Enable minimize, maximize, close buttons
     Qt::WindowFlags flags = Qt::Dialog

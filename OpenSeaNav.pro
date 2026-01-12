@@ -49,14 +49,17 @@ FORMS += \
     src/menu_bar/data_monitor/menubar_datamonitor.ui \
     src/menu_bar/decoded_nmea/menubar_decodednmea.ui
 
+TRANSLATIONS += \
+    resources/translations/OpenSeaNav_fr_FR.ts
 
 RESOURCES += \
     resources/pictures/pictures.qrc \
-    resources/qmls/qmls.qrc
+    resources/qmls/qmls.qrc \
+    resources/translations/translations.qrc \
+    src/menu_bar/resources/images.qrc
 
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
-

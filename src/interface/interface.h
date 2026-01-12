@@ -16,6 +16,9 @@
 #include <QSettings>
 #include <QStandardPaths>
 #include <QDir>
+#include <QTranslator>
+#include <QLocale>
+#include <QCoreApplication>
 
 #include "ui_interface.h"
 
@@ -65,6 +68,7 @@ class Interface : public QMainWindow
         MenuBarDecodedNmea *decoded_nmea_window;
         QString configPath;
         QSettings *settings;
+        QTranslator translator;
 
     private:
         void initSettings();
@@ -90,6 +94,9 @@ class Interface : public QMainWindow
         void updateCheckBoxSerialOutput(bool check);
         void updateCheckBoxUdpOutput(bool check);
         void initializeLists();
+        void loadTranslation(QString translationPath);
+        void removeTranslation();
+        void updateTranslationGUI(QString language);
 
     private slots:
         void updateUdpSenderDetails();
@@ -157,7 +164,8 @@ class Interface : public QMainWindow
         void on_actionFullscreen_triggered();
         void on_actionData_Monitor_triggered();
         void on_actionDecoded_NMEA_triggered();
-
+        void on_actionEnglish_triggered();
+        void on_actionFrench_triggered();
 
         void on_actionStartFullscreen_toggled(bool arg1);
         void on_actionRestore_Last_Window_toggled(bool arg1);
