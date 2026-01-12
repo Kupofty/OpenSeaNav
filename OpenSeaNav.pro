@@ -51,8 +51,8 @@ FORMS += \
 
 
 RESOURCES += \
-    resources/images.qrc \
-    resources/qml.qrc
+    resources/pictures/pictures.qrc \
+    resources/qmls/qmls.qrc
 
 
 # Default rules for deployment.

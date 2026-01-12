@@ -15,13 +15,19 @@ Item {
     ////////////////////////
     /// Global variables ///
     ////////////////////////
+
+    //Global Variables
+    property double earthRadiusMeters: 6378137.0;
+    property double metersPerPixelMercatorProjection : 156543.03392
+
     //Position
-    property double mapCenterLatitude:  35
-    property double mapCenterLongitude: 0
-    property bool firstPositionInit: false
+    property double mapCenterInitLatitude:  35
+    property double mapCenterInitLongitude: 0
     property var currentBoatCoord: null
+    property bool boatPositionInit: false
 
     //Cursor
+    property var cursorCoord: NaN
     property double cursorLatitude: NaN
     property double cursorLongitude: NaN
     property double cursorDistanceBoat: NaN
@@ -43,7 +49,6 @@ Item {
     property bool boatDateReceived: false
     property bool boatTimeReceived: false
     property bool boatPositionReceived: false
-    property bool boatPositionInit: false
     property bool boatHeadingReceived: false
     property bool boatCourseReceived: false
     property bool boatDepthReceived: false
@@ -51,6 +56,7 @@ Item {
     property bool boatWaterTemperatureReceived: false
 
     //Labels
+    property int rightClickMenuWidth: 150
     property int labelRightSideWidth: 135
     property int labelLeftSideWidth: 135
     property int labelPadding: 8
@@ -62,29 +68,19 @@ Item {
     property string labelBackgroundColor: "grey"
 
     //Zoom
-    property real minZoomOSM: 2.9  //OSM specific
-    property real maxZoomOSM: 19.0 //OSM specific
-    property double mapZoomLevel: 3
-    property double zoomSpeed: 0.2
-    property double lastWheelRotation: 0
+    property double mapZoomLevelInit: 3
+    property double zoomIncrement: 0.2
 
     //Markers
-    property Component redMarker: redMarkerImg
-    property Component boatMarker: boatMarkerImg
     property int userMarkerCount: 0
-
-    // Declare boat marker reference
     property var boatMarkerRef: null
-
-    //Right-click Menu
-    property int rightClickMenuWidth: 150
 
     //Map
     property bool showUI: true
     property bool followBoat: false
-    property string followBoatText: followBoat ? "Unfollow Boat" : "Follow Boat"
 
     // View modes
+    property double wheelDragSensitivity: 0.25
     property int mapViewMode: 0
     property double freeViewUp: 0
     property real mapRotation: {
@@ -115,9 +111,6 @@ Item {
     //Heading & COG lines
     property int boatLinesDistance: 155*boatSpeed // ~5min trip
 
-    //Projection
-    property double metersPerPixelMercatorProjection : 156543.03392
-
     //Boat Track
     property bool enableTrack: false
     property int minimumTrackPointsDistance: 50 //meters
@@ -127,9 +120,11 @@ Item {
     property double trackLineOpacity: 0.6
     property color trackLineColor: Qt.rgba(1, 1, 0, trackLineOpacity)
 
-    //Measure Distance Line
-    property var measureTrack: []        // array of QGeoCoordinate
-    property real measureTotalMeters: 0  // cumulative distance
+    //Measure mode
+    property bool measureMode: false
+    property var measurePoint: null
+    property var measureTrack: []
+    property real measureTotalMeters: 0
 
 
     //-------------------------------------------------------------------------------//
@@ -163,8 +158,8 @@ Item {
     Map {
         id: map
         anchors.fill: parent
-        center: QtPositioning.coordinate(mapCenterLatitude, mapCenterLongitude)
-        zoomLevel: mapZoomLevel
+        center: QtPositioning.coordinate(mapCenterInitLatitude, mapCenterInitLongitude)
+        zoomLevel: mapZoomLevelInit
         activeMapType: map.supportedMapTypes[map.supportedMapTypes.length - 1]
         bearing: mapRotation
 
@@ -251,25 +246,24 @@ Item {
 
         //Measure Distance Line
         MapPolyline {
-            visible: mouseArea.measureMode && measureTrack.length > 0
+            visible: measureMode && measureTrack.length > 0
             line.width: 2
             line.color: "black"
 
             path: {
                 if (measureTrack.length === 0) return []
                 var last = measureTrack[measureTrack.length - 1]
-                var current = mouseArea.cursorCoord
+                var current = cursorCoord
                 return [last, current]
             }
         }
         MapPolyline {
-            visible: mouseArea.measureMode && measureTrack.length > 1
+            visible: measureMode && measureTrack.length > 1
             line.width: 2
             line.color: "black"
 
             path: measureTrack.length > 0 ? measureTrack : []
         }
-
     }
 
 
@@ -295,12 +289,12 @@ Item {
 
     Shortcut { //Zoom In
         sequence: "+"
-        onActivated: goToZoomLevelMap(mapZoomLevel + 1)
+        onActivated: goToZoomLevelMap(map.zoomLevel + 1)
     }
 
     Shortcut { //Zoom out
         sequence: "-"
-        onActivated: goToZoomLevelMap(mapZoomLevel - 1)
+        onActivated: goToZoomLevelMap(map.zoomLevel - 1)
     }
 
     Shortcut { //Hide UI
@@ -310,15 +304,15 @@ Item {
 
     Shortcut { //Enter Measure Mode
         sequence: "D"
-        onActivated: mouseArea.measureMode = !mouseArea.measureMode
+        onActivated: measureMode = !measureMode
     }
 
     Shortcut { //Quit Measure Mode
         sequence: "Escape"
         onActivated: {
-            if(mouseArea.measureMode){
-                mouseArea.measureMode = false
-                mouseArea.measurePoint = null
+            if(measureMode){
+                measureMode = false
+                measurePoint = null
             }
         }
     }
@@ -356,17 +350,16 @@ Item {
     WheelHandler {
         target: map
 
-        onWheel: function(event) {
+        onWheel: function(event) { //Zoom on cursor
             //Coordinates before zoom
             var cursorPoint = Qt.point(event.x, event.y)
             var cursorCoordBefore = map.toCoordinate(cursorPoint)
 
             //Zoom
             if (event.angleDelta.y > 0)
-                map.zoomLevel = Math.min(map.maximumZoomLevel, map.zoomLevel + zoomSpeed)
+                map.zoomLevel = Math.min(map.maximumZoomLevel, map.zoomLevel + zoomIncrement)
             else if (event.angleDelta.y < 0)
-                map.zoomLevel = Math.max(map.minimumZoomLevel, map.zoomLevel - zoomSpeed)
-            mapZoomLevel = map.zoomLevel
+                map.zoomLevel = Math.max(map.minimumZoomLevel, map.zoomLevel - zoomIncrement)
 
             //Coordinates after zoom
             var cursorCoordAfter = map.toCoordinate(cursorPoint)
@@ -389,16 +382,11 @@ Item {
         hoverEnabled: true
         acceptedButtons: Qt.LeftButton | Qt.RightButton | Qt.MiddleButton
 
-        property bool measureMode: false
-        property var measurePoint: null
-
         property var lastCoord
-        property var cursorCoord: map.toCoordinate(Qt.point(mouseX, mouseY))
         property bool dragging: false
 
         property real lastX
         property bool rotating: false
-        property double wheelDragSensitivity : 0.5
 
         // Click buttons
         onClicked: function(mouse) {
@@ -492,7 +480,7 @@ Item {
             color: "black"
             z: 999
 
-            visible: mouseArea.measureMode && measureTrack.length !== 0
+            visible: measureMode && measureTrack.length !== 0
 
             text: {
                 if (measureTrack.length === 0)
@@ -500,7 +488,7 @@ Item {
 
                 // Distance and bearing from last waypoint to cursor
                 var last = measureTrack[measureTrack.length - 1]
-                var cursor = mouseArea.cursorCoord
+                var cursor = cursorCoord
                 var distMeters = haversineDistance(
                     last.latitude, last.longitude,
                     cursor.latitude, cursor.longitude
@@ -570,7 +558,7 @@ Item {
             enabled: boatPositionReceived
 
             contentItem: Label {
-                text: followBoatText + " (F)"
+                text: (followBoat ? "Unfollow Boat" : "Follow Boat") + " (F)"
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
                 width: parent.width
@@ -664,16 +652,16 @@ Item {
         MenuItem {
             id: measureModeItem
             contentItem: Label {
-                text: (mouseArea.measureMode ? "Stop Measuring" : "Measure Distance") + " (D)"
+                text: (measureMode ? "Stop Measuring" : "Measure Distance") + " (D)"
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
                 width: parent.width
             }
 
             onTriggered: {
-                mouseArea.measureMode = !mouseArea.measureMode
-                if (!mouseArea.measureMode) {
-                    mouseArea.measurePoint = null
+                measureMode = !measureMode
+                if (!measureMode) {
+                    measurePoint = null
                 }
             }
         }
@@ -786,7 +774,7 @@ Item {
                 width: parent.width
             }
             onTriggered:{
-                goToZoomLevelMap(mapZoomLevel+1)
+                goToZoomLevelMap(map.zoomLevel+1)
             }
         }
 
@@ -798,7 +786,7 @@ Item {
                 width: parent.width
             }
             onTriggered:{
-                goToZoomLevelMap(mapZoomLevel-1)
+                goToZoomLevelMap(map.zoomLevel-1)
             }
         }
     }
@@ -1290,7 +1278,7 @@ Item {
             }
             font.pixelSize: 14
             text: {
-                var percent = (mapZoomLevel - minZoomOSM) / (maxZoomOSM - minZoomOSM) * 100
+                var percent = (map.zoomLevel - map.minimumZoomLevel) / (map.maximumZoomLevel - map.minimumZoomLevel) * 100
                 percent = Math.max(0, Math.min(100, percent))
                 return "Zoom: " + Math.round(percent) + "%"
             }
@@ -1706,8 +1694,6 @@ Item {
 
                     return distStr + " / " + nmStr
                 }
-
-
             }
         }
 
@@ -1718,61 +1704,45 @@ Item {
             Column {
                 spacing: labelVerticalMargin / 2
 
-                Row {
+                Row { //Zoom button
                     spacing: labelLateralMargin
 
                     Button {
                         text: "Zoom -"
                         width: 60
                         height: 30
-                        onClicked: goToZoomLevelMap(mapZoomLevel - 1)
+                        onClicked: goToZoomLevelMap(map.zoomLevel - 1)
                     }
 
                     Button {
                         text: "Zoom +"
                         width: 60
                         height: 30
-                        onClicked: goToZoomLevelMap(mapZoomLevel + 1)
+                        onClicked: goToZoomLevelMap(map.zoomLevel + 1)
                     }
                 }
 
-                Slider {
+                Slider { //Zoom slider
                     id: zoomSlider
                     from: map.minimumZoomLevel
                     to: map.maximumZoomLevel
                     stepSize: 0.1
-                    value: mapZoomLevel
+                    value: map.zoomLevel
                     width: 130
                     onValueChanged: goToZoomLevelMap(value)
                 }
             }
 
-            Button {
+            Button { //Follow Boat
                 width: 60
                 height: 60
                 anchors.verticalCenter: parent.verticalCenter
                 enabled: boatPositionReceived
-                text: followBoatText.replace(" ", "\n")
+                text: (followBoat ? "Unfollow Boat" : "Follow Boat").replace(" ", "\n")
                 onClicked: followBoat = !followBoat
             }
         }
  }
-
-
-
-    /////////////////////////////
-    /// Internal Signal-Slots ///
-    /////////////////////////////
-    Connections {
-        //Update mouse position on boat movement
-        function onBoatLatitudeChanged() {
-            updateCursorCalculations()
-        }
-
-        function onBoatLongitudeChanged() {
-            updateCursorCalculations()
-        }
-    }
 
 
 
@@ -1790,6 +1760,7 @@ Item {
     //Update boat UTC Date
     function updateBoatDate(date) {
         boatDate = date
+
         timeLastUtcDate = Date.now()
         boatDateReceived = true
     }
@@ -1800,20 +1771,21 @@ Item {
         boatLongitude = lon
         currentBoatCoord = QtPositioning.coordinate(lat, lon)
 
+        //Zoom & center on boat first time receiving position
+        if(!boatPositionInit){
+            goToZoomLevelMap(17)
+            setCenterPositionOnBoat()
+        }
+
         timeLastPosition = Date.now()
         boatPositionReceived = true
         boatPositionInit = true
 
+        //Draw new boat position
         updateBoatIconOnMap()
 
-        //Zoom & center on boat first time receiving position
-        if(!firstPositionInit){
-            goToZoomLevelMap(17)
-            setCenterPositionOnBoat()
-            firstPositionInit = true;
-        }
-
-        drawBoatTrack(lat, lon)
+        //Add new position to track line
+        drawBoatTrack()
     }
 
     //Update boat heading
@@ -1858,6 +1830,22 @@ Item {
 
 
 
+    /////////////////////////////
+    /// Internal Signal-Slots ///
+    /////////////////////////////
+    Connections {
+        //Update boat position relative to cursor
+        function onBoatLatitudeChanged() {
+            updateBoatCursorCalculations()
+        }
+
+        function onBoatLongitudeChanged() {
+            updateBoatCursorCalculations()
+        }
+    }
+
+
+
     //////////////////
     /// Update Map ///
     //////////////////
@@ -1873,32 +1861,13 @@ Item {
 
     //Add marker
     function addMarkerOnMap(lat, lon) {
-        var item = redMarker.createObject(window, {
+        var item = redMarkerImg.createObject(window, {
             coordinate: QtPositioning.coordinate(lat, lon),
             objectName: "marker"
         });
+
         map.addMapItem(item)
-
         userMarkerCount++;
-    }
-
-    //Add boat icon
-    function updateBoatIconOnMap() {
-        // Remove previous boat icon if it exists
-        if (boatMarkerRef !== null) {
-            map.removeMapItem(boatMarkerRef)
-            boatMarkerRef.destroy()
-            boatMarkerRef = null
-
-        }
-
-        // Create and store new boat marker
-        boatMarkerRef = boatMarker.createObject(window, {
-            coordinate: QtPositioning.coordinate(boatLatitude, boatLongitude),
-            rotation: boatHeading - mapRotation
-        })
-
-        map.addMapItem(boatMarkerRef)
     }
 
     //Remove all markers from map
@@ -1919,7 +1888,6 @@ Item {
             map.zoomLevel = Math.min(map.maximumZoomLevel, map.zoomLevel + dz);
         else if (dz < 0)
             map.zoomLevel = Math.max(map.minimumZoomLevel, map.zoomLevel + dz);
-        mapZoomLevel = map.zoomLevel
     }
 
     //Go To Zoom Level Map
@@ -1929,42 +1897,53 @@ Item {
         else if(zoomLevel < map.minimumZoomLevel)
             zoomLevel = map.minimumZoomLevel
 
-        map.zoomLevel = zoomLevel;
-        mapZoomLevel = map.zoomLevel
+        map.zoomLevel = zoomLevel
     }
 
-    //Recalculate cursor coordinate relative to mouse position
-    function updateCursorCalculations() {
-        var coord = map.toCoordinate(Qt.point(mouseArea.mouseX, mouseArea.mouseY))
-        cursorLatitude = coord.latitude
-        cursorLongitude = coord.longitude
+    //Redraw boat icon
+    function updateBoatIconOnMap() {
+        // Remove previous boat icon if it exists
+        if (boatMarkerRef !== null) {
+            map.removeMapItem(boatMarkerRef)
+            boatMarkerRef.destroy()
+            boatMarkerRef = null
+        }
 
+        // Create and store new boat marker
+        boatMarkerRef = boatMarkerImg.createObject(window, {
+            coordinate: QtPositioning.coordinate(boatLatitude, boatLongitude),
+            rotation: boatHeading - mapRotation
+        })
+
+        map.addMapItem(boatMarkerRef)
+    }
+
+    //Recalculate boat distance/bearing relative to cursor position
+    function updateBoatCursorCalculations() {
         cursorDistanceBoat = haversineDistance(boatLatitude, boatLongitude, cursorLatitude, cursorLongitude)
         cursorBearingBoat = calculateBearing(boatLatitude, boatLongitude, cursorLatitude, cursorLongitude)
     }
 
     //Boat Track
-    function drawBoatTrack(lat, lon){
-
+    function drawBoatTrack(){
+        //Do not add if track not enabled
         if(!enableTrack)
             return
 
-        //Minimum distance between 2 points
+        //Check if minimum distance between 2 points  before adding
         if (boatTrack.length &&
             haversineDistance(
                 boatTrack[boatTrack.length-1].latitude,
                 boatTrack[boatTrack.length-1].longitude,
-                lat, lon
+                boatLatitude, boatLongitude
             ) < minimumTrackPointsDistance)
             return
 
-        var newTrack = boatTrack.slice()   // clone array
-        newTrack.push(QtPositioning.coordinate(lat, lon))
+        boatTrack.push(QtPositioning.coordinate(boatLatitude, boatLongitude))
 
-        if (newTrack.length > maxTrackPoints)
-            newTrack.shift()
-
-        boatTrack = newTrack               // reassign
+        //Erase first waypoint if array exceeds max size
+        if (boatTrack.length > maxTrackPoints)
+            boatTrack.shift()
     }
 
 
@@ -1972,18 +1951,16 @@ Item {
     /////////////////////////
     /// Generic Functions ///
     /////////////////////////
-    //Check if position is valid
+    //Check if position is valid (bool)
     function isPositionValid(lat, lon) {
         if (isNaN(lat) || isNaN(lon))
             return false
 
-        return lat >= -90 && lat <= 90 && lon >= -180 && lon <= 180
+        return ((lat >= -90) && (lat <= 90) && (lon >= -180) && (lon <= 180))
     }
 
     //Distance between 2 positions (meters)
     function haversineDistance(lat1, lon1, lat2, lon2) {
-        const R = 6378137.0; // Earth radius in meters
-
         let dLat = toRadians(lat2 - lat1)
         let dLon = toRadians(lon2 - lon1)
 
@@ -1996,10 +1973,10 @@ Item {
 
         let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
 
-        return R * c // in meters
+        return earthRadiusMeters * c
     }
 
-    //Bearing between 2 positions
+    //Bearing between 2 positions (°)
     function calculateBearing(lat1, lon1, lat2, lon2) {
         lat1 = toRadians(lat1)
         lon1 = toRadians(lon1)
@@ -2015,49 +1992,24 @@ Item {
         return (bearing + 360) % 360  // Normalize to 0–359°
     }
 
-    //Get Estimated Time of Arrival
+    //Get Estimated Time of Arrival (seconds)
     function getETA(distanceFromBoat, speed) {
         if (speed === 0)
             return NaN;
 
-        return distanceFromBoat/knotsToMps(boatSpeed) // meter / mps = seconds
-    }
-
-    //Convert seconds to hours/minutes/seconds
-    function secondsToDHMS(seconds) {
-        if (isNaN(seconds))
-            return "N/A";
-
-        var d = Math.floor(seconds / 86400);
-        var h = Math.floor((seconds % 86400) / 3600);
-        var m = Math.floor((seconds % 3600) / 60);
-        var s = Math.floor(seconds % 60);
-
-        // Show days, hours, minutes only
-        if (d > 0) {
-            return (d > 0 ? d + "d " : "") +
-                   (h > 0 ? h + "h " : "") +
-                   (m > 0 ? m + "m" : "");
-        }
-        // Show h, m, s normally
-        else {
-            return (h > 0 ? h + "h " : "") +
-                   (m > 0 ? m + "m " : "") +
-                   s + "s";
-        }
+        return distanceFromBoat/knotsToMps(boatSpeed)
     }
 
     //Calculate end position when adding distance to initial position/heading
     function destinationCoordinate(lat, lon, bearingDeg, distanceMeters) {
-        const R = 6378137.0; // Earth radius in meters
         const brng = toRadians(bearingDeg)
         const phi_1 = lat * Math.PI / 180
         const lambda_1 = lon * Math.PI / 180
 
-        const phi_2 = Math.asin(Math.sin(phi_1) * Math.cos(distanceMeters / R) +
-                             Math.cos(phi_1) * Math.sin(distanceMeters / R) * Math.cos(brng))
-        const lambda_2 = lambda_1 + Math.atan2(Math.sin(brng) * Math.sin(distanceMeters / R) * Math.cos(phi_1),
-                                   Math.cos(distanceMeters / R) - Math.sin(phi_1) * Math.sin(phi_2))
+        const phi_2 = Math.asin(Math.sin(phi_1) * Math.cos(distanceMeters / earthRadiusMeters) +
+                             Math.cos(phi_1) * Math.sin(distanceMeters / earthRadiusMeters) * Math.cos(brng))
+        const lambda_2 = lambda_1 + Math.atan2(Math.sin(brng) * Math.sin(distanceMeters / earthRadiusMeters) * Math.cos(phi_1),
+                                   Math.cos(distanceMeters / earthRadiusMeters) - Math.sin(phi_1) * Math.sin(phi_2))
 
         return QtPositioning.coordinate(phi_2 * 180 / Math.PI, lambda_2 * 180 / Math.PI)
     }
@@ -2096,5 +2048,31 @@ Item {
         return Math.abs(lon).toFixed(5) + "°" + (lon >= 0 ? "E" : "W")
     }
 
-}
+    function secondsToDHMS(seconds) {
+        if (isNaN(seconds))
+            return "N/A";
 
+        var secondsInMinute = 60;
+        var secondsInHour = 3600;
+        var secondsInDay = 86400;
+
+        var d = Math.floor(seconds / secondsInDay)
+        var h = Math.floor((seconds % secondsInDay) / secondsInHour)
+        var m = Math.floor((seconds % secondsInHour) / secondsInMinute)
+        var s = Math.floor(seconds % secondsInMinute)
+
+        // Show days, hours, minutes
+        if (d > 0) {
+            return (d > 0 ? d + "d " : "") +
+                   (h > 0 ? h + "h " : "") +
+                   (m > 0 ? m + "m" : "");
+        }
+
+        // Show h, m, s only
+        else {
+            return (h > 0 ? h + "h " : "") +
+                   (m > 0 ? m + "m " : "") +
+                   s + "s";
+        }
+    }
+}

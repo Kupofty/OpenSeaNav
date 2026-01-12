@@ -1,0 +1,13 @@
+<RCC>
+    <qresource prefix="/icons">
+        <file>icons/nmea_icon.ico</file>
+    </qresource>
+    <qresource prefix="/boats">
+        <file alias="boat1">boats/boat1.png</file>
+        <file alias="boat2">boats/boat2.png</file>
+    </qresource>
+    <qresource prefix="/markers">
+        <file alias="blueMarker">markers/blueMarker.png</file>
+        <file alias="redMarker">markers/redMarker.png</file>
+    </qresource>
+</RCC>
