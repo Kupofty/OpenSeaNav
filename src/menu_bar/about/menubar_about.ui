@@ -86,7 +86,7 @@
         <string/>
        </property>
        <property name="pixmap">
-        <pixmap resource="../../../resources/pictures/pictures.qrc">:/icons/icons/nmea_icon.ico</pixmap>
+        <pixmap resource="../../../resources/pictures/pictures.qrc">:/icons/mainIcon</pixmap>
        </property>
        <property name="scaledContents">
         <bool>true</bool>

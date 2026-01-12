@@ -67,7 +67,8 @@ class Interface : public QMainWindow
         MenuBarDataMonitor *data_monitor_window;
         MenuBarDecodedNmea *decoded_nmea_window;
         QString configPath;
-        QSettings *settings;
+        QSettings *settingsGUI;
+        QSettings *settingsConnections;
         QTranslator translator;
 
     private:

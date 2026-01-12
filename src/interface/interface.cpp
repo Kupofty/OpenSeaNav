@@ -8,6 +8,8 @@ Interface::Interface(QWidget *parent) : QMainWindow(parent), ui(new Ui::Interfac
 {
     //Setup UI
     ui->setupUi(this);
+    setWindowTitle(tr("OpenSeaNav - Navigation Software"));
+
     ui->tabWidget->setCurrentWidget(ui->tab_map);
 
     //Instantiate child classes
@@ -24,6 +26,9 @@ Interface::Interface(QWidget *parent) : QMainWindow(parent), ui(new Ui::Interfac
     //Settings
     loadSettings();
 
+    //Create lists (NMEA, UI elements, etc)
+    initializeLists();
+
     //QML Map
     ui->quickWidget_map->setSource(QUrl(QStringLiteral("qrc:/mainMap.qml")));
     ui->quickWidget_map->show();
@@ -31,9 +36,6 @@ Interface::Interface(QWidget *parent) : QMainWindow(parent), ui(new Ui::Interfac
 
     //Qt connects
     connectSignalSlot();
-
-    //Create lists (NMEA, UI elements, etc)
-    initializeLists();
 }
 
 Interface::~Interface()
@@ -109,33 +111,39 @@ void Interface::loadSettings()
 
 void Interface::initSettings()
 {
+    //Create directory
     QString settingsFolderName = "/OpenSeaNav";
-    QString settingsFileName = "/config.ini";
-
     configPath = QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation) + settingsFolderName;
     QDir().mkpath(configPath);
-    settings = new QSettings(configPath + settingsFileName, QSettings::IniFormat, this);
+
+    //GUI Settings
+    QString settingsFileName = "/configUI.ini";
+    settingsGUI = new QSettings(configPath + settingsFileName, QSettings::IniFormat, this);
+
+    //Connections Settings
+    settingsFileName = "/configConnection.ini";
+    settingsConnections = new QSettings(configPath + settingsFileName, QSettings::IniFormat, this);
 }
 
 void Interface::loadUiSettings()
 {
-    QString language = settings->value("translation/language", "").toString();
+    QString language = settingsGUI->value("translation/language", "").toString();
     loadTranslation(language);
 
     int w, h, x, y;
 
     //Main Window
-    bool showLastSize =  settings->value("mainWindow/showLastSize", false).toBool();
-    bool showFullscreen =  settings->value("mainWindow/showFullScreen", false).toBool();
+    bool showLastSize =  settingsGUI->value("mainWindow/showLastSize", false).toBool();
+    bool showFullscreen =  settingsGUI->value("mainWindow/showFullScreen", false).toBool();
 
     if(showLastSize)
     {
-        w = settings->value("mainWindow/width", 1200).toInt();
-        h = settings->value("mainWindow/height", 800).toInt();
+        w = settingsGUI->value("mainWindow/width", 1200).toInt();
+        h = settingsGUI->value("mainWindow/height", 800).toInt();
         this->resize(w, h);
 
-        x = settings->value("mainWindow/x", 100).toInt();
-        y = settings->value("mainWindow/y", 100).toInt();
+        x = settingsGUI->value("mainWindow/x", 100).toInt();
+        y = settingsGUI->value("mainWindow/y", 100).toInt();
         this->move(x, y);
 
         ui->actionRestore_Last_Window->setChecked(true);
@@ -152,45 +160,45 @@ void Interface::loadUiSettings()
     }
 
     //Data Monitor Window
-    w = settings->value("dataMonitorWindow/width", 600).toInt();
-    h = settings->value("dataMonitorWindow/height", 600).toInt();
+    w = settingsGUI->value("dataMonitorWindow/width", 600).toInt();
+    h = settingsGUI->value("dataMonitorWindow/height", 600).toInt();
     data_monitor_window->resize(w, h);
 
-    x = settings->value("dataMonitorWindow/x", 100).toInt();
-    y = settings->value("dataMonitorWindow/y", 100).toInt();
+    x = settingsGUI->value("dataMonitorWindow/x", 100).toInt();
+    y = settingsGUI->value("dataMonitorWindow/y", 100).toInt();
     data_monitor_window->move(x, y);
 
     //Decoded NMEA Monitor
-    w = settings->value("decodedNmeaWindow/width", 600).toInt();
-    h = settings->value("decodedNmeaWindow/height", 600).toInt();
+    w = settingsGUI->value("decodedNmeaWindow/width", 600).toInt();
+    h = settingsGUI->value("decodedNmeaWindow/height", 600).toInt();
     decoded_nmea_window->resize(w, h);
 
-    x = settings->value("decodedNmeaWindow/x", 100).toInt();
-    y = settings->value("decodedNmeaWindow/y", 100).toInt();
+    x = settingsGUI->value("decodedNmeaWindow/x", 100).toInt();
+    y = settingsGUI->value("decodedNmeaWindow/y", 100).toInt();
     decoded_nmea_window->move(x, y);
 }
 
 void Interface::loadSerialInputSettings()
 {
     //Baudrate
-    int serialInputBaudrate = settings->value("serialInput/baudrate", ui->comboBox_serial_input_port_baudrate->currentIndex()).toInt();
+    int serialInputBaudrate = settingsConnections->value("serialInput/baudrate", ui->comboBox_serial_input_port_baudrate->currentIndex()).toInt();
     ui->comboBox_serial_input_port_baudrate->setCurrentIndex(serialInputBaudrate);
 
     //List input ports
-    QString savedPort = settings->value("serialInput/listPort").toString();
+    QString savedPort = settingsConnections->value("serialInput/listPort").toString();
     int index = ui->comboBox_serial_input_port_list->findText(savedPort, Qt::MatchExactly);
     if (index >= 0)
         ui->comboBox_serial_input_port_list->setCurrentIndex(index);
 
     //Manual input port
-    bool serialInputSelectManual= settings->value("serialInput/selectManual", ui->checkBox_serial_manual_input->isChecked()).toBool();
+    bool serialInputSelectManual= settingsConnections->value("serialInput/selectManual", ui->checkBox_serial_manual_input->isChecked()).toBool();
     ui->checkBox_serial_manual_input->setChecked(serialInputSelectManual);
 
-    QString serialInputPort = settings->value("serialInput/manualPort", ui->lineEdit_serial_manual_input->text()).toString();
+    QString serialInputPort = settingsConnections->value("serialInput/manualPort", ui->lineEdit_serial_manual_input->text()).toString();
     ui->lineEdit_serial_manual_input->setText(serialInputPort);
 
     //Autoconnect
-    bool serialAutoConnect = settings->value("serialInput/autoConnect", ui->checkBox_serial_autoconnect->isChecked()).toBool();
+    bool serialAutoConnect = settingsConnections->value("serialInput/autoConnect", ui->checkBox_serial_autoconnect->isChecked()).toBool();
     ui->checkBox_serial_autoconnect->setChecked(serialAutoConnect);
     if(ui->checkBox_serial_autoconnect->isChecked())
         ui->pushButton_connect_serial_input->click();
@@ -199,11 +207,11 @@ void Interface::loadSerialInputSettings()
 void Interface::loadUdpInputSettings()
 {
     //Port
-    int udpInputPort = settings->value("udpInput/port", ui->spinBox_port_input_udp->value()).toInt();
+    int udpInputPort = settingsConnections->value("udpInput/port", ui->spinBox_port_input_udp->value()).toInt();
     ui->spinBox_port_input_udp->setValue(udpInputPort);
 
     //Autoconnect
-    bool udpAutoConnect = settings->value("udpInput/autoConnect", ui->checkBox_udp_autoconnect->isChecked()).toBool();
+    bool udpAutoConnect = settingsConnections->value("udpInput/autoConnect", ui->checkBox_udp_autoconnect->isChecked()).toBool();
     ui->checkBox_udp_autoconnect->setChecked(udpAutoConnect);
     if(ui->checkBox_udp_autoconnect->isChecked())
         ui->pushButton_connect_udp_input->click();
@@ -212,38 +220,38 @@ void Interface::loadUdpInputSettings()
 void Interface::saveSettings()
 {
     //Translation
-    settings->setValue("translation/language", translator.filePath());
+    settingsGUI->setValue("translation/language", translator.filePath());
 
     //Main Window
-    settings->setValue("mainWindow/showLastSize", ui->actionRestore_Last_Window->isChecked());
-    settings->setValue("mainWindow/showFullScreen", ui->actionStartFullscreen->isChecked());
-    settings->setValue("mainWindow/width", this->width());
-    settings->setValue("mainWindow/height", this->height());
-    settings->setValue("mainWindow/x", this->x());
-    settings->setValue("mainWindow/y", this->y());
+    settingsGUI->setValue("mainWindow/showLastSize", ui->actionRestore_Last_Window->isChecked());
+    settingsGUI->setValue("mainWindow/showFullScreen", ui->actionStartFullscreen->isChecked());
+    settingsGUI->setValue("mainWindow/width", this->width());
+    settingsGUI->setValue("mainWindow/height", this->height());
+    settingsGUI->setValue("mainWindow/x", this->x());
+    settingsGUI->setValue("mainWindow/y", this->y());
 
     //Data Monitor
-    settings->setValue("dataMonitorWindow/width", data_monitor_window->width());
-    settings->setValue("dataMonitorWindow/height", data_monitor_window->height());
-    settings->setValue("dataMonitorWindow/x", data_monitor_window->x());
-    settings->setValue("dataMonitorWindow/y", data_monitor_window->y());
+    settingsGUI->setValue("dataMonitorWindow/width", data_monitor_window->width());
+    settingsGUI->setValue("dataMonitorWindow/height", data_monitor_window->height());
+    settingsGUI->setValue("dataMonitorWindow/x", data_monitor_window->x());
+    settingsGUI->setValue("dataMonitorWindow/y", data_monitor_window->y());
 
     //Decoded NMEA Monitor
-    settings->setValue("decodedNmeaWindow/width", decoded_nmea_window->width());
-    settings->setValue("decodedNmeaWindow/height", decoded_nmea_window->height());
-    settings->setValue("decodedNmeaWindow/x", decoded_nmea_window->x());
-    settings->setValue("decodedNmeaWindow/y", decoded_nmea_window->y());
+    settingsGUI->setValue("decodedNmeaWindow/width", decoded_nmea_window->width());
+    settingsGUI->setValue("decodedNmeaWindow/height", decoded_nmea_window->height());
+    settingsGUI->setValue("decodedNmeaWindow/x", decoded_nmea_window->x());
+    settingsGUI->setValue("decodedNmeaWindow/y", decoded_nmea_window->y());
 
     //Serial Input
-    settings->setValue("serialInput/selectManual", ui->checkBox_serial_manual_input->isChecked());
-    settings->setValue("serialInput/baudrate", ui->comboBox_serial_input_port_baudrate->currentIndex());
-    settings->setValue("serialInput/manualPort",  ui->lineEdit_serial_manual_input->text());
-    settings->setValue("serialInput/autoConnect", ui->checkBox_serial_autoconnect->isChecked());
-    settings->setValue("serialInput/listPort", ui->comboBox_serial_input_port_list->currentText());
+    settingsConnections->setValue("serialInput/selectManual", ui->checkBox_serial_manual_input->isChecked());
+    settingsConnections->setValue("serialInput/baudrate", ui->comboBox_serial_input_port_baudrate->currentIndex());
+    settingsConnections->setValue("serialInput/manualPort",  ui->lineEdit_serial_manual_input->text());
+    settingsConnections->setValue("serialInput/autoConnect", ui->checkBox_serial_autoconnect->isChecked());
+    settingsConnections->setValue("serialInput/listPort", ui->comboBox_serial_input_port_list->currentText());
 
     // UDP Input
-    settings->setValue("udpInput/port", ui->spinBox_port_input_udp->value());
-    settings->setValue("udpInput/autoConnect", ui->checkBox_udp_autoconnect->isChecked());
+    settingsConnections->setValue("udpInput/port", ui->spinBox_port_input_udp->value());
+    settingsConnections->setValue("udpInput/autoConnect", ui->checkBox_udp_autoconnect->isChecked());
 }
 
 

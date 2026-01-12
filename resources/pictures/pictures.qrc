@@ -1,6 +1,6 @@
 <RCC>
     <qresource prefix="/icons">
-        <file>icons/nmea_icon.ico</file>
+        <file alias="mainIcon">icons/nmea_icon.ico</file>
     </qresource>
     <qresource prefix="/boats">
         <file alias="boat1">boats/boat1.png</file>

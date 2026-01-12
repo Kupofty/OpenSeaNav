@@ -55,8 +55,7 @@ TRANSLATIONS += \
 RESOURCES += \
     resources/pictures/pictures.qrc \
     resources/qmls/qmls.qrc \
-    resources/translations/translations.qrc \
-    src/menu_bar/resources/images.qrc
+    resources/translations/translations.qrc
 
 
 # Default rules for deployment.
