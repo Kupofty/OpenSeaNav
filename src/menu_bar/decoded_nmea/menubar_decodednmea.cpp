@@ -147,9 +147,9 @@ void MenuBarDecodedNmea::updateDataMTW(double temp, QString tempUnit, double fre
 void MenuBarDecodedNmea::updateDataMWV(double angle, QString ref, double speed, QString unit, double freqHz)
 {
     ui->lcdNumber_windAngle_mwv->display(angle);
-    ui->label_windAngleUnit_mwv->setText(tr("Wing Angle") + "(" + ref + ") :" );
+    ui->label_windAngleUnit_mwv->setText(tr("Wind Angle") + "(" + ref + ") :" );
     ui->lcdNumber_windSpeed_mwv->display(speed);
-    ui->label_windSpeedUnit_mwv->setText(tr("Wing Speed") + "(" + unit + ") :" );
+    ui->label_windSpeedUnit_mwv->setText(tr("Wind Speed") + "(" + unit + ") :" );
     ui->lcdNumber_frequency_mwv->display(freqHz);
 }
 

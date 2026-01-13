@@ -28,19 +28,19 @@
         <location filename="../../src/interface/interface.ui" line="203"/>
         <location filename="../../src/interface/interface.ui" line="1598"/>
         <source>Refresh</source>
-        <translation type="unfinished"></translation>
+        <translation>Actualiser</translation>
     </message>
     <message>
         <location filename="../../src/interface/interface.ui" line="224"/>
         <location filename="../../src/interface/interface.ui" line="1620"/>
         <source>Manual Input</source>
-        <translation type="unfinished"></translation>
+        <translation>Saisie Manuelle</translation>
     </message>
     <message>
         <location filename="../../src/interface/interface.ui" line="254"/>
         <location filename="../../src/interface/interface.ui" line="1651"/>
         <source>Baudrate :</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../../src/interface/interface.ui" line="275"/>
@@ -96,7 +96,7 @@
         <location filename="../../src/interface/interface.ui" line="348"/>
         <location filename="../../src/interface/interface.ui" line="636"/>
         <source>Auto-connect on startup</source>
-        <translation type="unfinished"></translation>
+        <translation>Connexion automatique au démarrage</translation>
     </message>
     <message>
         <location filename="../../src/interface/interface.ui" line="393"/>
@@ -116,7 +116,7 @@
         <location filename="../../src/interface/interface.ui" line="429"/>
         <location filename="../../src/interface/interface.ui" line="735"/>
         <source>Connection Status :</source>
-        <translation type="unfinished"></translation>
+        <translation>État de la connexion :</translation>
     </message>
     <message>
         <location filename="../../src/interface/interface.ui" line="541"/>
@@ -133,32 +133,32 @@
     <message>
         <location filename="../../src/interface/interface.ui" line="690"/>
         <source>Sender Details :</source>
-        <translation type="unfinished"></translation>
+        <translation>Détails de l’expéditeur :</translation>
     </message>
     <message>
         <location filename="../../src/interface/interface.ui" line="851"/>
         <source>Data Outputs</source>
-        <translation type="unfinished"></translation>
+        <translation>Sorties De Données</translation>
     </message>
     <message>
         <location filename="../../src/interface/interface.ui" line="963"/>
         <source>Method :</source>
-        <translation type="unfinished"></translation>
+        <translation>Mode :</translation>
     </message>
     <message>
         <location filename="../../src/interface/interface.ui" line="987"/>
         <source>Broadcast</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../../src/interface/interface.ui" line="992"/>
         <source>Unicast</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../../src/interface/interface.ui" line="997"/>
         <source>Multicast</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../../src/interface/interface.ui" line="1048"/>
@@ -276,17 +276,17 @@
         <location filename="../../src/interface/interface.ui" line="1423"/>
         <location filename="../../src/interface/interface.ui" line="2007"/>
         <source>Output Data</source>
-        <translation type="unfinished"></translation>
+        <translation>Activer</translation>
     </message>
     <message>
         <location filename="../../src/interface/interface.ui" line="2061"/>
         <source>Text File</source>
-        <translation type="unfinished"></translation>
+        <translation>Fichier Texte</translation>
     </message>
     <message>
         <location filename="../../src/interface/interface.ui" line="2098"/>
         <source>Path :</source>
-        <translation type="unfinished"></translation>
+        <translation>Chemin :</translation>
     </message>
     <message>
         <location filename="../../src/interface/interface.ui" line="2146"/>
@@ -301,7 +301,7 @@
     <message>
         <location filename="../../src/interface/interface.ui" line="2166"/>
         <source>Custom</source>
-        <translation type="unfinished"></translation>
+        <translation>Personnalisé</translation>
     </message>
     <message>
         <location filename="../../src/interface/interface.ui" line="2205"/>
@@ -311,7 +311,7 @@
     <message>
         <location filename="../../src/interface/interface.ui" line="2250"/>
         <source>Auto-generate</source>
-        <translation type="unfinished"></translation>
+        <translation>Génération Automatique</translation>
     </message>
     <message>
         <location filename="../../src/interface/interface.ui" line="2299"/>
@@ -341,24 +341,24 @@
     <message>
         <location filename="../../src/interface/interface.ui" line="2376"/>
         <source>Add Timestamp Prefix</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajouter Préfixe Horodaté</translation>
     </message>
     <message>
         <location filename="../../src/interface/interface.ui" line="2434"/>
-        <location filename="../../src/interface/interface.cpp" line="1009"/>
+        <location filename="../../src/interface/interface.cpp" line="1022"/>
         <source> Record Data To File</source>
-        <translation type="unfinished"></translation>
+        <translation> Enregistrer</translation>
     </message>
     <message>
         <location filename="../../src/interface/interface.ui" line="2474"/>
         <source>File Size :</source>
-        <translation type="unfinished"></translation>
+        <translation>Taille Du Fichier :</translation>
     </message>
     <message>
         <location filename="../../src/interface/interface.ui" line="2484"/>
-        <location filename="../../src/interface/interface.cpp" line="1007"/>
+        <location filename="../../src/interface/interface.cpp" line="1020"/>
         <source>Not recording</source>
-        <translation type="unfinished"></translation>
+        <translation>Enregistrement Inactif</translation>
     </message>
     <message>
         <location filename="../../src/interface/interface.ui" line="2575"/>
@@ -368,7 +368,7 @@
     <message>
         <location filename="../../src/interface/interface.ui" line="2579"/>
         <source>Languages</source>
-        <translation type="unfinished"></translation>
+        <translation>Langues</translation>
     </message>
     <message>
         <location filename="../../src/interface/interface.ui" line="2589"/>
@@ -388,7 +388,7 @@
     <message>
         <location filename="../../src/interface/interface.ui" line="2608"/>
         <source>Startup Window Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Mode Ouverture Fenêtre Au Démarrage</translation>
     </message>
     <message>
         <location filename="../../src/interface/interface.ui" line="2628"/>
@@ -408,7 +408,7 @@
     <message>
         <location filename="../../src/interface/interface.ui" line="2647"/>
         <source>Data Monitor</source>
-        <translation type="unfinished"></translation>
+        <translation>Moniteur De Données</translation>
     </message>
     <message>
         <location filename="../../src/interface/interface.ui" line="2650"/>
@@ -418,7 +418,7 @@
     <message>
         <location filename="../../src/interface/interface.ui" line="2658"/>
         <source>Manual Data Input</source>
-        <translation type="unfinished"></translation>
+        <translation>Saisie Manuelle NMEA</translation>
     </message>
     <message>
         <location filename="../../src/interface/interface.ui" line="2661"/>
@@ -433,7 +433,7 @@
     <message>
         <location filename="../../src/interface/interface.ui" line="2677"/>
         <source>Toggle Fullscreen</source>
-        <translation type="unfinished"></translation>
+        <translation>Activer/Désactiver Plein Écran</translation>
     </message>
     <message>
         <location filename="../../src/interface/interface.ui" line="2680"/>
@@ -443,7 +443,7 @@
     <message>
         <location filename="../../src/interface/interface.ui" line="2688"/>
         <source>Decoded NMEA</source>
-        <translation type="unfinished"></translation>
+        <translation>Trames NMEA Décodées</translation>
     </message>
     <message>
         <location filename="../../src/interface/interface.ui" line="2691"/>
@@ -453,7 +453,7 @@
     <message>
         <location filename="../../src/interface/interface.ui" line="2699"/>
         <source>Maximized</source>
-        <translation type="unfinished"></translation>
+        <translation>Maximisée</translation>
     </message>
     <message>
         <location filename="../../src/interface/interface.ui" line="2707"/>
@@ -463,103 +463,113 @@
     <message>
         <location filename="../../src/interface/interface.ui" line="2715"/>
         <source>Restore Last Window</source>
-        <translation type="unfinished"></translation>
+        <translation>Restaurer la dernière fenêtre</translation>
     </message>
     <message>
         <location filename="../../src/interface/interface.ui" line="2723"/>
         <source>English</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../../src/interface/interface.ui" line="2731"/>
         <source>Français</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
-        <location filename="../../src/interface/interface.cpp" line="492"/>
-        <location filename="../../src/interface/interface.cpp" line="598"/>
+        <location filename="../../src/interface/interface.cpp" line="11"/>
+        <source>OpenSeaNav - Navigation Software</source>
+        <translation>OpenSeaNav - Logiciel de navigation</translation>
+    </message>
+    <message>
+        <location filename="../../src/interface/interface.cpp" line="505"/>
+        <location filename="../../src/interface/interface.cpp" line="611"/>
         <source> closed</source>
-        <translation type="unfinished"></translation>
+        <translation> fermée</translation>
     </message>
     <message>
-        <location filename="../../src/interface/interface.cpp" line="495"/>
-        <location filename="../../src/interface/interface.cpp" line="601"/>
+        <location filename="../../src/interface/interface.cpp" line="508"/>
+        <location filename="../../src/interface/interface.cpp" line="614"/>
         <source>Connection not opened</source>
-        <translation type="unfinished"></translation>
+        <translation>Connecxion pas ouverte</translation>
     </message>
     <message>
-        <location filename="../../src/interface/interface.cpp" line="545"/>
-        <location filename="../../src/interface/interface.cpp" line="807"/>
+        <location filename="../../src/interface/interface.cpp" line="558"/>
+        <location filename="../../src/interface/interface.cpp" line="820"/>
         <source>UDP Port Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Erreur port UDP</translation>
     </message>
     <message>
-        <location filename="../../src/interface/interface.cpp" line="546"/>
+        <location filename="../../src/interface/interface.cpp" line="559"/>
         <source>Input UDP port conflicts with output UDP port.
 Please choose a different port.</source>
-        <translation type="unfinished"></translation>
+        <translation>Conflit avec le port UDP de sortie.
+Choissisez un port différent.</translation>
     </message>
     <message>
-        <location filename="../../src/interface/interface.cpp" line="632"/>
+        <location filename="../../src/interface/interface.cpp" line="645"/>
         <source>Connected to </source>
-        <translation type="unfinished"></translation>
+        <translation>Connecté à </translation>
     </message>
     <message>
-        <location filename="../../src/interface/interface.cpp" line="634"/>
+        <location filename="../../src/interface/interface.cpp" line="647"/>
         <source>Failed to open </source>
-        <translation type="unfinished"></translation>
+        <translation>Impossible d&apos;ouvrir </translation>
     </message>
     <message>
-        <location filename="../../src/interface/interface.cpp" line="668"/>
+        <location filename="../../src/interface/interface.cpp" line="681"/>
         <source>Serial Output Not Available</source>
-        <translation type="unfinished"></translation>
+        <translation>Sortie série non disponible</translation>
     </message>
     <message>
-        <location filename="../../src/interface/interface.cpp" line="669"/>
+        <location filename="../../src/interface/interface.cpp" line="682"/>
         <source>No serial output port is currently opened.
 
 Please select a valid port and click &apos;Connect&apos; before enabling serial output.</source>
-        <translation type="unfinished"></translation>
+        <translation>Aucun port de sortie série n’est actuellement ouvert.
+
+Veuillez sélectionner un port valide et cliquer sur « Connecter » avant d’activer la sortie série.</translation>
     </message>
     <message>
-        <location filename="../../src/interface/interface.cpp" line="807"/>
+        <location filename="../../src/interface/interface.cpp" line="820"/>
         <source>Output UDP port conflicts with input UDP port.
 Please choose a different port.</source>
-        <translation type="unfinished"></translation>
+        <translation>Conflit avec le port UDP d&apos;entrée.
+Choissisez un port différent.</translation>
     </message>
     <message>
-        <location filename="../../src/interface/interface.cpp" line="939"/>
+        <location filename="../../src/interface/interface.cpp" line="952"/>
         <source>Select Output Directory</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../src/interface/interface.cpp" line="966"/>
-        <source>Missing Information</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../src/interface/interface.cpp" line="967"/>
-        <source>Please select an output folder and enter a file name before saving.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../src/interface/interface.cpp" line="978"/>
-        <source>Overwrite file?</source>
-        <translation type="unfinished"></translation>
+        <translation>Choisir le dossier de sortie</translation>
     </message>
     <message>
         <location filename="../../src/interface/interface.cpp" line="979"/>
-        <source>A file with the same name already exists in the selected location.
-Do you want to replace it?</source>
-        <translation type="unfinished"></translation>
+        <source>Missing Information</source>
+        <translation>Information manquante</translation>
     </message>
     <message>
-        <location filename="../../src/interface/interface.cpp" line="1002"/>
+        <location filename="../../src/interface/interface.cpp" line="980"/>
+        <source>Please select an output folder and enter a file name before saving.</source>
+        <translation>Veuillez sélectionner un dossier de sortie et saisir un nom de fichier avant d’enregistrer.</translation>
+    </message>
+    <message>
+        <location filename="../../src/interface/interface.cpp" line="991"/>
+        <source>Overwrite file?</source>
+        <translation>Écraser le fichier ?</translation>
+    </message>
+    <message>
+        <location filename="../../src/interface/interface.cpp" line="992"/>
+        <source>A file with the same name already exists in the selected location.
+Do you want to replace it?</source>
+        <translation>Un fichier portant le même nom existe déjà à l’emplacement sélectionné.
+Voulez-vous le remplacer ?</translation>
+    </message>
+    <message>
+        <location filename="../../src/interface/interface.cpp" line="1015"/>
         <source> Stop Recording</source>
         <translation> Arrêter Enregistrement</translation>
     </message>
     <message>
-        <location filename="../../src/interface/interface.cpp" line="1023"/>
+        <location filename="../../src/interface/interface.cpp" line="1036"/>
         <source>File missing</source>
         <translation>Fichier absent</translation>
     </message>
@@ -569,37 +579,27 @@ Do you want to replace it?</source>
     <message>
         <location filename="../../src/menu_bar/about/menubar_about.ui" line="14"/>
         <source>Dialog</source>
-        <translation>Dialogue</translation>
+        <translation>Boîte de dialogue</translation>
     </message>
     <message>
-        <location filename="../../src/menu_bar/about/menubar_about.ui" line="44"/>
+        <location filename="../../src/menu_bar/about/menubar_about.ui" line="41"/>
         <source>OpenSeaNav is a free and minimalist marine navigation software designed to help sailors. It provides map visualization and easy connection to NMEA0183-compatible devices through a simple interface.</source>
         <translation>OpenSeaNav est un logiciel de navigation maritime gratuit et minimaliste conçu pour aider les marins. Il offre une visualisation cartographique et une connexion facile aux appareils compatibles NMEA0183 grâce à une interface simple.</translation>
     </message>
     <message>
-        <location filename="../../src/menu_bar/about/menubar_about.ui" line="113"/>
-        <source>OpenSeaNav</source>
+        <location filename="../../src/menu_bar/about/menubar_about.ui" line="166"/>
+        <source>Designed with Qt</source>
+        <translation>Conçu avec Qt</translation>
+    </message>
+    <message>
+        <location filename="../../src/menu_bar/about/menubar_about.ui" line="254"/>
+        <source>Version :</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../src/menu_bar/about/menubar_about.ui" line="151"/>
-        <source>Designed with Qt 6.9.1</source>
-        <translation>Conçu avec Qt 6.9.1</translation>
-    </message>
-    <message>
-        <location filename="../../src/menu_bar/about/menubar_about.ui" line="174"/>
-        <source>Copyright : © Kupofty 2025-2026</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../../src/menu_bar/about/menubar_about.ui" line="209"/>
-        <source>Version : Alpha </source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../../src/menu_bar/about/menubar_about.ui" line="222"/>
-        <source>Last update : January 2026</source>
-        <translation>Dernière MAJ : Janvier 2026</translation>
+        <location filename="../../src/menu_bar/about/menubar_about.ui" line="307"/>
+        <source>Last update :</source>
+        <translation>Dernière MAJ :</translation>
     </message>
     <message>
         <location filename="../../src/menu_bar/about/menubar_about.cpp" line="9"/>
@@ -622,7 +622,7 @@ Do you want to replace it?</source>
     <message>
         <location filename="../../src/menu_bar/data_monitor/menubar_datamonitor.ui" line="97"/>
         <source>History Size :</source>
-        <translation>Taille Historique :</translation>
+        <translation>Taille historique :</translation>
     </message>
     <message>
         <location filename="../../src/menu_bar/data_monitor/menubar_datamonitor.ui" line="169"/>
@@ -637,7 +637,7 @@ Do you want to replace it?</source>
     <message>
         <location filename="../../src/menu_bar/data_monitor/menubar_datamonitor.cpp" line="13"/>
         <source>NMEA Data Monitor</source>
-        <translation type="unfinished"></translation>
+        <translation>Moniteur de données NMEA</translation>
     </message>
 </context>
 <context>
@@ -646,22 +646,6 @@ Do you want to replace it?</source>
         <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="14"/>
         <source>Dialog</source>
         <translation>Dialogue</translation>
-    </message>
-    <message>
-        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="103"/>
-        <source>PDOP :</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="142"/>
-        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="1887"/>
-        <source>HDOP :</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="181"/>
-        <source>VDOP :</source>
-        <translation></translation>
     </message>
     <message>
         <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="220"/>
@@ -687,7 +671,7 @@ Do you want to replace it?</source>
         <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="1690"/>
         <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="2430"/>
         <source>UTC Time :</source>
-        <translation type="unfinished"></translation>
+        <translation>Temps UTC :</translation>
     </message>
     <message>
         <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="306"/>
@@ -704,13 +688,13 @@ Do you want to replace it?</source>
         <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.cpp" line="227"/>
         <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.cpp" line="228"/>
         <source>No Data</source>
-        <translation type="unfinished"></translation>
+        <translation>Pas de donnée</translation>
     </message>
     <message>
         <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="332"/>
         <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="937"/>
         <source>Date :</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="379"/>
@@ -727,162 +711,130 @@ Do you want to replace it?</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="457"/>
-        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="732"/>
-        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="1195"/>
-        <source>SOG (N) :</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="496"/>
-        <source>COG :</source>
-        <translation></translation>
-    </message>
-    <message>
         <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="535"/>
         <source>Magnetic Variation :</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="657"/>
-        <source>COG (T) :</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="693"/>
-        <source>COG (M)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="768"/>
-        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="1231"/>
-        <source>SOG (K) :</source>
-        <translation type="unfinished"></translation>
+        <translation>Variation magnétique :</translation>
     </message>
     <message>
         <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="984"/>
         <source>Local Zone :</source>
-        <translation type="unfinished"></translation>
+        <translation>Fuseau horaire :</translation>
     </message>
     <message>
         <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="1120"/>
         <source>Heading (T) :</source>
-        <translation type="unfinished"></translation>
+        <translation>Cap (T) :</translation>
     </message>
     <message>
         <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="1156"/>
-        <source>Heading (M)</source>
-        <translation type="unfinished"></translation>
+        <source>Heading (M) :</source>
+        <translation>Cap (M) :</translation>
     </message>
     <message>
         <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="1356"/>
         <source>Satellites In View : </source>
-        <translation type="unfinished"></translation>
+        <translation>Satellites visibles : </translation>
     </message>
     <message>
         <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="1481"/>
-        <source>Wing Angle :</source>
-        <translation type="unfinished"></translation>
+        <source>Wind Angle :</source>
+        <translation>Angle vent :</translation>
     </message>
     <message>
         <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="1517"/>
         <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="2117"/>
         <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="2153"/>
         <source>Wind Speed :</source>
-        <translation type="unfinished"></translation>
+        <translation>Vitesse vent :</translation>
     </message>
     <message>
         <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="1613"/>
         <source>Clear Data</source>
-        <translation type="unfinished"></translation>
+        <translation>Effacer données</translation>
     </message>
     <message>
         <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="1812"/>
         <source>Satellites Used : </source>
-        <translation type="unfinished"></translation>
+        <translation>Satellites utilisés : </translation>
     </message>
     <message>
         <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="1851"/>
         <source>Fix Quality :</source>
-        <translation type="unfinished"></translation>
+        <translation>Qualité du fix :</translation>
     </message>
     <message>
         <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="1926"/>
         <source>Altitude :</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="2045"/>
         <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="2081"/>
         <source>Wind Direction :</source>
-        <translation type="unfinished"></translation>
+        <translation>Direction vent :</translation>
     </message>
     <message>
         <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="2278"/>
         <source>Depth (m) :</source>
-        <translation type="unfinished"></translation>
+        <translation>Profondeur (m) :</translation>
     </message>
     <message>
         <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="2317"/>
         <source>Offset (m) :</source>
-        <translation type="unfinished"></translation>
+        <translation>Décalage (m) :</translation>
     </message>
     <message>
         <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="2620"/>
         <source>Heading (T) : </source>
-        <translation type="unfinished"></translation>
+        <translation>Cap (T) : </translation>
     </message>
     <message>
         <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="2727"/>
         <source>Depth (f) : </source>
-        <translation type="unfinished"></translation>
+        <translation>Profondeur (f) : </translation>
     </message>
     <message>
         <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="2766"/>
         <source>Depth (m) : </source>
-        <translation type="unfinished"></translation>
+        <translation>Profondeur (m) : </translation>
     </message>
     <message>
         <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="2805"/>
         <source>Depth (F) : </source>
-        <translation type="unfinished"></translation>
+        <translation>Profondeur (F) : </translation>
     </message>
     <message>
         <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="2924"/>
         <source>Water Temp. :</source>
-        <translation type="unfinished"></translation>
+        <translation>Temp. eau :</translation>
     </message>
     <message>
         <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.cpp" line="13"/>
         <source>Decoded NMEA</source>
-        <translation type="unfinished"></translation>
+        <translation>Trames NMEA décodées</translation>
     </message>
     <message>
         <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.cpp" line="130"/>
         <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.cpp" line="132"/>
         <source>Wind Direction</source>
-        <translation type="unfinished"></translation>
+        <translation>Direction vent</translation>
     </message>
     <message>
         <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.cpp" line="134"/>
         <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.cpp" line="136"/>
+        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.cpp" line="152"/>
         <source>Wind Speed</source>
-        <translation type="unfinished"></translation>
+        <translation>Vitesse vent</translation>
     </message>
     <message>
         <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.cpp" line="143"/>
         <source>Water Temp.</source>
-        <translation type="unfinished"></translation>
+        <translation>Temp. eau</translation>
     </message>
     <message>
         <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.cpp" line="150"/>
-        <source>Wing Angle</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.cpp" line="152"/>
-        <source>Wing Speed</source>
-        <translation type="unfinished"></translation>
+        <source>Wind Angle</source>
+        <translation>Angle vent</translation>
     </message>
 </context>
 <context>
@@ -890,7 +842,22 @@ Do you want to replace it?</source>
     <message>
         <location filename="../../src/menu_bar/faq/menubar_faq.ui" line="14"/>
         <source>Dialog</source>
-        <translation>Dialogue</translation>
+        <translation>Boîte de dialogue</translation>
+    </message>
+    <message>
+        <location filename="../../src/menu_bar/faq/menubar_faq.ui" line="33"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/Kupofty/OpenSeaNav/issues&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#27bf73;&quot;&gt;Report a bug or submit an idea...&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/Kupofty/OpenSeaNav/issues&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#27bf73;&quot;&gt;Signaler un problème ou soumettre une idée…&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../../src/menu_bar/faq/menubar_faq.ui" line="46"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/Kupofty/OpenSeaNav&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#27bf73;&quot;&gt;Main page and source code...&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/Kupofty/OpenSeaNav&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#27bf73;&quot;&gt;Page principale et code source&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../../src/menu_bar/faq/menubar_faq.ui" line="72"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/Kupofty/OpenSeaNav/discussions&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#27bf73;&quot;&gt;Discussions...&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/Kupofty/OpenSeaNav/discussions&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#27bf73;&quot;&gt;Discussions...&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../../src/menu_bar/faq/menubar_faq.cpp" line="9"/>
@@ -903,37 +870,22 @@ Do you want to replace it?</source>
     <message>
         <location filename="../../src/menu_bar/simu/menubar_simdata.ui" line="14"/>
         <source>Dialog</source>
-        <translation>Dialogue</translation>
-    </message>
-    <message>
-        <location filename="../../src/menu_bar/simu/menubar_simdata.ui" line="70"/>
-        <source>$</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../../src/menu_bar/simu/menubar_simdata.ui" line="87"/>
-        <source>*00</source>
-        <translation></translation>
+        <translation>Boîte de dialogue</translation>
     </message>
     <message>
         <location filename="../../src/menu_bar/simu/menubar_simdata.ui" line="123"/>
         <source>Send once</source>
-        <translation type="unfinished"></translation>
+        <translation>Envoi unique</translation>
     </message>
     <message>
         <location filename="../../src/menu_bar/simu/menubar_simdata.ui" line="163"/>
         <source>Automatic send at</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../src/menu_bar/simu/menubar_simdata.ui" line="192"/>
-        <source>Hz</source>
-        <translation></translation>
+        <translation>Envoi automatique à</translation>
     </message>
     <message>
         <location filename="../../src/menu_bar/simu/menubar_simdata.cpp" line="17"/>
         <source>Manual Data Input</source>
-        <translation type="unfinished"></translation>
+        <translation>Saisie manuelle NMEA</translation>
     </message>
 </context>
 <context>
@@ -941,7 +893,7 @@ Do you want to replace it?</source>
     <message>
         <location filename="../qmls/map.qml" line="37"/>
         <source>No Data</source>
-        <translation type="unfinished"></translation>
+        <translation>Pas de donnée</translation>
     </message>
     <message>
         <location filename="../qmls/map.qml" line="99"/>
@@ -967,7 +919,7 @@ Do you want to replace it?</source>
     <message>
         <location filename="../qmls/map.qml" line="543"/>
         <source>Center View...</source>
-        <translation type="unfinished"></translation>
+        <translation>Centrer la vue...</translation>
     </message>
     <message>
         <location filename="../qmls/map.qml" line="561"/>
@@ -979,7 +931,7 @@ Do you want to replace it?</source>
         <location filename="../qmls/map.qml" line="561"/>
         <location filename="../qmls/map.qml" line="1741"/>
         <source>Follow Boat</source>
-        <translation type="unfinished">Suivre Bateau</translation>
+        <translation>Suivre bateau</translation>
     </message>
     <message>
         <location filename="../qmls/map.qml" line="576"/>
@@ -1019,47 +971,47 @@ Do you want to replace it?</source>
     <message>
         <location filename="../qmls/map.qml" line="682"/>
         <source>On Boat</source>
-        <translation type="unfinished"></translation>
+        <translation>Sur le bateau</translation>
     </message>
     <message>
         <location filename="../qmls/map.qml" line="696"/>
         <source>On Cursor</source>
-        <translation type="unfinished"></translation>
+        <translation>Sur le curseur</translation>
     </message>
     <message>
         <location filename="../qmls/map.qml" line="706"/>
         <source>On Position</source>
-        <translation type="unfinished"></translation>
+        <translation>Sur la position</translation>
     </message>
     <message>
         <location filename="../qmls/map.qml" line="723"/>
         <source>Maximum Zoom</source>
-        <translation type="unfinished"></translation>
+        <translation>Zoom maximum</translation>
     </message>
     <message>
         <location filename="../qmls/map.qml" line="735"/>
         <source>Minimum Zoom</source>
-        <translation type="unfinished"></translation>
+        <translation>Zoom minimum</translation>
     </message>
     <message>
         <location filename="../qmls/map.qml" line="747"/>
         <source>Close View</source>
-        <translation type="unfinished"></translation>
+        <translation>Vue proche</translation>
     </message>
     <message>
         <location filename="../qmls/map.qml" line="759"/>
         <source>Wide View</source>
-        <translation type="unfinished"></translation>
+        <translation>Vue large</translation>
     </message>
     <message>
         <location filename="../qmls/map.qml" line="771"/>
         <source>Zoom In</source>
-        <translation type="unfinished"></translation>
+        <translation>Zoomer</translation>
     </message>
     <message>
         <location filename="../qmls/map.qml" line="783"/>
         <source>Zoom Out</source>
-        <translation type="unfinished"></translation>
+        <translation>Dézoomer</translation>
     </message>
     <message>
         <location filename="../qmls/map.qml" line="802"/>
@@ -1118,7 +1070,7 @@ Do you want to replace it?</source>
     <message>
         <location filename="../qmls/map.qml" line="921"/>
         <source>Center View On Position</source>
-        <translation type="unfinished"></translation>
+        <translation>Centrer la vue sur la position</translation>
     </message>
     <message>
         <location filename="../qmls/map.qml" line="936"/>
@@ -1148,7 +1100,8 @@ Do you want to replace it?</source>
         <location filename="../qmls/map.qml" line="1128"/>
         <source>Position Updated
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Position mise à jour
+</translation>
     </message>
     <message>
         <location filename="../qmls/map.qml" line="1128"/>
@@ -1158,7 +1111,7 @@ Do you want to replace it?</source>
     <message>
         <location filename="../qmls/map.qml" line="1131"/>
         <source>Position Lost</source>
-        <translation type="unfinished"></translation>
+        <translation>Position perdue</translation>
     </message>
     <message>
         <location filename="../qmls/map.qml" line="1264"/>
@@ -1195,7 +1148,7 @@ Do you want to replace it?</source>
     <message>
         <location filename="../qmls/map.qml" line="1343"/>
         <source>From Boat</source>
-        <translation type="unfinished"></translation>
+        <translation>Du bateau</translation>
     </message>
     <message>
         <location filename="../qmls/map.qml" line="1344"/>
@@ -1205,7 +1158,7 @@ Do you want to replace it?</source>
     <message>
         <location filename="../qmls/map.qml" line="1348"/>
         <source>ETA: </source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qmls/map.qml" line="1397"/>
@@ -1223,13 +1176,15 @@ Do you want to replace it?</source>
         <location filename="../qmls/map.qml" line="1433"/>
         <source>Boat Position
 Lat: </source>
-        <translation type="unfinished"></translation>
+        <translation>Position bateau
+Lat: </translation>
     </message>
     <message>
         <location filename="../qmls/map.qml" line="1434"/>
         <source>Last Boat Position
 Lat: </source>
-        <translation type="unfinished"></translation>
+        <translation>Dernière position bateau
+Lat: </translation>
     </message>
     <message>
         <location filename="../qmls/map.qml" line="1451"/>
@@ -1252,7 +1207,7 @@ Lat: </source>
     <message>
         <location filename="../qmls/map.qml" line="1487"/>
         <source>kts</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qmls/map.qml" line="1505"/>
@@ -1319,7 +1274,7 @@ Lat: </source>
     <message>
         <location filename="../qmls/map.qml" line="2053"/>
         <source>N/A</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 </TS>

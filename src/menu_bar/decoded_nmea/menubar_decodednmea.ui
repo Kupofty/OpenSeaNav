@@ -35,7 +35,7 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>-272</y>
+        <y>0</y>
         <width>1003</width>
         <height>1110</height>
        </rect>
@@ -100,7 +100,7 @@
             <item>
              <widget class="QLabel" name="label_47">
               <property name="text">
-               <string>PDOP :</string>
+               <string notr="true">PDOP :</string>
               </property>
              </widget>
             </item>
@@ -139,7 +139,7 @@
             <item>
              <widget class="QLabel" name="label_48">
               <property name="text">
-               <string>HDOP :</string>
+               <string notr="true">HDOP :</string>
               </property>
              </widget>
             </item>
@@ -178,7 +178,7 @@
             <item>
              <widget class="QLabel" name="label_49">
               <property name="text">
-               <string>VDOP :</string>
+               <string notr="true">VDOP :</string>
               </property>
              </widget>
             </item>
@@ -454,7 +454,7 @@
             <item>
              <widget class="QLabel" name="label_42">
               <property name="text">
-               <string>SOG (N) :</string>
+               <string notr="true">SOG (N) :</string>
               </property>
              </widget>
             </item>
@@ -493,7 +493,7 @@
             <item>
              <widget class="QLabel" name="label_44">
               <property name="text">
-               <string>COG :</string>
+               <string notr="true">COG :</string>
               </property>
              </widget>
             </item>
@@ -654,7 +654,7 @@
             <item>
              <widget class="QLabel" name="label_31">
               <property name="text">
-               <string>COG (T) :</string>
+               <string notr="true">COG (T) :</string>
               </property>
              </widget>
             </item>
@@ -690,7 +690,7 @@
             <item>
              <widget class="QLabel" name="label_59">
               <property name="text">
-               <string>COG (M)</string>
+               <string notr="true">COG (M)</string>
               </property>
              </widget>
             </item>
@@ -729,7 +729,7 @@
             <item>
              <widget class="QLabel" name="label_61">
               <property name="text">
-               <string>SOG (N) :</string>
+               <string notr="true">SOG (N) :</string>
               </property>
              </widget>
             </item>
@@ -765,7 +765,7 @@
             <item>
              <widget class="QLabel" name="label_32">
               <property name="text">
-               <string>SOG (K) :</string>
+               <string notr="true">SOG (K) :</string>
               </property>
              </widget>
             </item>
@@ -1153,7 +1153,7 @@
             <item>
              <widget class="QLabel" name="label_80">
               <property name="text">
-               <string>Heading (M)</string>
+               <string>Heading (M) :</string>
               </property>
              </widget>
             </item>
@@ -1192,7 +1192,7 @@
             <item>
              <widget class="QLabel" name="label_83">
               <property name="text">
-               <string>SOG (N) :</string>
+               <string notr="true">SOG (N) :</string>
               </property>
              </widget>
             </item>
@@ -1228,7 +1228,7 @@
             <item>
              <widget class="QLabel" name="label_84">
               <property name="text">
-               <string>SOG (K) :</string>
+               <string notr="true">SOG (K) :</string>
               </property>
              </widget>
             </item>
@@ -1478,7 +1478,7 @@
             <item>
              <widget class="QLabel" name="label_windAngleUnit_mwv">
               <property name="text">
-               <string>Wing Angle :</string>
+               <string>Wind Angle :</string>
               </property>
              </widget>
             </item>
@@ -1884,7 +1884,7 @@
             <item>
              <widget class="QLabel" name="label_54">
               <property name="text">
-               <string>HDOP :</string>
+               <string notr="true">HDOP :</string>
               </property>
              </widget>
             </item>

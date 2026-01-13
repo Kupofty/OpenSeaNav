@@ -261,34 +261,27 @@ void Interface::saveSettings()
 ////////////////////
 void Interface::loadTranslation(QString translationPath)
 {
-    //Update GUI
-    updateTranslationGUI(translationPath);
+    //Update menu bar UI
 
     //Back to default (english)
-    if(translationPath.isEmpty())
+    if(translationPath == "default")
     {
-        removeTranslation();
-        return;
+        qApp->removeTranslator(&translator);
     }
 
     //Install new translation
-    if (translator.load(translationPath))
+    else if (translator.load(translationPath))
     {
         qApp->installTranslator(&translator);
         ui->retranslateUi(this);
     }
-    else {
-        qDebug() << "Failed to load translation file!";
-    }
-}
 
-void Interface::removeTranslation()
-{
-    qApp->removeTranslator(&translator);
+    //Update UI
+    updateTranslationMenuBarGUI(translationPath);
     ui->retranslateUi(this);
 }
 
-void Interface::updateTranslationGUI(QString language)
+void Interface::updateTranslationMenuBarGUI(QString language)
 {
     if(language == ":/translations/french.qm")
     {
@@ -310,7 +303,6 @@ void Interface::updateTranslationGUI(QString language)
 
 
 
-
 ////////////////
 /// Menu Bar ///
 ////////////////
@@ -318,7 +310,7 @@ void Interface::updateTranslationGUI(QString language)
 //Menu
 void Interface::on_actionEnglish_triggered()
 {
-    loadTranslation(":/translations/english.qm"); //return to default
+    loadTranslation("default");
 }
 
 void Interface::on_actionFrench_triggered()

@@ -67,7 +67,7 @@
      <item>
       <widget class="QLabel" name="label">
        <property name="text">
-        <string>$</string>
+        <string notr="true">$</string>
        </property>
       </widget>
      </item>
@@ -84,7 +84,7 @@
      <item>
       <widget class="QLabel" name="label_checksum">
        <property name="text">
-        <string>*00</string>
+        <string notr="true">*00</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
@@ -189,7 +189,7 @@
      <item>
       <widget class="QLabel" name="label_2">
        <property name="text">
-        <string>Hz</string>
+        <string notr="true">Hz</string>
        </property>
       </widget>
      </item>

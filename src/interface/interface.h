@@ -96,8 +96,7 @@ class Interface : public QMainWindow
         void updateCheckBoxUdpOutput(bool check);
         void initializeLists();
         void loadTranslation(QString translationPath);
-        void removeTranslation();
-        void updateTranslationGUI(QString language);
+        void updateTranslationMenuBarGUI(QString language);
 
     private slots:
         void updateUdpSenderDetails();
