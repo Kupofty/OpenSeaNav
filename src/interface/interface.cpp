@@ -15,6 +15,7 @@ Interface::Interface(QWidget *parent) : QMainWindow(parent), ui(new Ui::Interfac
     //Instantiate child classes
     data_monitor_window = new MenuBarDataMonitor(this);
     decoded_nmea_window = new MenuBarDecodedNmea(this);
+    txt_logger_window = new MenuBarTxtLogger(this);
 
     //Hide widgets
     hideGUI();
@@ -53,7 +54,7 @@ void Interface::connectSignalSlot()
     //Outputs
     connect(&nmea_handler, &NMEA_Handler::newNMEASentence, &udp_writer, &UdpWriter::publishNMEA);
     connect(&nmea_handler, &NMEA_Handler::newNMEASentence, &serial_writer, &SerialWriter::publishNMEA);
-    connect(&nmea_handler, &NMEA_Handler::newNMEASentence, &text_file_writer, &TextFileWritter::writeRawSentences);
+    connect(&nmea_handler, &NMEA_Handler::newNMEASentence, txt_logger_window, &MenuBarTxtLogger::writeRawSentences);
 
     //General Display Settings
     connect(&nmea_handler, &NMEA_Handler::newNMEASentence, data_monitor_window, &MenuBarDataMonitor::displayNmeaSentence);
@@ -74,9 +75,6 @@ void Interface::connectSignalSlot()
     connect(&nmea_handler, &NMEA_Handler::newDecodedMWD, decoded_nmea_window, &MenuBarDecodedNmea::updateDataMWD);
     connect(&nmea_handler, &NMEA_Handler::newDecodedMTW, decoded_nmea_window, &MenuBarDecodedNmea::updateDataMTW);
     connect(&nmea_handler, &NMEA_Handler::newDecodedMWV, decoded_nmea_window, &MenuBarDecodedNmea::updateDataMWV);
-
-    //Timers
-    connect(&fileRecordingSizeTimer, &QTimer::timeout, this, &Interface::updateRecordingFileSize);
 
     //QML Map
     connect(&nmea_handler, SIGNAL(updateBoatPositionMap(QVariant,QVariant)), qmlMapObject, SLOT(updateBoatPosition(QVariant,QVariant)));
@@ -383,6 +381,18 @@ void Interface::on_actionDecoded_NMEA_triggered()
         decoded_nmea_window->hide();
     else
         decoded_nmea_window->show();
+}
+
+void Interface::on_actionData_Logger_triggered()
+{
+    if (txt_logger_window->isVisible())
+    {
+        txt_logger_window->hide();
+    }
+    else
+    {
+        txt_logger_window->show();
+    }
 }
 
 //Help
@@ -930,121 +940,6 @@ void Interface::updateCheckBoxUdpOutput(bool check)
         box->setChecked(check);
 }
 
-
-
-
-/////////////////////
-/// Save TXT File ///
-/////////////////////
-void Interface::on_pushButton_folder_path_documents_clicked()
-{
-    ui->plainTextEdit_txt_file_path->setPlainText(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation));
-}
-
-void Interface::on_pushButton_folder_path_downloads_clicked()
-{
-    ui->plainTextEdit_txt_file_path->setPlainText(QStandardPaths::writableLocation(QStandardPaths::DownloadLocation));
-}
-
-void Interface::on_pushButton_browse_folder_path_clicked()
-{
-    QString dirPath = QFileDialog::getExistingDirectory(this, tr("Select Output Directory"),
-                                                        QStandardPaths::writableLocation(QStandardPaths::HomeLocation),  QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
-
-
-    if (!dirPath.isEmpty())
-        ui->plainTextEdit_txt_file_path->setPlainText(dirPath);
-}
-
-void Interface::on_pushButton_automatic_txt_file_name_clicked()
-{
-    QString automaticFileName = "Log_NMEA_" + QDateTime::currentDateTime().toString("yyyy_MM_dd_HH_mm_ss");
-    ui->plainTextEdit_txt_file_name->setPlainText(automaticFileName);
-}
-
-void Interface::on_pushButton_save_txt_file_toggled(bool checked)
-{
-    //Update add timestamp
-    bool isTimestampChecked = ui->checkBox_output_txt_file_add_timestamp->isChecked();
-    text_file_writer.updateAddTimestamp(isTimestampChecked);
-
-    if(checked)
-    {
-        //Check for missing path/name
-        QString dirPath = ui->plainTextEdit_txt_file_path->toPlainText().trimmed();
-        QString fileName = ui->plainTextEdit_txt_file_name->toPlainText().trimmed();
-        if (dirPath.isEmpty() || fileName.isEmpty())
-        {
-            QMessageBox::warning(this, tr("Missing Information"),
-                                       tr("Please select an output folder and enter a file name before saving."));
-            ui->pushButton_save_txt_file->setChecked(false);
-            return;
-        }
-
-        // Ask before overwriting previous recording
-        QString fullPath = getRecordingFilePath();
-        QFileInfo fileInfo(fullPath);
-        if (fileInfo.exists())
-        {
-            auto reply = QMessageBox::question(this,
-                tr("Overwrite file?"),
-                tr("A file with the same name already exists in the selected location.\n"
-                "Do you want to replace it?"),
-                QMessageBox::Yes | QMessageBox::No,
-                QMessageBox::No
-                );
-
-            if (reply != QMessageBox::Yes)
-            {
-                ui->pushButton_save_txt_file->setChecked(false);
-                return;
-            }
-        }
-
-        //Create file if possible
-        int result = text_file_writer.createFile(getRecordingFilePath());
-        if (!result)
-        {
-            ui->pushButton_save_txt_file->setChecked(false);
-            return;
-        }
-
-        //Update file size
-        fileRecordingSizeTimer.start(1000);
-        ui->pushButton_save_txt_file->setText(tr(" Stop Recording"));
-    }
-    else
-    {
-        fileRecordingSizeTimer.stop();
-        ui->label_file_txt_size->setText(tr("Not recording"));
-        text_file_writer.closeFile();
-        ui->pushButton_save_txt_file->setText(tr(" Record Data To File"));
-    }
-}
-
-void Interface::updateRecordingFileSize()
-{
-    QFile file(getRecordingFilePath());
-    if (file.exists())
-    {
-        qint64 size = file.size();
-        ui->label_file_txt_size->setText(QString("%1 Kb").arg(static_cast<int>(std::round(size / 1000.0))));
-    }
-    else
-    {
-        ui->label_file_txt_size->setText(tr("File missing"));
-    }
-}
-
-QString Interface::getRecordingFilePath()
-{
-    QString dirPath = ui->plainTextEdit_txt_file_path->toPlainText().trimmed();
-    QString fileName = ui->plainTextEdit_txt_file_name->toPlainText().trimmed();
-    QString fileExtension = ui->comboBox_txt_file_extension->currentText();
-    QString fullPath = QDir(dirPath).filePath(fileName + fileExtension);
-
-    return fullPath;
-}
 
 
 

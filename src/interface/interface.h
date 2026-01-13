@@ -27,7 +27,6 @@
 #include "nmea/nmea_handler.h"
 #include "writers/udp_writer.h"
 #include "writers/serial_writer.h"
-#include "writers/text_file_writter.h"
 #include "nmea/utils.h"
 
 #include "menu_bar/about/menubar_about.h"
@@ -35,6 +34,7 @@
 #include "menu_bar/simu/menubar_simdata.h"
 #include "menu_bar/data_monitor/menubar_datamonitor.h"
 #include "menu_bar/decoded_nmea/menubar_decodednmea.h"
+#include "menu_bar/txt_logger/menubar_txtlogger.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui
@@ -58,14 +58,13 @@ class Interface : public QMainWindow
         NMEA_Handler nmea_handler;
         UdpReader udp_reader;
         UdpWriter udp_writer;
-        TextFileWritter text_file_writer;
-        QTimer fileRecordingSizeTimer;
         QMap<QString, QPlainTextEdit*> nmeaSentenceMap;
         QList<QCheckBox*> checkboxOutputSerial;
         QList<QCheckBox*> checkboxOutputUDP;
         QQuickItem *qmlMapObject;
         MenuBarDataMonitor *data_monitor_window;
         MenuBarDecodedNmea *decoded_nmea_window;
+        MenuBarTxtLogger *txt_logger_window;
         QString configPath;
         QSettings *settingsGUI;
         QSettings *settingsConnections;
@@ -89,8 +88,6 @@ class Interface : public QMainWindow
         void hideGUI();
         void connectSignalSlot();
         void updateGuiAfterSerialConnection(bool connectSuccess);
-        void updateRecordingFileSize();
-        QString getRecordingFilePath();
         bool checkUdpOutputPortIsFree();
         void updateCheckBoxSerialOutput(bool check);
         void updateCheckBoxUdpOutput(bool check);
@@ -126,11 +123,7 @@ class Interface : public QMainWindow
         void on_pushButton_uncheck_all_udp_output_clicked();
         void on_comboBox_udp_host_address_currentTextChanged(const QString &hostAddress);
         void on_lineEdit_udp_ip_address_editingFinished();
-        void on_pushButton_browse_folder_path_clicked();
-        void on_pushButton_save_txt_file_toggled(bool checked);
-        void on_pushButton_automatic_txt_file_name_clicked();
-        void on_pushButton_folder_path_documents_clicked();
-        void on_pushButton_folder_path_downloads_clicked();
+
         void on_pushButton_refresh_available_port_serial_output_clicked();
         void on_pushButton_connect_serial_output_clicked();
         void on_pushButton_disconnect_serial_output_clicked();
@@ -170,6 +163,8 @@ class Interface : public QMainWindow
         void on_actionStartFullscreen_toggled(bool arg1);
         void on_actionRestore_Last_Window_toggled(bool arg1);
         void on_actionStartMaximized_toggled(bool arg1);
+
+        void on_actionData_Logger_triggered();
 
     signals:
         void setAddTimestamp(bool checked);

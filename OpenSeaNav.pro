@@ -23,7 +23,8 @@ SOURCES += \
     src/menu_bar/simu/menubar_simdata.cpp \
     src/menu_bar/faq/menubar_faq.cpp \
     src/menu_bar/data_monitor/menubar_datamonitor.cpp \
-    src/menu_bar/decoded_nmea/menubar_decodednmea.cpp
+    src/menu_bar/decoded_nmea/menubar_decodednmea.cpp \
+    src/menu_bar/txt_logger/menubar_txtlogger.cpp
 
 HEADERS += \
     src/interface/interface.h \
@@ -39,7 +40,8 @@ HEADERS += \
     src/menu_bar/simu/menubar_simdata.h \
     src/menu_bar/faq/menubar_faq.h \
     src/menu_bar/data_monitor/menubar_datamonitor.h \
-    src/menu_bar/decoded_nmea/menubar_decodednmea.h
+    src/menu_bar/decoded_nmea/menubar_decodednmea.h \
+    src/menu_bar/txt_logger/menubar_txtlogger.h
 
 FORMS += \
     src/interface/interface.ui \
@@ -47,7 +49,8 @@ FORMS += \
     src/menu_bar/simu/menubar_simdata.ui \
     src/menu_bar/faq/menubar_faq.ui \
     src/menu_bar/data_monitor/menubar_datamonitor.ui \
-    src/menu_bar/decoded_nmea/menubar_decodednmea.ui
+    src/menu_bar/decoded_nmea/menubar_decodednmea.ui \
+    src/menu_bar/txt_logger/menubar_txtlogger.ui
 
 TRANSLATIONS += \
     resources/translations/OpenSeaNav_fr_FR.ts
