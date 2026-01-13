@@ -27,6 +27,10 @@ MenuBarDecodedNmea::~MenuBarDecodedNmea()
 }
 
 
+void MenuBarDecodedNmea::retranslate()
+{
+    ui->retranslateUi(this);
+}
 
 ///////////////////
 /// Update Data ///
@@ -127,29 +131,29 @@ void MenuBarDecodedNmea::updateDataDPT(double depth, double offset, double freqH
 void MenuBarDecodedNmea::updateDataMWD(double dir1, QString dir1Unit, double dir2, QString dir2Unit, double speed1, QString speed1Unit, double speed2, QString speed2Unit, double freqHz)
 {
     ui->lcdNumber_windDirection_mwd->display(dir1);
-    ui->label_windDirectionUnit_mwd->setText(tr("Wind Direction") + "(" + dir1Unit + ") :" );
+    ui->label_windDirectionUnit_mwd->setText(tr("Wind direction") + "(" + dir1Unit + ") :" );
     ui->lcdNumber_windDirection_mwd_2->display(dir2);
-    ui->label_windDirectionUnit_mwd_2->setText(tr("Wind Direction") + "(" + dir2Unit + ") :" );
+    ui->label_windDirectionUnit_mwd_2->setText(tr("Wind direction") + "(" + dir2Unit + ") :" );
     ui->lcdNumber_windSpeed_mwd->display(speed1);
-    ui->label_windSpeedUnit_mwd->setText(tr("Wind Speed") + "(" + speed1Unit + ") :" );
+    ui->label_windSpeedUnit_mwd->setText(tr("Wind speed") + "(" + speed1Unit + ") :" );
     ui->lcdNumber_windSpeed_mwd_2->display(speed2);
-    ui->label_windSpeedUnit_mwd_2->setText(tr("Wind Speed") + "(" + speed2Unit + ") :" );
+    ui->label_windSpeedUnit_mwd_2->setText(tr("Wind speed") + "(" + speed2Unit + ") :" );
     ui->lcdNumber_frequency_mwd->display(freqHz);
 }
 
 void MenuBarDecodedNmea::updateDataMTW(double temp, QString tempUnit, double freqHz)
 {
     ui->lcdNumber_waterTemp_mtw->display(temp);
-    ui->label_waterTempUnit_mtw->setText(tr("Water Temp.") + "(°" + tempUnit + ") :");
+    ui->label_waterTempUnit_mtw->setText(tr("Water temp.") + "(°" + tempUnit + ") :");
     ui->lcdNumber_frequency_mtw->display(freqHz);
 }
 
 void MenuBarDecodedNmea::updateDataMWV(double angle, QString ref, double speed, QString unit, double freqHz)
 {
     ui->lcdNumber_windAngle_mwv->display(angle);
-    ui->label_windAngleUnit_mwv->setText(tr("Wind Angle") + "(" + ref + ") :" );
+    ui->label_windAngleUnit_mwv->setText(tr("Wind angle") + "(" + ref + ") :" );
     ui->lcdNumber_windSpeed_mwv->display(speed);
-    ui->label_windSpeedUnit_mwv->setText(tr("Wind Speed") + "(" + unit + ") :" );
+    ui->label_windSpeedUnit_mwv->setText(tr("Wind speed") + "(" + unit + ") :" );
     ui->lcdNumber_frequency_mwv->display(freqHz);
 }
 
@@ -158,8 +162,8 @@ void MenuBarDecodedNmea::updateDataMWV(double angle, QString ref, double speed, 
 void MenuBarDecodedNmea::clearDecodedDataScreens()
 {
     //RMC
-    ui->label_utcTime_rmc->setText(tr("No Data"));
-    ui->label_date_rmc->setText(tr("No Data"));
+    ui->label_utcTime_rmc->setText(tr("No data"));
+    ui->label_date_rmc->setText(tr("No data"));
     ui->lcdNumber_latitude_rmc->display(0);
     ui->lcdNumber_longitude_rmc->display(0);
     ui->lcdNumber_sog_rmc->display(0);
@@ -184,7 +188,7 @@ void MenuBarDecodedNmea::clearDecodedDataScreens()
     ui->lcdNumber_frequency_gsa->display(0);
 
     //GLL
-    ui->label_utcTime_gll->setText(tr("No Data"));
+    ui->label_utcTime_gll->setText(tr("No data"));
     ui->lcdNumber_latitude_gll->display(0);
     ui->lcdNumber_longitude_gll->display(0);
     ui->lcdNumber_frequency_gll->display(0);
@@ -223,9 +227,9 @@ void MenuBarDecodedNmea::clearDecodedDataScreens()
     ui->lcdNumber_frequency_vhw->display(0);
 
     //ZDA
-    ui->label_utcTime_zda->setText(tr("No Data"));
-    ui->label_date_zda->setText(tr("No Data"));
-    ui->label_localZone_zda->setText(tr("No Data"));
+    ui->label_utcTime_zda->setText(tr("No data"));
+    ui->label_date_zda->setText(tr("No data"));
+    ui->label_localZone_zda->setText(tr("No data"));
     ui->lcdNumber_frequency_zda->display(0);
 
     //MWD

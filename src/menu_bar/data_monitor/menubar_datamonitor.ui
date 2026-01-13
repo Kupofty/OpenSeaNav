@@ -94,7 +94,7 @@
         </font>
        </property>
        <property name="text">
-        <string>History Size :</string>
+        <string>History size :</string>
        </property>
       </widget>
      </item>

@@ -500,7 +500,7 @@
        <item>
         <widget class="QCheckBox" name="checkBox_output_txt_file_add_timestamp">
          <property name="text">
-          <string>Add Timestamp Prefix</string>
+          <string>Add timestamp prefix</string>
          </property>
          <property name="checked">
           <bool>true</bool>
@@ -541,7 +541,7 @@
      <item>
       <widget class="QPushButton" name="pushButton_save_txt_file">
        <property name="text">
-        <string> Record Data To File</string>
+        <string>Record</string>
        </property>
        <property name="icon">
         <iconset theme="QIcon::ThemeIcon::MediaRecord"/>

@@ -22,6 +22,7 @@ class MenuBarTxtLogger : public QDialog
     public:
         explicit MenuBarTxtLogger(QWidget *parent = nullptr);
         ~MenuBarTxtLogger();
+        void retranslate();
 
     private:
         Ui::MenuBarTxtLogger *ui;

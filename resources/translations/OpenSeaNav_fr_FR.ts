@@ -9,455 +9,140 @@
         <translation></translation>
     </message>
     <message>
-        <location filename="../../src/interface/interface.ui" line="43"/>
-        <source>Map</source>
-        <translation>Carte</translation>
+        <location filename="../../src/interface/interface.ui" line="97"/>
+        <source>Startup window mode</source>
+        <translation>Mode de la fenêtre au démarrage</translation>
     </message>
     <message>
-        <location filename="../../src/interface/interface.ui" line="72"/>
+        <location filename="../../src/interface/interface.ui" line="136"/>
+        <source>Data monitor</source>
+        <translation>Moniteur de données</translation>
+    </message>
+    <message>
+        <location filename="../../src/interface/interface.ui" line="147"/>
+        <source>Manual data input</source>
+        <translation>Saisie manuelle de données</translation>
+    </message>
+    <message>
+        <location filename="../../src/interface/interface.ui" line="166"/>
+        <source>Toggle fullscreen</source>
+        <translation>Activer/Désactiver le plein écran</translation>
+    </message>
+    <message>
+        <location filename="../../src/interface/interface.ui" line="201"/>
+        <location filename="../../src/interface/interface.ui" line="204"/>
+        <source>Restore last window</source>
+        <translation>Restaurer aux dernières dimensions</translation>
+    </message>
+    <message>
+        <location filename="../../src/interface/interface.ui" line="228"/>
+        <source>Data logger</source>
+        <translation>Enregistreur de données</translation>
+    </message>
+    <message>
+        <location filename="../../src/interface/interface.ui" line="239"/>
         <source>Connections</source>
         <translation>Connexions</translation>
     </message>
     <message>
-        <location filename="../../src/interface/interface.ui" line="114"/>
-        <location filename="../../src/interface/interface.ui" line="1535"/>
-        <source>Serial</source>
-        <translation>Série</translation>
-    </message>
-    <message>
-        <location filename="../../src/interface/interface.ui" line="203"/>
-        <location filename="../../src/interface/interface.ui" line="1624"/>
-        <source>Refresh</source>
-        <translation>Actualiser</translation>
-    </message>
-    <message>
-        <location filename="../../src/interface/interface.ui" line="224"/>
-        <location filename="../../src/interface/interface.ui" line="1646"/>
-        <source>Manual Input</source>
-        <translation>Saisie Manuelle</translation>
-    </message>
-    <message>
-        <location filename="../../src/interface/interface.ui" line="254"/>
-        <location filename="../../src/interface/interface.ui" line="1677"/>
-        <source>Baudrate :</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../../src/interface/interface.ui" line="275"/>
-        <location filename="../../src/interface/interface.ui" line="292"/>
-        <location filename="../../src/interface/interface.ui" line="1687"/>
-        <location filename="../../src/interface/interface.ui" line="1704"/>
-        <source>4800</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../../src/interface/interface.ui" line="282"/>
-        <location filename="../../src/interface/interface.ui" line="1694"/>
-        <source>1200</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../../src/interface/interface.ui" line="287"/>
-        <location filename="../../src/interface/interface.ui" line="1699"/>
-        <source>2400</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../../src/interface/interface.ui" line="297"/>
-        <location filename="../../src/interface/interface.ui" line="1709"/>
-        <source>9600</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../../src/interface/interface.ui" line="302"/>
-        <location filename="../../src/interface/interface.ui" line="1714"/>
-        <source>19200</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../../src/interface/interface.ui" line="307"/>
-        <location filename="../../src/interface/interface.ui" line="1719"/>
-        <source>38400</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../../src/interface/interface.ui" line="312"/>
-        <location filename="../../src/interface/interface.ui" line="1724"/>
-        <source>57600</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../../src/interface/interface.ui" line="317"/>
-        <location filename="../../src/interface/interface.ui" line="1729"/>
-        <source>115200</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../../src/interface/interface.ui" line="348"/>
-        <location filename="../../src/interface/interface.ui" line="636"/>
-        <source>Auto-connect on startup</source>
-        <translation>Connexion automatique au démarrage</translation>
-    </message>
-    <message>
-        <location filename="../../src/interface/interface.ui" line="393"/>
-        <location filename="../../src/interface/interface.ui" line="782"/>
-        <location filename="../../src/interface/interface.ui" line="1756"/>
-        <source>Connect</source>
-        <translation>Connexion</translation>
-    </message>
-    <message>
-        <location filename="../../src/interface/interface.ui" line="408"/>
-        <location filename="../../src/interface/interface.ui" line="806"/>
-        <location filename="../../src/interface/interface.ui" line="1763"/>
-        <source>Disconnect</source>
-        <translation>Déconnexion</translation>
-    </message>
-    <message>
-        <location filename="../../src/interface/interface.ui" line="429"/>
-        <location filename="../../src/interface/interface.ui" line="735"/>
-        <source>Connection Status :</source>
-        <translation>État de la connexion :</translation>
-    </message>
-    <message>
-        <location filename="../../src/interface/interface.ui" line="541"/>
-        <location filename="../../src/interface/interface.ui" line="894"/>
-        <source>UDP</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../../src/interface/interface.ui" line="583"/>
-        <location filename="../../src/interface/interface.ui" line="1105"/>
-        <source>Port :</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../../src/interface/interface.ui" line="690"/>
-        <source>Sender Details :</source>
-        <translation>Détails de l’expéditeur :</translation>
-    </message>
-    <message>
-        <location filename="../../src/interface/interface.ui" line="851"/>
-        <source>Data Outputs</source>
-        <translation>Sorties De Données</translation>
-    </message>
-    <message>
-        <location filename="../../src/interface/interface.ui" line="950"/>
-        <source>Method :</source>
-        <translation>Mode :</translation>
-    </message>
-    <message>
-        <location filename="../../src/interface/interface.ui" line="974"/>
-        <source>Broadcast</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../../src/interface/interface.ui" line="979"/>
-        <source>Unicast</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../../src/interface/interface.ui" line="984"/>
-        <source>Multicast</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../../src/interface/interface.ui" line="1035"/>
-        <source>IP Address :</source>
-        <translation>Adresse IP :</translation>
-    </message>
-    <message>
-        <location filename="../../src/interface/interface.ui" line="1055"/>
-        <source>255.255.255.255</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../../src/interface/interface.ui" line="1209"/>
-        <location filename="../../src/interface/interface.ui" line="1846"/>
-        <source>VTG</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../../src/interface/interface.ui" line="1229"/>
-        <location filename="../../src/interface/interface.ui" line="1922"/>
-        <source>RMC</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../../src/interface/interface.ui" line="1236"/>
-        <location filename="../../src/interface/interface.ui" line="1870"/>
-        <source>HDT</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../../src/interface/interface.ui" line="1246"/>
-        <location filename="../../src/interface/interface.ui" line="1887"/>
-        <source>GGA</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../../src/interface/interface.ui" line="1253"/>
-        <location filename="../../src/interface/interface.ui" line="1908"/>
-        <source>GLL</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../../src/interface/interface.ui" line="1260"/>
-        <location filename="../../src/interface/interface.ui" line="1915"/>
-        <source>MTW</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../../src/interface/interface.ui" line="1267"/>
-        <location filename="../../src/interface/interface.ui" line="1880"/>
-        <source>ZDA</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../../src/interface/interface.ui" line="1274"/>
-        <location filename="../../src/interface/interface.ui" line="1901"/>
-        <source>GSV</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../../src/interface/interface.ui" line="1281"/>
-        <location filename="../../src/interface/interface.ui" line="1863"/>
-        <source>GSA</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../../src/interface/interface.ui" line="1288"/>
-        <location filename="../../src/interface/interface.ui" line="1853"/>
-        <source>DBT</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../../src/interface/interface.ui" line="1311"/>
-        <location filename="../../src/interface/interface.ui" line="1952"/>
-        <source>DPT</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../../src/interface/interface.ui" line="1318"/>
-        <location filename="../../src/interface/interface.ui" line="1929"/>
-        <source>VHW</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../../src/interface/interface.ui" line="1328"/>
-        <location filename="../../src/interface/interface.ui" line="1894"/>
-        <source>MWV</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../../src/interface/interface.ui" line="1335"/>
-        <location filename="../../src/interface/interface.ui" line="1839"/>
-        <source>MWD</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../../src/interface/interface.ui" line="1342"/>
-        <location filename="../../src/interface/interface.ui" line="1832"/>
-        <source>Others</source>
-        <translation>Autres</translation>
-    </message>
-    <message>
-        <location filename="../../src/interface/interface.ui" line="1360"/>
-        <location filename="../../src/interface/interface.ui" line="1983"/>
-        <source>Check All</source>
-        <translation>Tout Cocher</translation>
-    </message>
-    <message>
-        <location filename="../../src/interface/interface.ui" line="1367"/>
-        <location filename="../../src/interface/interface.ui" line="1990"/>
-        <source>Uncheck All</source>
-        <translation>Tout Décocher</translation>
-    </message>
-    <message>
-        <location filename="../../src/interface/interface.ui" line="1410"/>
-        <location filename="../../src/interface/interface.ui" line="2033"/>
-        <source>Output Data</source>
-        <translation>Activer</translation>
-    </message>
-    <message>
-        <location filename="../../src/interface/interface.ui" line="2076"/>
+        <location filename="../../src/interface/interface.ui" line="62"/>
         <source>Menu</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../src/interface/interface.ui" line="2080"/>
+        <location filename="../../src/interface/interface.ui" line="66"/>
         <source>Languages</source>
         <translation>Langues</translation>
     </message>
     <message>
-        <location filename="../../src/interface/interface.ui" line="2090"/>
+        <location filename="../../src/interface/interface.ui" line="77"/>
         <source>Help</source>
         <translation>Aide</translation>
     </message>
     <message>
-        <location filename="../../src/interface/interface.ui" line="2097"/>
+        <location filename="../../src/interface/interface.ui" line="84"/>
         <source>Tools</source>
         <translation>Outils</translation>
     </message>
     <message>
-        <location filename="../../src/interface/interface.ui" line="2106"/>
+        <location filename="../../src/interface/interface.ui" line="93"/>
         <source>View</source>
         <translation>Vue</translation>
     </message>
     <message>
-        <location filename="../../src/interface/interface.ui" line="2110"/>
-        <source>Startup Window Mode</source>
-        <translation>Mode Ouverture Fenêtre Au Démarrage</translation>
-    </message>
-    <message>
-        <location filename="../../src/interface/interface.ui" line="2130"/>
+        <location filename="../../src/interface/interface.ui" line="117"/>
         <source>About</source>
         <translation>À propos</translation>
     </message>
     <message>
-        <location filename="../../src/interface/interface.ui" line="2138"/>
+        <location filename="../../src/interface/interface.ui" line="125"/>
         <source>Exit</source>
         <translation>Quitter</translation>
     </message>
     <message>
-        <location filename="../../src/interface/interface.ui" line="2141"/>
+        <location filename="../../src/interface/interface.ui" line="128"/>
         <source>Ctrl+Q</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../src/interface/interface.ui" line="2149"/>
-        <source>Data Monitor</source>
-        <translation>Moniteur De Données</translation>
-    </message>
-    <message>
-        <location filename="../../src/interface/interface.ui" line="2152"/>
+        <location filename="../../src/interface/interface.ui" line="139"/>
         <source>Ctrl+M</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../src/interface/interface.ui" line="2160"/>
-        <source>Manual Data Input</source>
-        <translation>Saisie Manuelle NMEA</translation>
-    </message>
-    <message>
-        <location filename="../../src/interface/interface.ui" line="2163"/>
+        <location filename="../../src/interface/interface.ui" line="150"/>
         <source>Ctrl+I</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../src/interface/interface.ui" line="2171"/>
+        <location filename="../../src/interface/interface.ui" line="158"/>
         <source>FAQ</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../src/interface/interface.ui" line="2179"/>
-        <source>Toggle Fullscreen</source>
-        <translation>Activer/Désactiver Plein Écran</translation>
-    </message>
-    <message>
-        <location filename="../../src/interface/interface.ui" line="2182"/>
+        <location filename="../../src/interface/interface.ui" line="169"/>
         <source>F11</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../src/interface/interface.ui" line="2190"/>
+        <location filename="../../src/interface/interface.ui" line="177"/>
         <source>Decoded NMEA</source>
         <translation>Trames NMEA Décodées</translation>
     </message>
     <message>
-        <location filename="../../src/interface/interface.ui" line="2238"/>
-        <source>Data Logger</source>
-        <translation>Enregistreur de données</translation>
-    </message>
-    <message>
-        <location filename="../../src/interface/interface.ui" line="2241"/>
+        <location filename="../../src/interface/interface.ui" line="231"/>
         <source>Ctrl+L</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../src/interface/interface.ui" line="2198"/>
+        <location filename="../../src/interface/interface.ui" line="242"/>
+        <source>Ctrl+C</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../../src/interface/interface.ui" line="185"/>
         <source>Maximized</source>
         <translation>Maximisée</translation>
     </message>
     <message>
-        <location filename="../../src/interface/interface.ui" line="2206"/>
+        <location filename="../../src/interface/interface.ui" line="193"/>
         <source>Fullscreen</source>
         <translation>Plein écran</translation>
     </message>
     <message>
-        <location filename="../../src/interface/interface.ui" line="2214"/>
-        <source>Restore Last Window</source>
-        <translation>Restaurer la dernière fenêtre</translation>
-    </message>
-    <message>
-        <location filename="../../src/interface/interface.ui" line="2222"/>
+        <location filename="../../src/interface/interface.ui" line="212"/>
         <source>English</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../src/interface/interface.ui" line="2230"/>
+        <location filename="../../src/interface/interface.ui" line="220"/>
         <source>Français</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../../src/interface/interface.cpp" line="11"/>
-        <source>OpenSeaNav - Navigation Software</source>
+        <source>OpenSeaNav - Navigation software</source>
         <translation>OpenSeaNav - Logiciel de navigation</translation>
-    </message>
-    <message>
-        <location filename="../../src/interface/interface.cpp" line="514"/>
-        <location filename="../../src/interface/interface.cpp" line="620"/>
-        <source> closed</source>
-        <translation> fermée</translation>
-    </message>
-    <message>
-        <location filename="../../src/interface/interface.cpp" line="517"/>
-        <location filename="../../src/interface/interface.cpp" line="623"/>
-        <source>Connection not opened</source>
-        <translation>Connecxion pas ouverte</translation>
-    </message>
-    <message>
-        <location filename="../../src/interface/interface.cpp" line="567"/>
-        <location filename="../../src/interface/interface.cpp" line="829"/>
-        <source>UDP Port Error</source>
-        <translation>Erreur port UDP</translation>
-    </message>
-    <message>
-        <location filename="../../src/interface/interface.cpp" line="568"/>
-        <source>Input UDP port conflicts with output UDP port.
-Please choose a different port.</source>
-        <translation>Conflit avec le port UDP de sortie.
-Choissisez un port différent.</translation>
-    </message>
-    <message>
-        <location filename="../../src/interface/interface.cpp" line="654"/>
-        <source>Connected to </source>
-        <translation>Connecté à </translation>
-    </message>
-    <message>
-        <location filename="../../src/interface/interface.cpp" line="656"/>
-        <source>Failed to open </source>
-        <translation>Impossible d&apos;ouvrir </translation>
-    </message>
-    <message>
-        <location filename="../../src/interface/interface.cpp" line="690"/>
-        <source>Serial Output Not Available</source>
-        <translation>Sortie série non disponible</translation>
-    </message>
-    <message>
-        <location filename="../../src/interface/interface.cpp" line="691"/>
-        <source>No serial output port is currently opened.
-
-Please select a valid port and click &apos;Connect&apos; before enabling serial output.</source>
-        <translation>Aucun port de sortie série n’est actuellement ouvert.
-
-Veuillez sélectionner un port valide et cliquer sur « Connecter » avant d’activer la sortie série.</translation>
-    </message>
-    <message>
-        <location filename="../../src/interface/interface.cpp" line="829"/>
-        <source>Output UDP port conflicts with input UDP port.
-Please choose a different port.</source>
-        <translation>Conflit avec le port UDP d&apos;entrée.
-Choissisez un port différent.</translation>
     </message>
 </context>
 <context>
@@ -489,8 +174,203 @@ Choissisez un port différent.</translation>
     </message>
     <message>
         <location filename="../../src/menu_bar/about/menubar_about.cpp" line="9"/>
-        <source>About Software</source>
+        <source>About software</source>
         <translation>À propos du logiciel</translation>
+    </message>
+</context>
+<context>
+    <name>MenuBarConnections</name>
+    <message>
+        <location filename="../../src/menu_bar/connections/menubar_connections.ui" line="14"/>
+        <source>Dialog</source>
+        <translation>Boîte de dialogue</translation>
+    </message>
+    <message>
+        <location filename="../../src/menu_bar/connections/menubar_connections.ui" line="36"/>
+        <source>Inputs</source>
+        <translation>Entrées</translation>
+    </message>
+    <message>
+        <location filename="../../src/menu_bar/connections/menubar_connections.ui" line="78"/>
+        <location filename="../../src/menu_bar/connections/menubar_connections.ui" line="1505"/>
+        <source>Serial</source>
+        <translation>Série</translation>
+    </message>
+    <message>
+        <location filename="../../src/menu_bar/connections/menubar_connections.ui" line="173"/>
+        <location filename="../../src/menu_bar/connections/menubar_connections.ui" line="1600"/>
+        <source>Refresh</source>
+        <translation>Actualiser</translation>
+    </message>
+    <message>
+        <location filename="../../src/menu_bar/connections/menubar_connections.ui" line="224"/>
+        <location filename="../../src/menu_bar/connections/menubar_connections.ui" line="1653"/>
+        <source>Baudrate :</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../../src/menu_bar/connections/menubar_connections.ui" line="318"/>
+        <location filename="../../src/menu_bar/connections/menubar_connections.ui" line="606"/>
+        <source>Auto-connect on startup</source>
+        <translation>Connexion automatique au démarrage</translation>
+    </message>
+    <message>
+        <location filename="../../src/menu_bar/connections/menubar_connections.ui" line="363"/>
+        <location filename="../../src/menu_bar/connections/menubar_connections.ui" line="752"/>
+        <location filename="../../src/menu_bar/connections/menubar_connections.ui" line="1732"/>
+        <source>Connect</source>
+        <translation>Connexion</translation>
+    </message>
+    <message>
+        <location filename="../../src/menu_bar/connections/menubar_connections.ui" line="378"/>
+        <location filename="../../src/menu_bar/connections/menubar_connections.ui" line="776"/>
+        <location filename="../../src/menu_bar/connections/menubar_connections.ui" line="1739"/>
+        <source>Disconnect</source>
+        <translation>Déconnexion</translation>
+    </message>
+    <message>
+        <location filename="../../src/menu_bar/connections/menubar_connections.ui" line="511"/>
+        <location filename="../../src/menu_bar/connections/menubar_connections.ui" line="864"/>
+        <source>UDP</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../../src/menu_bar/connections/menubar_connections.ui" line="553"/>
+        <location filename="../../src/menu_bar/connections/menubar_connections.ui" line="1075"/>
+        <source>Port :</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../../src/menu_bar/connections/menubar_connections.ui" line="194"/>
+        <location filename="../../src/menu_bar/connections/menubar_connections.ui" line="1622"/>
+        <source>Manual input</source>
+        <translation>Saisie manuelle</translation>
+    </message>
+    <message>
+        <location filename="../../src/menu_bar/connections/menubar_connections.ui" line="399"/>
+        <location filename="../../src/menu_bar/connections/menubar_connections.ui" line="705"/>
+        <source>Connection status :</source>
+        <translation>État de la connexion :</translation>
+    </message>
+    <message>
+        <location filename="../../src/menu_bar/connections/menubar_connections.ui" line="660"/>
+        <source>Sender details :</source>
+        <translation>Sender details :</translation>
+    </message>
+    <message>
+        <location filename="../../src/menu_bar/connections/menubar_connections.ui" line="821"/>
+        <source>Outputs</source>
+        <translation>Sorties</translation>
+    </message>
+    <message>
+        <location filename="../../src/menu_bar/connections/menubar_connections.ui" line="920"/>
+        <source>Method :</source>
+        <translation>Mode :</translation>
+    </message>
+    <message>
+        <location filename="../../src/menu_bar/connections/menubar_connections.ui" line="944"/>
+        <source>Broadcast</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../../src/menu_bar/connections/menubar_connections.ui" line="949"/>
+        <source>Unicast</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../../src/menu_bar/connections/menubar_connections.ui" line="954"/>
+        <source>Multicast</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../../src/menu_bar/connections/menubar_connections.ui" line="1005"/>
+        <source>IP address :</source>
+        <translation>Adresse IP :</translation>
+    </message>
+    <message>
+        <location filename="../../src/menu_bar/connections/menubar_connections.ui" line="1330"/>
+        <location filename="../../src/menu_bar/connections/menubar_connections.ui" line="1959"/>
+        <source>Check all</source>
+        <translation>Tout cocher</translation>
+    </message>
+    <message>
+        <location filename="../../src/menu_bar/connections/menubar_connections.ui" line="1337"/>
+        <location filename="../../src/menu_bar/connections/menubar_connections.ui" line="1966"/>
+        <source>Uncheck all</source>
+        <translation>Tout décocher</translation>
+    </message>
+    <message>
+        <location filename="../../src/menu_bar/connections/menubar_connections.ui" line="1380"/>
+        <location filename="../../src/menu_bar/connections/menubar_connections.ui" line="2009"/>
+        <source>Activate</source>
+        <translation>Activer</translation>
+    </message>
+    <message>
+        <location filename="../../src/menu_bar/connections/menubar_connections.ui" line="1312"/>
+        <location filename="../../src/menu_bar/connections/menubar_connections.ui" line="1808"/>
+        <source>Others</source>
+        <translation>Autres</translation>
+    </message>
+    <message>
+        <location filename="../../src/menu_bar/connections/menubar_connections.cpp" line="16"/>
+        <source>Connections IO</source>
+        <translation>Connexions</translation>
+    </message>
+    <message>
+        <location filename="../../src/menu_bar/connections/menubar_connections.cpp" line="242"/>
+        <location filename="../../src/menu_bar/connections/menubar_connections.cpp" line="346"/>
+        <source> closed</source>
+        <translation> fermée</translation>
+    </message>
+    <message>
+        <location filename="../../src/menu_bar/connections/menubar_connections.cpp" line="245"/>
+        <location filename="../../src/menu_bar/connections/menubar_connections.cpp" line="349"/>
+        <source>Connection not opened</source>
+        <translation>Connecxion pas ouverte</translation>
+    </message>
+    <message>
+        <location filename="../../src/menu_bar/connections/menubar_connections.cpp" line="294"/>
+        <location filename="../../src/menu_bar/connections/menubar_connections.cpp" line="555"/>
+        <source>UDP Port Error</source>
+        <translation>Erreur port UDP</translation>
+    </message>
+    <message>
+        <location filename="../../src/menu_bar/connections/menubar_connections.cpp" line="295"/>
+        <source>Input UDP port conflicts with output UDP port.
+Please choose a different port.</source>
+        <translation>Conflit avec le port UDP de sortie.
+Choissisez un port différent.</translation>
+    </message>
+    <message>
+        <location filename="../../src/menu_bar/connections/menubar_connections.cpp" line="380"/>
+        <source>Connected to </source>
+        <translation>Connecté à </translation>
+    </message>
+    <message>
+        <location filename="../../src/menu_bar/connections/menubar_connections.cpp" line="382"/>
+        <source>Failed to open </source>
+        <translation>Impossible d&apos;ouvrir </translation>
+    </message>
+    <message>
+        <location filename="../../src/menu_bar/connections/menubar_connections.cpp" line="416"/>
+        <source>Serial Output Not Available</source>
+        <translation>Sortie série non disponible</translation>
+    </message>
+    <message>
+        <location filename="../../src/menu_bar/connections/menubar_connections.cpp" line="417"/>
+        <source>No serial output port is currently opened.
+
+Please select a valid port and click &apos;Connect&apos; before enabling serial output.</source>
+        <translation>Aucun port de sortie série n’est actuellement ouvert.
+
+Veuillez sélectionner un port valide et cliquer sur « Connecter » avant d’activer la sortie série.</translation>
+    </message>
+    <message>
+        <location filename="../../src/menu_bar/connections/menubar_connections.cpp" line="555"/>
+        <source>Output UDP port conflicts with input UDP port.
+Please choose a different port.</source>
+        <translation>Conflit avec le port UDP d&apos;entrée.
+Choissisez un port différent.</translation>
     </message>
 </context>
 <context>
@@ -507,8 +387,8 @@ Choissisez un port différent.</translation>
     </message>
     <message>
         <location filename="../../src/menu_bar/data_monitor/menubar_datamonitor.ui" line="97"/>
-        <source>History Size :</source>
-        <translation>Taille historique :</translation>
+        <source>History size :</source>
+        <translation>Taille de l&apos;historique :</translation>
     </message>
     <message>
         <location filename="../../src/menu_bar/data_monitor/menubar_datamonitor.ui" line="169"/>
@@ -522,7 +402,7 @@ Choissisez un port différent.</translation>
     </message>
     <message>
         <location filename="../../src/menu_bar/data_monitor/menubar_datamonitor.cpp" line="13"/>
-        <source>NMEA Data Monitor</source>
+        <source>NMEA data monitor</source>
         <translation>Moniteur de données NMEA</translation>
     </message>
 </context>
@@ -552,31 +432,6 @@ Choissisez un port différent.</translation>
         <translation>Fréquence :</translation>
     </message>
     <message>
-        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="288"/>
-        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="893"/>
-        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="1690"/>
-        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="2430"/>
-        <source>UTC Time :</source>
-        <translation>Temps UTC :</translation>
-    </message>
-    <message>
-        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="306"/>
-        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="353"/>
-        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="911"/>
-        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="958"/>
-        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="1005"/>
-        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="1708"/>
-        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="2448"/>
-        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.cpp" line="161"/>
-        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.cpp" line="162"/>
-        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.cpp" line="187"/>
-        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.cpp" line="226"/>
-        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.cpp" line="227"/>
-        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.cpp" line="228"/>
-        <source>No Data</source>
-        <translation>Pas de donnée</translation>
-    </message>
-    <message>
         <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="332"/>
         <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="937"/>
         <source>Date :</source>
@@ -597,16 +452,6 @@ Choissisez un port différent.</translation>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="535"/>
-        <source>Magnetic Variation :</source>
-        <translation>Variation magnétique :</translation>
-    </message>
-    <message>
-        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="984"/>
-        <source>Local Zone :</source>
-        <translation>Fuseau horaire :</translation>
-    </message>
-    <message>
         <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="1120"/>
         <source>Heading (T) :</source>
         <translation>Cap (T) :</translation>
@@ -617,47 +462,82 @@ Choissisez un port différent.</translation>
         <translation>Cap (M) :</translation>
     </message>
     <message>
-        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="1356"/>
-        <source>Satellites In View : </source>
-        <translation>Satellites visibles : </translation>
-    </message>
-    <message>
-        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="1481"/>
-        <source>Wind Angle :</source>
-        <translation>Angle vent :</translation>
-    </message>
-    <message>
-        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="1517"/>
-        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="2117"/>
-        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="2153"/>
-        <source>Wind Speed :</source>
-        <translation>Vitesse vent :</translation>
-    </message>
-    <message>
-        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="1613"/>
-        <source>Clear Data</source>
-        <translation>Effacer données</translation>
-    </message>
-    <message>
-        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="1812"/>
-        <source>Satellites Used : </source>
-        <translation>Satellites utilisés : </translation>
-    </message>
-    <message>
-        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="1851"/>
-        <source>Fix Quality :</source>
-        <translation>Qualité du fix :</translation>
-    </message>
-    <message>
         <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="1926"/>
         <source>Altitude :</source>
         <translation></translation>
     </message>
     <message>
+        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="288"/>
+        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="893"/>
+        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="1690"/>
+        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="2430"/>
+        <source>UTC time :</source>
+        <translation>Temps UTC :</translation>
+    </message>
+    <message>
+        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="306"/>
+        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="353"/>
+        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="911"/>
+        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="958"/>
+        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="1005"/>
+        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="1708"/>
+        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="2448"/>
+        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.cpp" line="165"/>
+        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.cpp" line="166"/>
+        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.cpp" line="191"/>
+        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.cpp" line="230"/>
+        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.cpp" line="231"/>
+        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.cpp" line="232"/>
+        <source>No data</source>
+        <translation>Pas de donnée</translation>
+    </message>
+    <message>
+        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="535"/>
+        <source>Magnetic variation :</source>
+        <translation>Variation magnétique :</translation>
+    </message>
+    <message>
+        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="984"/>
+        <source>Local zone :</source>
+        <translation>Fuseau horaire :</translation>
+    </message>
+    <message>
+        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="1356"/>
+        <source>Satellites in view : </source>
+        <translation>Satellites visibles : </translation>
+    </message>
+    <message>
+        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="1481"/>
+        <source>Wind angle :</source>
+        <translation>Angle du vent :</translation>
+    </message>
+    <message>
+        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="1517"/>
+        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="2117"/>
+        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="2153"/>
+        <source>Wind speed :</source>
+        <translation>Vitesse du vent :</translation>
+    </message>
+    <message>
+        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="1613"/>
+        <source>Clear data</source>
+        <translation>Effacer les données</translation>
+    </message>
+    <message>
+        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="1812"/>
+        <source>Satellites used : </source>
+        <translation>Satellites utilisés : </translation>
+    </message>
+    <message>
+        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="1851"/>
+        <source>Fix quality :</source>
+        <translation>Qualité du fix :</translation>
+    </message>
+    <message>
         <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="2045"/>
         <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="2081"/>
-        <source>Wind Direction :</source>
-        <translation>Direction vent :</translation>
+        <source>Wind direction :</source>
+        <translation>Direction du vent :</translation>
     </message>
     <message>
         <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="2278"/>
@@ -691,8 +571,8 @@ Choissisez un port différent.</translation>
     </message>
     <message>
         <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="2924"/>
-        <source>Water Temp. :</source>
-        <translation>Temp. eau :</translation>
+        <source>Water temp. :</source>
+        <translation>Temp. de l&apos;eau :</translation>
     </message>
     <message>
         <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.cpp" line="13"/>
@@ -700,27 +580,27 @@ Choissisez un port différent.</translation>
         <translation>Trames NMEA décodées</translation>
     </message>
     <message>
-        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.cpp" line="130"/>
-        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.cpp" line="132"/>
-        <source>Wind Direction</source>
-        <translation>Direction vent</translation>
-    </message>
-    <message>
         <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.cpp" line="134"/>
         <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.cpp" line="136"/>
-        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.cpp" line="152"/>
-        <source>Wind Speed</source>
-        <translation>Vitesse vent</translation>
+        <source>Wind direction</source>
+        <translation>Direction du vent</translation>
     </message>
     <message>
-        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.cpp" line="143"/>
-        <source>Water Temp.</source>
-        <translation>Temp. eau</translation>
+        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.cpp" line="138"/>
+        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.cpp" line="140"/>
+        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.cpp" line="156"/>
+        <source>Wind speed</source>
+        <translation>Vitesse du vent</translation>
     </message>
     <message>
-        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.cpp" line="150"/>
-        <source>Wind Angle</source>
-        <translation>Angle vent</translation>
+        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.cpp" line="147"/>
+        <source>Water temp.</source>
+        <translation>Temp. de l&apos;eau</translation>
+    </message>
+    <message>
+        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.cpp" line="154"/>
+        <source>Wind angle</source>
+        <translation>Angle du vent</translation>
     </message>
 </context>
 <context>
@@ -770,8 +650,8 @@ Choissisez un port différent.</translation>
     </message>
     <message>
         <location filename="../../src/menu_bar/simu/menubar_simdata.cpp" line="17"/>
-        <source>Manual Data Input</source>
-        <translation>Saisie manuelle NMEA</translation>
+        <source>Manual data input</source>
+        <translation>Saisie manuelle de données</translation>
     </message>
 </context>
 <context>
@@ -818,12 +698,16 @@ Choissisez un port différent.</translation>
     </message>
     <message>
         <location filename="../../src/menu_bar/txt_logger/menubar_txtlogger.ui" line="503"/>
-        <source>Add Timestamp Prefix</source>
-        <translation>Ajouter Préfixe Horodaté</translation>
+        <source>Add timestamp prefix</source>
+        <translation>Ajouter l&apos;horodatage</translation>
     </message>
     <message>
         <location filename="../../src/menu_bar/txt_logger/menubar_txtlogger.ui" line="544"/>
-        <location filename="../../src/menu_bar/txt_logger/menubar_txtlogger.cpp" line="159"/>
+        <source>Record</source>
+        <translation>Enregistrer</translation>
+    </message>
+    <message>
+        <location filename="../../src/menu_bar/txt_logger/menubar_txtlogger.cpp" line="164"/>
         <source> Record Data To File</source>
         <translation> Enregistrer</translation>
     </message>
@@ -834,51 +718,51 @@ Choissisez un port différent.</translation>
     </message>
     <message>
         <location filename="../../src/menu_bar/txt_logger/menubar_txtlogger.ui" line="594"/>
-        <location filename="../../src/menu_bar/txt_logger/menubar_txtlogger.cpp" line="157"/>
+        <location filename="../../src/menu_bar/txt_logger/menubar_txtlogger.cpp" line="162"/>
         <source>Not recording</source>
         <translation>Enregistrement Inactif</translation>
     </message>
     <message>
-        <location filename="../../src/menu_bar/txt_logger/menubar_txtlogger.cpp" line="13"/>
-        <source>Data Logger</source>
-        <translation>Enregistreur de données</translation>
-    </message>
-    <message>
-        <location filename="../../src/menu_bar/txt_logger/menubar_txtlogger.cpp" line="58"/>
+        <location filename="../../src/menu_bar/txt_logger/menubar_txtlogger.cpp" line="63"/>
         <source>File missing</source>
         <translation>Fichier absent</translation>
     </message>
     <message>
-        <location filename="../../src/menu_bar/txt_logger/menubar_txtlogger.cpp" line="89"/>
-        <source>Select Output Directory</source>
+        <location filename="../../src/menu_bar/txt_logger/menubar_txtlogger.cpp" line="13"/>
+        <source>Data logger</source>
+        <translation>Enregistreur de données</translation>
+    </message>
+    <message>
+        <location filename="../../src/menu_bar/txt_logger/menubar_txtlogger.cpp" line="94"/>
+        <source>Select output directory</source>
         <translation>Choisir le dossier de sortie</translation>
     </message>
     <message>
-        <location filename="../../src/menu_bar/txt_logger/menubar_txtlogger.cpp" line="116"/>
-        <source>Missing Information</source>
+        <location filename="../../src/menu_bar/txt_logger/menubar_txtlogger.cpp" line="121"/>
+        <source>Missing information</source>
         <translation>Information manquante</translation>
     </message>
     <message>
-        <location filename="../../src/menu_bar/txt_logger/menubar_txtlogger.cpp" line="117"/>
+        <location filename="../../src/menu_bar/txt_logger/menubar_txtlogger.cpp" line="122"/>
         <source>Please select an output folder and enter a file name before saving.</source>
         <translation>Veuillez sélectionner un dossier de sortie et saisir un nom de fichier avant d’enregistrer.</translation>
     </message>
     <message>
-        <location filename="../../src/menu_bar/txt_logger/menubar_txtlogger.cpp" line="128"/>
+        <location filename="../../src/menu_bar/txt_logger/menubar_txtlogger.cpp" line="133"/>
         <source>Overwrite file?</source>
         <translation>Écraser le fichier ?</translation>
     </message>
     <message>
-        <location filename="../../src/menu_bar/txt_logger/menubar_txtlogger.cpp" line="129"/>
+        <location filename="../../src/menu_bar/txt_logger/menubar_txtlogger.cpp" line="134"/>
         <source>A file with the same name already exists in the selected location.
 Do you want to replace it?</source>
         <translation>Un fichier portant le même nom existe déjà à l’emplacement sélectionné.
 Voulez-vous le remplacer ?</translation>
     </message>
     <message>
-        <location filename="../../src/menu_bar/txt_logger/menubar_txtlogger.cpp" line="152"/>
-        <source> Stop Recording</source>
-        <translation> Arrêter Enregistrement</translation>
+        <location filename="../../src/menu_bar/txt_logger/menubar_txtlogger.cpp" line="157"/>
+        <source>Stop recording</source>
+        <translation>Arrêter l&apos;enregistrement</translation>
     </message>
 </context>
 <context>
@@ -891,7 +775,7 @@ Voulez-vous le remplacer ?</translation>
     <message>
         <location filename="../qmls/map.qml" line="99"/>
         <source>No Position Data</source>
-        <translation type="unfinished"></translation>
+        <translation>Pas de donnée de position</translation>
     </message>
     <message>
         <location filename="../qmls/map.qml" line="519"/>
@@ -944,22 +828,22 @@ Voulez-vous le remplacer ?</translation>
     <message>
         <location filename="../qmls/map.qml" line="640"/>
         <source>Hide UI</source>
-        <translation type="unfinished"></translation>
+        <translation>Cacher l&apos;interface</translation>
     </message>
     <message>
         <location filename="../qmls/map.qml" line="640"/>
         <source>Show UI</source>
-        <translation type="unfinished"></translation>
+        <translation>Montrer l&apos;interface</translation>
     </message>
     <message>
         <location filename="../qmls/map.qml" line="655"/>
         <source>Stop Measuring</source>
-        <translation type="unfinished"></translation>
+        <translation>Arrêter de mesurer</translation>
     </message>
     <message>
         <location filename="../qmls/map.qml" line="655"/>
         <source>Measure Distance</source>
-        <translation type="unfinished"></translation>
+        <translation>Mesurer distance</translation>
     </message>
     <message>
         <location filename="../qmls/map.qml" line="682"/>
@@ -1010,7 +894,7 @@ Voulez-vous le remplacer ?</translation>
         <location filename="../qmls/map.qml" line="802"/>
         <location filename="../qmls/map.qml" line="1303"/>
         <source>North Up</source>
-        <translation type="unfinished"></translation>
+        <translation>Nord en haut</translation>
     </message>
     <message>
         <location filename="../qmls/map.qml" line="812"/>

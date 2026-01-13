@@ -35,7 +35,7 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>0</y>
+        <y>-272</y>
         <width>1003</width>
         <height>1110</height>
        </rect>
@@ -285,7 +285,7 @@
             <item>
              <widget class="QLabel" name="label_43">
               <property name="text">
-               <string>UTC Time :</string>
+               <string>UTC time :</string>
               </property>
              </widget>
             </item>
@@ -303,7 +303,7 @@
                </font>
               </property>
               <property name="text">
-               <string>No Data</string>
+               <string>No data</string>
               </property>
               <property name="alignment">
                <set>Qt::AlignmentFlag::AlignCenter</set>
@@ -350,7 +350,7 @@
                </font>
               </property>
               <property name="text">
-               <string>No Data</string>
+               <string>No data</string>
               </property>
               <property name="alignment">
                <set>Qt::AlignmentFlag::AlignCenter</set>
@@ -532,7 +532,7 @@
             <item>
              <widget class="QLabel" name="label_46">
               <property name="text">
-               <string>Magnetic Variation :</string>
+               <string>Magnetic variation :</string>
               </property>
               <property name="wordWrap">
                <bool>true</bool>
@@ -890,7 +890,7 @@
             <item>
              <widget class="QLabel" name="label_60">
               <property name="text">
-               <string>UTC Time :</string>
+               <string>UTC time :</string>
               </property>
              </widget>
             </item>
@@ -908,7 +908,7 @@
                </font>
               </property>
               <property name="text">
-               <string>No Data</string>
+               <string>No data</string>
               </property>
               <property name="alignment">
                <set>Qt::AlignmentFlag::AlignCenter</set>
@@ -955,7 +955,7 @@
                </font>
               </property>
               <property name="text">
-               <string>No Data</string>
+               <string>No data</string>
               </property>
               <property name="alignment">
                <set>Qt::AlignmentFlag::AlignCenter</set>
@@ -981,7 +981,7 @@
             <item>
              <widget class="QLabel" name="label_76">
               <property name="text">
-               <string>Local Zone :</string>
+               <string>Local zone :</string>
               </property>
               <property name="alignment">
                <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
@@ -1002,7 +1002,7 @@
                </font>
               </property>
               <property name="text">
-               <string>No Data</string>
+               <string>No data</string>
               </property>
               <property name="alignment">
                <set>Qt::AlignmentFlag::AlignCenter</set>
@@ -1353,7 +1353,7 @@
             <item>
              <widget class="QLabel" name="label_9">
               <property name="text">
-               <string>Satellites In View : </string>
+               <string>Satellites in view : </string>
               </property>
              </widget>
             </item>
@@ -1478,7 +1478,7 @@
             <item>
              <widget class="QLabel" name="label_windAngleUnit_mwv">
               <property name="text">
-               <string>Wind Angle :</string>
+               <string>Wind angle :</string>
               </property>
              </widget>
             </item>
@@ -1514,7 +1514,7 @@
             <item>
              <widget class="QLabel" name="label_windSpeedUnit_mwv">
               <property name="text">
-               <string>Wind Speed :</string>
+               <string>Wind speed :</string>
               </property>
              </widget>
             </item>
@@ -1610,7 +1610,7 @@
             </font>
            </property>
            <property name="text">
-            <string>Clear Data</string>
+            <string>Clear data</string>
            </property>
           </widget>
          </item>
@@ -1687,7 +1687,7 @@
             <item>
              <widget class="QLabel" name="label_50">
               <property name="text">
-               <string>UTC Time :</string>
+               <string>UTC time :</string>
               </property>
              </widget>
             </item>
@@ -1705,7 +1705,7 @@
                </font>
               </property>
               <property name="text">
-               <string>No Data</string>
+               <string>No data</string>
               </property>
               <property name="alignment">
                <set>Qt::AlignmentFlag::AlignCenter</set>
@@ -1809,7 +1809,7 @@
             <item>
              <widget class="QLabel" name="label_53">
               <property name="text">
-               <string>Satellites Used : </string>
+               <string>Satellites used : </string>
               </property>
              </widget>
             </item>
@@ -1848,7 +1848,7 @@
             <item>
              <widget class="QLabel" name="label_58">
               <property name="text">
-               <string>Fix Quality :</string>
+               <string>Fix quality :</string>
               </property>
              </widget>
             </item>
@@ -2042,7 +2042,7 @@
             <item>
              <widget class="QLabel" name="label_windDirectionUnit_mwd">
               <property name="text">
-               <string>Wind Direction :</string>
+               <string>Wind direction :</string>
               </property>
              </widget>
             </item>
@@ -2078,7 +2078,7 @@
             <item>
              <widget class="QLabel" name="label_windDirectionUnit_mwd_2">
               <property name="text">
-               <string>Wind Direction :</string>
+               <string>Wind direction :</string>
               </property>
              </widget>
             </item>
@@ -2114,7 +2114,7 @@
             <item>
              <widget class="QLabel" name="label_windSpeedUnit_mwd">
               <property name="text">
-               <string>Wind Speed :</string>
+               <string>Wind speed :</string>
               </property>
              </widget>
             </item>
@@ -2150,7 +2150,7 @@
             <item>
              <widget class="QLabel" name="label_windSpeedUnit_mwd_2">
               <property name="text">
-               <string>Wind Speed :</string>
+               <string>Wind speed :</string>
               </property>
              </widget>
             </item>
@@ -2427,7 +2427,7 @@
             <item>
              <widget class="QLabel" name="label_45">
               <property name="text">
-               <string>UTC Time :</string>
+               <string>UTC time :</string>
               </property>
              </widget>
             </item>
@@ -2445,7 +2445,7 @@
                </font>
               </property>
               <property name="text">
-               <string>No Data</string>
+               <string>No data</string>
               </property>
               <property name="alignment">
                <set>Qt::AlignmentFlag::AlignCenter</set>
@@ -2921,7 +2921,7 @@
             <item>
              <widget class="QLabel" name="label_waterTempUnit_mtw">
               <property name="text">
-               <string>Water Temp. :</string>
+               <string>Water temp. :</string>
               </property>
              </widget>
             </item>

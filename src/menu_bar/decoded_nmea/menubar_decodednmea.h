@@ -15,6 +15,7 @@ class MenuBarDecodedNmea : public QDialog
         explicit MenuBarDecodedNmea(QWidget *parent = nullptr);
         ~MenuBarDecodedNmea();
         void clearDecodedDataScreens();
+        void retranslate();
 
     private:
         Ui::MenuBarDecodedNmea *ui;

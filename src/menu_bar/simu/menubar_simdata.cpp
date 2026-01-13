@@ -14,7 +14,7 @@ MenuBarSimData::MenuBarSimData(QWidget *parent)
     autoSendTimer->setInterval(defaultTimeMsTimer);
     connect(autoSendTimer, &QTimer::timeout, this, &MenuBarSimData::sendData);
 
-    setWindowTitle(tr("Manual Data Input"));
+    setWindowTitle(tr("Manual data input"));
     setAttribute(Qt::WA_DeleteOnClose);
 }
 

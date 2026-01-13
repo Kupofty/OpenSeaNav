@@ -18,6 +18,7 @@ class MenuBarDataMonitor : public QDialog
         ~MenuBarDataMonitor();
         void scrollDownPlainText();
         void scrollUpPlainText();
+        void retranslate();
 
     public slots:
         void displayNmeaSentence(const QString &type, const QString &nmeaText);

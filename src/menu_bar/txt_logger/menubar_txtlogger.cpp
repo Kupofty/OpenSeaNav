@@ -10,7 +10,7 @@ MenuBarTxtLogger::MenuBarTxtLogger(QWidget *parent) : QDialog(parent), ui(new Ui
     ui->setupUi(this);
 
     //Set title
-    setWindowTitle(tr("Data Logger"));
+    setWindowTitle(tr("Data logger"));
 
     // Enable minimize, maximize, close buttons
     Qt::WindowFlags flags = Qt::Dialog
@@ -45,6 +45,11 @@ void MenuBarTxtLogger::writeRawSentences(const QString &type, const QString &nme
 /////////////////
 /// Functions ///
 /////////////////
+void MenuBarTxtLogger::retranslate()
+{
+    ui->retranslateUi(this);
+}
+
 void MenuBarTxtLogger::updateRecordingFileSize()
 {
     QFile file(getRecordingFilePath());
@@ -86,7 +91,7 @@ void MenuBarTxtLogger::on_pushButton_folder_path_downloads_clicked()
 
 void MenuBarTxtLogger::on_pushButton_browse_folder_path_clicked()
 {
-    QString dirPath = QFileDialog::getExistingDirectory(this, tr("Select Output Directory"),
+    QString dirPath = QFileDialog::getExistingDirectory(this, tr("Select output directory"),
                                                         QStandardPaths::writableLocation(QStandardPaths::HomeLocation),  QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
 
 
@@ -113,7 +118,7 @@ void MenuBarTxtLogger::on_pushButton_save_txt_file_toggled(bool checked)
         QString fileName = ui->plainTextEdit_txt_file_name->toPlainText().trimmed();
         if (dirPath.isEmpty() || fileName.isEmpty())
         {
-            QMessageBox::warning(this, tr("Missing Information"),
+            QMessageBox::warning(this, tr("Missing information"),
                                  tr("Please select an output folder and enter a file name before saving."));
             ui->pushButton_save_txt_file->setChecked(false);
             return;
@@ -149,7 +154,7 @@ void MenuBarTxtLogger::on_pushButton_save_txt_file_toggled(bool checked)
 
         //Update file size
         fileRecordingSizeTimer.start(1000);
-        ui->pushButton_save_txt_file->setText(tr(" Stop Recording"));
+        ui->pushButton_save_txt_file->setText(tr("Stop recording"));
     }
     else
     {
