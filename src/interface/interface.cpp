@@ -8,7 +8,6 @@ Interface::Interface(QWidget *parent) : QMainWindow(parent), ui(new Ui::Interfac
 {
     //Setup UI
     ui->setupUi(this);
-    setWindowTitle(tr("OpenSeaNav - Navigation software"));
 
     //Instantiate child classes
     data_monitor_window = new MenuBarDataMonitor(this);
@@ -193,19 +192,15 @@ void Interface::loadTranslation(QString translationPath)
     else if (translator.load(translationPath))
         qApp->installTranslator(&translator);
 
-    ui->retranslateUi(this);
-    ui->quickWidget_map->engine()->clearComponentCache();
-    ui->quickWidget_map->setSource(QUrl(QStringLiteral("qrc:/mainMap.qml")));
-
-
     //Update UI
+    ui->retranslateUi(this);
+    setWindowTitle(tr("OpenSeaNav - Navigation software"));
     updateTranslationMenuBarGUI(translationPath);
+
     data_monitor_window->retranslate();
     decoded_nmea_window->retranslate();
     txt_logger_window->retranslate();
     connections_window->retranslate();
-
-
 }
 
 void Interface::updateTranslationMenuBarGUI(QString language)

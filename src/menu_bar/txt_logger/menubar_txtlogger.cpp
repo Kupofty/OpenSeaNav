@@ -9,9 +9,6 @@ MenuBarTxtLogger::MenuBarTxtLogger(QWidget *parent) : QDialog(parent), ui(new Ui
 {
     ui->setupUi(this);
 
-    //Set title
-    setWindowTitle(tr("Data logger"));
-
     // Enable minimize, maximize, close buttons
     Qt::WindowFlags flags = Qt::Dialog
                             | Qt::WindowMaximizeButtonHint
@@ -49,6 +46,7 @@ void MenuBarTxtLogger::writeRawSentences(const QString &senderName, const QStrin
 void MenuBarTxtLogger::retranslate()
 {
     ui->retranslateUi(this);
+    setWindowTitle(tr("Data logger"));
 }
 
 void MenuBarTxtLogger::updateRecordingFileSize()

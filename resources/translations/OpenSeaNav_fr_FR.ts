@@ -317,47 +317,47 @@
         <translation>Connexions</translation>
     </message>
     <message>
-        <location filename="../../src/menu_bar/connections/menubar_connections.cpp" line="242"/>
-        <location filename="../../src/menu_bar/connections/menubar_connections.cpp" line="346"/>
+        <location filename="../../src/menu_bar/connections/menubar_connections.cpp" line="243"/>
+        <location filename="../../src/menu_bar/connections/menubar_connections.cpp" line="347"/>
         <source> closed</source>
         <translation> fermée</translation>
     </message>
     <message>
-        <location filename="../../src/menu_bar/connections/menubar_connections.cpp" line="245"/>
-        <location filename="../../src/menu_bar/connections/menubar_connections.cpp" line="349"/>
+        <location filename="../../src/menu_bar/connections/menubar_connections.cpp" line="246"/>
+        <location filename="../../src/menu_bar/connections/menubar_connections.cpp" line="350"/>
         <source>Connection not opened</source>
         <translation>Connecxion pas ouverte</translation>
     </message>
     <message>
-        <location filename="../../src/menu_bar/connections/menubar_connections.cpp" line="294"/>
-        <location filename="../../src/menu_bar/connections/menubar_connections.cpp" line="555"/>
+        <location filename="../../src/menu_bar/connections/menubar_connections.cpp" line="295"/>
+        <location filename="../../src/menu_bar/connections/menubar_connections.cpp" line="556"/>
         <source>UDP Port Error</source>
         <translation>Erreur port UDP</translation>
     </message>
     <message>
-        <location filename="../../src/menu_bar/connections/menubar_connections.cpp" line="295"/>
+        <location filename="../../src/menu_bar/connections/menubar_connections.cpp" line="296"/>
         <source>Input UDP port conflicts with output UDP port.
 Please choose a different port.</source>
         <translation>Conflit avec le port UDP de sortie.
 Choissisez un port différent.</translation>
     </message>
     <message>
-        <location filename="../../src/menu_bar/connections/menubar_connections.cpp" line="380"/>
+        <location filename="../../src/menu_bar/connections/menubar_connections.cpp" line="381"/>
         <source>Connected to </source>
         <translation>Connecté à </translation>
     </message>
     <message>
-        <location filename="../../src/menu_bar/connections/menubar_connections.cpp" line="382"/>
+        <location filename="../../src/menu_bar/connections/menubar_connections.cpp" line="383"/>
         <source>Failed to open </source>
         <translation>Impossible d&apos;ouvrir </translation>
     </message>
     <message>
-        <location filename="../../src/menu_bar/connections/menubar_connections.cpp" line="416"/>
+        <location filename="../../src/menu_bar/connections/menubar_connections.cpp" line="417"/>
         <source>Serial Output Not Available</source>
         <translation>Sortie série non disponible</translation>
     </message>
     <message>
-        <location filename="../../src/menu_bar/connections/menubar_connections.cpp" line="417"/>
+        <location filename="../../src/menu_bar/connections/menubar_connections.cpp" line="418"/>
         <source>No serial output port is currently opened.
 
 Please select a valid port and click &apos;Connect&apos; before enabling serial output.</source>
@@ -366,7 +366,7 @@ Please select a valid port and click &apos;Connect&apos; before enabling serial 
 Veuillez sélectionner un port valide et cliquer sur « Connecter » avant d’activer la sortie série.</translation>
     </message>
     <message>
-        <location filename="../../src/menu_bar/connections/menubar_connections.cpp" line="555"/>
+        <location filename="../../src/menu_bar/connections/menubar_connections.cpp" line="556"/>
         <source>Output UDP port conflicts with input UDP port.
 Please choose a different port.</source>
         <translation>Conflit avec le port UDP d&apos;entrée.
@@ -378,7 +378,7 @@ Choissisez un port différent.</translation>
     <message>
         <location filename="../../src/menu_bar/data_monitor/menubar_datamonitor.ui" line="14"/>
         <source>Dialog</source>
-        <translation>Dialogue</translation>
+        <translation>Boîte de dialogue</translation>
     </message>
     <message>
         <location filename="../../src/menu_bar/data_monitor/menubar_datamonitor.ui" line="55"/>
@@ -411,7 +411,7 @@ Choissisez un port différent.</translation>
     <message>
         <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="14"/>
         <source>Dialog</source>
-        <translation>Dialogue</translation>
+        <translation>Boîte de dialogue</translation>
     </message>
     <message>
         <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="220"/>
@@ -707,7 +707,7 @@ Choissisez un port différent.</translation>
         <translation>Enregistrer</translation>
     </message>
     <message>
-        <location filename="../../src/menu_bar/txt_logger/menubar_txtlogger.cpp" line="164"/>
+        <location filename="../../src/menu_bar/txt_logger/menubar_txtlogger.cpp" line="165"/>
         <source> Record Data To File</source>
         <translation> Enregistrer</translation>
     </message>
@@ -718,12 +718,12 @@ Choissisez un port différent.</translation>
     </message>
     <message>
         <location filename="../../src/menu_bar/txt_logger/menubar_txtlogger.ui" line="594"/>
-        <location filename="../../src/menu_bar/txt_logger/menubar_txtlogger.cpp" line="162"/>
+        <location filename="../../src/menu_bar/txt_logger/menubar_txtlogger.cpp" line="163"/>
         <source>Not recording</source>
         <translation>Enregistrement Inactif</translation>
     </message>
     <message>
-        <location filename="../../src/menu_bar/txt_logger/menubar_txtlogger.cpp" line="63"/>
+        <location filename="../../src/menu_bar/txt_logger/menubar_txtlogger.cpp" line="64"/>
         <source>File missing</source>
         <translation>Fichier absent</translation>
     </message>
@@ -733,34 +733,34 @@ Choissisez un port différent.</translation>
         <translation>Enregistreur de données</translation>
     </message>
     <message>
-        <location filename="../../src/menu_bar/txt_logger/menubar_txtlogger.cpp" line="94"/>
+        <location filename="../../src/menu_bar/txt_logger/menubar_txtlogger.cpp" line="95"/>
         <source>Select output directory</source>
         <translation>Choisir le dossier de sortie</translation>
     </message>
     <message>
-        <location filename="../../src/menu_bar/txt_logger/menubar_txtlogger.cpp" line="121"/>
+        <location filename="../../src/menu_bar/txt_logger/menubar_txtlogger.cpp" line="122"/>
         <source>Missing information</source>
         <translation>Information manquante</translation>
     </message>
     <message>
-        <location filename="../../src/menu_bar/txt_logger/menubar_txtlogger.cpp" line="122"/>
+        <location filename="../../src/menu_bar/txt_logger/menubar_txtlogger.cpp" line="123"/>
         <source>Please select an output folder and enter a file name before saving.</source>
         <translation>Veuillez sélectionner un dossier de sortie et saisir un nom de fichier avant d’enregistrer.</translation>
     </message>
     <message>
-        <location filename="../../src/menu_bar/txt_logger/menubar_txtlogger.cpp" line="133"/>
+        <location filename="../../src/menu_bar/txt_logger/menubar_txtlogger.cpp" line="134"/>
         <source>Overwrite file?</source>
         <translation>Écraser le fichier ?</translation>
     </message>
     <message>
-        <location filename="../../src/menu_bar/txt_logger/menubar_txtlogger.cpp" line="134"/>
+        <location filename="../../src/menu_bar/txt_logger/menubar_txtlogger.cpp" line="135"/>
         <source>A file with the same name already exists in the selected location.
 Do you want to replace it?</source>
         <translation>Un fichier portant le même nom existe déjà à l’emplacement sélectionné.
 Voulez-vous le remplacer ?</translation>
     </message>
     <message>
-        <location filename="../../src/menu_bar/txt_logger/menubar_txtlogger.cpp" line="157"/>
+        <location filename="../../src/menu_bar/txt_logger/menubar_txtlogger.cpp" line="158"/>
         <source>Stop recording</source>
         <translation>Arrêter l&apos;enregistrement</translation>
     </message>
@@ -791,7 +791,7 @@ Voulez-vous le remplacer ?</translation>
         <location filename="../qmls/map.qml" line="521"/>
         <location filename="../qmls/map.qml" line="1347"/>
         <source>Bearing: </source>
-        <translation type="unfinished"></translation>
+        <translation>Cap: </translation>
     </message>
     <message>
         <location filename="../qmls/map.qml" line="543"/>
@@ -802,7 +802,7 @@ Voulez-vous le remplacer ?</translation>
         <location filename="../qmls/map.qml" line="561"/>
         <location filename="../qmls/map.qml" line="1741"/>
         <source>Unfollow Boat</source>
-        <translation type="unfinished">Ne plus suivre</translation>
+        <translation>Ne plus suivre</translation>
     </message>
     <message>
         <location filename="../qmls/map.qml" line="561"/>
@@ -818,12 +818,12 @@ Voulez-vous le remplacer ?</translation>
     <message>
         <location filename="../qmls/map.qml" line="608"/>
         <source>View Up...</source>
-        <translation type="unfinished"></translation>
+        <translation>Orientation carte...</translation>
     </message>
     <message>
         <location filename="../qmls/map.qml" line="624"/>
         <source>Markers...</source>
-        <translation type="unfinished"></translation>
+        <translation>Marqueurs...</translation>
     </message>
     <message>
         <location filename="../qmls/map.qml" line="640"/>
@@ -900,7 +900,7 @@ Voulez-vous le remplacer ?</translation>
         <location filename="../qmls/map.qml" line="812"/>
         <location filename="../qmls/map.qml" line="1304"/>
         <source>Heading Up</source>
-        <translation type="unfinished"></translation>
+        <translation>Cap en haut</translation>
     </message>
     <message>
         <location filename="../qmls/map.qml" line="823"/>
@@ -927,7 +927,7 @@ Voulez-vous le remplacer ?</translation>
     <message>
         <location filename="../qmls/map.qml" line="877"/>
         <source>Clear Markers</source>
-        <translation type="unfinished"></translation>
+        <translation>Effacer les marqueurs</translation>
     </message>
     <message>
         <location filename="../qmls/map.qml" line="894"/>

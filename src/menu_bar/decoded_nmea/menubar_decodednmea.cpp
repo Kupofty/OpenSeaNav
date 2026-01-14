@@ -9,9 +9,6 @@ MenuBarDecodedNmea::MenuBarDecodedNmea(QWidget *parent) : QDialog(parent), ui(ne
 {
     ui->setupUi(this);
 
-    //Set title
-    setWindowTitle(tr("Decoded NMEA"));
-
     // Enable minimize, maximize, close buttons
     Qt::WindowFlags flags = Qt::Dialog
                             | Qt::WindowMaximizeButtonHint
@@ -27,10 +24,17 @@ MenuBarDecodedNmea::~MenuBarDecodedNmea()
 }
 
 
+
+//////////
+/// UI ///
+//////////
 void MenuBarDecodedNmea::retranslate()
 {
     ui->retranslateUi(this);
+    setWindowTitle(tr("Decoded NMEA"));
 }
+
+
 
 ///////////////////
 /// Update Data ///

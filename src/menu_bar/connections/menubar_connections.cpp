@@ -12,9 +12,6 @@ MenuBarConnections::MenuBarConnections(QWidget *parent)
     ui->setupUi(this);
     ui->tabWidget->setCurrentWidget(ui->tab_inputs);
 
-    //Set title
-    setWindowTitle(tr("Connections IO"));
-
     // Enable minimize, maximize, close buttons
     Qt::WindowFlags flags = Qt::Dialog
                             | Qt::WindowMaximizeButtonHint
@@ -137,6 +134,7 @@ void MenuBarConnections::saveSettings()
 void MenuBarConnections::retranslate()
 {
     ui->retranslateUi(this);
+    setWindowTitle(tr("Connections IO"));
 }
 
 void MenuBarConnections::hideGUI()
