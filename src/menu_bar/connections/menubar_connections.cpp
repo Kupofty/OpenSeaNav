@@ -187,8 +187,9 @@ void MenuBarConnections::initializeLists()
     };
 }
 
-void MenuBarConnections::publishNMEA(const QString &type, const QString &nmeaText)
+void MenuBarConnections::publishNMEA(const QString &senderName, const QString &type, const QString &nmeaText)
 {
+    Q_UNUSED(senderName);
     udp_writer.publishNMEA(type, nmeaText);
     serial_writer.publishNMEA(type, nmeaText);
 }

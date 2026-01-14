@@ -59,10 +59,10 @@ class MenuBarConnections : public QDialog
         void initializeLists();
 
     signals:
-        void newLineReceived(const QByteArray &line);
+        void newLineReceived(QString senderName, const QByteArray &line);
 
     public slots:
-        void publishNMEA(const QString &type, const QString &nmeaText);
+        void publishNMEA(const QString &senderName, const QString &type, const QString &nmeaText);
 
     private slots:
         void updateUdpSenderDetails();

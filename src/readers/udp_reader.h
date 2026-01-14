@@ -21,7 +21,7 @@ class UdpReader : public QObject
         QString disconnect();
 
     signals:
-        void newLineReceived(const QByteArray &line);
+        void newLineReceived(QString udpPort, const QByteArray &line);
         void newSenderDetails();
 
     private slots:

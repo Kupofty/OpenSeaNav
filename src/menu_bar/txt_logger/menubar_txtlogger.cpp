@@ -35,8 +35,9 @@ MenuBarTxtLogger::~MenuBarTxtLogger()
 ////////////////////
 /// Public slots ///
 ////////////////////
-void MenuBarTxtLogger::writeRawSentences(const QString &type, const QString &nmeaText)
+void MenuBarTxtLogger::writeRawSentences(const QString &senderName, const QString &type, const QString &nmeaText)
 {
+    Q_UNUSED(senderName);
     emit newRawSentences(type, nmeaText); //bridge for TextFileWriter
 }
 

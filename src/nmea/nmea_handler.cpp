@@ -19,7 +19,7 @@ NMEA_Handler::~NMEA_Handler()
 ////////////////////////////
 /// Detect NMEA Sentence ///
 ////////////////////////////
-void NMEA_Handler::handleRawSentences(const QByteArray &line)
+void NMEA_Handler::handleRawSentences(const QString senderName, const QByteArray &line)
 {
     //Remove malformed sentences
     if (!line.startsWith('$'))
@@ -32,8 +32,8 @@ void NMEA_Handler::handleRawSentences(const QByteArray &line)
     if (!acceptedNmeaList.contains(nmeaFormat))
         nmeaFormat ="OTHER";
 
-    //Send sentences to
-    emit newNMEASentence(nmeaFormat, nmeaText);
+    //Send sentences
+    emit newNMEASentence(senderName, nmeaFormat, nmeaText);
 
     //Do not handle data with incorrect checksums;
     if (!isNmeaChecksumValid(nmeaText))

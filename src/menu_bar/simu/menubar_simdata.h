@@ -24,7 +24,7 @@ class MenuBarSimData : public QDialog
         void on_doubleSpinBox_automatic_send_freq_valueChanged(double arg1);
 
     signals:
-        void dataReady(const QByteArray &data);
+        void dataReady(const QString &senderName, const QByteArray &data);
 
     private:
         void sendData();

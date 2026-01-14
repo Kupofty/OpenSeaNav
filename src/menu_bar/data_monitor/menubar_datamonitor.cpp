@@ -36,7 +36,7 @@ void MenuBarDataMonitor::retranslate()
     ui->retranslateUi(this);
 }
 
-void MenuBarDataMonitor::displayNmeaSentence(const QString &type, const QString &nmeaText)
+void MenuBarDataMonitor::displayNmeaSentence(const QString &senderName, const QString &type, const QString &nmeaText)
 {
     Q_UNUSED(type);
 
@@ -46,10 +46,10 @@ void MenuBarDataMonitor::displayNmeaSentence(const QString &type, const QString 
         return;
 
     //Main Data Monitor
-    addToDataMonitor(nmeaText);
+    addToDataMonitor(senderName, nmeaText);
 }
 
-void MenuBarDataMonitor::addToDataMonitor(const QString &nmeaText)
+void MenuBarDataMonitor::addToDataMonitor(const QString &senderName, const QString &nmeaText)
 {
     // Look for nmea ID in sentence
     QString nmeaType = getNmeaType(nmeaText);
@@ -62,9 +62,14 @@ void MenuBarDataMonitor::addToDataMonitor(const QString &nmeaText)
     // Build colored HTML line according to checksum validity
     bool valid = isNmeaChecksumValid(nmeaText);
     QString color = valid ? "green" : "red";
-    QString htmlLine = QString("<span style=\"color:%1;\">%2</span>")
-                           .arg(color, getTimeStamp() + nmeaText.toHtmlEscaped());
 
+    // Build HTML line
+    QString htmlLine = QString(
+                           "<span style=\"color:%1;\">%2 [%3] %4</span>")
+                           .arg(color,
+                                getTimeStamp(),
+                                senderName.toHtmlEscaped(),
+                                nmeaText.toHtmlEscaped());
     // Append to QTextEdit
     ui->textEdit_data_monitor->append(htmlLine);
 }

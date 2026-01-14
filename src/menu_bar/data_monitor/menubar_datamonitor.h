@@ -21,7 +21,7 @@ class MenuBarDataMonitor : public QDialog
         void retranslate();
 
     public slots:
-        void displayNmeaSentence(const QString &type, const QString &nmeaText);
+        void displayNmeaSentence(const QString &senderName, const QString &type, const QString &nmeaText);
 
     private slots:
         void on_pushButton_clear_data_monitor_clicked();
@@ -34,6 +34,6 @@ class MenuBarDataMonitor : public QDialog
 
     private:
         void updatePlainTextsSizeLimit(unsigned int sentenceLimit);
-        void addToDataMonitor(const QString &nmeaText);
+        void addToDataMonitor(const QString &senderName, const QString &nmeaText);
 
 };

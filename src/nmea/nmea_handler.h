@@ -16,7 +16,7 @@ class NMEA_Handler : public QObject
         ~NMEA_Handler();
 
     public slots:
-        void handleRawSentences(const QByteArray &line);
+        void handleRawSentences(QString senderName, const QByteArray &line);
 
     private:
         //Frequency timers
@@ -50,7 +50,7 @@ class NMEA_Handler : public QObject
         bool isNmeaMinimumSize(const QList<QByteArray> &fields, int minSize);
 
     signals:
-        void newNMEASentence(const QString &type, const QString &nmeaText);
+        void newNMEASentence(const QString &senderName, const QString &type, const QString &nmeaText);
 
         //Signals for decoded NMEA window
         void newDecodedGSA(double pdop, double hdop, double vdop, double freqHz);

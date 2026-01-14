@@ -37,7 +37,7 @@ class MenuBarTxtLogger : public QDialog
         void newRawSentences(const QString &type, const QString &nmeaText);
 
     public slots:
-        void writeRawSentences(const QString &type, const QString &nmeaText);
+        void writeRawSentences(const QString &senderName, const QString &type, const QString &nmeaText);
 
     private slots:
         void on_pushButton_browse_folder_path_clicked();

@@ -47,13 +47,14 @@ void SerialReader::readData()
     const QByteArray data = serial.readAll();
     buffer.append(data);
 
+    QString senderName = "Serial:" + serial.portName();
     while (buffer.contains('\n'))
     {
         int index = buffer.indexOf('\n');
         QByteArray line = buffer.left(index).trimmed();
         buffer.remove(0, index + 1);
 
-        emit newLineReceived(line);
+        emit newLineReceived(senderName, line);
     }
 }
 

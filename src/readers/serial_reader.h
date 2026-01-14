@@ -27,7 +27,7 @@ class SerialReader : public QObject
         bool isSerialOpen();
 
     signals:
-        void newLineReceived(const QByteArray &line);
+        void newLineReceived(QString senderName, const QByteArray &line);
 
     private slots:
         void readData();

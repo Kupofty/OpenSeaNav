@@ -42,7 +42,9 @@ void MenuBarSimData::sendData()
                        .arg(payload, checksumText)
                        .toUpper();
 
-    emit dataReady(nmea.toUtf8());
+    QString sender = "Virtual";
+
+    emit dataReady(sender, nmea.toUtf8());
 }
 
 
