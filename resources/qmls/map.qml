@@ -109,7 +109,10 @@ Item {
     property double elapsedSec: 0
 
     //Heading & COG lines
-    property int boatLinesDistance: 155*boatSpeed // ~5min trip
+    property int distanceLineTimeTrip: 300 //seconds
+    property int cogLineDistance: knotsToMps(boatSpeed) * distanceLineTimeTrip
+    property real headingLineDistance: knotsToMps(boatSpeed) * distanceLineTimeTrip * Math.cos(toRadians(boatCourse - boatHeading))
+
 
     //Boat Track
     property bool enableTrack: false
@@ -192,53 +195,53 @@ Item {
             }
         }
 
-        //Heading Line
+        //COG Line
         MapPolyline {
-            visible: (boatPositionReceived && boatHeadingReceived)
+            visible: (boatPositionReceived && boatCourseReceived)
             line.width: 3
-            line.color: "red"
+            line.color: "blue"
 
             path: [
                 QtPositioning.coordinate(boatLatitude, boatLongitude),
-                destinationCoordinate(boatLatitude, boatLongitude, boatHeading, boatLinesDistance)
+                destinationCoordinate(boatLatitude, boatLongitude, boatCourse, cogLineDistance)
             ]
         }
         MapQuickItem {
-            visible: (boatPositionReceived && boatHeadingReceived)
-            coordinate: destinationCoordinate(boatLatitude, boatLongitude, boatHeading, boatLinesDistance)
+            visible: (boatPositionReceived && boatCourseReceived)
+            coordinate: destinationCoordinate(boatLatitude, boatLongitude, boatCourse, cogLineDistance)
             anchorPoint.x: 5
             anchorPoint.y: 5
             sourceItem: Rectangle {
                 width: 10
                 height: 10
                 radius: 5
-                color: "red"
+                color: "blue"
                 border.color: "black"
                 border.width: 1
             }
         }
 
-        //COG Line
+        //Heading Line
         MapPolyline {
-            visible: (boatPositionReceived && boatCourseReceived)
-            line.width: 1
-            line.color: "blue"
+            visible: (boatPositionReceived && boatHeadingReceived)
+            line.width: 2
+            line.color: "red"
 
             path: [
                 QtPositioning.coordinate(boatLatitude, boatLongitude),
-                destinationCoordinate(boatLatitude, boatLongitude, boatCourse, boatLinesDistance)
+                destinationCoordinate(boatLatitude, boatLongitude, boatHeading, headingLineDistance)
             ]
         }
         MapQuickItem {
-            visible: (boatPositionReceived && boatCourseReceived)
-            coordinate: destinationCoordinate(boatLatitude, boatLongitude, boatCourse, boatLinesDistance)
+            visible: (boatPositionReceived && boatHeadingReceived)
+            coordinate: destinationCoordinate(boatLatitude, boatLongitude, boatHeading, headingLineDistance)
             anchorPoint.x: 3
             anchorPoint.y: 3
             sourceItem: Rectangle {
-                width: 6
-                height: 6
-                radius: 3
-                color: "blue"
+                width: 10
+                height: 10
+                radius: 5
+                color: "red"
                 border.color: "black"
                 border.width: 1
             }

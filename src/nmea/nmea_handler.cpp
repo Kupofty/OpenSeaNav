@@ -168,6 +168,7 @@ void NMEA_Handler::handleRMC(const QList<QByteArray> &fields)
     // Emit or process parsed data
     emit newDecodedRMC(formattedDate, timeFormatted, latitude, longitude, speedKnots, course, magVar, freqHz);
     emit updateBoatPositionMap(latitude, longitude);
+    emit updateBoatSpeedMap(speedKnots);
     emit updateBoatCourseMap(course);
     emit updateBoatDateMap(formattedDate);
     emit updateBoatTimeMap(timeFormatted);
