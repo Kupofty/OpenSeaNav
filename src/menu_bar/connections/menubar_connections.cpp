@@ -241,7 +241,7 @@ void MenuBarConnections::on_pushButton_connect_serial_input_clicked()
     if(serial_reader.openSerialDevice())
     {
         result =  tr("Connected");
-        updateGuiAfterSerialConnection(true);
+        updateGuiAfterInputSerialConnection(true);
     }
     else
     {
@@ -255,7 +255,7 @@ void MenuBarConnections::on_pushButton_connect_serial_input_clicked()
 void MenuBarConnections::on_pushButton_disconnect_serial_input_clicked()
 {
     closeInputSerial();
-    updateGuiAfterSerialConnection(false);
+    updateGuiAfterInputSerialConnection(false);
 }
 
 void MenuBarConnections::closeInputSerial()
@@ -269,7 +269,7 @@ void MenuBarConnections::closeInputSerial()
         ui->plainTextEdit_connection_status_serial->setPlainText(tr("Connection not opened"));
 }
 
-void MenuBarConnections::updateGuiAfterSerialConnection(bool connectSuccess)
+void MenuBarConnections::updateGuiAfterInputSerialConnection(bool connectSuccess)
 {
     ui->horizontalFrame_serial_input_connection->setEnabled(!connectSuccess);
     ui->pushButton_connect_serial_input->setEnabled(!connectSuccess);
@@ -411,17 +411,6 @@ void MenuBarConnections::updateUdpSenderDetails()
 //////////////////////////
 
 //Settings
-void MenuBarConnections::closeOutputSerial()
-{
-    if(serial_writer.isSerialOpen())
-    {
-        serial_writer.closeSerialDevice();
-        ui->plainTextEdit_connection_status_output_serial->setPlainText(serial_writer.getPortName() + tr(" closed"));
-    }
-    else
-        ui->plainTextEdit_connection_status_output_serial->setPlainText(tr("Connection not opened"));
-}
-
 void MenuBarConnections::on_pushButton_refresh_available_port_serial_output_clicked()
 {
     listAvailableSerialPorts(ui->comboBox_serial_output_port_list);
@@ -450,7 +439,10 @@ void MenuBarConnections::on_pushButton_connect_serial_output_clicked()
     //Try to connect
     QString result;
     if(serial_writer.openSerialDevice())
+    {
         result =  tr("Connected to ") + serial_writer.getPortName();
+        updateGuiAfterOutputSerialConnection(true);
+    }
     else
         result =  tr("Failed to open ") + serial_writer.getPortName() + " : " + serial_writer.getErrorString();
 
@@ -461,6 +453,7 @@ void MenuBarConnections::on_pushButton_connect_serial_output_clicked()
 void MenuBarConnections::on_pushButton_disconnect_serial_output_clicked()
 {
     closeOutputSerial();
+    updateGuiAfterInputSerialConnection(false);
 }
 
 void MenuBarConnections::on_checkBox_serial_manual_output_stateChanged(int checked)
@@ -468,6 +461,25 @@ void MenuBarConnections::on_checkBox_serial_manual_output_stateChanged(int check
     ui->lineEdit_serial_manual_output->setEnabled(checked);
     ui->comboBox_serial_output_port_list->setEnabled(!checked);
     ui->pushButton_refresh_available_port_serial_output->setEnabled(!checked);
+}
+
+void MenuBarConnections::updateGuiAfterOutputSerialConnection(bool connectSuccess)
+{
+    ui->horizontalFrame_serial_output_connection->setEnabled(!connectSuccess);
+    ui->pushButton_connect_serial_output->setEnabled(!connectSuccess);
+    ui->pushButton_disconnect_serial_output->setEnabled(connectSuccess);
+    ui->horizontalFrame_serial_output_baudrate->setEnabled(!connectSuccess);
+}
+
+void MenuBarConnections::closeOutputSerial()
+{
+    if(serial_writer.isSerialOpen())
+    {
+        serial_writer.closeSerialDevice();
+        ui->plainTextEdit_connection_status_output_serial->setPlainText(serial_writer.getPortName() + tr(" closed"));
+    }
+    else
+        ui->plainTextEdit_connection_status_output_serial->setPlainText(tr("Connection not opened"));
 }
 
 

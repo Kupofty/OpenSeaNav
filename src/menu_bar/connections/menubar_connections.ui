@@ -29,7 +29,7 @@
    <item row="0" column="0">
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="tab_inputs">
       <attribute name="title">
@@ -1818,191 +1818,195 @@
            </spacer>
           </item>
           <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_17">
-            <property name="leftMargin">
-             <number>9</number>
-            </property>
-            <property name="topMargin">
-             <number>9</number>
-            </property>
-            <property name="rightMargin">
-             <number>9</number>
-            </property>
-            <property name="bottomMargin">
-             <number>9</number>
-            </property>
-            <item>
-             <layout class="QVBoxLayout" name="verticalLayout_20">
-              <item>
-               <widget class="QComboBox" name="comboBox_serial_output_port_list">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Ignored" vsizetype="Fixed">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="minimumSize">
-                 <size>
-                  <width>100</width>
-                  <height>0</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>16777215</width>
-                  <height>16777215</height>
-                 </size>
-                </property>
-                <property name="currentText">
-                 <string notr="true"/>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QLineEdit" name="lineEdit_serial_manual_output">
-                <property name="enabled">
-                 <bool>false</bool>
-                </property>
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="text">
-                 <string notr="true"/>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <layout class="QVBoxLayout" name="verticalLayout_24">
-              <item>
-               <widget class="QPushButton" name="pushButton_refresh_available_port_serial_output">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="font">
-                 <font>
-                  <pointsize>9</pointsize>
-                 </font>
-                </property>
-                <property name="text">
-                 <string>Refresh</string>
-                </property>
-                <property name="icon">
-                 <iconset theme="QIcon::ThemeIcon::ViewRefresh"/>
-                </property>
-                <property name="iconSize">
-                 <size>
-                  <width>10</width>
-                  <height>10</height>
-                 </size>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QCheckBox" name="checkBox_serial_manual_output">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="text">
-                 <string>Manual input</string>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-           </layout>
+           <widget class="QFrame" name="horizontalFrame_serial_output_connection">
+            <layout class="QHBoxLayout" name="horizontalLayout_17">
+             <property name="leftMargin">
+              <number>9</number>
+             </property>
+             <property name="topMargin">
+              <number>9</number>
+             </property>
+             <property name="rightMargin">
+              <number>9</number>
+             </property>
+             <property name="bottomMargin">
+              <number>9</number>
+             </property>
+             <item>
+              <layout class="QVBoxLayout" name="verticalLayout_20">
+               <item>
+                <widget class="QComboBox" name="comboBox_serial_output_port_list">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Ignored" vsizetype="Fixed">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="minimumSize">
+                  <size>
+                   <width>100</width>
+                   <height>0</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>16777215</width>
+                   <height>16777215</height>
+                  </size>
+                 </property>
+                 <property name="currentText">
+                  <string notr="true"/>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLineEdit" name="lineEdit_serial_manual_output">
+                 <property name="enabled">
+                  <bool>false</bool>
+                 </property>
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="text">
+                  <string notr="true"/>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <layout class="QVBoxLayout" name="verticalLayout_24">
+               <item>
+                <widget class="QPushButton" name="pushButton_refresh_available_port_serial_output">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <pointsize>9</pointsize>
+                  </font>
+                 </property>
+                 <property name="text">
+                  <string>Refresh</string>
+                 </property>
+                 <property name="icon">
+                  <iconset theme="QIcon::ThemeIcon::ViewRefresh"/>
+                 </property>
+                 <property name="iconSize">
+                  <size>
+                   <width>10</width>
+                   <height>10</height>
+                  </size>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QCheckBox" name="checkBox_serial_manual_output">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="text">
+                  <string>Manual input</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+            </layout>
+           </widget>
           </item>
           <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_18">
-            <property name="leftMargin">
-             <number>9</number>
-            </property>
-            <property name="topMargin">
-             <number>9</number>
-            </property>
-            <property name="rightMargin">
-             <number>9</number>
-            </property>
-            <property name="bottomMargin">
-             <number>9</number>
-            </property>
-            <item>
-             <widget class="QLabel" name="label_25">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="text">
-               <string>Baudrate :</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignmentFlag::AlignCenter</set>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QComboBox" name="comboBox_serial_output_port_baudrate">
-              <property name="currentText">
-               <string notr="true">4800</string>
-              </property>
-              <property name="currentIndex">
-               <number>2</number>
-              </property>
-              <item>
-               <property name="text">
-                <string notr="true">1200</string>
+           <widget class="QFrame" name="horizontalFrame_serial_output_baudrate">
+            <layout class="QHBoxLayout" name="horizontalLayout_18">
+             <property name="leftMargin">
+              <number>9</number>
+             </property>
+             <property name="topMargin">
+              <number>9</number>
+             </property>
+             <property name="rightMargin">
+              <number>9</number>
+             </property>
+             <property name="bottomMargin">
+              <number>9</number>
+             </property>
+             <item>
+              <widget class="QLabel" name="label_25">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
                </property>
-              </item>
-              <item>
                <property name="text">
-                <string notr="true">2400</string>
+                <string>Baudrate :</string>
                </property>
-              </item>
-              <item>
-               <property name="text">
+               <property name="alignment">
+                <set>Qt::AlignmentFlag::AlignCenter</set>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QComboBox" name="comboBox_serial_output_port_baudrate">
+               <property name="currentText">
                 <string notr="true">4800</string>
                </property>
-              </item>
-              <item>
-               <property name="text">
-                <string notr="true">9600</string>
+               <property name="currentIndex">
+                <number>2</number>
                </property>
-              </item>
-              <item>
-               <property name="text">
-                <string notr="true">19200</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string notr="true">38400</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string notr="true">57600</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string notr="true">115200</string>
-               </property>
-              </item>
-             </widget>
-            </item>
-           </layout>
+               <item>
+                <property name="text">
+                 <string notr="true">1200</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string notr="true">2400</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string notr="true">4800</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string notr="true">9600</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string notr="true">19200</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string notr="true">38400</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string notr="true">57600</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string notr="true">115200</string>
+                </property>
+               </item>
+              </widget>
+             </item>
+            </layout>
+           </widget>
           </item>
           <item>
            <layout class="QGridLayout" name="gridLayout_6">

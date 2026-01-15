@@ -57,7 +57,8 @@ class MenuBarConnections : public QDialog
         void closeOutputSerial();
         void listAvailableSerialPorts(QComboBox *comboBox);
         void hideGUI();
-        void updateGuiAfterSerialConnection(bool connectSuccess);
+        void updateGuiAfterInputSerialConnection(bool connectSuccess);
+        void updateGuiAfterOutputSerialConnection(bool connectSuccess);
         bool checkUdpOutputPortIsFree();
         void updateCheckBoxSerialOutput(bool check);
         void updateCheckBoxUdpOutput(bool check);
