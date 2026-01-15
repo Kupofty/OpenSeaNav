@@ -5,9 +5,7 @@
 ///////////////////
 /// Class Setup ///
 ///////////////////
-MenuBarConnections::MenuBarConnections(QWidget *parent)
-    : QDialog(parent)
-    , ui(new Ui::MenuBarConnections)
+MenuBarConnections::MenuBarConnections(QWidget *parent) : QDialog(parent), ui(new Ui::MenuBarConnections)
 {
     ui->setupUi(this);
     ui->tabWidget->setCurrentWidget(ui->tab_inputs);
@@ -31,10 +29,12 @@ MenuBarConnections::MenuBarConnections(QWidget *parent)
 
     //Connects
     connect(&udp_reader, &UdpReader::newSenderDetails, this, &MenuBarConnections::updateUdpSenderDetails);
+    connect(&tcp_reader, &TcpReader::updateState, this, &MenuBarConnections::updateTcpState);
 
     //Emit new input data received -> interface -> nmea_handler
     connect(&serial_reader, &SerialReader::newLineReceived, this, &MenuBarConnections::newLineReceived);
     connect(&udp_reader, &UdpReader::newLineReceived, this, &MenuBarConnections::newLineReceived);
+    connect(&tcp_reader, &TcpReader::newLineReceived, this, &MenuBarConnections::newLineReceived);
 }
 
 MenuBarConnections::~MenuBarConnections()
@@ -56,6 +56,9 @@ void MenuBarConnections::loadSettings()
 
     //Serial Input
     loadSerialInputSettings();
+
+    //TCP Input
+    loadTcpInputSettings();
 
     //UDP Input
     loadUdpInputSettings();
@@ -86,17 +89,34 @@ void MenuBarConnections::loadSerialInputSettings()
         ui->comboBox_serial_input_port_list->setCurrentIndex(index);
 
     //Manual input port
-    bool serialInputSelectManual= settingsConnections->value("serialInput/selectManual", ui->checkBox_serial_manual_input->isChecked()).toBool();
+    bool serialInputSelectManual= settingsConnections->value("serialInput/selectManual", false).toBool();
     ui->checkBox_serial_manual_input->setChecked(serialInputSelectManual);
 
-    QString serialInputPort = settingsConnections->value("serialInput/manualPort", ui->lineEdit_serial_manual_input->text()).toString();
+    QString serialInputPort = settingsConnections->value("serialInput/manualPort", "").toString();
     ui->lineEdit_serial_manual_input->setText(serialInputPort);
 
     //Autoconnect
-    bool serialAutoConnect = settingsConnections->value("serialInput/autoConnect", ui->checkBox_serial_autoconnect->isChecked()).toBool();
+    bool serialAutoConnect = settingsConnections->value("serialInput/autoConnect", false).toBool();
     ui->checkBox_serial_autoconnect->setChecked(serialAutoConnect);
     if(ui->checkBox_serial_autoconnect->isChecked())
         ui->pushButton_connect_serial_input->click();
+}
+
+void MenuBarConnections::loadTcpInputSettings()
+{
+    //IP address
+    QString tcpInputIpAddress = settingsConnections->value("tcpInput/ipAddress", "").toString();
+    ui->lineEdit_tcp_manual_input->setText(tcpInputIpAddress);
+
+    //Port
+    int tcpInputPort = settingsConnections->value("tcpInput/port", ui->spinBox_tcp_input_port->value()).toInt();
+    ui->spinBox_tcp_input_port->setValue(tcpInputPort);
+
+    //Autoconnect
+    bool tcpAutoConnect = settingsConnections->value("tcpInput/autoConnect", false).toBool();
+    ui->checkBox_tcp_autoconnect->setChecked(tcpAutoConnect);
+    if(ui->checkBox_tcp_autoconnect->isChecked())
+        ui->pushButton_connect_tcp_input->click();
 }
 
 void MenuBarConnections::loadUdpInputSettings()
@@ -106,7 +126,7 @@ void MenuBarConnections::loadUdpInputSettings()
     ui->spinBox_port_input_udp->setValue(udpInputPort);
 
     //Autoconnect
-    bool udpAutoConnect = settingsConnections->value("udpInput/autoConnect", ui->checkBox_udp_autoconnect->isChecked()).toBool();
+    bool udpAutoConnect = settingsConnections->value("udpInput/autoConnect",false).toBool();
     ui->checkBox_udp_autoconnect->setChecked(udpAutoConnect);
     if(ui->checkBox_udp_autoconnect->isChecked())
         ui->pushButton_connect_udp_input->click();
@@ -120,6 +140,11 @@ void MenuBarConnections::saveSettings()
     settingsConnections->setValue("serialInput/manualPort",  ui->lineEdit_serial_manual_input->text());
     settingsConnections->setValue("serialInput/autoConnect", ui->checkBox_serial_autoconnect->isChecked());
     settingsConnections->setValue("serialInput/listPort", ui->comboBox_serial_input_port_list->currentText());
+
+    //TCP Input
+    settingsConnections->setValue("tcpInput/ipAddress", ui->lineEdit_tcp_manual_input->text());
+    settingsConnections->setValue("tcpInput/port", ui->spinBox_tcp_input_port->value());
+    settingsConnections->setValue("tcpInput/autoConnect", ui->checkBox_tcp_autoconnect->isChecked());
 
     // UDP Input
     settingsConnections->setValue("udpInput/port", ui->spinBox_port_input_udp->value());
@@ -215,16 +240,16 @@ void MenuBarConnections::on_pushButton_connect_serial_input_clicked()
     QString result;
     if(serial_reader.openSerialDevice())
     {
-        result =  "Connected to " + serial_reader.getPortName();
+        result =  tr("Connected");
         updateGuiAfterSerialConnection(true);
     }
     else
     {
-        result =  "Failed to open " + serial_reader.getPortName() + " : " + serial_reader.getErrorString();
+        result =  tr("Failed to connect") + " : " + serial_reader.getErrorString();
     }
 
     //Display connection status
-    ui->plainTextEdit_connection_status->setPlainText(result);
+    ui->plainTextEdit_connection_status_serial->setPlainText(result);
 }
 
 void MenuBarConnections::on_pushButton_disconnect_serial_input_clicked()
@@ -238,10 +263,10 @@ void MenuBarConnections::closeInputSerial()
     if(serial_reader.isSerialOpen())
     {
         serial_reader.closeSerialDevice();
-        ui->plainTextEdit_connection_status->setPlainText(serial_reader.getPortName()+ tr(" closed"));
+        ui->plainTextEdit_connection_status_serial->setPlainText(serial_reader.getPortName()+ tr(" closed"));
     }
     else
-        ui->plainTextEdit_connection_status->setPlainText(tr("Connection not opened"));
+        ui->plainTextEdit_connection_status_serial->setPlainText(tr("Connection not opened"));
 }
 
 void MenuBarConnections::updateGuiAfterSerialConnection(bool connectSuccess)
@@ -275,6 +300,55 @@ void MenuBarConnections::on_checkBox_serial_manual_input_stateChanged(int checke
     ui->lineEdit_serial_manual_input->setEnabled(checked);
     ui->comboBox_serial_input_port_list->setEnabled(!checked);
     ui->pushButton_refresh_available_ports_list->setEnabled(!checked);
+}
+
+
+
+/////////////////
+/// TCP Input ///
+/////////////////
+void MenuBarConnections::on_pushButton_connect_tcp_input_clicked()
+{
+    //Check if IP address is valid
+    if(!isIpAddressValid(ui->lineEdit_tcp_manual_input->text()))
+    {
+        QMessageBox::warning(this,
+            tr("Invalid IP address"),
+            tr("Please enter a valid IP address in the format 0-255.0-255.0-255.0-255"));
+        ui->lineEdit_tcp_manual_input->setFocus();
+        return ;
+    }
+
+    ui->plainTextEdit_connection_status_tcp->clear();
+
+    QString ip = ui->lineEdit_tcp_manual_input->text();
+    int port = ui->spinBox_tcp_input_port->value();
+    tcp_reader.connectToHost(ip, port);
+}
+
+void MenuBarConnections::on_pushButton_disconnect_tcp_input_clicked()
+{
+    ui->pushButton_connect_tcp_input->setEnabled(true);
+    tcp_reader.abortConnection();
+}
+
+void MenuBarConnections::updateTcpState(QString state)
+{
+    ui->plainTextEdit_connection_status_tcp->setPlainText(state);
+    updateGuiAfterTcpConnection(tcp_reader.isConnectedOrConnecting());
+}
+
+void MenuBarConnections::updateGuiAfterTcpConnection(bool connectSuccess)
+{
+    ui->lineEdit_tcp_manual_input->setEnabled(!connectSuccess);
+    ui->pushButton_tcp_input_localhost->setEnabled(!connectSuccess);
+    ui->spinBox_tcp_input_port->setEnabled(!connectSuccess);
+    ui->pushButton_connect_tcp_input->setEnabled(!connectSuccess);
+}
+
+void MenuBarConnections::on_pushButton_tcp_input_localhost_clicked()
+{
+    ui->lineEdit_tcp_manual_input->setText("127.0.0.1");
 }
 
 
@@ -664,6 +738,13 @@ void MenuBarConnections::updateCheckBoxUdpOutput(bool check)
     for (QCheckBox* box : boxes)
         box->setChecked(check);
 }
+
+
+
+
+
+
+
 
 
 

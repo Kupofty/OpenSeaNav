@@ -12,6 +12,7 @@ SOURCES += \
     src/main.cpp \
     src/interface/interface.cpp \
     src/nmea/nmea_handler.cpp \
+    src/readers/tcp_reader.cpp \
     src/readers/udp_reader.cpp \
     src/readers/serial_reader.cpp \
     src/writers/output_writer.cpp \
@@ -31,6 +32,7 @@ HEADERS += \
     src/interface/interface.h \
     src/nmea/nmea_handler.h \
     src/readers/serial_reader.h \
+    src/readers/tcp_reader.h \
     src/readers/udp_reader.h \
     src/writers/output_writer.h \
     src/writers/serial_writer.h \

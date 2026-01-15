@@ -22,9 +22,9 @@ QString UdpReader::connect()
 {
     QString result;
     if (socket->bind(QHostAddress::AnyIPv4, udpPort))
-        result = "UDP bind succesfull";
+        result = tr("UDP bind succesfull");
     else
-         result = "UDP bind failed : " + socket->errorString();
+         result = tr("UDP bind failed : ") + socket->errorString();
 
      return result;
 }
@@ -34,10 +34,10 @@ QString UdpReader::disconnect()
     if(isBounded())
     {
         socket->close();
-        return "UDP socket closed";
+        return tr("UDP socket closed");
     }
     else
-        return "UDP socket not opened";
+        return tr("UDP socket not opened");
 }
 
 
@@ -87,7 +87,7 @@ void UdpReader::processPendingDatagrams()
 
         datagram = datagram.trimmed();
 
-        QString sender = "UDP:" + QString::number(udpPort);
+        QString sender = tr("UDP → ") +  QString::number(udpPort);
         emit newLineReceived(sender, datagram);
         emit newSenderDetails();
     }

@@ -34,6 +34,8 @@
 #include "menu_bar/txt_logger/menubar_txtlogger.h"
 #include "menu_bar/connections/menubar_connections.h"
 
+#include "readers/tcp_reader.h"
+
 QT_BEGIN_NAMESPACE
 namespace Ui
 {

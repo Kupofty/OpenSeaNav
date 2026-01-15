@@ -11,6 +11,38 @@ QString getTimeStamp()
 
 
 
+/////////////////////////////
+/// TCP Related Functions ///
+/////////////////////////////
+bool isIpAddressValid(QString ip_address)
+{
+    if(ip_address == "localhost")
+        return true;
+
+    QStringList octets = ip_address.split('.');
+    bool valid_ip = true;
+
+    //Check if 4 segments
+    if (octets.size() != 4)
+    {
+        valid_ip = false;
+    }
+
+    //Check if each segment is between 0 and 255
+    for (const QString &octet : octets)
+    {
+        bool ok;
+        int value = octet.toInt(&ok);
+        if (!ok || value < 0 || value > 255)
+        {
+            valid_ip = false;
+        }
+    }
+
+    return valid_ip;
+}
+
+
 //////////////////////////////
 /// NMEA Related Functions ///
 //////////////////////////////

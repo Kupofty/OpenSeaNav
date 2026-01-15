@@ -148,7 +148,7 @@ void MenuBarDecodedNmea::updateDataMWD(double dir1, QString dir1Unit, double dir
 void MenuBarDecodedNmea::updateDataMTW(double temp, QString tempUnit, double freqHz)
 {
     ui->lcdNumber_waterTemp_mtw->display(temp);
-    ui->label_waterTempUnit_mtw->setText(tr("Water temp.") + "(°" + tempUnit + ") :");
+    ui->label_waterTempUnit_mtw->setText(tr("Water temp") + ".(°" + tempUnit + ") :");
     ui->lcdNumber_frequency_mtw->display(freqHz);
 }
 

@@ -8,7 +8,9 @@
 #include <QSettings>
 #include <QStandardPaths>
 #include <QDir>
+#include <QRegularExpression>
 
+#include "readers/tcp_reader.h"
 #include "readers/serial_reader.h"
 #include "readers/udp_reader.h"
 #include "writers/udp_writer.h"
@@ -34,6 +36,7 @@ class MenuBarConnections : public QDialog
         UdpWriter udp_writer;
         SerialReader serial_reader;
         SerialWriter serial_writer;
+        TcpReader tcp_reader;
         QList<QCheckBox*> checkboxOutputSerial;
         QList<QCheckBox*> checkboxOutputUDP;
         QString configPath;
@@ -44,10 +47,12 @@ class MenuBarConnections : public QDialog
         void saveSettings();
         void loadSettings();
         void loadSerialInputSettings();
+        void loadTcpInputSettings();
         void loadUdpInputSettings();
 
         void closeInputUdp();
         void updateGuiAfterUdpConnection(bool connectSuccess);
+        void updateGuiAfterTcpConnection(bool connectSuccess);
         void closeInputSerial();
         void closeOutputSerial();
         void listAvailableSerialPorts(QComboBox *comboBox);
@@ -66,6 +71,7 @@ class MenuBarConnections : public QDialog
 
     private slots:
         void updateUdpSenderDetails();
+        void updateTcpState(QString state);
 
         void on_pushButton_connect_serial_input_clicked();
         void on_pushButton_disconnect_serial_input_clicked();
@@ -117,6 +123,9 @@ class MenuBarConnections : public QDialog
         void on_pushButton_disconnect_udp_input_clicked();
         void on_checkBox_serial_manual_input_stateChanged(int arg1);
         void on_checkBox_serial_manual_output_stateChanged(int arg1);
+        void on_pushButton_connect_tcp_input_clicked();
+        void on_pushButton_disconnect_tcp_input_clicked();
+        void on_pushButton_tcp_input_localhost_clicked();
 };
 
 #endif // MENUBAR_CONNECTIONS_H

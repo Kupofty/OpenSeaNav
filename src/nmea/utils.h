@@ -17,6 +17,7 @@ inline const QStringList acceptedNmeaList = {
 };
 
 
+
 /////////////////////////
 /// General Functions ///
 /////////////////////////
@@ -24,6 +25,9 @@ inline const QStringList acceptedNmeaList = {
 // Return actual timestamp as [yyyy-MM-dd HH:mm:ss:zzz]
 QString getTimeStamp();
 
+
+//TCP
+bool isIpAddressValid(QString ip_address);
 
 // NMEA
 bool isNmeaChecksumValid(const QString &nmea);

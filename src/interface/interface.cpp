@@ -15,6 +15,8 @@ Interface::Interface(QWidget *parent) : QMainWindow(parent), ui(new Ui::Interfac
     txt_logger_window = new MenuBarTxtLogger(this);
     connections_window = new MenuBarConnections(this);
 
+
+
     //Settings
     loadSettings();
 
