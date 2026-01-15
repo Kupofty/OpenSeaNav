@@ -77,4 +77,5 @@ class NMEA_Handler : public QObject
         void updateBoatWaterTemperatureMap(QVariant);
         void updateBoatDateMap(QVariant);
         void updateBoatTimeMap(QVariant);
+        void updateSatellitesMap(QVariant);
 };

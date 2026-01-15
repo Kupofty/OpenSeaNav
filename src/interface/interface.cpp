@@ -72,6 +72,7 @@ void Interface::connectSignalSlot()
     connect(&nmea_handler, SIGNAL(updateBoatWaterTemperatureMap(QVariant)), qmlMapObject, SLOT(updateBoatWaterTemperature(QVariant)));
     connect(&nmea_handler, SIGNAL(updateBoatDateMap(QVariant)), qmlMapObject, SLOT(updateBoatDate(QVariant)));
     connect(&nmea_handler, SIGNAL(updateBoatTimeMap(QVariant)), qmlMapObject, SLOT(updateBoatTime(QVariant)));
+    connect(&nmea_handler, SIGNAL(updateSatellitesMap(QVariant)), qmlMapObject, SLOT(updateSatellitesInView(QVariant)));
 }
 
 

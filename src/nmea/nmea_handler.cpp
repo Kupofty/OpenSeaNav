@@ -84,6 +84,7 @@ void NMEA_Handler::handleGGA(const QList<QByteArray> &fields)
     // Parse UTC time
     QString timeStr = fields[1];
     QTime utcTime = QTime::fromString(timeStr.left(6), "hhmmss");
+    QString timeFormatted = utcTime.toString();
 
     // Parse position
     QString latStr   = fields[2];
@@ -110,9 +111,10 @@ void NMEA_Handler::handleGGA(const QList<QByteArray> &fields)
     //Calculate frequency
     double freqHz = calculateFrequency(timer_gga, lastUpdateTimeGGA);
 
-    emit newDecodedGGA(utcTime.toString(), latitude, longitude, fixQuality, numSatellites, hdop, altitude, freqHz);
+    emit newDecodedGGA(timeFormatted, latitude, longitude, fixQuality, numSatellites, hdop, altitude, freqHz);
     emit updateBoatPositionMap(latitude, longitude);
-    emit updateBoatTimeMap(utcTime);
+    emit updateBoatTimeMap(timeFormatted);
+    updateSatellitesMap(numSatellites);
 }
 
 void NMEA_Handler::handleRMC(const QList<QByteArray> &fields)
@@ -189,6 +191,7 @@ void NMEA_Handler::handleGSV(const QList<QByteArray> &fields)
     {
         double freqHz = calculateFrequency(timer_gsv, lastUpdateTimeGSV);
         emit newDecodedGSV(totalSatellites, freqHz);
+        emit updateSatellitesMap(totalSatellites);
     }
 }
 

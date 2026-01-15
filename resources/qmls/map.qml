@@ -44,6 +44,7 @@ Item {
     property double boatDepth: 0            //meters
     property double boatSpeed: 0            //knots
     property double boatWaterTemperature: 0 //°C
+    property double satellitesInView: 0
 
     //Boat data received check
     property bool boatDateReceived: false
@@ -54,6 +55,7 @@ Item {
     property bool boatDepthReceived: false
     property bool boatSpeedReceived: false
     property bool boatWaterTemperatureReceived: false
+    property bool satellitesReceived: false
 
     //Labels
     property int rightClickMenuWidth: 150
@@ -106,6 +108,7 @@ Item {
     property double timeLastSpeed: 0
     property double timeLastDepth: 0
     property double timeLastWaterTemp: 0
+    property double timeLastSatellites: 0
     property double elapsedSec: 0
 
     //Heading & COG lines
@@ -1222,6 +1225,23 @@ Item {
         }
     }
 
+    //Satellites in view
+    Timer {
+        id: updateLastSatellitesTimer
+        interval: 1000
+        running: true
+        repeat: true
+
+        onTriggered: {
+            if (timeLastSatellites === 0)
+                return
+
+            elapsedSec = (Date.now() - timeLastSatellites) / 1000
+            if(elapsedSec > timeBeforeGeneralDataLost)
+                satellitesReceived = false
+        }
+    }
+
     //Update boat icon on map
     Timer {
         id: updateMapViewOnBoatTimer
@@ -1397,8 +1417,7 @@ Item {
                 radius :  labelBackgroundRadius
             }
             font.pixelSize: labelFontSize
-            text: boatDateReceived ? qsTr("Date: ") + boatDate
-                                   : qsTr("Date: ") + noData
+            text: qsTr("Date: ") + boatDate
         }
 
         // Boat Time
@@ -1415,8 +1434,24 @@ Item {
                 radius :  labelBackgroundRadius
             }
             font.pixelSize: labelFontSize
-            text: boatTimeReceived ? qsTr("Time: ") + boatTime
-                                   : qsTr("Time: ") + noData
+            text: qsTr("Time: ") + boatTime
+        }
+
+        // Satellites in view
+        Label {
+            id: satellitesInViewLabel
+            color: labelColor
+            visible: satellitesReceived
+            width: labelRightSideWidth
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
+            padding: labelPadding
+            background: Rectangle {
+                color: labelBackgroundColor
+                radius :  labelBackgroundRadius
+            }
+            font.pixelSize: labelFontSize
+            text: qsTr("Satellites In View: ") + satellitesInView
         }
 
         // Boat Position
@@ -1451,8 +1486,7 @@ Item {
                 radius :  labelBackgroundRadius
             }
             font.pixelSize: labelFontSize
-            text: boatHeadingReceived ? qsTr("Heading: ") + boatHeading.toFixed(1) + "°"
-                                      : qsTr("Heading: ") + noData
+            text: qsTr("Heading: ") + boatHeading.toFixed(1) + "°"
         }
 
         // Course
@@ -1469,8 +1503,7 @@ Item {
                 radius :  labelBackgroundRadius
             }
             font.pixelSize: labelFontSize
-            text: boatCourseReceived ? qsTr("Course: ") + boatCourse.toFixed(1) + "°"
-                                     : qsTr("Course: ") + noData
+            text: qsTr("Course: ") + boatCourse.toFixed(1) + "°"
         }
 
         // Speed
@@ -1487,8 +1520,7 @@ Item {
                 radius :  labelBackgroundRadius
             }
             font.pixelSize: labelFontSize
-            text: boatSpeedReceived ? qsTr("Speed: ") + boatSpeed.toFixed(1) + qsTr("kts")
-                                    : qsTr("Speed: ") + noData
+            text: qsTr("Speed: ") + boatSpeed.toFixed(1) + qsTr("kts")
         }
 
         // Depth
@@ -1505,8 +1537,7 @@ Item {
                 radius :  labelBackgroundRadius
             }
             font.pixelSize: labelFontSize
-            text: boatDepthReceived ? qsTr("Depth: ") + boatDepth.toFixed(1) + "m"
-                                    : qsTr("Depth: ") + noData
+            text: qsTr("Depth: ") + boatDepth.toFixed(1) + "m"
         }
 
         // Water Temperature
@@ -1523,8 +1554,7 @@ Item {
                 radius :  labelBackgroundRadius
             }
             font.pixelSize: labelFontSize
-            text: boatWaterTemperatureReceived ? qsTr("Water Temp: ") + boatWaterTemperature.toFixed(1) + "°C"
-                                               : qsTr("Water Temp: ") + noData
+            text: qsTr("Water Temp: ") + boatWaterTemperature.toFixed(1) + "°C"
         }
     }
 
@@ -1831,7 +1861,13 @@ Item {
         boatWaterTemperatureReceived = true
     }
 
+    //Update number of satellites in view
+    function updateSatellitesInView(satellites) {
+        satellitesInView = satellites
 
+        timeLastSatellites = Date.now()
+        satellitesReceived = true
+    }
 
     /////////////////////////////
     /// Internal Signal-Slots ///
