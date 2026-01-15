@@ -87,7 +87,7 @@ void UdpReader::processPendingDatagrams()
 
         datagram = datagram.trimmed();
 
-        QString sender = tr("UDP → ") +  QString::number(udpPort);
+        QString sender = tr("UDP→") +  QString::number(udpPort);
         emit newLineReceived(sender, datagram);
         emit newSenderDetails();
     }

@@ -55,7 +55,7 @@ bool TcpReader::isConnectedOrConnecting()
 /////////////
 void TcpReader::onReadyRead()
 {
-    const QString senderDetails = "TCP → " + ip + ":" + QString::number(port);
+    const QString senderDetails = "TCP→" + ip + ":" + QString::number(port);
 
     buffer.append(socket->readAll());
 

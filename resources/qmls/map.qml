@@ -1451,7 +1451,7 @@ Item {
                 radius :  labelBackgroundRadius
             }
             font.pixelSize: labelFontSize
-            text: qsTr("Satellites In View: ") + satellitesInView
+            text: qsTr("Satellites: ") + satellitesInView
         }
 
         // Boat Position

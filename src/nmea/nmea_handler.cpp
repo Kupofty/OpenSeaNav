@@ -21,8 +21,8 @@ NMEA_Handler::~NMEA_Handler()
 ////////////////////////////
 void NMEA_Handler::handleRawSentences(const QString senderName, const QByteArray &line)
 {
-    //Remove malformed sentences
-    if (!line.startsWith('$'))
+    //Remove non-NMEA sentences
+    if( !line.startsWith('$') && !line.startsWith('!') )
         return;
 
     QString nmeaText = QString::fromUtf8(line).trimmed();

@@ -48,18 +48,27 @@ bool isIpAddressValid(QString ip_address)
 //////////////////////////////
 bool isNmeaChecksumValid(const QString &nmea)
 {
-    int dollarIdx = nmea.indexOf('$');
-    int starIdx   = nmea.indexOf('*');
+    if (nmea.isEmpty())
+        return false;
 
-    if (dollarIdx == -1 || starIdx == -1 || starIdx <= dollarIdx + 1)
+    // Sentence must start with '$' or '!'
+    const QChar start = nmea.at(0);
+    if (start != '$' && start != '!')
+        return false;
+
+    int startIdx = 0;
+    int starIdx  = nmea.indexOf('*');
+
+    if (starIdx <= startIdx + 1)
         return false;
 
     quint8 checksum = 0;
-    for (int i = dollarIdx + 1; i < starIdx; ++i)
+    for (int i = startIdx + 1; i < starIdx; ++i)
         checksum ^= nmea.at(i).toLatin1();
 
     bool ok = false;
     quint8 received = nmea.mid(starIdx + 1, 2).toUInt(&ok, 16);
+
     return ok && (checksum == received);
 }
 
