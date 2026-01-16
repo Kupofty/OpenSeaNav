@@ -374,7 +374,16 @@ Item {
 
     Shortcut { //Switch View Up
         sequence: "V"
-        onActivated: mapViewMode = (mapViewMode + 1) % 4 //cycle through all 4 modes
+        onActivated: {
+            mapViewMode = (mapViewMode + 1) % 4 //cycle through all 4 modes
+
+            if(mapViewMode == 0)
+                freeViewUp = 0
+            else if(mapViewMode == 1)
+                freeViewUp = boatHeading
+            else if(mapViewMode == 2)
+                freeViewUp = boatCourse
+        }
     }
 
     Shortcut { //Drop Marker On Boat
@@ -441,8 +450,8 @@ Item {
         property real lastMouseY: 0
         property real startTilt: 0
 
-        // Right click
         onClicked: function(mouse) {
+            // Right click
             if (mouse.button === Qt.RightButton) {
                 if (measureMode) {
                     measureMode = false
@@ -498,7 +507,7 @@ Item {
                 var dx = mouse.x - lastMouseX
                 var dy = mouse.y - lastMouseY
 
-                // Rotation: horizontal drag
+                // Rotation: horizontal drag (only if freeView mode)
                 if( mapViewMode == 3)
                     freeViewUp += dx* wheelDragRotateSensitivity
 
@@ -1100,7 +1109,10 @@ Item {
                 verticalAlignment: Text.AlignVCenter
                 width: parent.width
             }
-            onTriggered: mapViewMode = 0
+            onTriggered: {
+                mapViewMode = 0
+                freeViewUp = 0
+            }
         }
 
         MenuItem {
@@ -1111,7 +1123,10 @@ Item {
                 verticalAlignment: Text.AlignVCenter
                 width: parent.width
             }
-            onTriggered: mapViewMode = 1
+            onTriggered: {
+                mapViewMode = 1
+                freeViewUp = boatHeading
+            }
         }
 
         MenuItem {
@@ -1122,7 +1137,10 @@ Item {
                 verticalAlignment: Text.AlignVCenter
                 width: parent.width
             }
-            onTriggered: mapViewMode = 2
+            onTriggered: {
+                mapViewMode = 2
+                freeViewUp = boatCourse
+            }
         }
 
         MenuItem {
