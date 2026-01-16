@@ -479,6 +479,7 @@ Item {
                 {
                     lastCoord = map.toCoordinate(Qt.point(mouse.x, mouse.y))
                     dragging = true
+                    followBoat = false
                 }
             }
 
