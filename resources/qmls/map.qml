@@ -60,7 +60,7 @@ Item {
     //Labels
     property int rightClickMenuWidth: 150
     property int labelRightSideWidth: 135
-    property int labelLeftSideWidth: 135
+    property int labelLeftSideWidth: 150
     property int labelPadding: 8
     property int labelLateralMargin: 8
     property int labelVerticalMargin: 8
@@ -132,6 +132,8 @@ Item {
     property var measureTrack: []
     property real measureTotalMeters: 0
 
+    //Map overlay
+    property double mapOverlayOpacity: 1
 
     //-------------------------------------------------------------------------------//
 
@@ -139,14 +141,15 @@ Item {
     //////////////////
     /// OSM Plugin ///
     //////////////////
+
+    //OpenStreetMaps sources
     Plugin {
         id: osmPlugin
         name: "osm"
 
-        //OpenStreetMap standard
         PluginParameter {
             name: "osm.mapping.host"
-            value: "https://tile.openstreetmap.org/"
+            value: "https://a.tile.opentopomap.org/"
         }
 
         //Disable Qt's default provider
@@ -156,11 +159,33 @@ Item {
         }
     }
 
+    //OpenSeaMap overlay source
+    Plugin {
+        id: openSeaMapPlugin
+        name: "osm"
+
+        PluginParameter {
+            name: "osm.mapping.custom.host"
+            value: "https://tiles.openseamap.org/seamark/"
+        }
+
+        PluginParameter {
+            name: "osm.mapping.custom.type"
+            value: "png"
+        }
+
+        PluginParameter {
+            name: "osm.mapping.providersrepository.disabled"
+            value: true
+        }
+    }
 
 
-    ////////////////
-    /// Main Map ///
-    ////////////////
+    ////////////
+    /// Maps ///
+    ////////////
+
+    //Main map
     Map {
         id: map
         anchors.fill: parent
@@ -270,6 +295,28 @@ Item {
 
             path: measureTrack.length > 0 ? measureTrack : []
         }
+    }
+
+    // Overlay
+    Map {
+        id: openSeaMapLayer
+        anchors.fill: parent
+        plugin: openSeaMapPlugin
+
+        // Sync camera with base map
+        center: map.center
+        zoomLevel: map.zoomLevel
+        bearing: map.bearing
+        tilt: map.tilt
+
+        // Overlay behavior
+        opacity: mapOverlayOpacity
+        color: "transparent"
+
+        // Force custom map type
+        activeMapType: supportedMapTypes.find(
+            t => t.style === MapType.CustomMap
+        )
     }
 
 
@@ -1271,20 +1318,21 @@ Item {
         anchors.leftMargin: labelLateralMargin
         spacing: labelVerticalMargin
 
-        // Map type
+        // Map chart/layer
         Label {
-            id: mapLabel
+            id: mapInfoLabel
             color: labelColor
             width: labelLeftSideWidth
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
             padding: labelPadding
+            wrapMode: Text.WordWrap
             background: Rectangle {
                 color: labelBackgroundColor
-                radius :  labelBackgroundRadius
+                radius: labelBackgroundRadius
             }
             font.pixelSize: 14
-            text: qsTr("Chart: OSM ")
+            text: qsTr("Chart: OpenTopoMap\nLayer: OpenSeaMap")
         }
 
         // Zoom level
