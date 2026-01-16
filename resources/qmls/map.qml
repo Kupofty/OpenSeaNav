@@ -79,10 +79,12 @@ Item {
 
     //Map
     property bool showUI: true
-    property bool followBoat: false
+    property bool followBoat: true
 
     // View modes
-    property double wheelDragSensitivity: 0.25
+    property double wheelDragRotateSensitivity: 0.05
+    property double wheelDragTiltSensitivity: 0.15
+
     property int mapViewMode: 0
     property double freeViewUp: 0
     property real mapRotation: {
@@ -372,12 +374,7 @@ Item {
 
     Shortcut { //Switch View Up
         sequence: "V"
-        onActivated: {
-            if(mapViewMode == 3) //return to north up if in free view
-                mapViewMode = 0
-            else                 //cycle through north/heading/course
-                mapViewMode = (mapViewMode + 1) % 3
-        }
+        onActivated: mapViewMode = (mapViewMode + 1) % 4 //cycle through all 4 modes
     }
 
     Shortcut { //Drop Marker On Boat
@@ -438,28 +435,28 @@ Item {
         property var lastCoord
         property bool dragging: false
 
-        property real lastX
+        // Rotation / tilt state
         property bool rotating: false
+        property real lastMouseX: 0
+        property real lastMouseY: 0
+        property real startTilt: 0
 
-        // Click buttons
+        // Right click
         onClicked: function(mouse) {
-            //Right-click
             if (mouse.button === Qt.RightButton) {
                 if (measureMode) {
                     measureMode = false
                     measurePoint = null
                     measureTrack = []
                     measureTotalMeters = 0
-                }
-                else {
+                } else {
                     contextMenu.popup()
                 }
             }
         }
 
-        //Mouse button pressed
         onPressed: function(mouse) {
-            //Left press
+            // Left button → pan / measure
             if (mouse.button === Qt.LeftButton) {
                 if (measureMode) {
                     var coord = map.toCoordinate(Qt.point(mouse.x, mouse.y))
@@ -470,54 +467,61 @@ Item {
                             coord.latitude, coord.longitude
                         )
                     }
-
-                    // Reassign to a new array to trigger QML binding
                     measureTrack = measureTrack.concat([coord])
                     measurePoint = measureTrack[0]
-                }
-                else
-                {
+                } else {
                     lastCoord = map.toCoordinate(Qt.point(mouse.x, mouse.y))
                     dragging = true
                     followBoat = false
                 }
             }
 
-            // Middle button
-            else if (mouse.button === Qt.MiddleButton) { //map rotating
+            // Middle button → rotate + tilt
+            else if (mouse.button === Qt.MiddleButton) {
                 rotating = true
-                lastX = mouse.x
+                lastMouseX = mouse.x
+                lastMouseY = mouse.y
+                startTilt = map.tilt
             }
         }
 
-        //Mouse button released
         onReleased: function(mouse) {
             dragging = false
             rotating = false
         }
 
-        //Moving mouse
         onPositionChanged: function(mouse) {
             cursorCoord = map.toCoordinate(Qt.point(mouse.x, mouse.y))
 
-            // Free View - rotate map
+            // Rotate (X) + Tilt (Y)
             if (rotating) {
-                mapViewMode = 3
-                freeViewUp += (mouse.x - lastX) * wheelDragSensitivity
-                lastX = mouse.x
+                var dx = mouse.x - lastMouseX
+                var dy = mouse.y - lastMouseY
+
+                // Rotation: horizontal drag
+                if( mapViewMode == 3)
+                    freeViewUp += dx* wheelDragRotateSensitivity
+
+                // Tilt: vertical drag
+                map.tilt = Math.max(0, Math.min(80, startTilt + dy * wheelDragTiltSensitivity))
+
                 return
             }
 
-            //Map panning
-            if (!measureMode && dragging && mouse.buttons === Qt.LeftButton) {
+            // Pan map
+            if (!measureMode && dragging && mouse.buttons === Qt.LeftButton)
+            {
                 var currentCoord = map.toCoordinate(Qt.point(mouse.x, mouse.y))
-                var dx = lastCoord.longitude - currentCoord.longitude
-                var dy = lastCoord.latitude - currentCoord.latitude
-                map.center = QtPositioning.coordinate(map.center.latitude + dy, map.center.longitude + dx)
+                var dxCoord = lastCoord.longitude - currentCoord.longitude
+                var dyCoord = lastCoord.latitude - currentCoord.latitude
+
+                map.center = QtPositioning.coordinate(map.center.latitude + dyCoord, map.center.longitude + dxCoord)
                 lastCoord = map.toCoordinate(Qt.point(mouse.x, mouse.y))
             }
             else
+            {
                 lastCoord = map.toCoordinate(Qt.point(mouse.x, mouse.y))
+            }
 
             // Cursor info
             cursorLatitude = cursorCoord.latitude
@@ -589,19 +593,35 @@ Item {
         modal: true
         width: rightClickMenuWidth
 
-        //Center view
+        //View
         MenuItem{
-            id: centerViewItem
+            id: viewItem
 
             contentItem: Label {
-                text: qsTr("Center View...")
+                text: qsTr("View...")
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
                 width: parent.width
             }
 
             onTriggered: {
-                centerViewSubmenu.popup(contextMenu.x + contextMenu.width, contextMenu.y + centerViewItem.y)
+                viewSubmenu.popup(contextMenu.x + contextMenu.width, contextMenu.y + viewItem.y)
+            }
+        }
+
+        //Zoom
+        MenuItem {
+            id: zoomItem
+
+            contentItem: Label {
+                text: "Zoom..."
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
+                width: parent.width
+            }
+
+            onTriggered: {
+                zoomSubmenu.popup(contextMenu.x + contextMenu.width, contextMenu.y + zoomItem.y)
             }
         }
 
@@ -635,38 +655,6 @@ Item {
 
             onTriggered: {
                 boatTrackingSubmenu.popup(contextMenu.x + contextMenu.width, contextMenu.y + drawTrackItem.y)
-            }
-        }
-
-        //Zoom
-        MenuItem {
-            id: zoomItem
-
-            contentItem: Label {
-                text: "Zoom..."
-                horizontalAlignment: Text.AlignHCenter
-                verticalAlignment: Text.AlignVCenter
-                width: parent.width
-            }
-
-            onTriggered: {
-                zoomSubmenu.popup(contextMenu.x + contextMenu.width, contextMenu.y + zoomItem.y)
-            }
-        }
-
-        //View up
-        MenuItem {
-            id: viewUpItem
-
-            contentItem: Label {
-                text: qsTr("View Up...") + " (V)"
-                horizontalAlignment: Text.AlignHCenter
-                verticalAlignment: Text.AlignVCenter
-                width: parent.width
-            }
-
-            onTriggered: {
-                viewUpSubmenu.popup(contextMenu.x + contextMenu.width, contextMenu.y + viewUpItem.y)
             }
         }
 
@@ -723,46 +711,59 @@ Item {
 
 
     //// Submenus ////
-    //Center View
+    //View
     Menu {
-        id: centerViewSubmenu
+        id: viewSubmenu
         width: rightClickMenuWidth/1.2
         modal: true
 
-        MenuItem {
-            enabled: boatPositionInit
+        //Reset view
+        MenuItem{
+            id: resetViewItem
 
             contentItem: Label {
-                text: qsTr("On Boat")
+                text: qsTr("Reset View")
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
                 width: parent.width
             }
 
             onTriggered: {
-                setCenterPositionOnBoat()
-                goToZoomLevelMap(15)
+                map.tilt = 0
+                mapViewMode = 0
             }
         }
 
-        MenuItem {
+        //Center view
+        MenuItem{
+            id: centerViewItem
+
             contentItem: Label {
-                text: qsTr("On Cursor")
+                text: qsTr("Center View...")
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
                 width: parent.width
             }
-            onTriggered: setCenterPosition(cursorLatitude, cursorLongitude)
+
+            onTriggered: {
+                centerViewSubmenu.popup(contextMenu.x + contextMenu.width, contextMenu.y + centerViewItem.y)
+            }
         }
 
+        //View up
         MenuItem {
+            id: viewUpItem
+
             contentItem: Label {
-                text: qsTr("On Position")
+                text: qsTr("View Up...") + " (V)"
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
                 width: parent.width
             }
-            onTriggered: centerViewDialog.open()
+
+            onTriggered: {
+                viewUpSubmenu.popup(contextMenu.x + contextMenu.width, contextMenu.y + viewUpItem.y)
+            }
         }
     }
 
@@ -842,45 +843,6 @@ Item {
             onTriggered:{
                 goToZoomLevelMap(map.zoomLevel-1)
             }
-        }
-    }
-
-    //View Up
-    Menu {
-        id: viewUpSubmenu
-        width: rightClickMenuWidth/1.2
-        modal: true
-
-        MenuItem {
-            contentItem: Label {
-                text: qsTr("North Up")
-                horizontalAlignment: Text.AlignHCenter
-                verticalAlignment: Text.AlignVCenter
-                width: parent.width
-            }
-            onTriggered: mapViewMode = 0
-        }
-
-        MenuItem {
-            contentItem: Label {
-                text: qsTr("Heading Up")
-                enabled: boatHeadingReceived
-                horizontalAlignment: Text.AlignHCenter
-                verticalAlignment: Text.AlignVCenter
-                width: parent.width
-            }
-            onTriggered: mapViewMode = 1
-        }
-
-        MenuItem {
-            contentItem: Label {
-                text: qsTr("Course Up")
-                enabled: boatCourseReceived
-                horizontalAlignment: Text.AlignHCenter
-                verticalAlignment: Text.AlignVCenter
-                width: parent.width
-            }
-            onTriggered: mapViewMode = 2
         }
     }
 
@@ -1077,6 +1039,101 @@ Item {
                 errorLabel.text = qsTr("Wrong input")
                 centerViewDialog.acc
             }
+        }
+    }
+
+
+    //// Subsubmenus ////
+    //Center View
+    Menu {
+        id: centerViewSubmenu
+        width: rightClickMenuWidth/1.2
+        modal: true
+
+        MenuItem {
+            enabled: boatPositionInit
+
+            contentItem: Label {
+                text: qsTr("On Boat")
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
+                width: parent.width
+            }
+
+            onTriggered: {
+                setCenterPositionOnBoat()
+                goToZoomLevelMap(15)
+            }
+        }
+
+        MenuItem {
+            contentItem: Label {
+                text: qsTr("On Cursor")
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
+                width: parent.width
+            }
+            onTriggered: setCenterPosition(cursorLatitude, cursorLongitude)
+        }
+
+        MenuItem {
+            contentItem: Label {
+                text: qsTr("On Position")
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
+                width: parent.width
+            }
+            onTriggered: centerViewDialog.open()
+        }
+    }
+
+    //View Up
+    Menu {
+        id: viewUpSubmenu
+        width: rightClickMenuWidth/1.2
+        modal: true
+
+        MenuItem {
+            contentItem: Label {
+                text: qsTr("North Up")
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
+                width: parent.width
+            }
+            onTriggered: mapViewMode = 0
+        }
+
+        MenuItem {
+            contentItem: Label {
+                text: qsTr("Heading Up")
+                enabled: boatHeadingReceived
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
+                width: parent.width
+            }
+            onTriggered: mapViewMode = 1
+        }
+
+        MenuItem {
+            contentItem: Label {
+                text: qsTr("Course Up")
+                enabled: boatCourseReceived
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
+                width: parent.width
+            }
+            onTriggered: mapViewMode = 2
+        }
+
+        MenuItem {
+            contentItem: Label {
+                text: qsTr("Free Rotation")
+                enabled: boatCourseReceived
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
+                width: parent.width
+            }
+            onTriggered: mapViewMode = 3
         }
     }
 
@@ -1319,43 +1376,6 @@ Item {
         anchors.leftMargin: labelLateralMargin
         spacing: labelVerticalMargin
 
-        // Map chart/layer
-        Label {
-            id: mapInfoLabel
-            color: labelColor
-            width: labelLeftSideWidth
-            horizontalAlignment: Text.AlignHCenter
-            verticalAlignment: Text.AlignVCenter
-            padding: labelPadding
-            wrapMode: Text.WordWrap
-            background: Rectangle {
-                color: labelBackgroundColor
-                radius: labelBackgroundRadius
-            }
-            font.pixelSize: 14
-            text: qsTr("Chart: OpenTopoMap\nLayer: OpenSeaMap")
-        }
-
-        // Zoom level
-        Label {
-            id: zoomLabel
-            color: labelColor
-            width: labelLeftSideWidth
-            horizontalAlignment: Text.AlignHCenter
-            verticalAlignment: Text.AlignVCenter
-            padding: labelPadding
-            background: Rectangle {
-                color: labelBackgroundColor
-                radius :  labelBackgroundRadius
-            }
-            font.pixelSize: 14
-            text: {
-                var percent = (map.zoomLevel - map.minimumZoomLevel) / (map.maximumZoomLevel - map.minimumZoomLevel) * 100
-                percent = Math.max(0, Math.min(100, percent))
-                return qsTr("Zoom: ") + Math.round(percent) + "%"
-            }
-        }
-
         // Map View Mode
         Label {
             id: mapViewModeLabel
@@ -1375,8 +1395,30 @@ Item {
                     case 0: default: return qsTr("North Up")
                     case 1: return qsTr("Heading Up")
                     case 2: return qsTr("Course Up")
-                    case 3: return qsTr("Free View")
+                    case 3: return (qsTr("Free View") + "\n" +
+                                    qsTr("Rotation: ") + Math.round(((mapRotation + 180) % 360) - 180) + "°" )
                 }
+            }
+        }
+
+        // Zoom level
+        Label {
+            id: zoomLabel
+            color: labelColor
+            width: labelLeftSideWidth
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
+            padding: labelPadding
+            background: Rectangle {
+                color: labelBackgroundColor
+                radius :  labelBackgroundRadius
+            }
+            font.pixelSize: 14
+            text: {
+                var percent = (map.zoomLevel - map.minimumZoomLevel) / (map.maximumZoomLevel - map.minimumZoomLevel) * 100
+                percent = Math.max(0, Math.min(100, percent))
+                return (qsTr("Zoom: ") + Math.round(percent) + "%" +"\n" +
+                        qsTr("Tilt: ") + Math.round(map.tilt) + "°")
             }
         }
 
