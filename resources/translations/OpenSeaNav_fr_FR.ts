@@ -9,38 +9,38 @@
         <translation></translation>
     </message>
     <message>
-        <location filename="../../src/interface/interface.ui" line="97"/>
+        <location filename="../../src/interface/interface.ui" line="99"/>
         <source>Startup window mode</source>
         <translation>Mode de la fenêtre au démarrage</translation>
     </message>
     <message>
-        <location filename="../../src/interface/interface.ui" line="136"/>
+        <location filename="../../src/interface/interface.ui" line="138"/>
         <source>Data monitor</source>
         <translation>Moniteur de données</translation>
     </message>
     <message>
-        <location filename="../../src/interface/interface.ui" line="147"/>
+        <location filename="../../src/interface/interface.ui" line="149"/>
         <source>Manual data input</source>
         <translation>Saisie manuelle de données</translation>
     </message>
     <message>
-        <location filename="../../src/interface/interface.ui" line="166"/>
+        <location filename="../../src/interface/interface.ui" line="168"/>
         <source>Toggle fullscreen</source>
         <translation>Activer/Désactiver le plein écran</translation>
     </message>
     <message>
-        <location filename="../../src/interface/interface.ui" line="201"/>
-        <location filename="../../src/interface/interface.ui" line="204"/>
+        <location filename="../../src/interface/interface.ui" line="203"/>
+        <location filename="../../src/interface/interface.ui" line="206"/>
         <source>Restore last window</source>
         <translation>Restaurer aux dernières dimensions</translation>
     </message>
     <message>
-        <location filename="../../src/interface/interface.ui" line="228"/>
+        <location filename="../../src/interface/interface.ui" line="230"/>
         <source>Data logger</source>
         <translation>Enregistreur de données</translation>
     </message>
     <message>
-        <location filename="../../src/interface/interface.ui" line="239"/>
+        <location filename="../../src/interface/interface.ui" line="241"/>
         <source>Connections</source>
         <translation>Connexions</translation>
     </message>
@@ -55,92 +55,102 @@
         <translation>Langues</translation>
     </message>
     <message>
-        <location filename="../../src/interface/interface.ui" line="77"/>
+        <location filename="../../src/interface/interface.ui" line="78"/>
         <source>Help</source>
         <translation>Aide</translation>
     </message>
     <message>
-        <location filename="../../src/interface/interface.ui" line="84"/>
+        <location filename="../../src/interface/interface.ui" line="86"/>
         <source>Tools</source>
         <translation>Outils</translation>
     </message>
     <message>
-        <location filename="../../src/interface/interface.ui" line="93"/>
+        <location filename="../../src/interface/interface.ui" line="95"/>
         <source>View</source>
         <translation>Vue</translation>
     </message>
     <message>
-        <location filename="../../src/interface/interface.ui" line="117"/>
+        <location filename="../../src/interface/interface.ui" line="119"/>
         <source>About</source>
         <translation>À propos</translation>
     </message>
     <message>
-        <location filename="../../src/interface/interface.ui" line="125"/>
+        <location filename="../../src/interface/interface.ui" line="127"/>
         <source>Exit</source>
         <translation>Quitter</translation>
     </message>
     <message>
-        <location filename="../../src/interface/interface.ui" line="128"/>
+        <location filename="../../src/interface/interface.ui" line="130"/>
         <source>Ctrl+Q</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../src/interface/interface.ui" line="139"/>
+        <location filename="../../src/interface/interface.ui" line="141"/>
         <source>Ctrl+M</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../src/interface/interface.ui" line="150"/>
+        <location filename="../../src/interface/interface.ui" line="152"/>
         <source>Ctrl+I</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../src/interface/interface.ui" line="158"/>
+        <location filename="../../src/interface/interface.ui" line="160"/>
         <source>FAQ</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../src/interface/interface.ui" line="169"/>
+        <location filename="../../src/interface/interface.ui" line="171"/>
         <source>F11</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../src/interface/interface.ui" line="177"/>
+        <location filename="../../src/interface/interface.ui" line="179"/>
         <source>Decoded NMEA</source>
         <translation>Trames NMEA Décodées</translation>
     </message>
     <message>
-        <location filename="../../src/interface/interface.ui" line="231"/>
+        <location filename="../../src/interface/interface.ui" line="233"/>
         <source>Ctrl+L</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../src/interface/interface.ui" line="242"/>
+        <location filename="../../src/interface/interface.ui" line="244"/>
         <source>Ctrl+X</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../src/interface/interface.ui" line="185"/>
+        <location filename="../../src/interface/interface.ui" line="252"/>
+        <source>Manual</source>
+        <translation>Manuel</translation>
+    </message>
+    <message>
+        <location filename="../../src/interface/interface.ui" line="260"/>
+        <source>Save settings</source>
+        <translation>Sauvegarder les paramètres</translation>
+    </message>
+    <message>
+        <location filename="../../src/interface/interface.ui" line="187"/>
         <source>Maximized</source>
         <translation>Maximisée</translation>
     </message>
     <message>
-        <location filename="../../src/interface/interface.ui" line="193"/>
+        <location filename="../../src/interface/interface.ui" line="195"/>
         <source>Fullscreen</source>
         <translation>Plein écran</translation>
     </message>
     <message>
-        <location filename="../../src/interface/interface.ui" line="212"/>
+        <location filename="../../src/interface/interface.ui" line="214"/>
         <source>English</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../src/interface/interface.ui" line="220"/>
+        <location filename="../../src/interface/interface.ui" line="222"/>
         <source>Français</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../src/interface/interface.cpp" line="200"/>
+        <location filename="../../src/interface/interface.cpp" line="203"/>
         <source>OpenSeaNav - Navigation software</source>
         <translation>OpenSeaNav - Logiciel de navigation</translation>
     </message>
@@ -153,22 +163,22 @@
         <translation>Boîte de dialogue</translation>
     </message>
     <message>
-        <location filename="../../src/menu_bar/about/menubar_about.ui" line="41"/>
+        <location filename="../../src/menu_bar/about/menubar_about.ui" line="386"/>
         <source>OpenSeaNav is a free and minimalist marine navigation software designed to help sailors. It provides map visualization and easy connection to NMEA0183-compatible devices through a simple interface.</source>
         <translation>OpenSeaNav est un logiciel de navigation maritime gratuit et minimaliste conçu pour aider les marins. Il offre une visualisation cartographique et une connexion facile aux appareils compatibles NMEA0183 grâce à une interface simple.</translation>
     </message>
     <message>
-        <location filename="../../src/menu_bar/about/menubar_about.ui" line="166"/>
+        <location filename="../../src/menu_bar/about/menubar_about.ui" line="156"/>
         <source>Designed with Qt</source>
         <translation>Conçu avec Qt</translation>
     </message>
     <message>
-        <location filename="../../src/menu_bar/about/menubar_about.ui" line="254"/>
+        <location filename="../../src/menu_bar/about/menubar_about.ui" line="231"/>
         <source>Version :</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../src/menu_bar/about/menubar_about.ui" line="307"/>
+        <location filename="../../src/menu_bar/about/menubar_about.ui" line="284"/>
         <source>Last update :</source>
         <translation>Dernière MAJ :</translation>
     </message>
@@ -450,74 +460,74 @@ Choissisez un port différent.</translation>
         <translation>Boîte de dialogue</translation>
     </message>
     <message>
-        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="220"/>
-        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="577"/>
-        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="804"/>
-        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="1031"/>
-        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="1267"/>
-        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="1392"/>
-        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="1553"/>
-        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="1965"/>
-        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="2189"/>
+        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="225"/>
+        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="491"/>
+        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="855"/>
+        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="962"/>
+        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="1319"/>
+        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="1546"/>
+        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="1792"/>
+        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="2028"/>
+        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="2192"/>
         <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="2353"/>
-        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="2552"/>
-        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="2659"/>
-        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="2844"/>
-        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="2960"/>
+        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="2547"/>
+        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="2732"/>
+        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="2848"/>
+        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="2973"/>
         <source>Frequency :</source>
         <translation>Fréquence :</translation>
     </message>
     <message>
-        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="332"/>
-        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="937"/>
+        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="397"/>
+        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="1074"/>
         <source>Date :</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="379"/>
-        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="1734"/>
-        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="2474"/>
+        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="147"/>
+        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="624"/>
+        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="1121"/>
         <source>Latitude :</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="418"/>
-        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="1773"/>
-        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="2513"/>
+        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="186"/>
+        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="663"/>
+        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="1160"/>
         <source>Longitude : </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="1120"/>
+        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="1881"/>
         <source>Heading (T) :</source>
         <translation>Cap (T) :</translation>
     </message>
     <message>
-        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="1156"/>
+        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="1917"/>
         <source>Heading (M) :</source>
         <translation>Cap (M) :</translation>
     </message>
     <message>
-        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="1926"/>
+        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="816"/>
         <source>Altitude :</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="288"/>
-        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="893"/>
-        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="1690"/>
-        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="2430"/>
+        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="103"/>
+        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="353"/>
+        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="580"/>
+        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="1030"/>
         <source>UTC time :</source>
         <translation>Temps UTC :</translation>
     </message>
     <message>
-        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="306"/>
-        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="353"/>
-        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="911"/>
-        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="958"/>
-        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="1005"/>
-        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="1708"/>
-        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="2448"/>
+        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="121"/>
+        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="371"/>
+        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="418"/>
+        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="465"/>
+        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="598"/>
+        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="1048"/>
+        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="1095"/>
         <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.cpp" line="169"/>
         <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.cpp" line="170"/>
         <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.cpp" line="195"/>
@@ -528,85 +538,85 @@ Choissisez un port différent.</translation>
         <translation>Pas de donnée</translation>
     </message>
     <message>
-        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="535"/>
+        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="1277"/>
         <source>Magnetic variation :</source>
         <translation>Variation magnétique :</translation>
     </message>
     <message>
-        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="984"/>
+        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="444"/>
         <source>Local zone :</source>
         <translation>Fuseau horaire :</translation>
     </message>
     <message>
-        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="1356"/>
+        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="2937"/>
         <source>Satellites in view : </source>
         <translation>Satellites visibles : </translation>
     </message>
     <message>
-        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="1481"/>
+        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="2281"/>
         <source>Wind angle :</source>
         <translation>Angle du vent :</translation>
     </message>
     <message>
-        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="1517"/>
-        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="2117"/>
-        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="2153"/>
+        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="1720"/>
+        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="1756"/>
+        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="2317"/>
         <source>Wind speed :</source>
         <translation>Vitesse du vent :</translation>
     </message>
     <message>
-        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="1613"/>
+        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="276"/>
         <source>Clear data</source>
         <translation>Effacer les données</translation>
     </message>
     <message>
-        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="1812"/>
+        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="702"/>
         <source>Satellites used : </source>
         <translation>Satellites utilisés : </translation>
     </message>
     <message>
-        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="1851"/>
+        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="741"/>
         <source>Fix quality :</source>
         <translation>Qualité du fix :</translation>
     </message>
     <message>
-        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="2045"/>
-        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="2081"/>
+        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="1648"/>
+        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="1684"/>
         <source>Wind direction :</source>
         <translation>Direction du vent :</translation>
     </message>
     <message>
-        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="2278"/>
+        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="2117"/>
         <source>Depth (m) :</source>
         <translation>Profondeur (m) :</translation>
     </message>
     <message>
-        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="2317"/>
+        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="2156"/>
         <source>Offset (m) :</source>
         <translation>Décalage (m) :</translation>
     </message>
     <message>
-        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="2620"/>
+        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="923"/>
         <source>Heading (T) : </source>
         <translation>Cap (T) : </translation>
     </message>
     <message>
-        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="2727"/>
+        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="2430"/>
         <source>Depth (f) : </source>
         <translation>Profondeur (f) : </translation>
     </message>
     <message>
-        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="2766"/>
+        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="2469"/>
         <source>Depth (m) : </source>
         <translation>Profondeur (m) : </translation>
     </message>
     <message>
-        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="2805"/>
+        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="2508"/>
         <source>Depth (F) : </source>
         <translation>Profondeur (F) : </translation>
     </message>
     <message>
-        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="2924"/>
+        <location filename="../../src/menu_bar/decoded_nmea/menubar_decodednmea.ui" line="2812"/>
         <source>Water temp. :</source>
         <translation>Temp. de l&apos;eau :</translation>
     </message>
@@ -802,6 +812,24 @@ Voulez-vous le remplacer ?</translation>
     </message>
 </context>
 <context>
+    <name>MenuBarUserManual</name>
+    <message>
+        <location filename="../../src/menu_bar/manual/menubar_usermanual.ui" line="14"/>
+        <source>Dialog</source>
+        <translation>Boîte de dialogue</translation>
+    </message>
+    <message>
+        <location filename="../../src/menu_bar/manual/menubar_usermanual.cpp" line="7"/>
+        <source>User Manual</source>
+        <translation>Manuel opérateur</translation>
+    </message>
+    <message>
+        <location filename="../../src/menu_bar/manual/menubar_usermanual.cpp" line="38"/>
+        <source>Failed to load manual.</source>
+        <translation>Erreur lors du chargement du manuel opérateur.</translation>
+    </message>
+</context>
+<context>
     <name>SerialReader</name>
     <message>
         <location filename="../../src/readers/serial_reader.cpp" line="50"/>
@@ -874,384 +902,428 @@ Voulez-vous le remplacer ?</translation>
         <translation>Pas de donnée</translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="101"/>
+        <location filename="../qmls/map.qml" line="106"/>
         <source>No Position Data</source>
         <translation>Pas de donnée de position</translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="572"/>
+        <location filename="../qmls/map.qml" line="623"/>
         <source>Track Total: </source>
         <translation>Parcours total: </translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="573"/>
+        <location filename="../qmls/map.qml" line="624"/>
         <source>To Cursor: </source>
         <translation>Au curseur: </translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="574"/>
-        <location filename="../qmls/map.qml" line="1418"/>
+        <location filename="../qmls/map.qml" line="625"/>
+        <location filename="../qmls/map.qml" line="1606"/>
         <source>Bearing: </source>
         <translation>Cap: </translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="596"/>
+        <location filename="../qmls/map.qml" line="770"/>
         <source>Center View...</source>
         <translation>Centrer la vue...</translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="614"/>
-        <location filename="../qmls/map.qml" line="1822"/>
+        <location filename="../qmls/map.qml" line="1002"/>
+        <location filename="../qmls/map.qml" line="2075"/>
         <source>Unfollow Boat</source>
         <translation>Ne plus suivre</translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="614"/>
-        <location filename="../qmls/map.qml" line="1822"/>
+        <location filename="../qmls/map.qml" line="1002"/>
+        <location filename="../qmls/map.qml" line="2075"/>
         <source>Follow Boat</source>
         <translation>Suivre bateau</translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="629"/>
-        <source>Tracking...</source>
-        <translation>Suivi de route...</translation>
-    </message>
-    <message>
-        <location filename="../qmls/map.qml" line="661"/>
+        <location filename="../qmls/map.qml" line="786"/>
         <source>View Up...</source>
         <translation>Orientation carte...</translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="677"/>
+        <location filename="../qmls/map.qml" line="710"/>
         <source>Markers...</source>
         <translation>Repères...</translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="693"/>
-        <source>Hide UI</source>
-        <translation>Cacher les widgets</translation>
-    </message>
-    <message>
-        <location filename="../qmls/map.qml" line="693"/>
-        <source>Show UI</source>
-        <translation>Montrer les widgets</translation>
-    </message>
-    <message>
-        <location filename="../qmls/map.qml" line="708"/>
+        <location filename="../qmls/map.qml" line="725"/>
         <source>Stop Measuring</source>
         <translation>Arrêter de mesurer</translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="708"/>
+        <location filename="../qmls/map.qml" line="725"/>
         <source>Measure Distance</source>
         <translation>Mesurer distance</translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="735"/>
+        <location filename="../qmls/map.qml" line="1164"/>
         <source>On Boat</source>
         <translation>Sur le bateau</translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="749"/>
+        <location filename="../qmls/map.qml" line="1178"/>
         <source>On Cursor</source>
         <translation>Sur le curseur</translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="759"/>
+        <location filename="../qmls/map.qml" line="1188"/>
         <source>On Position</source>
         <translation>Sur une position</translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="776"/>
+        <location filename="../qmls/map.qml" line="822"/>
         <source>Maximum Zoom</source>
         <translation>Zoom maximum</translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="788"/>
+        <location filename="../qmls/map.qml" line="834"/>
         <source>Minimum Zoom</source>
         <translation>Zoom minimum</translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="800"/>
+        <location filename="../qmls/map.qml" line="846"/>
         <source>Close View</source>
         <translation>Vue proche</translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="812"/>
+        <location filename="../qmls/map.qml" line="858"/>
         <source>Wide View</source>
         <translation>Vue large</translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="824"/>
+        <location filename="../qmls/map.qml" line="870"/>
         <source>Zoom In</source>
         <translation>Zoomer</translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="836"/>
+        <location filename="../qmls/map.qml" line="882"/>
         <source>Zoom Out</source>
         <translation>Dézoomer</translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="855"/>
-        <location filename="../qmls/map.qml" line="1374"/>
+        <location filename="../qmls/map.qml" line="1205"/>
+        <location filename="../qmls/map.qml" line="1540"/>
         <source>North Up</source>
         <translation>Nord en haut</translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="865"/>
-        <location filename="../qmls/map.qml" line="1375"/>
+        <location filename="../qmls/map.qml" line="1218"/>
+        <location filename="../qmls/map.qml" line="1541"/>
         <source>Heading Up</source>
         <translation>Cap en haut</translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="876"/>
-        <location filename="../qmls/map.qml" line="1376"/>
+        <location filename="../qmls/map.qml" line="1232"/>
+        <location filename="../qmls/map.qml" line="1542"/>
         <source>Course Up</source>
         <translation>Cap suivi en haut</translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="894"/>
+        <location filename="../qmls/map.qml" line="944"/>
         <source>Drop Marker On Cursor</source>
         <translation>Placer un repère sur le curseur</translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="906"/>
+        <location filename="../qmls/map.qml" line="956"/>
         <source>Drop Marker On Boat</source>
         <translation>Placer un curseur sur le bateau</translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="918"/>
-        <location filename="../qmls/map.qml" line="1030"/>
+        <location filename="../qmls/map.qml" line="968"/>
+        <location filename="../qmls/map.qml" line="1100"/>
         <source>Drop Marker On Position</source>
         <translation>Placer un curseur sur une position</translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="930"/>
+        <location filename="../qmls/map.qml" line="980"/>
         <source>Clear Markers</source>
         <translation>Effacer les repères</translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="947"/>
+        <location filename="../qmls/map.qml" line="1016"/>
         <source>Disable Tracking</source>
         <translation>Désactiver suivi de route</translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="947"/>
+        <location filename="../qmls/map.qml" line="1016"/>
         <source>Enable Tracking</source>
         <translation>Activer suivi de route</translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="958"/>
+        <location filename="../qmls/map.qml" line="1028"/>
         <source>Clear Track</source>
         <translation>Nettoyer trace de suivi de route</translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="974"/>
+        <location filename="../qmls/map.qml" line="1044"/>
         <source>Center View On Position</source>
         <translation>Centrer la vue sur une position</translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="989"/>
-        <location filename="../qmls/map.qml" line="1045"/>
+        <location filename="../qmls/map.qml" line="1059"/>
+        <location filename="../qmls/map.qml" line="1115"/>
         <source>Latitude:</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="996"/>
-        <location filename="../qmls/map.qml" line="1052"/>
+        <location filename="../qmls/map.qml" line="1066"/>
+        <location filename="../qmls/map.qml" line="1122"/>
         <source>Longitude:</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="1020"/>
-        <location filename="../qmls/map.qml" line="1076"/>
+        <location filename="../qmls/map.qml" line="1090"/>
+        <location filename="../qmls/map.qml" line="1146"/>
         <source>Wrong input</source>
         <translation>Entrée incorrecte</translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="1179"/>
+        <location filename="../qmls/map.qml" line="1378"/>
         <source>Position Updated
  &lt; 1s ago</source>
         <translation>Position mis à jour
 il y a &lt;1s</translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="1181"/>
+        <location filename="../qmls/map.qml" line="1380"/>
         <source>Position Updated
 </source>
         <translation>Position mise à jour
 </translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="1181"/>
+        <location filename="../qmls/map.qml" line="1380"/>
         <source>s ago</source>
         <translation>secondes</translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="1184"/>
+        <location filename="../qmls/map.qml" line="1383"/>
         <source>Position Lost</source>
         <translation>Position perdue</translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="1335"/>
-        <source>Chart: OpenTopoMap
-Layer: OpenSeaMap</source>
-        <translation>Carte: OpenTopoMap
-Calque: OpenSeaMap</translation>
-    </message>
-    <message>
-        <location filename="../qmls/map.qml" line="1354"/>
+        <location filename="../qmls/map.qml" line="1565"/>
         <source>Zoom: </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="1377"/>
+        <location filename="../qmls/map.qml" line="1543"/>
         <source>Free View</source>
         <translation>Vue Libre</translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="1395"/>
+        <location filename="../qmls/map.qml" line="647"/>
+        <source>View...</source>
+        <translation>Vue...</translation>
+    </message>
+    <message>
+        <location filename="../qmls/map.qml" line="663"/>
+        <source>Zoom...</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../qmls/map.qml" line="679"/>
+        <source>Map Overlay...</source>
+        <translation>Sur-couche...</translation>
+    </message>
+    <message>
+        <location filename="../qmls/map.qml" line="694"/>
+        <source>Boat...</source>
+        <translation>Navire...</translation>
+    </message>
+    <message>
+        <location filename="../qmls/map.qml" line="753"/>
+        <source>Reset View</source>
+        <translation>Réinitialiser la vue</translation>
+    </message>
+    <message>
+        <location filename="../qmls/map.qml" line="802"/>
+        <source>Hide Widgets</source>
+        <translation>Cacher les widgets</translation>
+    </message>
+    <message>
+        <location filename="../qmls/map.qml" line="802"/>
+        <source>Show Widgets</source>
+        <translation>Montrer les widgets</translation>
+    </message>
+    <message>
+        <location filename="../qmls/map.qml" line="917"/>
+        <source>Opacity</source>
+        <translation>Opacité</translation>
+    </message>
+    <message>
+        <location filename="../qmls/map.qml" line="1246"/>
+        <source>Free Rotation</source>
+        <translation>Rotation libre</translation>
+    </message>
+    <message>
+        <location filename="../qmls/map.qml" line="1544"/>
+        <source>Rotation: </source>
+        <translation>Rotation: </translation>
+    </message>
+    <message>
+        <location filename="../qmls/map.qml" line="1566"/>
+        <source>Tilt: </source>
+        <translation>Inclinaison: </translation>
+    </message>
+    <message>
+        <location filename="../qmls/map.qml" line="1583"/>
         <source>Cursor Position</source>
         <translation>Position Curseur</translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="1396"/>
+        <location filename="../qmls/map.qml" line="1584"/>
         <source>Lat: </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="1397"/>
-        <location filename="../qmls/map.qml" line="1519"/>
-        <location filename="../qmls/map.qml" line="1520"/>
+        <location filename="../qmls/map.qml" line="1585"/>
+        <location filename="../qmls/map.qml" line="1707"/>
+        <location filename="../qmls/map.qml" line="1708"/>
         <source>Lon: </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="1414"/>
+        <location filename="../qmls/map.qml" line="1602"/>
         <source>From Boat</source>
         <translation>Du bateau</translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="1415"/>
+        <location filename="../qmls/map.qml" line="1603"/>
         <source>Distance: </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="1419"/>
+        <location filename="../qmls/map.qml" line="1607"/>
         <source>ETA: </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="1468"/>
+        <location filename="../qmls/map.qml" line="1656"/>
         <source>Date: </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="1485"/>
+        <location filename="../qmls/map.qml" line="1673"/>
         <source>Time: </source>
         <translation>Heure: </translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="1502"/>
+        <location filename="../qmls/map.qml" line="1690"/>
         <source>Satellites: </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="1519"/>
+        <location filename="../qmls/map.qml" line="1707"/>
         <source>Boat Position
 Lat: </source>
         <translation>Position bateau
 Lat: </translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="1520"/>
+        <location filename="../qmls/map.qml" line="1708"/>
         <source>Last Boat Position
 Lat: </source>
         <translation>Dernière position bateau
 Lat: </translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="1537"/>
+        <location filename="../qmls/map.qml" line="1725"/>
         <source>Heading: </source>
         <translation>Cap: </translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="1554"/>
+        <location filename="../qmls/map.qml" line="1742"/>
         <source>Course: </source>
         <translation>Route: </translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="1571"/>
+        <location filename="../qmls/map.qml" line="1759"/>
+        <location filename="../qmls/map.qml" line="1787"/>
         <source>Speed: </source>
         <translation>Vitesse: </translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="1571"/>
+        <location filename="../qmls/map.qml" line="1759"/>
         <source>kts</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="1588"/>
+        <location filename="../qmls/map.qml" line="1784"/>
+        <source>True Wind</source>
+        <translation>Vent vrai</translation>
+    </message>
+    <message>
+        <location filename="../qmls/map.qml" line="1785"/>
+        <source>Direction: </source>
+        <translation>Angle: </translation>
+    </message>
+    <message>
+        <location filename="../qmls/map.qml" line="1807"/>
         <source>Depth: </source>
         <translation>Profondeur: </translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="1605"/>
+        <location filename="../qmls/map.qml" line="1824"/>
         <source>Water Temp: </source>
         <translation>Temp. Eau: </translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="1650"/>
+        <location filename="../qmls/map.qml" line="1870"/>
         <source>NE</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="1651"/>
+        <location filename="../qmls/map.qml" line="1871"/>
         <source>SE</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="1652"/>
+        <location filename="../qmls/map.qml" line="1872"/>
         <source>SW</source>
         <translation>SO</translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="1653"/>
+        <location filename="../qmls/map.qml" line="1873"/>
         <source>NW</source>
         <translation>NO</translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="1792"/>
+        <location filename="../qmls/map.qml" line="2045"/>
         <source>Zoom -</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="1799"/>
+        <location filename="../qmls/map.qml" line="2052"/>
         <source>Zoom +</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="2131"/>
+        <location filename="../qmls/map.qml" line="2395"/>
         <source>N</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="2131"/>
+        <location filename="../qmls/map.qml" line="2395"/>
         <source>S</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="2135"/>
+        <location filename="../qmls/map.qml" line="2399"/>
         <source>E</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="2135"/>
+        <location filename="../qmls/map.qml" line="2399"/>
         <source>W</source>
         <translation>O</translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="2140"/>
+        <location filename="../qmls/map.qml" line="2404"/>
         <source>N/A</source>
         <translation></translation>
     </message>

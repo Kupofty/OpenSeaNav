@@ -70,14 +70,16 @@
     </widget>
     <addaction name="actionConnections"/>
     <addaction name="menuLanguages"/>
+    <addaction name="actionSave_settings"/>
     <addaction name="actionExit"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
      <string>Help</string>
     </property>
-    <addaction name="actionAbout"/>
+    <addaction name="actionManual"/>
     <addaction name="actionFAQ"/>
+    <addaction name="actionAbout"/>
    </widget>
    <widget class="QMenu" name="menuData_Monitor">
     <property name="title">
@@ -222,7 +224,7 @@
   </action>
   <action name="actionData_Logger">
    <property name="icon">
-    <iconset theme="QIcon::ThemeIcon::DocumentSaveAs"/>
+    <iconset theme="QIcon::ThemeIcon::MediaRecord"/>
    </property>
    <property name="text">
     <string>Data logger</string>
@@ -240,6 +242,22 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+X</string>
+   </property>
+  </action>
+  <action name="actionManual">
+   <property name="icon">
+    <iconset theme="QIcon::ThemeIcon::HelpFaq"/>
+   </property>
+   <property name="text">
+    <string>Manual</string>
+   </property>
+  </action>
+  <action name="actionSave_settings">
+   <property name="icon">
+    <iconset theme="QIcon::ThemeIcon::DocumentSave"/>
+   </property>
+   <property name="text">
+    <string>Save settings</string>
    </property>
   </action>
  </widget>

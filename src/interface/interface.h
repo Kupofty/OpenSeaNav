@@ -33,6 +33,7 @@
 #include "menu_bar/decoded_nmea/menubar_decodednmea.h"
 #include "menu_bar/txt_logger/menubar_txtlogger.h"
 #include "menu_bar/connections/menubar_connections.h"
+#include "menu_bar/user_manual/menubar_usermanual.h"
 
 #include "readers/tcp_reader.h"
 
@@ -59,6 +60,7 @@ class Interface : public QMainWindow
         MenuBarDecodedNmea *decoded_nmea_window;
         MenuBarTxtLogger *txt_logger_window;
         MenuBarConnections *connections_window;
+        MenuBarUserManual *user_manual_window;
 
         QString configPath;
         QSettings *settingsGUI;
@@ -91,4 +93,6 @@ class Interface : public QMainWindow
         void on_actionStartMaximized_toggled(bool arg1);
         void on_actionData_Logger_triggered();
         void on_actionConnections_triggered();
+        void on_actionSave_settings_triggered();
+        void on_actionManual_triggered();
 };

@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/docs">
+        <file>UserManual.md</file>
+    </qresource>
+</RCC>

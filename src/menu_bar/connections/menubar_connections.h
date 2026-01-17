@@ -29,6 +29,7 @@ class MenuBarConnections : public QDialog
         explicit MenuBarConnections(QWidget *parent = nullptr);
         ~MenuBarConnections();
         void retranslate();
+        void saveSettings();
 
     private:
         Ui::MenuBarConnections *ui;
@@ -44,7 +45,6 @@ class MenuBarConnections : public QDialog
 
     private:
         void initSettings();
-        void saveSettings();
         void loadSettings();
         void loadSerialInputSettings();
         void loadTcpInputSettings();

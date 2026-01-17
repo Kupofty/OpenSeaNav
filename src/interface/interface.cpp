@@ -1,6 +1,8 @@
 #include "interface/interface.h"
 
 
+
+
 ///////////////////
 /// Class Setup ///
 ///////////////////
@@ -14,7 +16,7 @@ Interface::Interface(QWidget *parent) : QMainWindow(parent), ui(new Ui::Interfac
     decoded_nmea_window = new MenuBarDecodedNmea(this);
     txt_logger_window = new MenuBarTxtLogger(this);
     connections_window = new MenuBarConnections(this);
-
+    user_manual_window = new MenuBarUserManual(this);
 
 
     //Settings
@@ -205,6 +207,7 @@ void Interface::loadTranslation(QString translationPath)
     decoded_nmea_window->retranslate();
     txt_logger_window->retranslate();
     connections_window->retranslate();
+    user_manual_window->retranslate();
 }
 
 void Interface::updateTranslationMenuBarGUI(QString language)
@@ -254,6 +257,12 @@ void Interface::on_actionEnglish_triggered()
 void Interface::on_actionFrench_triggered()
 {
     loadTranslation(":/translations/french.qm");
+}
+
+void Interface::on_actionSave_settings_triggered()
+{
+    saveSettings();
+    connections_window->saveSettings();
 }
 
 void Interface::on_actionExit_triggered()
@@ -339,11 +348,18 @@ void Interface::on_actionData_Logger_triggered()
 
 
 //Help
-void Interface::on_actionAbout_triggered()
+void Interface::on_actionManual_triggered()
 {
-    MenuBarAbout dlg(this);
-    dlg.exec();
+    if (user_manual_window->isVisible())
+    {
+        user_manual_window->hide();
+    }
+    else
+    {
+        user_manual_window->show();
+    }
 }
+
 
 void Interface::on_actionFAQ_triggered()
 {
@@ -351,6 +367,11 @@ void Interface::on_actionFAQ_triggered()
     dlg.exec();
 }
 
+void Interface::on_actionAbout_triggered()
+{
+    MenuBarAbout dlg(this);
+    dlg.exec();
+}
 
 
 ///////////
@@ -363,6 +384,9 @@ void Interface::toggleFullscreen()
     else
         showFullScreen();
 }
+
+
+
 
 
 
