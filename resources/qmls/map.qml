@@ -45,6 +45,8 @@ Item {
     property double boatSpeed: 0            //knots
     property double boatWaterTemperature: 0 //°C
     property double satellitesInView: 0
+    property double boatWindAngle: 0        //°
+    property double boatWindSpeed: 0        //knots
 
     //Boat data received check
     property bool boatDateReceived: false
@@ -56,6 +58,7 @@ Item {
     property bool boatSpeedReceived: false
     property bool boatWaterTemperatureReceived: false
     property bool satellitesReceived: false
+    property bool boatWindReceived: false
 
     //Labels
     property int rightClickMenuWidth: 150
@@ -78,7 +81,7 @@ Item {
     property var boatMarkerRef: null
 
     //Map
-    property bool showUI: true
+    property bool showWidgets: true
     property bool followBoat: true
 
     // View modes
@@ -111,12 +114,14 @@ Item {
     property double timeLastDepth: 0
     property double timeLastWaterTemp: 0
     property double timeLastSatellites: 0
+    property double timeLastWind: 0
     property double elapsedSec: 0
 
     //Heading & COG lines
     property int distanceLineTimeTrip: 300 //seconds
-    property int cogLineDistance: knotsToMps(boatSpeed) * distanceLineTimeTrip
-    property real headingLineDistance: knotsToMps(boatSpeed) * distanceLineTimeTrip * Math.cos(toRadians(boatCourse - boatHeading))
+    property double cogLineDistance: knotsToMps(boatSpeed) * distanceLineTimeTrip
+    property double windLineDistance: knotsToMps(boatWindSpeed) * distanceLineTimeTrip
+    property double headingLineDistance: knotsToMps(boatSpeed) * distanceLineTimeTrip * Math.cos(toRadians(boatCourse - boatHeading))
 
 
     //Boat Track
@@ -256,7 +261,7 @@ Item {
         //Heading Line
         MapPolyline {
             visible: (boatPositionReceived && boatHeadingReceived)
-            line.width: 2
+            line.width: 3
             line.color: "red"
 
             path: [
@@ -274,6 +279,34 @@ Item {
                 height: 10
                 radius: 5
                 color: "red"
+                border.color: "black"
+                border.width: 1
+            }
+        }
+
+        //Wind Line
+        MapPolyline {
+            visible: boatPositionReceived && boatWindReceived
+            line.width: 3
+            line.color: "green"
+
+            path: [
+                QtPositioning.coordinate(boatLatitude, boatLongitude),
+                destinationCoordinate(boatLatitude, boatLongitude, (boatHeading + boatWindAngle + 360) % 360, windLineDistance)
+            ]
+        }
+        MapQuickItem {
+            visible: boatPositionReceived && boatWindReceived
+            coordinate: destinationCoordinate(boatLatitude, boatLongitude, (boatHeading + boatWindAngle + 360) % 360, windLineDistance)
+
+            anchorPoint.x: 4
+            anchorPoint.y: 4
+
+            sourceItem: Rectangle {
+                width: 8
+                height: 8
+                radius: 4
+                color: "green"
                 border.color: "black"
                 border.width: 1
             }
@@ -358,7 +391,7 @@ Item {
 
     Shortcut { //Hide UI
         sequence: "H"
-        onActivated: showUI = !showUI
+        onActivated: showWidgets = !showWidgets
     }
 
     Shortcut { //Enter Measure Mode
@@ -766,14 +799,14 @@ Item {
             id: uiVisibilityItem
 
             contentItem: Label {
-                text: (showUI ? qsTr("Hide Widgets") : qsTr("Show Widgets")) + " (H)"
+                text: (showWidgets ? qsTr("Hide Widgets") : qsTr("Show Widgets")) + " (H)"
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
                 width: parent.width
             }
 
             onTriggered: {
-                showUI = !showUI
+                showWidgets = !showWidgets
             }
         }
     }
@@ -1267,6 +1300,31 @@ Item {
     //////////////
     /// Timers ///
     //////////////
+    //Update boat icon on map
+    Timer {
+        id: updateMapViewOnBoatTimer
+        interval: 1000
+        running: true
+        repeat: true
+
+        onTriggered: {
+            if (followBoat){
+                setCenterPositionOnBoat()
+            }
+        }
+    }
+
+    //Update compass
+    Timer {
+        id: updateCompass
+        interval: 1000
+        running: true
+        repeat: true
+
+        onTriggered: compassCanvas.requestPaint()
+    }
+
+
     //Boat Date
     Timer {
         id: updateLastDateTimer
@@ -1430,19 +1488,23 @@ Item {
         }
     }
 
-    //Update boat icon on map
+    //Boat Wind
     Timer {
-        id: updateMapViewOnBoatTimer
+        id: updateLastWindTimer
         interval: 1000
         running: true
         repeat: true
 
         onTriggered: {
-            if (followBoat){
-                setCenterPositionOnBoat()
-            }
+            if (timeLastWind === 0)
+                return
+
+            elapsedSec = (Date.now() - timeLastWind) / 1000
+            if(elapsedSec > timeBeforeGeneralDataLost)
+                boatWindReceived = false
         }
     }
+
 
 
 
@@ -1451,7 +1513,7 @@ Item {
     ///////////////////////////////
     Column {
         id: leftSideInfoColumn
-        visible: showUI
+        visible: showWidgets
 
         anchors.top: parent.top
         anchors.topMargin: labelVerticalMargin * 2
@@ -1569,7 +1631,7 @@ Item {
     ////////////////////////////////
     Column {
         id: rightSideInfoColumn
-        visible: showUI
+        visible: showWidgets
 
         anchors.top: parent.top
         anchors.topMargin: labelVerticalMargin * 2
@@ -1697,6 +1759,37 @@ Item {
             text: qsTr("Speed: ") + boatSpeed.toFixed(1) + qsTr("kts")
         }
 
+        // Wind
+        Label {
+            id: windLabel
+            color: labelColor
+            visible: boatWindReceived && boatHeadingReceived
+            width: labelRightSideWidth
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
+            padding: labelPadding
+
+            background: Rectangle {
+                color: labelBackgroundColor
+                radius: labelBackgroundRadius
+            }
+
+            font.pixelSize: labelFontSize
+
+            text: {
+                // True wind direction (relative to North)
+                var trueDir = (boatHeading + boatWindAngle) % 360
+                if (trueDir < 0) trueDir += 360
+
+                return qsTr("True Wind") + "\n"
+                     + qsTr("Direction: ")
+                     + Math.round(trueDir) + "°\n"
+                     + qsTr("Speed: ")
+                     + boatWindSpeed.toFixed(1) + "kts"
+            }
+        }
+
+
         // Depth
         Label {
             id: depthLabel
@@ -1737,7 +1830,7 @@ Item {
 
         width: 150
         height: 150
-        visible: (boatHeadingReceived && showUI)
+        visible: (showWidgets)
 
         anchors.bottom: parent.bottom
         anchors.right: parent.right
@@ -1746,6 +1839,7 @@ Item {
 
         property real heading: boatHeading
         property real course: boatCourse
+        property real wind: (heading + boatWindAngle) % 360
 
         onPaint: {
             var ctx = getContext("2d")
@@ -1779,34 +1873,62 @@ Item {
             ctx.fillText(qsTr("NW"), centerX - radius * 0.55, centerY - radius * 0.55);
 
             // Draw heading arrow
-            ctx.save()
-            ctx.translate(centerX, centerY)
-            ctx.rotate((heading - 0) * Math.PI / 180)
+            if(boatHeadingReceived)
+            {
+                ctx.save()
+                ctx.translate(centerX, centerY)
+                ctx.rotate((heading - 0) * Math.PI / 180)
 
-            ctx.beginPath()
-            ctx.moveTo(0, -radius + 15)
-            ctx.lineTo(5, 0)
-            ctx.lineTo(-5, 0)
-            ctx.closePath()
+                ctx.beginPath()
+                ctx.moveTo(0, -radius + 15)
+                ctx.lineTo(5, 0)
+                ctx.lineTo(-5, 0)
+                ctx.closePath()
 
-            ctx.fillStyle = "red"
-            ctx.fill()
-            ctx.restore()
+                ctx.fillStyle = "red"
+                ctx.fill()
+                ctx.restore()
+            }
 
             // Draw course arrow
-            ctx.save()
-            ctx.translate(centerX, centerY)
-            ctx.rotate((course - 0) * Math.PI / 180)
+            if(boatCourseReceived)
+            {
+                ctx.save()
+                ctx.translate(centerX, centerY)
+                ctx.rotate((course - 0) * Math.PI / 180)
 
-            ctx.beginPath()
-            ctx.moveTo(0, -radius + 20)
-            ctx.lineTo(3, 0)
-            ctx.lineTo(-3, 0)
-            ctx.closePath()
+                ctx.beginPath()
+                ctx.moveTo(0, -radius + 15)
+                ctx.lineTo(4, 0)
+                ctx.lineTo(-4, 0)
+                ctx.closePath()
 
-            ctx.fillStyle = "blue"
-            ctx.fill()
-            ctx.restore()
+                ctx.fillStyle = "blue"
+                ctx.fill()
+                ctx.restore()
+            }
+
+            // Draw wind arrow (green)
+            if (boatWindReceived)
+            {
+                ctx.save()
+                ctx.translate(centerX, centerY)
+
+                if (wind < 0)
+                    wind += 360
+
+                ctx.rotate(wind * Math.PI / 180)
+
+                ctx.beginPath()
+                ctx.moveTo(0, -radius + 15)
+                ctx.lineTo(2, -5)
+                ctx.lineTo(-2, -5)
+                ctx.closePath()
+
+                ctx.fillStyle = "green"
+                ctx.fill()
+                ctx.restore()
+            }
 
             // Draw center black circle
             ctx.beginPath()
@@ -1826,6 +1948,11 @@ Item {
             function onCourseChanged() {
                 compassCanvas.requestPaint()
             }
+
+            function onWindChanged() {
+                compassCanvas.requestPaint()
+            }
+
         }
     }
 
@@ -1907,7 +2034,7 @@ Item {
         // Zoom & Follow
         Row {
             spacing: labelVerticalMargin
-            visible: showUI
+            visible: showWidgets
             Column {
                 spacing: labelVerticalMargin / 2
 
@@ -2042,6 +2169,17 @@ Item {
         timeLastSatellites = Date.now()
         satellitesReceived = true
     }
+
+    //Update boat relative wind
+    function updateBoatWind(angle, speed){
+        boatWindAngle = angle
+        boatWindSpeed = speed
+
+        timeLastWind = Date.now()
+        boatWindReceived = true;
+    }
+
+
 
     /////////////////////////////
     /// Internal Signal-Slots ///

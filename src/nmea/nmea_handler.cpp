@@ -415,6 +415,13 @@ void NMEA_Handler::handleMWV(const QList<QByteArray> &fields)
         return;
 
     emit newDecodedMWV(angle, ref, speed, unit, freqHz);
+
+    //knots only
+    if(unit=='M')
+        speed *= 1.94384;
+    else if(unit == 'K')
+        speed *= 0.539957;
+    emit updateBoatWindMap(angle, speed);
 }
 
 
