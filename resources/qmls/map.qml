@@ -136,6 +136,8 @@ Item {
 
     //Map overlay
     property double mapOverlayOpacity: 1
+    property bool openSeaMapEnabled: true
+
 
     //-------------------------------------------------------------------------------//
 
@@ -305,15 +307,17 @@ Item {
         anchors.fill: parent
         plugin: openSeaMapPlugin
 
+        // Overlay behavior
+        visible: openSeaMapEnabled
+        enabled: openSeaMapEnabled
+        opacity: mapOverlayOpacity
+        color: "transparent"
+
         // Sync camera with base map
         center: map.center
         zoomLevel: map.zoomLevel
         bearing: map.bearing
         tilt: map.tilt
-
-        // Overlay behavior
-        opacity: mapOverlayOpacity
-        color: "transparent"
 
         // Force custom map type
         activeMapType: supportedMapTypes.find(
@@ -623,7 +627,7 @@ Item {
             id: zoomItem
 
             contentItem: Label {
-                text: "Zoom..."
+                text: qsTr("Zoom...")
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
                 width: parent.width
@@ -634,36 +638,34 @@ Item {
             }
         }
 
-        //Follow boat
+        //Map Overlay
         MenuItem {
-            id: followBoatItem
-
-            enabled: boatPositionReceived
+            id: overlayItem
 
             contentItem: Label {
-                text: (followBoat ? qsTr("Unfollow Boat") : qsTr("Follow Boat")) + " (F)"
+                text: qsTr("Map Overlay...")
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
                 width: parent.width
             }
 
             onTriggered: {
-                followBoat = !followBoat
+                overlaySubmenu.popup(contextMenu.x + contextMenu.width, contextMenu.y + overlayItem.y)
             }
         }
 
-        //Draw Track
+        //Boat
         MenuItem {
             id: drawTrackItem
             contentItem: Label {
-                text: qsTr("Tracking...")
+                text: qsTr("Boat...")
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
                 width: parent.width
             }
 
             onTriggered: {
-                boatTrackingSubmenu.popup(contextMenu.x + contextMenu.width, contextMenu.y + drawTrackItem.y)
+                boatSubmenu.popup(contextMenu.x + contextMenu.width, contextMenu.y + drawTrackItem.y)
             }
         }
 
@@ -680,22 +682,6 @@ Item {
 
             onTriggered: {
                 markerSubmenu.popup(contextMenu.x + contextMenu.width, contextMenu.y + markersItem.y)
-            }
-        }
-
-        //UI Visibility
-        MenuItem {
-            id: uiVisibilityItem
-
-            contentItem: Label {
-                text: (showUI ? qsTr("Hide UI") : qsTr("Show UI")) + " (H)"
-                horizontalAlignment: Text.AlignHCenter
-                verticalAlignment: Text.AlignVCenter
-                width: parent.width
-            }
-
-            onTriggered: {
-                showUI = !showUI
             }
         }
 
@@ -772,6 +758,22 @@ Item {
 
             onTriggered: {
                 viewUpSubmenu.popup(contextMenu.x + contextMenu.width, contextMenu.y + viewUpItem.y)
+            }
+        }
+
+        //UI Visibility
+        MenuItem {
+            id: uiVisibilityItem
+
+            contentItem: Label {
+                text: (showUI ? qsTr("Hide Widgets") : qsTr("Show Widgets")) + " (H)"
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
+                width: parent.width
+            }
+
+            onTriggered: {
+                showUI = !showUI
             }
         }
     }
@@ -855,6 +857,49 @@ Item {
         }
     }
 
+    //Overlay
+    Menu {
+        id: overlaySubmenu
+        width: rightClickMenuWidth
+        modal: true
+
+        MenuItem {
+            contentItem: Label {
+                text: openSeaMapEnabled ? "Hide" : "Show"
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
+                width: parent.width
+            }
+            onTriggered: openSeaMapEnabled = !openSeaMapEnabled
+        }
+
+        MenuItem {
+            enabled: openSeaMapEnabled
+
+            contentItem: Column {
+                width: parent.width
+                spacing: 6
+
+                Label {
+                    text: qsTr("Opacity")
+                    horizontalAlignment: Text.AlignHCenter
+                    width: parent.width
+                }
+
+                Slider {
+                    width: parent.width
+                    from: 0.0
+                    to: 1.0
+                    stepSize: 0.05
+                    value: mapOverlayOpacity
+
+                    onValueChanged: mapOverlayOpacity = value
+                }
+            }
+        }
+
+    }
+
     //Markers
     Menu {
         id: markerSubmenu
@@ -908,12 +953,31 @@ Item {
         }
     }
 
-    //Tracking
+    //Boat
     Menu {
-        id: boatTrackingSubmenu
+        id: boatSubmenu
         width: rightClickMenuWidth/1.2
         modal: true
 
+        //Follow boat
+        MenuItem {
+            id: followBoatItem
+
+            enabled: boatPositionReceived
+
+            contentItem: Label {
+                text: (followBoat ? qsTr("Unfollow Boat") : qsTr("Follow Boat")) + " (F)"
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
+                width: parent.width
+            }
+
+            onTriggered: {
+                followBoat = !followBoat
+            }
+        }
+
+        //Tracking
         MenuItem {
             contentItem: Label {
                 text: (enableTrack ? qsTr("Disable Tracking") : qsTr("Enable Tracking")) + " (T)"
@@ -925,6 +989,7 @@ Item {
             onTriggered: enableTrack = !enableTrack
         }
 
+        //Clear track
         MenuItem {
             contentItem: Label {
                 text: qsTr("Clear Track") + " (C)"
