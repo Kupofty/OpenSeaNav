@@ -156,16 +156,10 @@ Item {
         id: osmPlugin
         name: "osm"
 
-        PluginParameter {
-            name: "osm.mapping.host"
-            value: "https://a.tile.opentopomap.org/"
-        }
-
-        //Disable Qt's default provider
-        PluginParameter {
-           name: "osm.mapping.providersrepository.disabled"
-           value: true
-        }
+        PluginParameter {name: "osm.mapping.host"; value: "https://a.tile.opentopomap.org/"}
+        PluginParameter {name: "osm.mapping.cache.directory"; value: "cache" }
+        PluginParameter {name: "osm.mapping.cache.disk.size"; value: 0 }
+        PluginParameter {name: "osm.mapping.providersrepository.disabled"; value: true} //Disable Qt's default provider
     }
 
     //OpenSeaMap overlay source
@@ -173,20 +167,10 @@ Item {
         id: openSeaMapPlugin
         name: "osm"
 
-        PluginParameter {
-            name: "osm.mapping.custom.host"
-            value: "https://tiles.openseamap.org/seamark/"
-        }
-
-        PluginParameter {
-            name: "osm.mapping.custom.type"
-            value: "png"
-        }
-
-        PluginParameter {
-            name: "osm.mapping.providersrepository.disabled"
-            value: true
-        }
+        PluginParameter {name: "osm.mapping.custom.host"; value: "https://tiles.openseamap.org/seamark/"}
+        PluginParameter {name: "osm.mapping.cache.directory"; value: "cache" }
+        PluginParameter {name: "osm.mapping.cache.disk.size"; value: 0 }
+        PluginParameter {name: "osm.mapping.providersrepository.disabled"; value: true} //Disable Qt's default provider
     }
 
 
@@ -353,9 +337,7 @@ Item {
         tilt: map.tilt
 
         // Force custom map type
-        activeMapType: supportedMapTypes.find(
-            t => t.style === MapType.CustomMap
-        )
+        activeMapType: supportedMapTypes.find(t => t.style === MapType.CustomMap)
     }
 
 
@@ -528,6 +510,7 @@ Item {
                 lastMouseX = mouse.x
                 lastMouseY = mouse.y
                 startTilt = map.tilt
+
             }
         }
 
@@ -898,7 +881,7 @@ Item {
 
         MenuItem {
             contentItem: Label {
-                text: openSeaMapEnabled ? "Hide" : "Show"
+                text: openSeaMapEnabled ? "Disable" : "Enable"
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
                 width: parent.width
