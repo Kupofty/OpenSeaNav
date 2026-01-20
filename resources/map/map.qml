@@ -2254,23 +2254,26 @@ Item {
     //Boat Track
     function drawBoatTrack(){
         //Do not add if track not enabled
-        if(!enableTrack)
+        if (!enableTrack)
             return
 
         //Check if minimum distance between 2 points  before adding
         if (boatTrack.length &&
             haversineDistance(
-                boatTrack[boatTrack.length-1].latitude,
-                boatTrack[boatTrack.length-1].longitude,
+                boatTrack[boatTrack.length - 1].latitude,
+                boatTrack[boatTrack.length - 1].longitude,
                 boatLatitude, boatLongitude
             ) < minimumTrackPointsDistance)
             return
 
-        boatTrack.push(QtPositioning.coordinate(boatLatitude, boatLongitude))
+        var updatedTrack = boatTrack.slice()
+        updatedTrack.push(QtPositioning.coordinate(boatLatitude, boatLongitude))
 
         //Erase first waypoint if array exceeds max size
-        if (boatTrack.length > maxTrackPoints)
-            boatTrack.shift()
+        if (updatedTrack.length > maxTrackPoints)
+            updatedTrack.shift()
+
+        boatTrack = updatedTrack   //trigger redrawing
     }
 
 

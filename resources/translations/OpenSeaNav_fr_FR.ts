@@ -163,24 +163,19 @@
         <translation>Boîte de dialogue</translation>
     </message>
     <message>
-        <location filename="../../src/menu_bar/about/menubar_about.ui" line="386"/>
-        <source>OpenSeaNav is a free and minimalist marine navigation software designed to help sailors. It provides map visualization and easy connection to NMEA0183-compatible devices through a simple interface.</source>
-        <translation>OpenSeaNav est un logiciel de navigation maritime gratuit et minimaliste conçu pour aider les marins. Il offre une visualisation cartographique et une connexion facile aux appareils compatibles NMEA0183 grâce à une interface simple.</translation>
+        <location filename="../../src/menu_bar/about/menubar_about.ui" line="212"/>
+        <source>Settings :</source>
+        <translation>Paramètres :</translation>
     </message>
     <message>
-        <location filename="../../src/menu_bar/about/menubar_about.ui" line="156"/>
+        <location filename="../../src/menu_bar/about/menubar_about.ui" line="272"/>
         <source>Designed with Qt</source>
         <translation>Conçu avec Qt</translation>
     </message>
     <message>
-        <location filename="../../src/menu_bar/about/menubar_about.ui" line="231"/>
+        <location filename="../../src/menu_bar/about/menubar_about.ui" line="38"/>
         <source>Version :</source>
         <translation></translation>
-    </message>
-    <message>
-        <location filename="../../src/menu_bar/about/menubar_about.ui" line="284"/>
-        <source>Last update :</source>
-        <translation>Dernière MAJ :</translation>
     </message>
     <message>
         <location filename="../../src/menu_bar/about/menubar_about.cpp" line="9"/>
@@ -814,17 +809,17 @@ Voulez-vous le remplacer ?</translation>
 <context>
     <name>MenuBarUserManual</name>
     <message>
-        <location filename="../../src/menu_bar/manual/menubar_usermanual.ui" line="14"/>
+        <location filename="../../src/menu_bar/user_manual/menubar_usermanual.ui" line="14"/>
         <source>Dialog</source>
         <translation>Boîte de dialogue</translation>
     </message>
     <message>
-        <location filename="../../src/menu_bar/manual/menubar_usermanual.cpp" line="7"/>
+        <location filename="../../src/menu_bar/user_manual/menubar_usermanual.cpp" line="46"/>
         <source>User Manual</source>
         <translation>Manuel opérateur</translation>
     </message>
     <message>
-        <location filename="../../src/menu_bar/manual/menubar_usermanual.cpp" line="38"/>
+        <location filename="../../src/menu_bar/user_manual/menubar_usermanual.cpp" line="39"/>
         <source>Failed to load manual.</source>
         <translation>Erreur lors du chargement du manuel opérateur.</translation>
     </message>
@@ -897,433 +892,433 @@ Voulez-vous le remplacer ?</translation>
 <context>
     <name>map</name>
     <message>
-        <location filename="../qmls/map.qml" line="37"/>
+        <location filename="../map/map.qml" line="37"/>
         <source>No Data</source>
         <translation>Pas de donnée</translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="106"/>
+        <location filename="../map/map.qml" line="106"/>
         <source>No Position Data</source>
         <translation>Pas de donnée de position</translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="623"/>
+        <location filename="../map/map.qml" line="606"/>
         <source>Track Total: </source>
         <translation>Parcours total: </translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="624"/>
+        <location filename="../map/map.qml" line="607"/>
         <source>To Cursor: </source>
         <translation>Au curseur: </translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="625"/>
-        <location filename="../qmls/map.qml" line="1606"/>
+        <location filename="../map/map.qml" line="608"/>
+        <location filename="../map/map.qml" line="1589"/>
         <source>Bearing: </source>
         <translation>Cap: </translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="770"/>
+        <location filename="../map/map.qml" line="753"/>
         <source>Center View...</source>
         <translation>Centrer la vue...</translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="1002"/>
-        <location filename="../qmls/map.qml" line="2075"/>
+        <location filename="../map/map.qml" line="985"/>
+        <location filename="../map/map.qml" line="2066"/>
         <source>Unfollow Boat</source>
         <translation>Ne plus suivre</translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="1002"/>
-        <location filename="../qmls/map.qml" line="2075"/>
+        <location filename="../map/map.qml" line="985"/>
+        <location filename="../map/map.qml" line="2066"/>
         <source>Follow Boat</source>
         <translation>Suivre bateau</translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="786"/>
+        <location filename="../map/map.qml" line="769"/>
         <source>View Up...</source>
         <translation>Orientation carte...</translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="710"/>
+        <location filename="../map/map.qml" line="693"/>
         <source>Markers...</source>
         <translation>Repères...</translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="725"/>
+        <location filename="../map/map.qml" line="708"/>
         <source>Stop Measuring</source>
         <translation>Arrêter de mesurer</translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="725"/>
+        <location filename="../map/map.qml" line="708"/>
         <source>Measure Distance</source>
         <translation>Mesurer distance</translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="1164"/>
+        <location filename="../map/map.qml" line="1147"/>
         <source>On Boat</source>
         <translation>Sur le bateau</translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="1178"/>
+        <location filename="../map/map.qml" line="1161"/>
         <source>On Cursor</source>
         <translation>Sur le curseur</translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="1188"/>
+        <location filename="../map/map.qml" line="1171"/>
         <source>On Position</source>
         <translation>Sur une position</translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="822"/>
+        <location filename="../map/map.qml" line="805"/>
         <source>Maximum Zoom</source>
         <translation>Zoom maximum</translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="834"/>
+        <location filename="../map/map.qml" line="817"/>
         <source>Minimum Zoom</source>
         <translation>Zoom minimum</translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="846"/>
+        <location filename="../map/map.qml" line="829"/>
         <source>Close View</source>
         <translation>Vue proche</translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="858"/>
+        <location filename="../map/map.qml" line="841"/>
         <source>Wide View</source>
         <translation>Vue large</translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="870"/>
+        <location filename="../map/map.qml" line="853"/>
         <source>Zoom In</source>
         <translation>Zoomer</translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="882"/>
+        <location filename="../map/map.qml" line="865"/>
         <source>Zoom Out</source>
         <translation>Dézoomer</translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="1205"/>
-        <location filename="../qmls/map.qml" line="1540"/>
+        <location filename="../map/map.qml" line="1188"/>
+        <location filename="../map/map.qml" line="1523"/>
         <source>North Up</source>
         <translation>Nord en haut</translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="1218"/>
-        <location filename="../qmls/map.qml" line="1541"/>
+        <location filename="../map/map.qml" line="1201"/>
+        <location filename="../map/map.qml" line="1524"/>
         <source>Heading Up</source>
         <translation>Cap en haut</translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="1232"/>
-        <location filename="../qmls/map.qml" line="1542"/>
+        <location filename="../map/map.qml" line="1215"/>
+        <location filename="../map/map.qml" line="1525"/>
         <source>Course Up</source>
         <translation>Cap suivi en haut</translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="944"/>
+        <location filename="../map/map.qml" line="927"/>
         <source>Drop Marker On Cursor</source>
         <translation>Placer un repère sur le curseur</translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="956"/>
+        <location filename="../map/map.qml" line="939"/>
         <source>Drop Marker On Boat</source>
         <translation>Placer un curseur sur le bateau</translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="968"/>
-        <location filename="../qmls/map.qml" line="1100"/>
+        <location filename="../map/map.qml" line="951"/>
+        <location filename="../map/map.qml" line="1083"/>
         <source>Drop Marker On Position</source>
         <translation>Placer un curseur sur une position</translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="980"/>
+        <location filename="../map/map.qml" line="963"/>
         <source>Clear Markers</source>
         <translation>Effacer les repères</translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="1016"/>
+        <location filename="../map/map.qml" line="999"/>
         <source>Disable Tracking</source>
         <translation>Désactiver suivi de route</translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="1016"/>
+        <location filename="../map/map.qml" line="999"/>
         <source>Enable Tracking</source>
         <translation>Activer suivi de route</translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="1028"/>
+        <location filename="../map/map.qml" line="1011"/>
         <source>Clear Track</source>
         <translation>Nettoyer trace de suivi de route</translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="1044"/>
+        <location filename="../map/map.qml" line="1027"/>
         <source>Center View On Position</source>
         <translation>Centrer la vue sur une position</translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="1059"/>
-        <location filename="../qmls/map.qml" line="1115"/>
+        <location filename="../map/map.qml" line="1042"/>
+        <location filename="../map/map.qml" line="1098"/>
         <source>Latitude:</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="1066"/>
-        <location filename="../qmls/map.qml" line="1122"/>
+        <location filename="../map/map.qml" line="1049"/>
+        <location filename="../map/map.qml" line="1105"/>
         <source>Longitude:</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="1090"/>
-        <location filename="../qmls/map.qml" line="1146"/>
+        <location filename="../map/map.qml" line="1073"/>
+        <location filename="../map/map.qml" line="1129"/>
         <source>Wrong input</source>
         <translation>Entrée incorrecte</translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="1378"/>
+        <location filename="../map/map.qml" line="1361"/>
         <source>Position Updated
  &lt; 1s ago</source>
         <translation>Position mis à jour
 il y a &lt;1s</translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="1380"/>
+        <location filename="../map/map.qml" line="1363"/>
         <source>Position Updated
 </source>
         <translation>Position mise à jour
 </translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="1380"/>
+        <location filename="../map/map.qml" line="1363"/>
         <source>s ago</source>
         <translation>secondes</translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="1383"/>
+        <location filename="../map/map.qml" line="1366"/>
         <source>Position Lost</source>
         <translation>Position perdue</translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="1565"/>
+        <location filename="../map/map.qml" line="1548"/>
         <source>Zoom: </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="1543"/>
+        <location filename="../map/map.qml" line="1526"/>
         <source>Free View</source>
         <translation>Vue Libre</translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="647"/>
+        <location filename="../map/map.qml" line="630"/>
         <source>View...</source>
         <translation>Vue...</translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="663"/>
+        <location filename="../map/map.qml" line="646"/>
         <source>Zoom...</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="679"/>
+        <location filename="../map/map.qml" line="662"/>
         <source>Map Overlay...</source>
         <translation>Sur-couche...</translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="694"/>
+        <location filename="../map/map.qml" line="677"/>
         <source>Boat...</source>
         <translation>Navire...</translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="753"/>
+        <location filename="../map/map.qml" line="736"/>
         <source>Reset View</source>
         <translation>Réinitialiser la vue</translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="802"/>
+        <location filename="../map/map.qml" line="785"/>
         <source>Hide Widgets</source>
         <translation>Cacher les widgets</translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="802"/>
+        <location filename="../map/map.qml" line="785"/>
         <source>Show Widgets</source>
         <translation>Montrer les widgets</translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="917"/>
+        <location filename="../map/map.qml" line="900"/>
         <source>Opacity</source>
         <translation>Opacité</translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="1246"/>
+        <location filename="../map/map.qml" line="1229"/>
         <source>Free Rotation</source>
         <translation>Rotation libre</translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="1544"/>
+        <location filename="../map/map.qml" line="1527"/>
         <source>Rotation: </source>
         <translation>Rotation: </translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="1566"/>
+        <location filename="../map/map.qml" line="1549"/>
         <source>Tilt: </source>
         <translation>Inclinaison: </translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="1583"/>
+        <location filename="../map/map.qml" line="1566"/>
         <source>Cursor Position</source>
         <translation>Position Curseur</translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="1584"/>
+        <location filename="../map/map.qml" line="1567"/>
         <source>Lat: </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="1585"/>
-        <location filename="../qmls/map.qml" line="1707"/>
-        <location filename="../qmls/map.qml" line="1708"/>
+        <location filename="../map/map.qml" line="1568"/>
+        <location filename="../map/map.qml" line="1690"/>
+        <location filename="../map/map.qml" line="1691"/>
         <source>Lon: </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="1602"/>
+        <location filename="../map/map.qml" line="1585"/>
         <source>From Boat</source>
         <translation>Du bateau</translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="1603"/>
+        <location filename="../map/map.qml" line="1586"/>
         <source>Distance: </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="1607"/>
+        <location filename="../map/map.qml" line="1590"/>
         <source>ETA: </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="1656"/>
+        <location filename="../map/map.qml" line="1639"/>
         <source>Date: </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="1673"/>
+        <location filename="../map/map.qml" line="1656"/>
         <source>Time: </source>
         <translation>Heure: </translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="1690"/>
+        <location filename="../map/map.qml" line="1673"/>
         <source>Satellites: </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="1707"/>
+        <location filename="../map/map.qml" line="1690"/>
         <source>Boat Position
 Lat: </source>
         <translation>Position bateau
 Lat: </translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="1708"/>
+        <location filename="../map/map.qml" line="1691"/>
         <source>Last Boat Position
 Lat: </source>
         <translation>Dernière position bateau
 Lat: </translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="1725"/>
+        <location filename="../map/map.qml" line="1708"/>
         <source>Heading: </source>
         <translation>Cap: </translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="1742"/>
+        <location filename="../map/map.qml" line="1725"/>
         <source>Course: </source>
         <translation>Route: </translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="1759"/>
-        <location filename="../qmls/map.qml" line="1787"/>
+        <location filename="../map/map.qml" line="1742"/>
+        <location filename="../map/map.qml" line="1770"/>
         <source>Speed: </source>
         <translation>Vitesse: </translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="1759"/>
+        <location filename="../map/map.qml" line="1742"/>
         <source>kts</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="1784"/>
+        <location filename="../map/map.qml" line="1767"/>
         <source>True Wind</source>
         <translation>Vent vrai</translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="1785"/>
+        <location filename="../map/map.qml" line="1768"/>
         <source>Direction: </source>
         <translation>Angle: </translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="1807"/>
+        <location filename="../map/map.qml" line="1790"/>
         <source>Depth: </source>
         <translation>Profondeur: </translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="1824"/>
+        <location filename="../map/map.qml" line="1807"/>
         <source>Water Temp: </source>
         <translation>Temp. Eau: </translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="1870"/>
+        <location filename="../map/map.qml" line="1859"/>
         <source>NE</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="1871"/>
+        <location filename="../map/map.qml" line="1860"/>
         <source>SE</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="1872"/>
+        <location filename="../map/map.qml" line="1861"/>
         <source>SW</source>
         <translation>SO</translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="1873"/>
+        <location filename="../map/map.qml" line="1862"/>
         <source>NW</source>
         <translation>NO</translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="2045"/>
+        <location filename="../map/map.qml" line="2036"/>
         <source>Zoom -</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="2052"/>
+        <location filename="../map/map.qml" line="2043"/>
         <source>Zoom +</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="2395"/>
+        <location filename="../map/map.qml" line="2374"/>
         <source>N</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="2395"/>
+        <location filename="../map/map.qml" line="2374"/>
         <source>S</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="2399"/>
+        <location filename="../map/map.qml" line="2378"/>
         <source>E</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="2399"/>
+        <location filename="../map/map.qml" line="2378"/>
         <source>W</source>
         <translation>O</translation>
     </message>
     <message>
-        <location filename="../qmls/map.qml" line="2404"/>
+        <location filename="../map/map.qml" line="2383"/>
         <source>N/A</source>
         <translation></translation>
     </message>
