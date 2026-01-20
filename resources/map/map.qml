@@ -1831,6 +1831,12 @@ Item {
             var centerY = height / 2
             var radius = Math.min(width, height) / 2 - 10
 
+            // Rotate whole compass
+            ctx.save()
+            ctx.translate(centerX, centerY)
+            ctx.rotate(-mapRotation * Math.PI / 180)
+            ctx.translate(-centerX, -centerY)
+
             // Draw compass circle
             ctx.beginPath()
             ctx.strokeStyle = "black"
@@ -1918,6 +1924,8 @@ Item {
             ctx.arc(centerX, centerY, 5, 0, 2 * Math.PI)
             ctx.fillStyle = "black"
             ctx.fill()
+
+            ctx.restore()
         }
 
         // Redraw when heading changes
