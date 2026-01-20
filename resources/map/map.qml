@@ -102,7 +102,7 @@ Item {
 
     //Timer Data Update
     property int timeBeforePositionLost: 10   //seconds
-    property int timeBeforeGeneralDataLost: 5 //seconds
+    property int timeBeforeGeneralDataLost: 10 //seconds
     property string textTimerPositionUpdate: qsTr("No Position Data")
 
     property double timeLastUtcDate: 0
@@ -118,11 +118,11 @@ Item {
     property double elapsedSec: 0
 
     //Heading & COG lines
-    property int distanceLineTimeTrip: 300 //seconds
-    property double cogLineDistance: knotsToMps(boatSpeed) * distanceLineTimeTrip
-    property double windLineDistance: knotsToMps(boatWindSpeed) * distanceLineTimeTrip
-    property double headingLineDistance: knotsToMps(boatSpeed) * distanceLineTimeTrip * Math.cos(toRadians(boatCourse - boatHeading))
-
+    property int distanceLineTimeBoatTrip: 300 //seconds
+    property int distanceLineTimeWindTrip: 120 //seconds
+    property double cogLineDistance: knotsToMps(boatSpeed) * distanceLineTimeBoatTrip
+    property double headingLineDistance: knotsToMps(boatSpeed) * distanceLineTimeBoatTrip * Math.cos(toRadians(boatCourse - boatHeading))
+    property double windLineDistance: knotsToMps(boatWindSpeed) * distanceLineTimeWindTrip
 
     //Boat Track
     property bool enableTrack: false
@@ -151,7 +151,7 @@ Item {
     /// OSM Plugin ///
     //////////////////
 
-    //OpenStreetMaps sources
+    //OpenTopoMap
     Plugin {
         id: osmPlugin
         name: "osm"
@@ -162,7 +162,7 @@ Item {
         PluginParameter {name: "osm.mapping.providersrepository.disabled"; value: true} //Disable Qt's default provider
     }
 
-    //OpenSeaMap overlay source
+    //OpenSeaMap overlay
     Plugin {
         id: openSeaMapPlugin
         name: "osm"
@@ -2100,6 +2100,7 @@ Item {
 
         //Draw new boat position
         updateBoatIconOnMap()
+        updateBoatCursorCalculations()
 
         //Add new position to track line
         drawBoatTrack()
@@ -2160,22 +2161,6 @@ Item {
 
         timeLastWind = Date.now()
         boatWindReceived = true;
-    }
-
-
-
-    /////////////////////////////
-    /// Internal Signal-Slots ///
-    /////////////////////////////
-    Connections {
-        //Update boat position relative to cursor
-        function onBoatLatitudeChanged() {
-            updateBoatCursorCalculations()
-        }
-
-        function onBoatLongitudeChanged() {
-            updateBoatCursorCalculations()
-        }
     }
 
 
