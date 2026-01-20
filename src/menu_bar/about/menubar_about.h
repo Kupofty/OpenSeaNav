@@ -1,6 +1,7 @@
 #ifndef MENUBAR_ABOUT_H
 #define MENUBAR_ABOUT_H
 
+#include <QStandardPaths>
 #include <QDialog>
 
 namespace Ui {

@@ -7,6 +7,11 @@ MenuBarAbout::MenuBarAbout(QWidget *parent)
 {
     ui->setupUi(this);
     setWindowTitle(tr("About software"));
+
+
+    QString settingsFolderName = "/OpenSeaNav";
+    QString configPath = QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation) + settingsFolderName;
+    ui->label_config_files_path->setText(configPath);
 }
 
 MenuBarAbout::~MenuBarAbout()

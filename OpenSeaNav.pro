@@ -65,9 +65,10 @@ TRANSLATIONS += \
 
 RESOURCES += \
     resources/docs/docs.qrc \
+    resources/translations/translations.qrc \
     resources/pictures/pictures.qrc \
-    resources/qmls/qmls.qrc \
-    resources/translations/translations.qrc
+    resources/map/map.qrc \
+    resources/map/providers/providers.qrc
 
 
 # Default rules for deployment.

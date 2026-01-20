@@ -41,15 +41,16 @@ It enables real-time display, logging, and forwarding of navigation data with in
 
 ## Screenshots
 
-Map & Navigation View  
+**Map & Navigation View**  
 ![NMEA Center Map](resources/pictures/git_repo/map_view.png)
 
-Data Monitoring & Widgets  
+**Data Monitoring & Widgets**   
 ![NMEA Center Widgets](resources/pictures/git_repo/data_widgets.png)
 
 
 ## Project Status
-OpenSeaNav is a non-commercial personal project created for learning purposes and to support the marine and open-source community. Many improvements and new features are expected as the project evolves.
+OpenSeaNav is a non-commercial personal project created for learning purposes and to support the marine and open-source community. 
+Many improvements and new features are expected as the project evolves.
 
 
 ## Supported Platforms
@@ -61,7 +62,7 @@ OpenSeaNav is a non-commercial personal project created for learning purposes an
 ## Configuration Overview
 - Input: Serial / TCP / UDP
 - Output: Serial / UDP / Logs
-- Map & Layer: Internet connection or cached tiles
+- Map & Layer: Internet connection
 
 
 ## Data Sources & Attribution
