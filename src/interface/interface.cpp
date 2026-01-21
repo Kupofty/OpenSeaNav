@@ -68,14 +68,14 @@ void Interface::connectSignalSlot()
     //QML Map
     connect(&nmea_handler, SIGNAL(updateBoatPositionMap(QVariant,QVariant)), qmlMapObject, SLOT(updateBoatPosition(QVariant,QVariant)));
     connect(&nmea_handler, SIGNAL(updateBoatHeadingMap(QVariant)), qmlMapObject, SLOT(updateBoatHeading(QVariant)));
-    connect(&nmea_handler, SIGNAL(updateBoatDepthMap(QVariant)), qmlMapObject, SLOT(updateBoatDepth(QVariant)));
+    connect(&nmea_handler, SIGNAL(updateBoatDepthMap(QVariant)), qmlMapObject, SLOT(updateDepth(QVariant)));
     connect(&nmea_handler, SIGNAL(updateBoatSpeedMap(QVariant)), qmlMapObject, SLOT(updateBoatSpeed(QVariant)));
     connect(&nmea_handler, SIGNAL(updateBoatCourseMap(QVariant)), qmlMapObject, SLOT(updateBoatCourse(QVariant)));
-    connect(&nmea_handler, SIGNAL(updateBoatWaterTemperatureMap(QVariant)), qmlMapObject, SLOT(updateBoatWaterTemperature(QVariant)));
-    connect(&nmea_handler, SIGNAL(updateBoatDateMap(QVariant)), qmlMapObject, SLOT(updateBoatDate(QVariant)));
-    connect(&nmea_handler, SIGNAL(updateBoatTimeMap(QVariant)), qmlMapObject, SLOT(updateBoatTime(QVariant)));
+    connect(&nmea_handler, SIGNAL(updateBoatWaterTemperatureMap(QVariant)), qmlMapObject, SLOT(updateWaterTemperature(QVariant)));
+    connect(&nmea_handler, SIGNAL(updateBoatDateMap(QVariant)), qmlMapObject, SLOT(updateDate(QVariant)));
+    connect(&nmea_handler, SIGNAL(updateBoatTimeMap(QVariant)), qmlMapObject, SLOT(updateTime(QVariant)));
     connect(&nmea_handler, SIGNAL(updateSatellitesMap(QVariant)), qmlMapObject, SLOT(updateSatellitesInView(QVariant)));
-    connect(&nmea_handler, SIGNAL(updateBoatWindMap(QVariant,QVariant)), qmlMapObject, SLOT(updateBoatWind(QVariant,QVariant)));
+    connect(&nmea_handler, SIGNAL(updateBoatWindMap(QVariant,QVariant)), qmlMapObject, SLOT(updateWind(QVariant,QVariant)));
 }
 
 

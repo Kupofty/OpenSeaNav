@@ -70,6 +70,8 @@ RESOURCES += \
     resources/map/map.qrc \
     resources/map/providers/providers.qrc
 
+DISTFILES += \
+    resources/map/utils.js
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
