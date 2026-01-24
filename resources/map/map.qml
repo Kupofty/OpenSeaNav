@@ -9,6 +9,7 @@ import QtQuick.Controls
 import QtLocation
 import QtPositioning
 
+
 //Javascript
 import "utils.js" as Utils
 
@@ -25,6 +26,7 @@ Item {
     property double mapCenterInitLatitude:  35
     property double mapCenterInitLongitude: 0
     property var currentBoatCoord: null
+    property var panZoomAnimCoord: null
     property bool boatPositionInit: false
 
     //Cursor
@@ -353,24 +355,30 @@ Item {
         enabled: boatPositionReceived
     }
 
+    Shortcut { //Pan + Zoom On Boat
+        sequence: "Z"
+        onActivated: goToPositionAnimation(currentBoatCoord, 15)
+        enabled: boatPositionInit
+    }
+
     Shortcut { //Close View
         sequence: "Ctrl++"
-        onActivated: goToZoomLevelMap(17)
+        onActivated: mapGoToZoomLevelSmooth(17)
     }
 
     Shortcut { //Wide View
         sequence: "Ctrl+-"
-        onActivated: goToZoomLevelMap(12)
+        onActivated: mapGoToZoomLevelSmooth(12)
     }
 
     Shortcut { //Zoom In
         sequence: "+"
-        onActivated: goToZoomLevelMap(map.zoomLevel + 1)
+        onActivated: mapGoToZoomLevel(map.zoomLevel + 1)
     }
 
     Shortcut { //Zoom out
         sequence: "-"
-        onActivated: goToZoomLevelMap(map.zoomLevel - 1)
+        onActivated: mapGoToZoomLevel(map.zoomLevel - 1)
     }
 
     Shortcut { //Hide UI
@@ -809,7 +817,7 @@ Item {
                 width: parent.width
             }
             onTriggered:{
-                goToZoomLevelMap(map.maximumZoomLevel)
+                mapGoToZoomLevelSmooth(map.maximumZoomLevel)
             }
         }
 
@@ -821,7 +829,7 @@ Item {
                 width: parent.width
             }
             onTriggered:{
-                goToZoomLevelMap(map.minimumZoomLevel)
+                mapGoToZoomLevelSmooth(map.minimumZoomLevel)
             }
         }
 
@@ -833,7 +841,7 @@ Item {
                 width: parent.width
             }
             onTriggered:{
-                goToZoomLevelMap(17)
+                mapGoToZoomLevelSmooth(17)
             }
         }
 
@@ -845,7 +853,7 @@ Item {
                 width: parent.width
             }
             onTriggered:{
-                goToZoomLevelMap(12)
+                mapGoToZoomLevelSmooth(12)
             }
         }
 
@@ -857,7 +865,7 @@ Item {
                 width: parent.width
             }
             onTriggered:{
-                goToZoomLevelMap(map.zoomLevel+1)
+                mapGoToZoomLevel(map.zoomLevel+1)
             }
         }
 
@@ -869,7 +877,7 @@ Item {
                 width: parent.width
             }
             onTriggered:{
-                goToZoomLevelMap(map.zoomLevel-1)
+                mapGoToZoomLevel(map.zoomLevel-1)
             }
         }
     }
@@ -1067,7 +1075,9 @@ Item {
             var lon = parseFloat(lonInput.text)
 
             if (Utils.isPositionValid(lat,lon)){
-                centerPosition(lat, lon)
+                followBoat = false
+                const positionCoord = QtPositioning.coordinate(lat, lon)
+                goToPositionAnimation(positionCoord, 15)
                 errorLabel.text = ""
             }
             else{
@@ -1145,15 +1155,14 @@ Item {
             enabled: boatPositionInit
 
             contentItem: Label {
-                text: qsTr("On Boat")
+                text: qsTr("On Boat (Z)")
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
                 width: parent.width
             }
 
             onTriggered: {
-                centerPositionOnBoat()
-                goToZoomLevelMap(15)
+                goToPositionAnimation(currentBoatCoord, 15)
             }
         }
 
@@ -1164,7 +1173,10 @@ Item {
                 verticalAlignment: Text.AlignVCenter
                 width: parent.width
             }
-            onTriggered: centerPosition(cursorLatitude, cursorLongitude)
+            onTriggered: {
+                followBoat = false
+                goToPositionAnimation(cursorCoord, 15)
+            }
         }
 
         MenuItem {
@@ -1819,14 +1831,14 @@ Item {
                         text: qsTr("Zoom -")
                         width: 60
                         height: 30
-                        onClicked: goToZoomLevelMap(map.zoomLevel - 1)
+                        onClicked: mapGoToZoomLevel(map.zoomLevel - 1)
                     }
 
                     Button {
                         text: qsTr("Zoom +")
                         width: 60
                         height: 30
-                        onClicked: goToZoomLevelMap(map.zoomLevel + 1)
+                        onClicked: mapGoToZoomLevel(map.zoomLevel + 1)
                     }
                 }
 
@@ -1837,7 +1849,7 @@ Item {
                     stepSize: 0.1
                     value: map.zoomLevel
                     width: 130
-                    onValueChanged: goToZoomLevelMap(value)
+                    onValueChanged: mapGoToZoomLevel(value)
                 }
             }
 
@@ -1853,17 +1865,96 @@ Item {
  }
 
 
+
+    //////////////////
+    /// Animations ///
+    //////////////////
+
+    //Pan + Zoom On Coordinates
+    Item {
+        id: panZoomAnimationItem
+        property int zoomAnimationDuration: 2000
+        property int panAnimationationDuration: 2000
+
+        PropertyAnimation{
+            id: fullAnimation
+            target: map
+            duration: panZoomAnimationItem.zoomAnimationDuration
+            easing.type: Easing.OutExpo
+            onStarted: panAnimation.start()
+            onFinished: zoomAnimation.start()
+        }
+
+        PropertyAnimation{
+            id: panAnimation
+            target: map
+            property: "center"
+            to: panZoomAnimCoord
+            duration: panZoomAnimationItem.panAnimationationDuration
+            easing.type: Easing.InOutExpo
+        }
+
+        PropertyAnimation{
+            id: zoomAnimation
+            target: map
+            property: "zoomLevel"
+            duration: panZoomAnimationItem.zoomAnimationDuration
+            easing.type: Easing.InExpo
+        }
+    }
+
+
+
     //////////////////
     /// Update Map ///
     //////////////////
-    //Go To New Position
-    function centerPosition(targetLat, targetLon) {
-        map.center = QtPositioning.coordinate(targetLat, targetLon)
+
+    //Update map center on new position
+    function centerMapOnPosition(coord) {
+        map.center = coord
     }
 
-    //Go To Boat Position
-    function centerPositionOnBoat() {
-        map.center = QtPositioning.coordinate(boatLatitude, boatLongitude)
+    function centerMapOnPositionSmooth(coord) {
+        if (panAnimation.running || fullAnimation.running)
+            return
+
+        panZoomAnimCoord = coord
+        panAnimation.start()
+    }
+
+    //Go To Zoom Level Map
+    function mapGoToZoomLevel(zoomLevel) {
+        if(zoomLevel > map.maximumZoomLevel)
+            zoomLevel = map.maximumZoomLevel
+        else if(zoomLevel < map.minimumZoomLevel)
+            zoomLevel = map.minimumZoomLevel
+
+        map.zoomLevel = zoomLevel
+    }
+
+    function mapGoToZoomLevelSmooth(zoomLevel) {
+        if (zoomAnimation.running || fullAnimation.running)
+            return
+
+        if(zoomLevel > map.maximumZoomLevel)
+            zoomLevel = map.maximumZoomLevel
+        else if(zoomLevel < map.minimumZoomLevel)
+            zoomLevel = map.minimumZoomLevel
+
+        zoomAnimation.to = zoomLevel
+        zoomAnimation.start()
+    }
+
+    //PanZoom Animation On Coordinates
+    function goToPositionAnimation(coord, zoomLevel) {
+        if (panAnimation.running || zoomAnimation.running || fullAnimation.running)
+            return
+
+        panZoomAnimCoord = coord
+        panAnimation.start()
+
+        zoomAnimation.to = zoomLevel
+        zoomAnimation.start()
     }
 
     //Add marker
@@ -1887,24 +1978,6 @@ Item {
         }
 
         userMarkerCount = 0;
-    }
-
-    //Increment Map Zoom
-    function incrementZoomMap(dz) {
-        if (dz > 0)
-            map.zoomLevel = Math.min(map.maximumZoomLevel, map.zoomLevel + dz);
-        else if (dz < 0)
-            map.zoomLevel = Math.max(map.minimumZoomLevel, map.zoomLevel + dz);
-    }
-
-    //Go To Zoom Level Map
-    function goToZoomLevelMap(zoomLevel) {
-        if(zoomLevel > map.maximumZoomLevel)
-            zoomLevel = map.maximumZoomLevel
-        else if(zoomLevel < map.minimumZoomLevel)
-            zoomLevel = map.minimumZoomLevel
-
-        map.zoomLevel = zoomLevel
     }
 
     //Redraw boat icon
@@ -1970,7 +2043,7 @@ Item {
 
         onTriggered: {
             if (followBoat){
-                centerPositionOnBoat()
+                centerMapOnPosition(currentBoatCoord)
             }
         }
     }
@@ -2194,8 +2267,7 @@ Item {
 
         //Zoom & center on boat first time receiving position
         if(!boatPositionInit){
-            goToZoomLevelMap(17)
-            centerPositionOnBoat()
+            goToPositionAnimation(currentBoatCoord, 17)
         }
 
         timeLastPosition = Date.now()
