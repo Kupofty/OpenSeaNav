@@ -76,7 +76,6 @@ Item {
     property string labelBackgroundColor: "grey"
 
     //Zoom
-    property double mapZoomLevelInit: 3
     property double zoomIncrement: 0.2
 
     //Markers
@@ -88,7 +87,7 @@ Item {
     property bool followBoat: true
 
     // View modes
-    property double wheelDragRotateSensitivity: 0.05
+    property double wheelDragRotateSensitivity: 0.01
     property double wheelDragTiltSensitivity: 0.15
 
     property int mapViewMode: 0
@@ -187,7 +186,7 @@ Item {
         id: map
         anchors.fill: parent
         center: QtPositioning.coordinate(mapCenterInitLatitude, mapCenterInitLongitude)
-        zoomLevel: mapZoomLevelInit
+        zoomLevel: map.minimumZoomLevel
         activeMapType: map.supportedMapTypes[map.supportedMapTypes.length - 1]
         bearing: mapRotation
 
@@ -727,6 +726,19 @@ Item {
                 }
             }
         }
+
+        MenuItem {
+            id: settingsItem
+
+            contentItem: Label {
+                text: qsTr("Settings...")
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
+                width: parent.width
+            }
+
+            onTriggered: settingsDialog.open()
+        }
     }
 
 
@@ -1142,6 +1154,214 @@ Item {
             }
         }
     }
+
+    Dialog {
+        id: settingsDialog
+        title: qsTr("Genral Settings")
+        modal: true
+        standardButtons: Dialog.Ok
+
+        x: (parent.width  - width)  / 2
+        y: (parent.height - height) / 2
+
+        Column {
+            spacing: 10
+            padding: 10
+
+            // Zoom Speed
+            Label { text: qsTr("Zoom Speed") }
+
+            Row {
+                spacing: 10
+
+                Slider {
+                    id: zoomSpeedSlider
+                    from: 0.01
+                    to: 0.5
+                    stepSize: 0.01
+                    value: zoomIncrement
+                    onValueChanged: zoomIncrement = value
+                    width: 200
+                }
+
+                Label {
+                    text: Math.round((zoomIncrement - 0.01) / (0.5 - 0.01) * 100) + " %"
+                    width: 50
+                    horizontalAlignment: Text.AlignLeft
+                }
+            }
+
+            // Rotate sensitivity
+            Label { text: qsTr("Rotate Sensitivity") }
+            Row {
+                spacing: 10
+
+                Slider {
+                    id: rotateSlider
+                    from: 0.001
+                    to: 0.1
+                    stepSize: 0.001
+                    value: wheelDragRotateSensitivity
+                    onValueChanged: wheelDragRotateSensitivity = value
+                    width: 200
+                }
+
+                Label {
+                    text: Math.round((wheelDragRotateSensitivity - 0.001) / (0.1 - 0.001) * 100) + " %"
+                    width: 50
+                    horizontalAlignment: Text.AlignLeft
+                }
+            }
+
+            // Tilt Sensitivity
+            Label { text: qsTr("Tilt Sensitivity") }
+
+            Row {
+                spacing: 10
+
+                Slider {
+                    id: tiltSlider
+                    from: 0.01
+                    to: 0.5
+                    stepSize: 0.01
+                    value: wheelDragTiltSensitivity
+                    onValueChanged: wheelDragTiltSensitivity = value
+                    width: 200
+                }
+
+                Label {
+                    text: Math.round((wheelDragTiltSensitivity - 0.01) / (0.5 - 0.01) * 100) + " %"
+                    width: 50
+                    horizontalAlignment: Text.AlignLeft
+                }
+            }
+
+            // Position timeout
+            Label { text: qsTr("Position Lost Timeout") }
+            Row {
+                Slider {
+                    id: posTimeoutSlider
+                    from: 1
+                    to: 60
+                    stepSize: 1
+                    value: timeBeforePositionLost
+                    onValueChanged: timeBeforePositionLost = value
+                    width: 200
+                }
+
+                Label {
+                    text: " " + timeBeforePositionLost + " s"
+                    width: 40
+                    horizontalAlignment: Text.AlignLeft
+                }
+            }
+
+            // General data timeout
+            Label { text: qsTr("General Data Lost Timeout") }
+            Row {
+                spacing: 10
+                Slider {
+                    id: generalDataSlider
+                    from: 1
+                    to: 60
+                    stepSize: 1
+                    value: timeBeforeGeneralDataLost
+                    onValueChanged: timeBeforeGeneralDataLost = value
+                    width: 200
+                }
+                Label {
+                    text: timeBeforeGeneralDataLost + " s"
+                    width: 40
+                    horizontalAlignment: Text.AlignLeft
+                }
+            }
+
+            // Boat Trip Line Duration (minutes)
+            Label { text: qsTr("Boat Trip Line Duration") }
+            Row {
+                spacing: 10
+                Slider {
+                    id: boatLineSlider
+                    from: 1        // 1 min
+                    to: 60        // 60 min = 1 h
+                    stepSize: 1
+                    value: distanceLineTimeBoatTrip / 60   // convert seconds to minutes
+                    onValueChanged: distanceLineTimeBoatTrip = value * 60   // store as seconds
+                    width: 200
+                }
+                Label {
+                    text: Math.round(distanceLineTimeBoatTrip / 60) + " min"
+                    width: 50
+                    horizontalAlignment: Text.AlignLeft
+                }
+            }
+
+            // Wind Trip Line Duration (minutes)
+            Label { text: qsTr("Wind Trip Line Duration") }
+            Row {
+                spacing: 10
+                Slider {
+                    id: windLineSlider
+                    from: 1
+                    to: 60
+                    stepSize: 1
+                    value: distanceLineTimeWindTrip / 60
+                    onValueChanged: distanceLineTimeWindTrip = value * 60
+                    width: 200
+                }
+                Label {
+                    text: Math.round(distanceLineTimeWindTrip / 60) + " min"
+                    width: 50
+                    horizontalAlignment: Text.AlignLeft
+                }
+            }
+
+            // Minimum Track Points Distance
+            Label { text: qsTr("Minimum Distance Between Track Points") }
+
+            Row {
+                spacing: 10
+
+                Slider {
+                    id: minTrackDistanceSlider
+                    from: 10
+                    to: 500
+                    stepSize: 5
+                    value: minimumTrackPointsDistance
+                    onValueChanged: minimumTrackPointsDistance = value
+                    width: 200
+                }
+
+                Label {
+                    text: minimumTrackPointsDistance + " m"
+                    width: 50
+                    horizontalAlignment: Text.AlignLeft
+                }
+            }
+
+            // Max track points
+            Label { text: qsTr("Maximum Track Points") }
+            Row {
+                spacing: 10
+                Slider {
+                    id: maxTrackSlider
+                    from: 50
+                    to: 5000
+                    stepSize: 10
+                    value: maxTrackPoints
+                    onValueChanged: maxTrackPoints = value
+                    width: 200
+                }
+                Label {
+                    text: maxTrackPoints
+                    width: 50
+                    horizontalAlignment: Text.AlignLeft
+                }
+            }
+
+        }
+    }
+
 
 
     //// Subsubmenus ////
