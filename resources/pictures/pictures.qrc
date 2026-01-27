@@ -1,6 +1,9 @@
 <RCC>
     <qresource prefix="/icons">
-        <file alias="mainIcon">icons/nmea_icon.ico</file>
+        <file alias="appLogo">icons/app_logo.png</file>
+        <file alias="appLogoNamed">icons/app_logo_named.png</file>
+        <file alias="appLogoIco">icons/app_logo_ico.ico</file>
+        <file>git_repo/banner.png</file>
     </qresource>
     <qresource prefix="/boats">
         <file alias="boat1">boats/boat1.png</file>

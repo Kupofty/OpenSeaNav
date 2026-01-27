@@ -7,7 +7,7 @@ int main(int argc, char *argv[])
     Interface gui;
 
     //Icon & Name
-    QIcon appIcon(":/icons/mainIcon");
+    QIcon appIcon(":/icons/appLogoIco");
     app.setWindowIcon(appIcon);
 
     gui.show();

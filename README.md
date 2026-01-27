@@ -1,4 +1,4 @@
-# OpenSeaNav — Real-Time NMEA0183 Monitoring & Forwarding Tool
+![Banner](resources/pictures/git_repo/banner.png)
 
 ## Overview
 
@@ -39,8 +39,13 @@ It enables real-time display, logging, and forwarding of navigation data with in
 - Configurable panels for both map and raw/decoded data views.  
 
 
-## Screenshots
+## Configuration Overview
+- Input: Serial / TCP / UDP
+- Output: Serial / UDP / Logs
+- Map & Layer: Internet connection
 
+
+## Screenshots
 **Map & Navigation View**  
 ![NMEA Center Map](resources/pictures/git_repo/map_view.png)
 
@@ -53,27 +58,27 @@ OpenSeaNav is a non-commercial personal project created for learning purposes an
 Many improvements and new features are expected as the project evolves.
 
 
+## Contributing
+- Contributions are welcome via Pull Requests.
+- Report bugs and feature requests in the GitHub Issues section.
+- Use the GitHub Discussions section for questions, ideas, and general discussion.
+
+
 ## Supported Platforms
 - Windows 10/11
 - Linux
 - macOS (not tested)
 
 
-## Configuration Overview
-- Input: Serial / TCP / UDP
-- Output: Serial / UDP / Logs
-- Map & Layer: Internet connection
+## Dependencies (Qt6)
+- Core, Gui, Widgets
+- SerialPort, Network
+- Quick, Location, Positioning
 
 
 ## Data Sources & Attribution
 - OpenStreetMap (www.openstreetmap.org)
 - OpenSeaMap (www.openseamap.org)
-
-
-## Contributing
-- Contributions are welcome via Pull Requests.
-- Report bugs and feature requests in the GitHub Issues section.
-- Use the GitHub Discussions section for questions, ideas, and general discussion.
 
 
 ## Disclaimer
@@ -83,7 +88,7 @@ Charts and data are provided for informational purposes only and must not be rel
 
 ## Licence
 This project is licensed under the Apache License 2.0   
-© Kupofty 2025.
+© Kupofty 2025-2026.
 
 You are free to use, modify, and distribute the software, provided proper attribution is included and the license terms are followed. 
 See the LICENSE file for full details.
