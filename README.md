@@ -1,4 +1,7 @@
-![Banner](resources/pictures/git_repo/banner.png)
+<p align="center">
+  <img src="resources/pictures/git_repo/app_logo_named.png" alt="Logo" width="500"/>
+</p>
+
 
 ## Overview
 

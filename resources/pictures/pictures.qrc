@@ -1,7 +1,7 @@
 <RCC>
     <qresource prefix="/icons">
         <file alias="appLogo">icons/app_logo.png</file>
-        <file alias="appLogoNamed">icons/app_logo_named.png</file>
+        <file>icons/app_logo_named.png</file>
         <file alias="appLogoIco">icons/app_logo_ico.ico</file>
         <file>git_repo/banner.png</file>
     </qresource>
