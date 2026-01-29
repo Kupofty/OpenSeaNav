@@ -108,7 +108,7 @@
      <item>
       <widget class="QLabel" name="label_9">
        <property name="text">
-        <string notr="true">Alpha</string>
+        <string notr="true">290126 (Alpha)</string>
        </property>
       </widget>
      </item>
@@ -152,15 +152,15 @@
        </property>
        <property name="maximumSize">
         <size>
-         <width>40</width>
-         <height>40</height>
+         <width>250</width>
+         <height>250</height>
         </size>
        </property>
        <property name="text">
         <string/>
        </property>
        <property name="pixmap">
-        <pixmap>:/icons/mainIcon</pixmap>
+        <pixmap resource="../../../resources/pictures/pictures.qrc">:/icons/icons/app_logo_named.png</pixmap>
        </property>
        <property name="scaledContents">
         <bool>true</bool>
@@ -193,7 +193,7 @@
         <string notr="true"/>
        </property>
        <property name="pixmap">
-        <pixmap resource="../../../resources/pictures/pictures.qrc">:/icons/appLogoNamed</pixmap>
+        <pixmap>:/icons/appLogoNamed</pixmap>
        </property>
        <property name="scaledContents">
         <bool>true</bool>

@@ -18,7 +18,6 @@ Interface::Interface(QWidget *parent) : QMainWindow(parent), ui(new Ui::Interfac
     connections_window = new MenuBarConnections(this);
     user_manual_window = new MenuBarUserManual(this);
 
-
     //Settings
     loadSettings();
 
@@ -359,7 +358,6 @@ void Interface::on_actionManual_triggered()
         user_manual_window->show();
     }
 }
-
 
 void Interface::on_actionFAQ_triggered()
 {

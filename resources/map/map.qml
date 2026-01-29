@@ -1157,7 +1157,7 @@ Item {
 
     Dialog {
         id: settingsDialog
-        title: qsTr("Genral Settings")
+        title: qsTr("General Settings")
         modal: true
         standardButtons: Dialog.Ok
 
