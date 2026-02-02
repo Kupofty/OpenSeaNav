@@ -84,10 +84,10 @@ Item {
 
     //Map
     property bool showWidgets: true
-    property bool followBoat: true
+    property bool followBoat: false
 
     // View modes
-    property double wheelDragRotateSensitivity: 0.01
+    property double wheelDragRotateSensitivity: 0.015
     property double wheelDragTiltSensitivity: 0.15
 
     property int mapViewMode: 0
@@ -2487,6 +2487,7 @@ Item {
 
         //Zoom & center on boat first time receiving position
         if(!boatPositionInit){
+            followBoat = true
             goToPositionAnimation(currentBoatCoord, 17)
         }
 
