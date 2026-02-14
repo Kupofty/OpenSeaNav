@@ -231,7 +231,7 @@ Item {
             ]
         }
         MapQuickItem {
-            visible: (boatPositionReceived && boatCourseReceived)
+            visible: (boatPositionReceived && boatCourseReceived && boatSpeed !=0)
             coordinate: Utils.destinationCoordinate(boatLatitude, boatLongitude, boatCourse, cogLineDistance)
             anchorPoint.x: 5
             anchorPoint.y: 5
@@ -257,7 +257,7 @@ Item {
             ]
         }
         MapQuickItem {
-            visible: (boatPositionReceived && boatHeadingReceived)
+            visible: (boatPositionReceived && boatHeadingReceived && boatSpeed!=0)
             coordinate: Utils.destinationCoordinate(boatLatitude, boatLongitude, boatHeading, headingLineDistance)
             anchorPoint.x: 3
             anchorPoint.y: 3
