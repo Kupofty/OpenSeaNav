@@ -8,6 +8,14 @@ OpenSeaNav is a versatile tool for marine navigation and monitoring, designed fo
 It enables real-time display, logging, and forwarding of navigation data with integrated map visualization, using free and open-source charts.
 
 
+## Screenshots
+**Map & Navigation View**  
+![NMEA Center Map](resources/pictures/git_repo/map_view.png)
+
+**Data Monitoring & Widgets**   
+![NMEA Center Widgets](resources/pictures/git_repo/data_widgets.png)
+
+
 ## Features
 
 ### NMEA Device Connection
@@ -45,14 +53,6 @@ It enables real-time display, logging, and forwarding of navigation data with in
 - Input: Serial / TCP / UDP
 - Output: Serial / UDP / Logs
 - Map & Layer: Internet connection
-
-
-## Screenshots
-**Map & Navigation View**  
-![NMEA Center Map](resources/pictures/git_repo/map_view.png)
-
-**Data Monitoring & Widgets**   
-![NMEA Center Widgets](resources/pictures/git_repo/data_widgets.png)
 
 
 ## Project Status
