@@ -153,6 +153,26 @@ Item {
     /// Map Sources ///
     ///////////////////
 
+    //Google Maps
+    Plugin{
+        id: gmapPlugin
+        name: "osm"
+
+        PluginParameter { name: "osm.mapping.providersrepository.address"; value: Qt.resolvedUrl("./google_provider/providers/map/") }
+        PluginParameter { name: "osm.mapping.cache.directory"; value: "cache" }
+        PluginParameter { name: "osm.mapping.cache.disk.size"; value: 0 }
+    }
+
+    //Google Satellite
+    Plugin{
+        id: gsatPlugin
+        name: "osm"
+
+        PluginParameter { name: "osm.mapping.providersrepository.address"; value: Qt.resolvedUrl("./google_provider/providers/satellite/") }
+        PluginParameter { name: "osm.mapping.cache.directory"; value: "cache" }
+        PluginParameter { name: "osm.mapping.cache.disk.size"; value: 0 }
+    }
+
     //OpenTopoMap
     Plugin {
         id: osmPlugin
@@ -191,7 +211,7 @@ Item {
         bearing: mapRotation
 
         //Load OSM plugin
-        plugin: osmPlugin
+        plugin: gmapPlugin
 
         //Track Line
         MapPolyline { //Lines between existing waypoints
@@ -1974,7 +1994,7 @@ Item {
         anchors.left: parent.left
         anchors.bottom: parent.bottom
         anchors.leftMargin: labelLateralMargin
-        anchors.bottomMargin: labelVerticalMargin
+        anchors.bottomMargin: labelVerticalMargin * 2.5
         spacing: labelVerticalMargin
 
         // Scale bar
