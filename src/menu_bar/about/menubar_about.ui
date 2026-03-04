@@ -111,7 +111,7 @@
      <item>
       <widget class="QLabel" name="label_9">
        <property name="text">
-        <string notr="true">26_03_04 (Alpha)</string>
+        <string notr="true">1.0.0-alpha</string>
        </property>
       </widget>
      </item>
@@ -299,6 +299,9 @@
    </item>
    <item row="2" column="1">
     <layout class="QHBoxLayout" name="horizontalLayout_5">
+     <property name="spacing">
+      <number>0</number>
+     </property>
      <item>
       <spacer name="horizontalSpacer_11">
        <property name="orientation">
@@ -315,7 +318,7 @@
      <item>
       <widget class="QLabel" name="label_4">
        <property name="text">
-        <string notr="true">Copyright :</string>
+        <string notr="true">Copyright : </string>
        </property>
        <property name="alignment">
         <set>Qt::AlignmentFlag::AlignCenter</set>
@@ -323,9 +326,29 @@
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="label_11">
+      <widget class="QLabel" name="label_7">
        <property name="text">
-        <string notr="true">© Kupofty 2025-2026</string>
+        <string>©</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_github_name">
+       <property name="text">
+        <string notr="true">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/Kupofty&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#27bf73;&quot;&gt;Kupofty&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+       <property name="textFormat">
+        <enum>Qt::TextFormat::AutoText</enum>
+       </property>
+       <property name="openExternalLinks">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_5">
+       <property name="text">
+        <string> (2025-2026)</string>
        </property>
       </widget>
      </item>

@@ -29,7 +29,7 @@
    <item row="0" column="0">
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="tab_inputs">
       <attribute name="title">
@@ -1030,7 +1030,7 @@
            </layout>
           </item>
           <item>
-           <widget class="QFrame" name="gridFrame">
+           <widget class="QFrame" name="gridFrame_1">
             <layout class="QGridLayout" name="gridLayout_8">
              <property name="leftMargin">
               <number>9</number>
