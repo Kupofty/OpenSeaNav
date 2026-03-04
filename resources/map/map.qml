@@ -239,32 +239,6 @@ Item {
             }
         }
 
-        //COG Line
-        MapPolyline {
-            visible: (boatPositionReceived && boatCourseReceived)
-            line.width: 3
-            line.color: "blue"
-
-            path: [
-                QtPositioning.coordinate(boatLatitude, boatLongitude),
-                Utils.destinationCoordinate(boatLatitude, boatLongitude, boatCourse, cogLineDistance)
-            ]
-        }
-        MapQuickItem {
-            visible: (boatPositionReceived && boatCourseReceived && boatSpeed !=0)
-            coordinate: Utils.destinationCoordinate(boatLatitude, boatLongitude, boatCourse, cogLineDistance)
-            anchorPoint.x: 5
-            anchorPoint.y: 5
-            sourceItem: Rectangle {
-                width: 10
-                height: 10
-                radius: 5
-                color: "blue"
-                border.color: "black"
-                border.width: 1
-            }
-        }
-
         //Heading Line
         MapPolyline {
             visible: (boatPositionReceived && boatHeadingReceived)
@@ -279,8 +253,8 @@ Item {
         MapQuickItem {
             visible: (boatPositionReceived && boatHeadingReceived && boatSpeed!=0)
             coordinate: Utils.destinationCoordinate(boatLatitude, boatLongitude, boatHeading, headingLineDistance)
-            anchorPoint.x: 3
-            anchorPoint.y: 3
+            anchorPoint.x: 5
+            anchorPoint.y: 5
             sourceItem: Rectangle {
                 width: 10
                 height: 10
@@ -290,6 +264,34 @@ Item {
                 border.width: 1
             }
         }
+
+        //COG Line
+        MapPolyline {
+            visible: (boatPositionReceived && boatCourseReceived)
+            line.width: 2
+            line.color: "blue"
+
+            path: [
+                QtPositioning.coordinate(boatLatitude, boatLongitude),
+                Utils.destinationCoordinate(boatLatitude, boatLongitude, boatCourse, cogLineDistance)
+            ]
+        }
+        MapQuickItem {
+            visible: (boatPositionReceived && boatCourseReceived && boatSpeed !=0)
+            coordinate: Utils.destinationCoordinate(boatLatitude, boatLongitude, boatCourse, cogLineDistance)
+            anchorPoint.x: 4
+            anchorPoint.y: 4
+            sourceItem: Rectangle {
+                width: 8
+                height: 8
+                radius: 4
+                color: "blue"
+                border.color: "black"
+                border.width: 1
+            }
+        }
+
+
 
         //Wind Line
         MapPolyline {
