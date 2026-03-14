@@ -79,6 +79,7 @@ Many improvements and new features are expected as the project evolves.
 
 
 ## Data Sources & Attribution
+- Thunderforest (https://www.thunderforest.com)
 - OpenStreetMap (www.openstreetmap.org)
 - OpenSeaMap (www.openseamap.org)
 

@@ -76,7 +76,7 @@
         </spacer>
        </item>
        <item row="1" column="1">
-        <widget class="QFrame" name="frame">
+        <widget class="QFrame" name="verticalFrame_serial_input">
          <property name="minimumSize">
           <size>
            <width>300</width>
@@ -87,7 +87,7 @@
           <enum>QFrame::Shape::StyledPanel</enum>
          </property>
          <property name="frameShadow">
-          <enum>QFrame::Shadow::Raised</enum>
+          <enum>QFrame::Shadow::Plain</enum>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_16">
           <item>

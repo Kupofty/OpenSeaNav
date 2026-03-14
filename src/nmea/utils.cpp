@@ -11,6 +11,14 @@ QString getTimeStamp()
 }
 
 
+///////////////////
+/// Conversions ///
+///////////////////
+double knotToKph(double speed_knot)
+{
+    return speed_knot * 1.852;
+}
+
 
 /////////////////////////////
 /// TCP Related Functions ///

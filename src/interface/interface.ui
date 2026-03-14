@@ -146,7 +146,7 @@
     <iconset theme="QIcon::ThemeIcon::DocumentSend"/>
    </property>
    <property name="text">
-    <string>Manual data input</string>
+    <string>Data simulator</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+I</string>
@@ -177,6 +177,9 @@
    </property>
    <property name="text">
     <string>Decoded NMEA</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+D</string>
    </property>
   </action>
   <action name="actionStartMaximized">

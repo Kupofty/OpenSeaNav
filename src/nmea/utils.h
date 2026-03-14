@@ -17,6 +17,11 @@ inline const QStringList acceptedNmeaList = {
 };
 
 
+///////////////////
+/// Convertions ///
+///////////////////
+double knotToKph(double speed_knot);
+
 
 /////////////////////////
 /// General Functions ///

@@ -328,7 +328,7 @@
      <item>
       <widget class="QLabel" name="label_7">
        <property name="text">
-        <string>©</string>
+        <string notr="true">©</string>
        </property>
       </widget>
      </item>
@@ -348,7 +348,7 @@
      <item>
       <widget class="QLabel" name="label_5">
        <property name="text">
-        <string> (2025-2026)</string>
+        <string notr="true"> (2025-2026)</string>
        </property>
       </widget>
      </item>
