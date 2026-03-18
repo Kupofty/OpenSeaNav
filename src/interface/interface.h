@@ -57,6 +57,7 @@ class Interface : public QMainWindow
         QQuickItem *qmlMapObject;
         NMEA_Handler nmea_handler;
         MenuBarDataMonitor *data_monitor_window;
+        MenuBarSimData *sim_data_window;
         MenuBarDecodedNmea *decoded_nmea_window;
         MenuBarTxtLogger *txt_logger_window;
         MenuBarConnections *connections_window;
@@ -95,4 +96,6 @@ class Interface : public QMainWindow
         void on_actionConnections_triggered();
         void on_actionSave_settings_triggered();
         void on_actionManual_triggered();
+
+        void onSimDataWindowClosed();
 };

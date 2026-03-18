@@ -3,12 +3,22 @@
 #include <QDialog>
 #include <QTimer>
 #include <QDateTime>
+#include <QLineEdit>
+#include <QCloseEvent>
+#include <QCheckBox>
 
 #include "nmea/utils.h"
 
 namespace Ui {
 class MenuBarSimData;
 }
+
+struct ManualInputRow
+{
+    QCheckBox* checkbox;
+    QLineEdit* lineEdit;
+};
+
 
 class MenuBarSimData : public QDialog
 {
@@ -17,10 +27,10 @@ class MenuBarSimData : public QDialog
     public:
         explicit MenuBarSimData(QWidget *parent = nullptr);
         ~MenuBarSimData();
+        void retranslate();
 
     private slots:
         void on_pushButton_send_manual_input_clicked();
-        void on_lineEdit_manual_input_textChanged(const QString &arg1);
         void on_checkBox_automatic_send_stateChanged(int arg1);
         void on_doubleSpinBox_automatic_send_freq_valueChanged(double arg1);
 
@@ -43,9 +53,12 @@ class MenuBarSimData : public QDialog
 
         void on_pushButton_checkAll_clicked();
         void on_pushButton_uncheckAll_clicked();
+        void on_pushButton_add_new_line_manual_input_clicked();
+        void on_pushButton_delete_all_lines_clicked();
 
     signals:
         void dataReady(const QString &senderName, const QByteArray &data);
+        void windowClosed();
 
     private:
         //Common
@@ -76,6 +89,7 @@ class MenuBarSimData : public QDialog
         QString sender = "Virtual";
         QTimer autoSendSimuDataTimer;
         QTimer autoSendManualDataTimer;
+        QVector<ManualInputRow> manualInputsLineList;
 
         //Simu
         double depthMeter = 10.0;
@@ -91,4 +105,7 @@ class MenuBarSimData : public QDialog
         double magneticVariation = 0.0;
         double windSpeed = 5.0;
         double windRelativeAngle = 0.0;
+
+    protected:
+        void closeEvent(QCloseEvent *event) override;
 };

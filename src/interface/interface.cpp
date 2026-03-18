@@ -17,6 +17,7 @@ Interface::Interface(QWidget *parent) : QMainWindow(parent), ui(new Ui::Interfac
     txt_logger_window = new MenuBarTxtLogger(this);
     connections_window = new MenuBarConnections(this);
     user_manual_window = new MenuBarUserManual(this);
+    sim_data_window = new MenuBarSimData(this);
 
     //Settings
     loadSettings();
@@ -47,6 +48,9 @@ void Interface::connectSignalSlot()
 
     //General Display Settings
     connect(&nmea_handler, &NMEA_Handler::newNMEASentence, data_monitor_window, &MenuBarDataMonitor::displayNmeaSentence);
+
+    // Sim data window
+    connect(sim_data_window, &MenuBarSimData::windowClosed, this, &Interface::onSimDataWindowClosed);
 
     //Display decoded NMEA data
     connect(&nmea_handler, &NMEA_Handler::newDecodedGGA, decoded_nmea_window, &MenuBarDecodedNmea::updateDataGGA);
@@ -113,7 +117,6 @@ void Interface::loadUiSettings()
     //Main Window
     bool showLastSize =  settingsGUI->value("mainWindow/showLastSize", false).toBool();
     bool showFullscreen =  settingsGUI->value("mainWindow/showFullScreen", false).toBool();
-
     if(showLastSize)
     {
         w = settingsGUI->value("mainWindow/width", 1200).toInt();
@@ -141,7 +144,6 @@ void Interface::loadUiSettings()
     w = settingsGUI->value("dataMonitorWindow/width", 600).toInt();
     h = settingsGUI->value("dataMonitorWindow/height", 600).toInt();
     data_monitor_window->resize(w, h);
-
     x = settingsGUI->value("dataMonitorWindow/x", 100).toInt();
     y = settingsGUI->value("dataMonitorWindow/y", 100).toInt();
     data_monitor_window->move(x, y);
@@ -150,10 +152,17 @@ void Interface::loadUiSettings()
     w = settingsGUI->value("decodedNmeaWindow/width", 600).toInt();
     h = settingsGUI->value("decodedNmeaWindow/height", 600).toInt();
     decoded_nmea_window->resize(w, h);
-
     x = settingsGUI->value("decodedNmeaWindow/x", 100).toInt();
     y = settingsGUI->value("decodedNmeaWindow/y", 100).toInt();
     decoded_nmea_window->move(x, y);
+
+    //Sim Data Window
+    w = settingsGUI->value("simDataWindow/width", 600).toInt();
+    h = settingsGUI->value("simDataWindow/height", 600).toInt();
+    sim_data_window->resize(w, h);
+    x = settingsGUI->value("simDataWindow/x", 100).toInt();
+    y = settingsGUI->value("simDataWindow/y", 100).toInt();
+    sim_data_window->move(x, y);
 }
 
 void Interface::saveSettings()
@@ -180,6 +189,12 @@ void Interface::saveSettings()
     settingsGUI->setValue("decodedNmeaWindow/height", decoded_nmea_window->height());
     settingsGUI->setValue("decodedNmeaWindow/x", decoded_nmea_window->x());
     settingsGUI->setValue("decodedNmeaWindow/y", decoded_nmea_window->y());
+
+    //Sim Data
+    settingsGUI->setValue("simDataWindow/width", sim_data_window->width());
+    settingsGUI->setValue("simDataWindow/height", sim_data_window->height());
+    settingsGUI->setValue("simDataWindow/x", sim_data_window->x());
+    settingsGUI->setValue("simDataWindow/y", sim_data_window->y());
 }
 
 
@@ -203,6 +218,7 @@ void Interface::loadTranslation(QString translationPath)
     updateTranslationMenuBarGUI(translationPath);
 
     data_monitor_window->retranslate();
+    sim_data_window->retranslate();
     decoded_nmea_window->retranslate();
     txt_logger_window->retranslate();
     connections_window->retranslate();
@@ -307,9 +323,16 @@ void Interface::on_actionStartMaximized_toggled(bool checked)
 //Tools
 void Interface::on_actionManual_Data_Input_triggered()
 {
-    MenuBarSimData *dlg = new MenuBarSimData(this);
-    connect(dlg, &MenuBarSimData::dataReady, &nmea_handler, &NMEA_Handler::handleRawSentences);
-    dlg->show();
+    if (sim_data_window->isVisible())
+    {
+        sim_data_window->hide();
+        disconnect(sim_data_window, &MenuBarSimData::dataReady, &nmea_handler, &NMEA_Handler::handleRawSentences);
+    }
+    else
+    {
+        sim_data_window->show();
+        connect(sim_data_window, &MenuBarSimData::dataReady, &nmea_handler, &NMEA_Handler::handleRawSentences);
+    }
 }
 
 void Interface::on_actionData_Monitor_triggered()
@@ -369,6 +392,13 @@ void Interface::on_actionAbout_triggered()
 {
     MenuBarAbout dlg(this);
     dlg.exec();
+}
+
+
+//Sim Data
+void Interface::onSimDataWindowClosed()
+{
+    disconnect(sim_data_window, &MenuBarSimData::dataReady, &nmea_handler, &NMEA_Handler::handleRawSentences);
 }
 
 

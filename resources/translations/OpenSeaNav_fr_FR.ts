@@ -24,18 +24,18 @@
         <translation>Activer/Désactiver le plein écran</translation>
     </message>
     <message>
-        <location filename="../../src/interface/interface.ui" line="203"/>
         <location filename="../../src/interface/interface.ui" line="206"/>
+        <location filename="../../src/interface/interface.ui" line="209"/>
         <source>Restore last window</source>
         <translation>Restaurer aux dernières dimensions</translation>
     </message>
     <message>
-        <location filename="../../src/interface/interface.ui" line="230"/>
+        <location filename="../../src/interface/interface.ui" line="233"/>
         <source>Data logger</source>
         <translation>Enregistreur de données</translation>
     </message>
     <message>
-        <location filename="../../src/interface/interface.ui" line="241"/>
+        <location filename="../../src/interface/interface.ui" line="244"/>
         <source>Connections</source>
         <translation>Connexions</translation>
     </message>
@@ -110,47 +110,52 @@
         <translation>Trames NMEA décodées</translation>
     </message>
     <message>
-        <location filename="../../src/interface/interface.ui" line="233"/>
+        <location filename="../../src/interface/interface.ui" line="182"/>
+        <source>Ctrl+D</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../../src/interface/interface.ui" line="236"/>
         <source>Ctrl+L</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../src/interface/interface.ui" line="244"/>
+        <location filename="../../src/interface/interface.ui" line="247"/>
         <source>Ctrl+X</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../src/interface/interface.ui" line="252"/>
+        <location filename="../../src/interface/interface.ui" line="255"/>
         <source>Manual</source>
         <translation>Manuel</translation>
     </message>
     <message>
-        <location filename="../../src/interface/interface.ui" line="260"/>
+        <location filename="../../src/interface/interface.ui" line="263"/>
         <source>Save settings</source>
         <translation>Sauvegarder les paramètres</translation>
     </message>
     <message>
-        <location filename="../../src/interface/interface.ui" line="187"/>
+        <location filename="../../src/interface/interface.ui" line="190"/>
         <source>Maximized</source>
         <translation>Maximisée</translation>
     </message>
     <message>
-        <location filename="../../src/interface/interface.ui" line="195"/>
+        <location filename="../../src/interface/interface.ui" line="198"/>
         <source>Fullscreen</source>
         <translation>Plein écran</translation>
     </message>
     <message>
-        <location filename="../../src/interface/interface.ui" line="214"/>
+        <location filename="../../src/interface/interface.ui" line="217"/>
         <source>English</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../src/interface/interface.ui" line="222"/>
+        <location filename="../../src/interface/interface.ui" line="225"/>
         <source>Français</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../src/interface/interface.cpp" line="202"/>
+        <location filename="../../src/interface/interface.cpp" line="217"/>
         <source>OpenSeaNav - Navigation software</source>
         <translation>OpenSeaNav - Logiciel de navigation</translation>
     </message>
@@ -681,8 +686,8 @@ Choissisez un port différent.</translation>
     </message>
     <message>
         <location filename="../../src/menu_bar/simu/menubar_simdata.ui" line="39"/>
-        <source>Auto Generation</source>
-        <translation>Génération Automatique</translation>
+        <source>Auto generation</source>
+        <translation>Génération automatique</translation>
     </message>
     <message>
         <location filename="../../src/menu_bar/simu/menubar_simdata.ui" line="174"/>
@@ -746,38 +751,63 @@ Choissisez un port différent.</translation>
         <translation>Angle du vent :</translation>
     </message>
     <message>
-        <location filename="../../src/menu_bar/simu/menubar_simdata.ui" line="616"/>
+        <location filename="../../src/menu_bar/simu/menubar_simdata.ui" line="636"/>
         <source>Check all</source>
         <translation>Tout cocher</translation>
     </message>
     <message>
-        <location filename="../../src/menu_bar/simu/menubar_simdata.ui" line="639"/>
+        <location filename="../../src/menu_bar/simu/menubar_simdata.ui" line="659"/>
         <source>Uncheck all</source>
         <translation>Tout décocher</translation>
     </message>
     <message>
-        <location filename="../../src/menu_bar/simu/menubar_simdata.ui" line="712"/>
-        <source>Hz</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../../src/menu_bar/simu/menubar_simdata.ui" line="748"/>
-        <source>Manual Input</source>
+        <location filename="../../src/menu_bar/simu/menubar_simdata.ui" line="768"/>
+        <source>Manual input</source>
         <translation>Saisie manuelle</translation>
     </message>
     <message>
-        <location filename="../../src/menu_bar/simu/menubar_simdata.ui" line="844"/>
+        <location filename="../../src/menu_bar/simu/menubar_simdata.ui" line="794"/>
+        <source>Enabled</source>
+        <translation>Activé</translation>
+    </message>
+    <message>
+        <location filename="../../src/menu_bar/simu/menubar_simdata.ui" line="799"/>
+        <source>NMEA Sentence</source>
+        <translation>Phrase NMEA</translation>
+    </message>
+    <message>
+        <location filename="../../src/menu_bar/simu/menubar_simdata.ui" line="804"/>
+        <source>Checksum</source>
+        <translation>Checksum</translation>
+    </message>
+    <message>
+        <location filename="../../src/menu_bar/simu/menubar_simdata.ui" line="809"/>
+        <source>Delete</source>
+        <translation>Supprimer</translation>
+    </message>
+    <message>
+        <location filename="../../src/menu_bar/simu/menubar_simdata.ui" line="851"/>
+        <source>Add new line</source>
+        <translation>Ajouter nouvelle ligne</translation>
+    </message>
+    <message>
+        <location filename="../../src/menu_bar/simu/menubar_simdata.ui" line="874"/>
+        <source>Delete all</source>
+        <translation>Tout supprimer</translation>
+    </message>
+    <message>
+        <location filename="../../src/menu_bar/simu/menubar_simdata.ui" line="959"/>
         <source>Send once</source>
         <translation>Envoi unique</translation>
     </message>
     <message>
-        <location filename="../../src/menu_bar/simu/menubar_simdata.ui" line="692"/>
-        <location filename="../../src/menu_bar/simu/menubar_simdata.ui" line="884"/>
+        <location filename="../../src/menu_bar/simu/menubar_simdata.ui" line="712"/>
+        <location filename="../../src/menu_bar/simu/menubar_simdata.ui" line="999"/>
         <source>Automatic send at</source>
         <translation>Envoi automatique à</translation>
     </message>
     <message>
-        <location filename="../../src/menu_bar/simu/menubar_simdata.cpp" line="15"/>
+        <location filename="../../src/menu_bar/simu/menubar_simdata.cpp" line="58"/>
         <source>Data input simulator</source>
         <translation>Simulateur de données</translation>
     </message>
@@ -1260,12 +1290,12 @@ il y a &lt;1s</translation>
     <message>
         <location filename="../map/map.qml" line="1262"/>
         <source>Position Lost Timeout</source>
-        <translation type="unfinished">Durée depuis perte position</translation>
+        <translation>Durée depuis perte position</translation>
     </message>
     <message>
         <location filename="../map/map.qml" line="1282"/>
         <source>General Data Lost Timeout</source>
-        <translation type="unfinished">Durée depuis perte générale de données</translation>
+        <translation>Durée depuis perte générale de données</translation>
     </message>
     <message>
         <location filename="../map/map.qml" line="1302"/>
@@ -1280,12 +1310,12 @@ il y a &lt;1s</translation>
     <message>
         <location filename="../map/map.qml" line="1342"/>
         <source>Minimum Distance Between Track Points</source>
-        <translation type="unfinished">Distance minimale entre les points</translation>
+        <translation>Distance minimale entre les points</translation>
     </message>
     <message>
         <location filename="../map/map.qml" line="1365"/>
         <source>Maximum Track Points</source>
-        <translation type="unfinished">Nombre  maximal de points suivis</translation>
+        <translation>Nombre  maximal de points suivis</translation>
     </message>
     <message>
         <location filename="../map/map.qml" line="1400"/>

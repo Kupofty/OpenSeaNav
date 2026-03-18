@@ -12,8 +12,13 @@ MenuBarSimData::MenuBarSimData(QWidget *parent)
     ui->setupUi(this);
     ui->tabWidget->setCurrentWidget(ui->tab_auto_generation);
 
-    setWindowTitle(tr("Data input simulator"));
-    setAttribute(Qt::WA_DeleteOnClose);
+    // Enable minimize, maximize, close buttons
+    Qt::WindowFlags flags = Qt::Dialog
+                            | Qt::WindowMaximizeButtonHint
+                            | Qt::WindowCloseButtonHint
+                            | Qt::WindowStaysOnTopHint;
+    setWindowFlags(flags);
+    setAttribute(Qt::WA_ShowWithoutActivating);
 
     //Timers
     autoSendManualDataTimer.setInterval(defaultTimeMsTimer);
@@ -21,6 +26,15 @@ MenuBarSimData::MenuBarSimData(QWidget *parent)
 
     connect(&autoSendManualDataTimer, &QTimer::timeout, this, &MenuBarSimData::sendManualInputData);
     connect(&autoSendSimuDataTimer, &QTimer::timeout, this, &MenuBarSimData::sendSimuData);
+
+    //Setup TableWidget for manual inputs
+    ui->tableWidget->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Stretch); //Resize "NMEA Sentence" column
+    ui->tableWidget->setColumnWidth(0, 70);   // Checkbox
+    ui->tableWidget->setColumnWidth(1, 300);  // NMEA sentence + $
+    ui->tableWidget->setColumnWidth(2, 70);   // Checksum
+    ui->tableWidget->setColumnWidth(3, 70);   // Delete button
+    ui->pushButton_add_new_line_manual_input->click();
+
 }
 
 MenuBarSimData::~MenuBarSimData()
@@ -28,6 +42,21 @@ MenuBarSimData::~MenuBarSimData()
     delete ui;
 }
 
+void MenuBarSimData::closeEvent(QCloseEvent *event)
+{
+    emit windowClosed();
+    QDialog::closeEvent(event);
+}
+
+
+//////////
+/// UI ///
+//////////
+void MenuBarSimData::retranslate()
+{
+    ui->retranslateUi(this);
+    setWindowTitle(tr("Data input simulator"));
+}
 
 
 /////////////////
@@ -85,13 +114,16 @@ void MenuBarSimData::sendNmeaData(const QString &payload)
 // Send Data
 void MenuBarSimData::sendManualInputData()
 {
-    QString payload = ui->lineEdit_manual_input->text().trimmed();
-    QString checksumText = ui->label_checksum->text();
+    for (const ManualInputRow& row : manualInputsLineList)
+    {
+        if (!row.checkbox->isChecked())
+            continue; //skip
 
-    if (payload.isEmpty() || checksumText.isEmpty())
-        return;
+        QString payload = row.lineEdit->text().trimmed();
 
-    sendNmeaData(payload);
+        if (!payload.isEmpty())
+            sendNmeaData(payload);
+    }
 }
 
 void MenuBarSimData::sendSimuData()
@@ -281,13 +313,6 @@ void MenuBarSimData::on_pushButton_send_manual_input_clicked()
     sendManualInputData();
 }
 
-void MenuBarSimData::on_lineEdit_manual_input_textChanged(const QString &payload)
-{
-    quint8 checksum = calculateChecksum(payload);
-    QString checksumStr = QString("*%1").arg(checksum, 2, 16, QLatin1Char('0')).toUpper();
-    ui->label_checksum->setText(checksumStr);
-}
-
 void MenuBarSimData::on_checkBox_automatic_send_stateChanged(int state)
 {
     if (state == Qt::Checked)
@@ -300,6 +325,84 @@ void MenuBarSimData::on_doubleSpinBox_automatic_send_freq_valueChanged(double va
 {
     int intervalMs = 1000 / value;
     autoSendManualDataTimer.setInterval(intervalMs);
+}
+
+void MenuBarSimData::on_pushButton_add_new_line_manual_input_clicked()
+{
+    int row = ui->tableWidget->rowCount();
+    ui->tableWidget->insertRow(row);
+
+    // Checkbox
+    QCheckBox *checkBox = new QCheckBox();
+    checkBox->setChecked(true);
+    QWidget *checkBoxContainer = new QWidget();
+    QHBoxLayout *checkBoxLayout = new QHBoxLayout(checkBoxContainer);
+    checkBoxLayout->setContentsMargins(0, 0, 0, 0);
+    checkBoxLayout->addWidget(checkBox, 0, Qt::AlignCenter);
+    ui->tableWidget->setCellWidget(row, 0, checkBoxContainer);
+
+    // NMEA column: $ + LineEdit
+    QWidget *nmeaWidget = new QWidget();
+    QHBoxLayout *nmeaLayout = new QHBoxLayout(nmeaWidget);
+    nmeaLayout->setContentsMargins(0,0,0,0);
+    nmeaLayout->setSpacing(4);
+
+    QLabel *dollarSign = new QLabel("$");
+    QLineEdit *lineEdit = new QLineEdit();
+
+    nmeaLayout->addWidget(dollarSign);
+    nmeaLayout->addWidget(lineEdit);
+    ui->tableWidget->setCellWidget(row, 1, nmeaWidget);
+
+    // Checksum label
+    QLabel *checksumLabel = new QLabel("*00");
+    QWidget *checksumContainer = new QWidget();
+    QHBoxLayout *checksumLayout = new QHBoxLayout(checksumContainer);
+    checksumLayout->setContentsMargins(0, 0, 0, 0);
+    checksumLayout->addWidget(checksumLabel, 0, Qt::AlignCenter);
+
+    // Set container as cell widget
+    ui->tableWidget->setCellWidget(row, 2, checksumContainer);
+
+    connect(lineEdit, &QLineEdit::textChanged, this,
+            [checksumLabel](const QString &text)
+            {
+                quint8 checksum = calculateChecksum(text);
+                checksumLabel->setText(QString("*%1").arg(checksum, 2, 16, QLatin1Char('0')));
+            });
+
+    // Delete button
+    QPushButton *deleteButton = new QPushButton("X");
+    deleteButton->setFixedWidth(25);
+    QWidget *deleteBtnContainer = new QWidget();
+    QHBoxLayout *deleteBtnLayout = new QHBoxLayout(deleteBtnContainer);
+    deleteBtnLayout->setContentsMargins(0, 0, 0, 0);
+    deleteBtnLayout->addWidget(deleteButton, 0, Qt::AlignCenter);
+    ui->tableWidget->setCellWidget(row, 3, deleteBtnContainer);
+
+    // Store row
+    manualInputsLineList.append({checkBox, lineEdit});
+
+    // Delete row logic
+    connect(deleteButton, &QPushButton::clicked, this, [this, lineEdit]()
+            {
+                for (int i = 0; i < manualInputsLineList.size(); ++i)
+                {
+                    if (manualInputsLineList[i].lineEdit == lineEdit)
+                    {
+                        int row = ui->tableWidget->indexAt(lineEdit->pos()).row();
+                        manualInputsLineList.removeAt(i);
+                        ui->tableWidget->removeRow(row);
+                        break;
+                    }
+                }
+            });
+}
+
+void MenuBarSimData::on_pushButton_delete_all_lines_clicked()
+{
+    ui->tableWidget->setRowCount(0);
+    manualInputsLineList.clear();
 }
 
 
@@ -407,6 +510,3 @@ void MenuBarSimData::on_doubleSpinBox_windRelativeAngle_valueChanged(double angl
 {
     this->windRelativeAngle = angle;
 }
-
-
-
