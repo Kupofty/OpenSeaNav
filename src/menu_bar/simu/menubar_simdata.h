@@ -15,7 +15,7 @@ class MenuBarSimData;
 
 struct ManualInputRow
 {
-    QCheckBox* checkbox;
+    QCheckBox* checkBox;
     QLineEdit* lineEdit;
 };
 
@@ -56,6 +56,10 @@ class MenuBarSimData : public QDialog
         void on_pushButton_add_new_line_manual_input_clicked();
         void on_pushButton_delete_all_lines_clicked();
 
+        void on_pushButton_enable_all_manual_inputs_clicked();
+
+        void on_pushButton_disable_all_manual_inputs_clicked();
+
     signals:
         void dataReady(const QString &senderName, const QByteArray &data);
         void windowClosed();
@@ -69,6 +73,7 @@ class MenuBarSimData : public QDialog
 
         //Manual Data Input
         void sendManualInputData();
+        void enabledCheckboxManualInputLines(bool checked);
 
         //Simu
         void activateAllOutputs(bool check);

@@ -32,7 +32,7 @@
    <item row="0" column="0">
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="tab_auto_generation">
       <attribute name="title">
@@ -853,25 +853,36 @@
           </widget>
          </item>
          <item>
-          <spacer name="horizontalSpacer_12">
+          <widget class="QPushButton" name="pushButton_delete_all_lines">
+           <property name="text">
+            <string>Delete all</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer_13">
            <property name="orientation">
             <enum>Qt::Orientation::Horizontal</enum>
            </property>
-           <property name="sizeType">
-            <enum>QSizePolicy::Policy::Preferred</enum>
-           </property>
            <property name="sizeHint" stdset="0">
             <size>
-             <width>30</width>
+             <width>40</width>
              <height>20</height>
             </size>
            </property>
           </spacer>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButton_delete_all_lines">
+          <widget class="QPushButton" name="pushButton_enable_all_manual_inputs">
            <property name="text">
-            <string>Delete all</string>
+            <string>Enable all</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pushButton_disable_all_manual_inputs">
+           <property name="text">
+            <string>Disable all</string>
            </property>
           </widget>
          </item>

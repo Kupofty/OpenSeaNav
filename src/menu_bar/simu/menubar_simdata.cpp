@@ -116,7 +116,7 @@ void MenuBarSimData::sendManualInputData()
 {
     for (const ManualInputRow& row : manualInputsLineList)
     {
-        if (!row.checkbox->isChecked())
+        if (!row.checkBox->isChecked())
             continue; //skip
 
         QString payload = row.lineEdit->text().trimmed();
@@ -405,6 +405,25 @@ void MenuBarSimData::on_pushButton_delete_all_lines_clicked()
     manualInputsLineList.clear();
 }
 
+void MenuBarSimData::enabledCheckboxManualInputLines(bool checked)
+{
+    for (auto &entry : manualInputsLineList)
+    {
+        if (entry.checkBox)
+            entry.checkBox->setChecked(checked);
+    }
+}
+
+void MenuBarSimData::on_pushButton_enable_all_manual_inputs_clicked()
+{
+    enabledCheckboxManualInputLines(true);
+}
+
+void MenuBarSimData::on_pushButton_disable_all_manual_inputs_clicked()
+{
+    enabledCheckboxManualInputLines(false);
+}
+
 
 //Check sim outputs
 void MenuBarSimData::activateAllOutputs(bool check)
@@ -510,3 +529,5 @@ void MenuBarSimData::on_doubleSpinBox_windRelativeAngle_valueChanged(double angl
 {
     this->windRelativeAngle = angle;
 }
+
+
