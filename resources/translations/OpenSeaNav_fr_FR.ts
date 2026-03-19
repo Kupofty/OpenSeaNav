@@ -791,18 +791,28 @@ Choissisez un port différent.</translation>
         <translation>Ajouter nouvelle ligne</translation>
     </message>
     <message>
-        <location filename="../../src/menu_bar/simu/menubar_simdata.ui" line="874"/>
+        <location filename="../../src/menu_bar/simu/menubar_simdata.ui" line="858"/>
         <source>Delete all</source>
         <translation>Tout supprimer</translation>
     </message>
     <message>
-        <location filename="../../src/menu_bar/simu/menubar_simdata.ui" line="959"/>
+        <location filename="../../src/menu_bar/simu/menubar_simdata.ui" line="878"/>
+        <source>Enable all</source>
+        <translation>Tout activer</translation>
+    </message>
+    <message>
+        <location filename="../../src/menu_bar/simu/menubar_simdata.ui" line="885"/>
+        <source>Disable all</source>
+        <translation>Tout désactiver</translation>
+    </message>
+    <message>
+        <location filename="../../src/menu_bar/simu/menubar_simdata.ui" line="970"/>
         <source>Send once</source>
         <translation>Envoi unique</translation>
     </message>
     <message>
         <location filename="../../src/menu_bar/simu/menubar_simdata.ui" line="712"/>
-        <location filename="../../src/menu_bar/simu/menubar_simdata.ui" line="999"/>
+        <location filename="../../src/menu_bar/simu/menubar_simdata.ui" line="1010"/>
         <source>Automatic send at</source>
         <translation>Envoi automatique à</translation>
     </message>

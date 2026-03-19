@@ -385,18 +385,26 @@ void MenuBarSimData::on_pushButton_add_new_line_manual_input_clicked()
 
     // Delete row logic
     connect(deleteButton, &QPushButton::clicked, this, [this, lineEdit]()
+    {
+        for (int i = 0; i < manualInputsLineList.size(); ++i)
+        {
+            if (manualInputsLineList[i].lineEdit == lineEdit)
             {
-                for (int i = 0; i < manualInputsLineList.size(); ++i)
-                {
-                    if (manualInputsLineList[i].lineEdit == lineEdit)
-                    {
-                        int row = ui->tableWidget->indexAt(lineEdit->pos()).row();
-                        manualInputsLineList.removeAt(i);
-                        ui->tableWidget->removeRow(row);
-                        break;
-                    }
-                }
-            });
+                QModelIndex index = ui->tableWidget->indexAt(
+                    lineEdit->mapTo(ui->tableWidget->viewport(), QPoint(0, 0))
+                    );
+
+                if (!index.isValid())
+                    return;
+
+                int row = index.row();
+
+                manualInputsLineList.removeAt(i);
+                ui->tableWidget->removeRow(row);
+                break;
+            }
+        }
+    });
 }
 
 void MenuBarSimData::on_pushButton_delete_all_lines_clicked()
