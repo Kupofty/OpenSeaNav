@@ -71,6 +71,9 @@ Many improvements and new features are expected as the project evolves.
 - Linux
 - macOS (not tested)
 
+This software is built with Qt, so it should be compatible across all three platforms.  
+However, prebuilt releases are currently provided only for Windows and Linux.
+
 
 ## Dependencies (Qt6)
 - Core, Gui, Widgets
