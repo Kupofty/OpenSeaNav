@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QDebug>
 #include <QTime>
+#include <QElapsedTimer>
 
 #include "nmea/utils.h"
 
